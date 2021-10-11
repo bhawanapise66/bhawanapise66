@@ -1,0 +1,234 @@
+<div class="modal fade" style="overflow: auto;" id="simentryModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true" data-backdrop="static">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Sim Entry</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closemodal();">
+          <span aria-hidden="true" style="color: white">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div id="container">
+
+            <fieldset style="max-width: 1141px;">
+              <legend class="text-uppercase" style=" color: rgb(173, 247, 150);">Basic Details</legend>
+              <div class="form-group row">
+                <div class="col-lg-4 col-md-4">
+                  <label class="indlabel">Network</label>
+                  <span class="mandatory">*</span>
+                  <ngx-select-dropdown tabindex="4" id="simnetworkentry" [multiple]="false" [(ngModel)]="networkObj"
+                    [config]="config" [options]="networkList" (change)="getNetwork()">
+                  </ngx-select-dropdown>
+
+                  <input type="text" class="form-control" id="networkdummy" [(ngModel)]="networklistdata"
+                    style=" display: none;">
+                </div>
+                <div class="col-lg-4 col-md-4">
+                  <label class="indlabel">Vendor</label>
+                  <span class="mandatory">*</span>
+                  <ngx-select-dropdown tabindex="7" id="vendorentrydemo" [multiple]="false" [(ngModel)]="vendorText"
+                    [config]="config" [options]="ListOfvendor"></ngx-select-dropdown>
+                  <span class="invalidmsg" id="msg_vendorName"></span>
+                </div>
+
+                <div class="col-lg-4 col-md-4" style="display: none;">
+                  <label class="indlabel">Vendor List Dummy</label>
+                  <span class="mandatory">*</span>
+                  <input type="text" class="form-control" id="vendordummy" [(ngModel)]="vendorlistdata">
+                </div>
+
+                <div class="col-lg-4 col-md-4">
+                  <label class="indlabel">Mode Of Delivery</label>&nbsp;
+                  <ngx-select-dropdown tabindex="5" id="courierbyid" [multiple]="false" [(ngModel)]="courierbyText"
+                    [config]="config2" [options]="options" (change)="CourierbyChangeList()"></ngx-select-dropdown>
+
+                  <input type="text" style="display: none;" [(ngModel)]="receivedbydummy">
+                </div>
+
+                <div class="col-lg-4 col-md-4" id="recdate">
+                  <label class="indlabel">Received Date</label>
+                  <input type="text" class="form-control datepicker" id="courierreceivedateid"
+                    [(ngModel)]="CourierReceivedate" tabindex="4">
+                  <span class="invalidmsg" id="msg_courierReceivedDate"></span>
+                </div>
+
+                <div class="col-lg-4 col-md-4" id=recbydiv>
+                  <label class="indlabel">Received By</label>&nbsp;
+                  <span class="mandatory">*</span>
+                  <input type="text" class="form-control" placeholder="Received By Name." tabindex="1" minlength="3"
+                    maxlength="50" [(ngModel)]="receivedbyText" #recby="ngModel" style=" font-size:12px"
+                    onkeypress="return onlyAlphabets(event);" ondrop="return false;" onpaste="return false;"
+                    id="receivedbynameentry">
+                  <div class="invalidmsg" *ngIf="recby.errors?.minlength">
+                    Received by must be at least minimum 3 characters & maximum 50 characters long.
+                  </div>
+                </div>
+
+                <div class="col-lg-4 col-md-4" id="permobno">
+                  <label class="indlabel">Mobile Number</label>
+                  <input type="text" name="mobileno" id="personmobilenumber" class="form-control"
+                    placeholder="Mobile Number" [(ngModel)]="personmobileNo" #permobilenoCtrl="ngModel"
+                    onkeypress="return isNumberKey(event)" required minlength="10" maxlength="13" tabindex="3">
+                  <span class="invalidmsg" *ngIf="permobilenoCtrl.errors?.minlength">
+                    Person Mobile Number should be between 10 to 13 digits
+                  </span>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <div class="col-lg-4 col-md-4" id="recfrm">
+                  <label class="indlabel">From</label>
+
+                  <input type="text" class="form-control" placeholder="Received From." tabindex="1" minlength="3"
+                    maxlength="50" [(ngModel)]="courierfromText" #courierfrom="ngModel" style=" font-size:12px"
+                    onkeypress="return onlyAlphabets(event);" ondrop="return false;" onpaste="return false;"
+                    id="receivedfromentry">
+                  <div class="invalidmsg" *ngIf="courierfrom.errors?.minlength">
+                    From location must be at least minimum 3 characters & maximum 50 characters long.
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+
+            <fieldset style="max-width: 1141px;" id="courierinfodiv">
+              <legend class="text-uppercase" style=" color: rgb(173, 247, 150);">Courier Details</legend>
+              <div class="form-group row">
+                <div class="col-lg-4 col-md-4">
+                  <label class="indlabel">Courier Name</label>
+                  <input type="text" class="form-control" placeholder="Courier Name." tabindex="1" minlength="3"
+                    maxlength="50" [(ngModel)]="couriernameText" #coby="ngModel" style=" font-size:12px"
+                    onkeypress="return onlyAlphabets(event);" ondrop="return false;" onpaste="return false;"
+                    id="couriernameentry">
+                  <div class="invalidmsg" *ngIf="coby.errors?.minlength">
+                    Courier name must be at least minimum 3 characters & maximum 50 characters long.
+                  </div>
+                </div>
+
+                <div class="col-lg-4 col-md-4">
+                  <label class="indlabel">Courier From</label>
+
+                  <input type="text" class="form-control" placeholder="Courier From." tabindex="1" minlength="3"
+                    maxlength="50" [(ngModel)]="courierfromText" #courierfrom="ngModel" style=" font-size:12px"
+                    onkeypress="return onlyAlphabets(event);" ondrop="return false;" onpaste="return false;"
+                    id="courierfromentry">
+                  <div class="invalidmsg" *ngIf="courierfrom.errors?.minlength">
+                    From location must be at least minimum 3 characters & maximum 50 characters long.
+                  </div>
+                </div>
+
+                <div class="col-lg-4 col-md-4">
+                  <label class="indlabel">Tracker ID</label>&nbsp;
+                  <input type="text" class="form-control" style=" font-size:12px" placeholder="Tracker ID." tabindex="6"
+                    minlength="6" maxlength="6" [(ngModel)]="trackeridText" id="trackeridentry" #trackerid="ngModel"
+                    onkeypress="return isNumberKey(event)">
+                  <div class="invalidmsg" *ngIf="trackerid.errors?.minlength">
+                    Tracker ID must be at least minimum 6 characters & maximum 6 characters long.
+                  </div>
+                </div>
+              </div>
+            </fieldset>
+
+            <fieldset style="max-width: 1141px;">
+              <legend class="text-uppercase" style=" color: rgb(173, 247, 150);">Sim Details</legend>
+              <div class="form-group row mb-4" id="main details">
+                <div class="col-lg-3 col-md-3" style="display: none;">
+                  <label class="indlabel">Sim Type </label>
+                  <span class="mandatory">*</span>
+
+                  <ngx-select-dropdown tabindex="8" id="simtype" name="simtype" [multiple]="false" disabled
+                    [(ngModel)]="simTypeObj" [config]="config" [options]="simTypeList" (change)="getsimType()"
+                    style="font-size:11px; text-transform: capitalize; ">
+                  </ngx-select-dropdown>
+                </div>
+
+                <div class="col-lg-5 col-md-5">
+                  <label class="indlabel" for="simno">Sim Number</label>
+                  <span class="mandatory">*</span>
+                  <input type="text" name="simNo" id="simNumber" class="form-control" [(ngModel)]="sim.simNo"
+                    #simNoCtrl="ngModel" required minlength="19" maxlength="35" placeholder="Sim Number" tabindex="2"
+                    onkeypress="return isNumberKey(event)">
+                  <span class="invalidmsg" *ngIf="simNoCtrl.errors?.minlength">
+                    Sim Number should be between 19 to 35 digits
+                  </span>
+                </div>
+
+                <div class="col-lg-4 col-md-4" id="sim">
+                  <label class="indlabel">Mobile Number</label>
+                  <span class="mandatory">*</span>
+                  <input type="text" name="mobileno" id="mobilenumber" class="form-control" placeholder="Mobile Number"
+                    [(ngModel)]="sim.mobileNo" #mobilenoCtrl="ngModel" onkeypress="return isNumberKey(event)" required
+                    minlength="10" maxlength="13" tabindex="3">
+                  <span class="invalidmsg" *ngIf="mobilenoCtrl.errors?.minlength">
+                    Mobile Number should be between 10 to 13 digits
+                  </span>
+                </div>
+              </div>
+            </fieldset>
+            <br>
+            <!-- <br>
+                    <br> -->
+            <span class="invalidmsg" id="msg_errorentry"></span>
+
+          </div>
+        </div>
+      </div>
+      <!-- Modal footer -->
+
+      <div class="modal-footer" id="modelfooter">
+        <div class="row">
+          <div class="col-lg-12 col-md-12">
+            <div class="row">
+              <div class="col-lg-10 col-md-10" style=" float: left;"></div>
+              <div class="col-lg-1 col-md-1" style=" float: left;">
+                <button class="btnsave" (click)="PlasticSimEntryNew()" style=" background-color: #23db79;">
+                  <i class="material-icons" style=" color:#fff;">save</i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+<div class="modal fade " id="SuccessModalEntry" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+  aria-hidden="true">
+  <div class="modal-dialog modal-sm dialogModal" role="document">
+    <div class="modal-content box-shadow">
+      <div class="card text-center border-0">
+        <div class="card-header bg-success m-0 p-0">
+          <h5>Success</h5>
+        </div>
+        <div class="card-body bg-white">
+          {{responseMessage}}<br><br>
+          <div style=" float:left;margin-left: 37%;">&nbsp;</div>
+          <div style=" float:left;">
+            <button class="btn btn-sm btn-success" (click)="entrymodaladd()" data-dismiss="modal">Ok</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade " id="ErrorModalEntry" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+  aria-hidden="true">
+  <div class="modal-dialog modal-sm dialogModal" role="document">
+    <div class="modal-content box-shadow">
+      <div class="card text-center border-0">
+        <div class="card-header bg-warning m-0 p-0">
+          <h5>Failed</h5>
+        </div>
+        <div class="card-body bg-white">
+          {{responseMessage}}
+          <div class="text-right pt-3">
+            <button class="btn btn-sm btn-success" (click)="entrymodalclose()" data-dismiss="modal">ok</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

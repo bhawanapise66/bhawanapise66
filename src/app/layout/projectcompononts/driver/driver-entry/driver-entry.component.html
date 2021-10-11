@@ -1,0 +1,252 @@
+<div class="modal fade" id="driverModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true" data-backdrop="static">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Driver Entry</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="clearfunction();">
+          <span aria-hidden="true" style="color: white">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div id="container">
+            <div class="step-wizardentry" role="navigation">
+              <div class="progress">
+                <div class="progressbar empty"></div>
+                <div id="progentry" class="progressbar"></div>
+              </div>
+              <ul>
+                <li class="active">
+                  <button id="stepentry1">
+                    <div class="step">1</div>
+                    <div class="title">Basic Details</div>
+                  </button>
+                </li>
+
+                <li class="">
+                  <button id="stepentry3">
+                    <div class="step">2</div>
+                    <div class="title">Contact Details</div>
+                  </button>
+                </li>
+
+              </ul>
+
+              <div class="stepsection">
+                <span class="invalidmsg" id="msg_mainmessageentry"></span>
+                <div id="stepentry-14" class="stepsdiv">
+                  <div class="form-group row">
+
+
+                    <div class="col-lg-4 col-md-4" *ngIf="isCustomer">
+                      <label class="indlabel">Customer</label>
+                      <span class="mandatory">*</span>
+
+                      <ngx-select-dropdown id="customerEntry" [multiple]="false" [(ngModel)]="customerObj"
+                        id="customerentry" (change)="getCustomerId()" [config]="config" [options]="customerlist">
+                      </ngx-select-dropdown>
+
+                      <input style="display: none;" type="text" name="customer" [(ngModel)]="customerId"
+                        id="customerid1">
+
+                      <span class="invalidmsg" id="msg_vendorName"></span>
+                    </div>
+                    <div class="col-lg-4 col-md-4" id="distidcheck">
+                      <label class="indlabel">Driver Name</label>
+                      <span class="mandatory">*</span>
+                      <input type="text" name="drivername" onkeypress="return onlyAlphabets(event);"
+                        class="form-control" placeholder="Enter Driver Name" [(ngModel)]="driverName" id="dname"
+                        required minlength="3" #nameCtrl="ngModel">
+                      <span class="invalidmsg" *ngIf="nameCtrl.errors?.minlength">
+                        Drive Name Should be 3 to 50 characters Long.
+                      </span>
+                    </div>
+
+                    <div class="col-lg-4 col-md-4" id="distidcheck">
+                      <label class="indlabel">Licance Number</label>
+                      <span class="mandatory">*</span>
+                      <input type="text" name="licanaceNum" placeholder="Enetr Licance Number" id="licnum"
+                        onkeypress="return avoidSplChars(event)" class="form-control" minlength="15" maxlength="18"
+                        #licCtrl="ngModel" [(ngModel)]="licenace">
+                      <span class="invalidmsg" *ngIf=" licCtrl.errors?.minlength">
+                        licance Number should be 15 to 18 characters long.
+                      </span>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <div class="col-lg-4 col-md-4">
+                      <label class="indlabel">Select Vehicle</label>
+                      <span class="mandatory">*</span>
+
+                      <ngx-select-dropdown id="vehicleEntry" [multiple]="false" [(ngModel)]="vehicleObj"
+                        (change)="getVehicleId()" [config]="config" [options]="vehicleList"></ngx-select-dropdown>
+
+                      <input type="text" name="vNum" [(ngModel)]="vehicleId" style="display: none;" id="vehiclenum">
+
+                      <span class="invalidmsg"></span>
+                    </div>
+
+
+
+                    <div class="col-lg-4 col-md-4">
+                      <label class="indlabel">Mobile Number</label>
+                      <span class="mandatory">*</span>
+                      <input type="text" onkeypress="return onlyNumberKey(event)" name="drivername" class="form-control"
+                        placeholder="Enter Mobile Number" [(ngModel)]="primaryNumber" id="mobnum" required
+                        minlength="10" maxlength="10" #mobileCtrl="ngModel">
+                      <span class="invalidmsg" *ngIf="mobileCtrl.errors?.minlength">
+                        Mobile Number Should Be 10 or 13 digits
+                      </span>
+                    </div>
+
+
+                    <div class="col-lg-4 col-md-4">
+                      <label class="indlabel">Alternate Number</label>
+                      <input type="text" onkeypress="return onlyNumberKey(event)" name="altNumber" class="form-control"
+                        placeholder="Enter Alternate Number" [(ngModel)]="altNumber" id="altnum" minlength="10"
+                        maxlength="10" #altnumCtrl="ngModel">
+                      <span class="invalidmsg" *ngIf="altnumCtrl.errors?.minlength">Alternate Number should
+                        be 10 or 13 Digits</span>
+                    </div>
+                  </div>
+
+                  <span class="invalidmsg" style="position: absolute ;bottom:10px;left:20px;"
+                    id="msg_errorentry"></span>
+                </div>
+                <div id="stepentry-15" class="stepsdiv">
+
+                  <div class="form-group row">
+                    <div class="col-lg-4 col-md-4">
+                      <label class="indlabel">Email</label>
+                      <span class="mandatory">*</span>
+                      <input type="text" name="email" placeholder="Enter Email" class="form-control" [(ngModel)]="email"
+                        email id="emailEntry" #emailCtrl="ngModel">
+                      <span class="invalidmsg" *ngIf="emailCtrl.errors?.email">Please Enter Proper Email
+                        Address</span>
+                    </div>
+
+                    <div class="col-lg-4 col-md-4">
+                      <label class="indlabel">State</label>
+                      <span class="mandatory">*</span>
+
+                      <ngx-select-dropdown id="stateentry" [multiple]="false" [(ngModel)]="stateObj"
+                        (change)="getStateId()" [config]="config" [options]="statesList"></ngx-select-dropdown>
+
+                      <input style="display: none;" type="text" name="state" [(ngModel)]="stateId" id="statename">
+
+                      <span class="invalidmsg" id="msg_vendorName"></span>
+                    </div>
+
+                    <div class="col-lg-4 col-md-4">
+                      <label class="indlabel">City</label>
+                      <span class="mandatory">*</span>
+
+                      <ngx-select-dropdown tabindex="9" id="cityentry" [multiple]="false" [(ngModel)]="cityObj"
+                        [config]="config" [options]="cityList" (change)="getCityId()"></ngx-select-dropdown>
+
+                      <input type="text" name="city" id="cityname" [(ngModel)]="cityId" style="display: none;">
+
+                      <span class="invalidmsg" id="msg_vendorName"></span>
+                    </div>
+
+                  </div>
+
+                  <div class="form-group row">
+                    <div class="col-lg-5 col-md-5">
+                      <label class="indlabel"> Address</label>
+                      <span class="indlabelstar">*</span>
+                      <textarea class="form-control" rows="2" placeholder="Enter Address." minlength="5" maxlength="100"
+                        id="addressEntry" [(ngModel)]="address" #addressCtrl="ngModel"></textarea>
+
+                      <span class="invalidmsg" id="msg_regadd" *ngIf="addressCtrl.touched&& addressCtrl.invalid">
+                        Address Should be at least 5 characters
+                      </span>
+                    </div>
+                    <div class="col-lg-3 col-md-3">
+                      <label class="indlabel">Pin Code No.</label>&nbsp;
+                      <span class="mandatory">*</span>
+                      <input type="text" class="form-control" placeholder="Pincode No." minlength="6" maxlength="6"
+                        [(ngModel)]="pincode" id="pincodeentry" onkeypress="return isNumberKey(event)" required
+                        #pinCtrl="ngModel">
+
+                      <span class="invalidmsg" id="msg_pincode" *ngIf="pinCtrl.touched&& pinCtrl.invalid">Pin Code
+                        should be 6 digits</span>
+                    </div>
+
+                    <div class="col-md-3">
+                      <label class="indlabel">Driver Status</label>&nbsp;
+                      <!-- <span class="mandatory">*</span> -->
+
+                      <select class="form-control" [(ngModel)]="driverStatus">
+                        <option>Temporary</option>
+                        <option>Permanant</option>
+
+                      </select>
+                    </div>
+                  </div>
+
+                  <span class="invalidmsg" style="position: absolute;bottom: 10px;;left:20px"
+                    id="msg_error_contactentry"></span>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Modal footer -->
+
+      <div class="modal-footer" id="modelfooter">
+
+        <div class="actionBar">
+          <button id="saveentry" class="mb-2 btn btn-sm btn-success buttonFinish" (click)="insertDriver()"><i
+              class="material-icons">save</i></button>
+          <button id="nextentry" class="mb-2 btn btn-sm btn-primary buttonNext"><i
+              class="material-icons">arrow_forward</i></button>
+          <button id="preventry" class="mb-2 btn btn-sm btn-primary buttonPrevious" onclick="validateAllSteps(4,4)"><i
+              class="material-icons">arrow_back</i></button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="modal fade " id="SuccessModalEntry" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+  aria-hidden="true">
+  <div class="modal-dialog modal-sm dialogModal" role="document">
+    <div class="modal-content box-shadow">
+      <div class="card text-center border-0">
+        <div class="card-header bg-success m-0 p-0">
+          <h5>Success</h5>
+        </div>
+        <div class="card-body bg-white">
+          {{resMessage}}
+          <div class="text-right">
+            <button class="btn btn-sm btn-success" data-dismiss="modal" (click)="closemodal()">ok</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade " id="ErrorModalEntry" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+  aria-hidden="true">
+  <div class="modal-dialog modal-sm dialogModal" role="document">
+    <div class="modal-content box-shadow">
+      <div class="card text-center border-0">
+        <div class="card-header bg-warning m-0 p-0">
+          <h5>Failed</h5>
+        </div>
+        <div class="card-body bg-white">
+          {{resMessage}}
+          <div class="text-right pt-3">
+            <button class="btn btn-sm btn-success" data-dismiss="modal">ok</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

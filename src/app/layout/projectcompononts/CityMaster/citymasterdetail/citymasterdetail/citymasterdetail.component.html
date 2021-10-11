@@ -1,0 +1,415 @@
+<div class="content shadow-sm">
+  <!-- Main container starts -->
+  <div class="container-fluid main-container" id="main-container">
+    <div class="row">
+      <div class="col-12 col-md-12 col-lg-12 col-xl-12 mx-auto align-self-center">
+        <div class="card shadow-sm border-0 mb-4">
+          <div class="card-header" style="padding-top: 0; padding-bottom: 0">
+
+            <!-- <img src="../assets/img/logoicon.svg" alt="" class="w-50px mt-4"> -->
+            <h4 class="text-left m-1" style="font-size: 15px;">City
+              <span class="text-template-primary" style="color: #00ed54">Master</span>
+              <button type="button" class="btn btn-sm btn-primaryyel ml-2 float-right" style="margin-right: 89px;"
+                data-toggle="modal" data-target="#exampleModal" id="addnewcity">
+                ADD NEW
+                <i class="material-icons md-18">navigate_next</i>
+
+              </button>
+            </h4>
+
+          </div>
+          <div class="card-body" style="padding: 5px;">
+            <div class="row justify-content-center">
+              <div class="col-md-12 mx-auto">
+                <div class="row">
+                  <div class="col-lg-12 col-md-12">
+                    <!-- <button type="button" class="btn btn-primary float-left" data-toggle="modal" >
+                        ADD NEW
+                      </button> -->
+
+                  </div>
+                </div>
+
+                <div class="container-fluid main-container" id="main-container">
+
+                  <!--    ---------------        Table Header Staret=------------------------    -->
+                  <div class="col-md-12">
+                    <div class="row  mx-1">
+                      <div class="col-12 col-sm-12 col-md text-md-left align-self-center pr-0">
+                        <ul class="nav  justify-sm-content-center  justify-content-left">
+                          <li class="nav-item ">
+                            <div class="input-group" style="max-width: 250px;">
+                              <input type="text" placeholder="Search" id="searchData" class="form-control searchicon"
+                                id="searchData" [(ngModel)]="filter" aria-label="Amount (to the nearest dollar)">
+                              <div class="input-group-append">
+                                <button class="btn  apendbtn" (click)="searchdata()">
+                                  <i style="color: #00ed54; margin-top: -15px;" class="fa fa-search"></i>
+                                </button>
+                              </div>
+                            </div>
+                          </li>
+                          <li class="nav-item mx-3">
+                            <i class="fa fa-refresh fa-2x fa-spin-hover"
+                              style="font-size: 17px;padding-top: 4px;color: #00fff3;" (click)="Refreshfunction()"></i>
+                          </li>
+                          <li class="nav-item mx-3">
+                            <div style="width: 200px;">
+                              <ngx-select-dropdown tabindex="0" id="state" [multiple]="false" [(ngModel)]="cust_state1"
+                                [config]="config" [options]="ListOfState" (change)="searchdata1()"
+                                placeholder="Select State" style="font-size: 12px;">
+                              </ngx-select-dropdown>
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
+
+                      <div class="col-12 col-sm-12 col-md-auto text-right text-md-end pl-0">
+                        <ul class="nav justify-content-center justify-lg-content-end  justify-sm-content-center">
+                          <li class="nav-item mx-2">
+                            <img style="cursor: pointer; height: 20px; margin-top: 3px;" (click)="createPDF()"
+                              ngbTooltip="PDF" src="assets/images/PDFicon.png">
+                          </li>
+                          <li class="nav-item mx-2">
+                            <img style="cursor: pointer;" (click)="exportToExcel()" ngbTooltip="Excel"
+                              src="assets/images/excellogo.png">
+                          </li>
+                          <li class="nav-item mx-3">
+                            <span style="display: inline;font-size:12px;font-weight :bold;">Show Rows : </span> <select
+                              class="form-control p-1" style="width: 44px;display: inline;" data-live-search="true"
+                              tabindex="1" id="selectrow14" (change)="SelectRows()" aria-hidden="true"
+                              [(ngModel)]="itemsPerPage">
+                              <option value="5">5</option>
+                              <option value="10" selected>10</option>
+                              <option value="20">20</option>
+                              <option value="50">50</option>
+                            </select>
+                          </li>
+                          <li class="nav-item pt-1">
+                            <span style="font-size:12px;font-weight: bold;">Total Records : {{viewcount}} of
+                              {{count}}</span>
+                          </li>
+                        </ul>
+                      </div>
+
+
+                    </div>
+
+                    <!-- ---------------------  Table header end  ------------------------------ -->
+
+
+                    <div id="PDFTable" class="card-body table-responsive">
+                      <table class="table table-hover table-striped">
+                        <thead>
+                          <tr role="row">
+                            <th (click)="sort('param2')"># </th>
+                            <th> <span (click)="sort('param9')">State</span> </th>
+                            <th> <span (click)="sort('param4')"> District</span> </th>
+                            <th> <span (click)="sort('param2')">City</span> </th>
+                            <th> <span (click)="sort('param10')">Pin Code</span> </th>
+                            <!-- <th><span (click)="sort('param5')">Remarks</span></th> -->
+
+                            <th style="background-color: #99c049; width: 30px;">Action</th>
+
+
+                          </tr>
+                        </thead>
+                        <tbody id="grid">
+                          <tr
+                            *ngFor="let com of CityDetails$ | filter:filter | orderBy: key : reverse | paginate : {itemsPerPage:pagecount,currentPage:p,totalItems:count} ;"
+                            class="trheight">
+
+                            <td>{{com.rowNumber}}</td>
+                            <td>{{com.param9}}</td>
+                            <td>{{com.param4}}</td>
+                            <td>{{com.param5}}</td>
+                            <td>{{com.param10}} <span *ngIf="com.param10==null || com.param10==''">NA</span> </td>
+                            <td [ngStyle]="{'background-color':com.altColor}" class="viewbtncss">
+                              <span class="iconhover" data-toggle="modal" data-target="#myModalwizard"
+                                (click)="setdata(com)">
+                                <i class="material-icons" style="color: #161e43">visibility</i>
+                              </span>
+                            </td>
+                          </tr>
+
+                        </tbody>
+                        <tfoot id="foot" class="box-footer clearfix">
+                          <tr>
+                            <td colspan="12">
+                              <pagination-controls style=" float: right;" (pageChange)="CitypageChanged($event)">
+                              </pagination-controls>
+                            </td>
+                          </tr>
+                        </tfoot>
+                      </table>
+
+                    </div>
+
+
+
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- --------------------  view & Edit Modal start------------------------>
+
+  <div class="modal fade " id="myModalwizard" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-lg" style="width: 35rem;">
+      <div class="modal-content ">
+
+        <!-- Modal Header -->
+        <div class="modal-header modelcolor">
+
+          <h4 class="text-left m-1" id="vmd" style="font-size: 15px;">City
+            <span class="text-template-primary" style="color: #00ed54">Details</span>
+          </h4>
+          <h4 class="text-left m-1" id="uvmd" style="font-size: 15px;display: none;">City
+            <span class="text-template-primary" style="color: #00ed54">Update</span>
+          </h4>
+          <!-- <h5 class="modal-title" id="vmd" style="display: block;">City Master Details</h5>
+          <h5 class="modal-title" id="uvmd" style="display: none;">Update City Master</h5> -->
+          <div style="position: absolute;right: 40px;">
+            <button type="button" class=" btn btn-sm btn-secondary float-right ml-2 bg-warning" style="display: block;"
+              id="editbtn" ngbTooltip="Edit" (click)="editpageform()">
+
+              <i class="material-icons md-18">edit</i>
+            </button>
+            <button type="button" class=" btn btn-sm btn-danger float-right ml-2" id="deletebtn" ngbTooltip="Delete"
+              data-toggle="modal" data-target="#modeldelete">
+
+              <i class="material-icons md-18">delete</i>
+            </button>
+            <button type="button" class=" btn btn-sm btn-primary float-right ml-2" id="backdetailsbtn" ngbTooltip="Back"
+              style="display: none;" (click)="backdetailsbtn()">
+
+              <i class="material-icons md-18">arrow_back</i>
+            </button>
+          </div>
+          <button type="button" style="color: white" class="close" data-dismiss="modal"
+            (click)="clear();">&times;</button>
+        </div>
+
+
+        <!-- Modal body -->
+        <div class="modal-body" style="background-color: #CBD2F1;">
+          <div class="container">
+            <div class="">
+              <div id="container" style="display: none;">
+
+                <div class="stepsection">
+                  <span class="invalidmsg" id="msg_mainmessageentry"></span>
+                  <div id="stepentry-14" class="stepsdiv">
+                    <!-- <span class="StepTitle">Step 1: Basic Details</span> -->
+                    <div class="form-group row">
+
+                      <div class="col-lg-6 col-md-6">
+                        <label class="indlabel">State</label>
+                        <span class="mandatory">*</span>
+                        <ngx-select-dropdown tabindex="9" id="state" [multiple]="false" [(ngModel)]="cust_state"
+                          (change)="Selectstateid();" [config]="config" [options]="ListOfState"></ngx-select-dropdown>
+                        <span class="invalidmsg" id="msg_stateName"></span>
+                      </div>
+
+                      <div style="display: none">
+                        <label class="indlabel"> dummy state</label>
+                        <span class="mandatory">*</span>
+                        <input type="text" class="form-control" placeholder="Enter State Name." minlength="3"
+                          maxlength="50" [(ngModel)]="citystate_id" #dummynamestate="ngModel" style=" font-size:12px"
+                          required onkeypress="return onlyAlphabets(event);" ondrop="return false;"
+                          onpaste="return false;" id="dummynameentrytxtidstate">
+
+                      </div>
+                      <div style="display: none">
+                        <label class="indlabel"> dummy state code</label>
+                        <span class="mandatory">*</span>
+                        <input type="text" class="form-control" placeholder="Enter State code."
+                          [(ngModel)]="state_setcode" style=" font-size:12px" required ondrop="return false;"
+                          onpaste="return false;" id="dummynameentrytxtidstate">
+
+                      </div>
+                      <div class="col-lg-6 col-md-6">
+                        <label class="indlabel">District</label>
+                        <span class="mandatory">*</span>
+                        <ngx-select-dropdown tabindex="9" id="district_id" [multiple]="false"
+                          [(ngModel)]="cust_district" [config]="config" [options]="ListOfDistrict"
+                          (change)="selectdistrictid()"></ngx-select-dropdown>
+                        <span class="invalidmsg" id="msg_districtName"></span>
+                      </div>
+                      <div class="col-lg-4 col-md-4" style="display: none">
+                        <label class="indlabel"> dummy district</label>
+                        <span class="mandatory">*</span>
+                        <input type="text" class="form-control" placeholder="Enter district Name." minlength="3"
+                          maxlength="50" [(ngModel)]="changedistrict" #dummynamedistrict="ngModel"
+                          style=" font-size:12px" required onkeypress="return onlyAlphabets(event);"
+                          ondrop="return false;" onpaste="return false;" id="dummynameentrytxtiddistrict">
+
+                      </div>
+                    </div>
+                    <div class="form-group row">
+
+                      <div class="col-lg-6 col-md-6">
+                        <label class="indlabel"> City</label>
+                        <span class="mandatory">*</span>
+                        <input type="text" class="form-control" placeholder="Enter City" tabindex="3" minlength="3"
+                          maxlength="25" [(ngModel)]="city_namedemo " #cityname="ngModel" style=" font-size:12px"
+                          required onkeypress="return onlyAlphabets(event);" ondrop="return false;"
+                          onpaste="return false;" id="citynameentry">
+                        <div class="invalidmsg" *ngIf="cityname.errors?.minlength">
+                          City required at least minimum 3 characters & maximum 50 characters long.
+                        </div>
+                        <span class="invalidmsg" id="msg_cityname"></span>
+                      </div>
+                      <!-- Pincode-->
+                      <div class="col-lg-6 col-md-6">
+                        <label class="indlabel">Pin Code No.</label>&nbsp;
+                        <span class="mandatory">*</span>
+                        <input type="text" class="form-control" style=" font-size:12px" placeholder="Enter Pincode No."
+                          tabindex="15 " minlength="6" maxlength="6" [(ngModel)]="pin_code" id="pincodeno"
+                          #pincodeno="ngModel" onkeypress="return isNumberKey(event)">
+                        <div class="invalidmsg" *ngIf="pincodeno.errors?.minlength">
+                          Pin Code must be of 6 digits long only.
+
+                        </div>
+                      </div>
+                    </div>
+
+                    <span class="invalidmsg" id="msg_errorentry_citymodel"
+                      style="position: absolute;bottom:10px;"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- --------------------------------------------- View Section ------------------------------------------- -->
+            <div class="">
+              <div id="vendordtls" class="row" style="background-color: #0e2145; border: 1px ridge #02108d;">
+                <div class="col-12 col-md-12 col-lg-12">
+
+                  <div class="row" style="background-color: rgb(198 201 202);">
+                    <div class="col-12 col-md-12 col-lg-12">
+                      <div class="viewheading">Basic Details</div>
+                    </div>
+                  </div>
+                  <br>
+
+                  <div class="row">
+                    <div class="col-12 col-md-12 col-lg-12">
+                      <div class="col-6 col-md-6 col-lg-6" style=" float: left;">
+                        <span class="caplable">State:</span>&nbsp;
+                        <span class="viewlable">{{cust_state}}</span>
+                      </div>
+                      <div class="col-6 col-md-6 col-lg-6" style=" float: left;">
+                        <span class="caplable">District:</span>&nbsp;
+                        <span class="viewlable">{{cust_district}}</span>
+                      </div>
+
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-12 col-md-12 col-lg-12">
+
+                      <div class="col-6 col-md-6 col-lg-6" style=" float: left;">
+                        <span class="caplable">City:</span>&nbsp;
+                        <span class="viewlable">{{city_namedemo}}</span>
+                      </div>
+                      <div class="col-6 col-md-6 col-lg-6" style=" float: left;">
+                        <span class="caplable">PinCode:</span>&nbsp;
+                        <span class="viewlable">{{pin_code}}</span>
+                      </div>
+                    </div>
+
+                  </div>
+                  <br>
+                </div>
+                <!-- --------------------- View Section End ------------------------------ -->
+
+              </div>
+            </div>
+
+          </div>
+          <!-- --------------------- View Section End ------------------------------ -->
+
+        </div>
+
+
+        <!-- Modal footer -->
+        <div class="modal-footer" style="display: none;" id="modelfooter">
+          <div class="container-fluid">
+            <div class="row">
+
+              <div class="col-md-9">
+                <textarea class="form-control bg-white" rows="1" placeholder="Enter Remark" tabindex="21" minlength="10"
+                  maxlength="40" id="Remarkvenupdate" [(ngModel)]="remarkTextcity" #remark="ngModel" required
+                  [ngClass]="{'is-invalid': remark.invalid }" style="padding-left: 16px;
+              margin-left: 4px;"></textarea>
+                <span class="invalidmsg" id="msg_errorupdatetype" style="margin-left: 9px;"></span>
+                <div class="invalidmsg" *ngIf="remark.errors?.minlength" style="margin-left: 8px;margin-top: -16px;">
+                  Remark must be 10 to 40 characters long.
+                  <!-- <br>
+                    <span class="invalidmsg" id="msg_errorupdatetype"></span> -->
+                </div>
+
+              </div>
+              <div class="col-md-3">
+                <div class="actionBar">
+
+                  <button id="save" class="mx-1 btn btn-wizard btn-sm btn-success buttonSave" (click)="editCity()">
+                    <i class="material-icons">save</i>
+                  </button>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ------------------- view & Edit model close ------------------------ -->
+  <!-- ------------------ Delete Model Start ------------------------>
+
+</div>
+
+
+<!-- Delete Model-->
+<div class="modal fade" id="modeldelete" role="dialog">
+  <div class="modal-dialog modal-sm modal-dialog-centered">
+    <div class="modal-content">
+      <div class="btn-warning modal-header p-1">
+        <h6 class="modal-title" style="color: black;font-size: 15px;padding-left: 9px;padding-top: 4px;"><b>Confirm
+            Delete</b></h6>
+
+        <button type="button" class="close" data-dismiss="modal" (click)="deleteclear();">&times;</button>
+      </div>
+      <div class="modal-body" style="background-color: #f0e8e9;">
+        <textarea class="form-control" id="citydelremark" [(ngModel)]="deleteTextmodal" style="font-size: 11px;"
+          placeholder="Enter Remark"></textarea>
+        <small id="delete" class="text-danger"></small>
+      </div>
+      <div class="modal-footer p-2" style="background-color: #cfbaa8;height: 44px;">
+        <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal"
+          (click)="deleteclear();">Close</button>
+        <button type="button" class="btn btn-sm btn-danger" (click)="CityDeletefunction()">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Delete Model -->
+
+<!-- ------------------- Delete model End ----------------------- -->
+
+<!-- ------------------- onclick no btn model  ----------------------- -->
+
+
+<!-- ------------------- onclick yes btn model End ----------------------- -->
+
+<app-citydetailentry (showDetails)="CityDetail()"></app-citydetailentry>

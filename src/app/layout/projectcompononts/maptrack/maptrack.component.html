@@ -1,0 +1,349 @@
+<div class="mainDiv" id="mainDiv">
+
+    <div style="display:flex;">
+
+        <div class="mapwidContainer allwidclass" (click)="GetVehcileDetails(1,'all')">
+            <div class="pindiv"><i class="fa fa-thumb-tack"></i></div>
+
+            <div class="mapwidCount"> {{totalVehicles}} </div>
+            <div class="mapwidLabel"> All </div>
+        </div>
+
+        <div class="mapwidContainer nonpolingwidclass" (click)="GetVehcileDetails(1,'nonpolling')">
+            <div class="pindiv"><i class="fa fa-thumb-tack"></i></div>
+
+            <div class="mapwidCount"> {{nonpollingVehicles}}</div>
+            <div class="mapwidLabel">Non Polling </div>
+
+        </div>
+
+        <div class="mapwidContainer runningwidclass" (click)="GetVehcileDetails(1,'running')">
+            <div class="pindiv"><i class="fa fa-thumb-tack"></i></div>
+
+            <div class="mapwidCount"> {{runningVehicles}}</div>
+            <div class="mapwidLabel"> Running </div>
+
+        </div>
+
+        <div class="mapwidContainer idlewidclass" (click)="GetVehcileDetails(1,'idle')">
+            <div class="pindiv"><i class="fa fa-thumb-tack"></i></div>
+
+            <div class="mapwidCount">{{idleVehiciles}}</div>
+            <div class="mapwidLabel"> Idle</div>
+
+        </div>
+
+
+        <div class="mapwidContainer stopwidclass" (click)="GetVehcileDetails(1,'stop')">
+            <div class="pindiv"><i class="fa fa-thumb-tack"></i></div>
+
+            <div class="mapwidCount"> {{stopVehicles}} </div>
+            <div class="mapwidLabel">Stop </div>
+
+        </div>
+
+        <div class="mapwidContainer emergencywidclass" (click)="GetVehcileDetails(1,'emergency')">
+            <div class="pindiv"><i class="fa fa-thumb-tack"></i></div>
+
+            <div class="mapwidCount"> {{emergencyVehicles}} </div>
+            <div class="mapwidLabel"> Emergency</div>
+
+        </div>
+
+
+        <div style="    padding-right: 25px;
+        background-color: #006965;
+        padding-left: 17px;
+        border-radius: 3px;
+        border-top: 3px solid;">
+            <div style="display:flex;padding-top: 5px;">
+                <div>
+                    <div class="" style="    background-color: transparent;   width: 205px; font-size: 12px;">
+                        <ngx-select-dropdown tabindex="0" [multiple]="false" [(ngModel)]="selectedVehicledata"
+                            id="selectedVehicledata" [config]="config" [options]="vehicleDetails">
+                        </ngx-select-dropdown>
+
+                    </div>
+
+                </div>
+                <div style="    margin-left: 8px;"><button type="button" class="btn " style="
+                    color: black;
+                    background-color: #728aff;
+                    height: 26px;
+                    font-size: 12px;
+                    font-weight: bold;
+                    text-align: center;" (click)="ViewVehicle()"> <span>View</span></button></div>
+
+            </div>
+
+
+        </div>
+    </div>
+
+
+
+    <div style="    display: none;" id="historytrackoption">
+        <div style="padding-left: 7px; text-align: center;">
+            <i class="fa fa-refresh" ngbTooltip="Restart" (click)="RestartAnimation()"></i>
+        </div>
+
+        <div style="padding-left: 7px;
+        
+        text-align: center;" id="playbutton">
+            <i class="fa fa-play" ngbTooltip="Resume" (click)="ResumeAnimation()"></i>
+
+        </div>
+
+        <div style="padding-left: 7px;     text-align: center;" id="pausebutton">
+            <i class="fa fa-pause" ngbTooltip="Pause" (click)="PauseHistory()"></i>
+
+
+        </div>
+
+
+        <div style="padding-left: 7px;  text-align: center;">
+
+            <i class="fa fa-stop" ngbTooltip="Stop" (click)="StopHistory()"></i>
+
+
+        </div>
+
+
+        <div style="padding-left: 7px;  padding-top: 4px;   text-align: center;">
+            <div style="display: flex;background-color: #d07628;  padding-left: 14px;     padding-right: 14px;">
+                <input type="range" min="1" max="10" [(ngModel)]="historytrackspeed" (change)="ChangeHistoryspeed()">
+                <span style="color: white;font-size: 15px;margin-left: 5px;">{{historytrackspeed}}</span>
+            </div>
+        </div>
+
+
+
+
+
+    </div>
+</div>
+
+
+<div id="mainmap" style="      margin-top: -27px;" class="map"></div>
+
+<div id="popup" class="ol-popup">
+    <a id="popup-closer" class="ol-popup-closer"></a>
+    <div id="popup-content"></div>
+</div>
+
+
+
+
+
+
+
+
+<div class="switcherContainer" style="   color: black;      margin-top: -500px;margin-right: 4%;">
+    <!--         
+        <div class="options" style="     background-color: aliceblue;  height: 171px;   font-size: 11px;  color: black;">
+                <ul style="list-style: none;margin-left: -39px;">
+                    <li class="switcherLi shadow"><input type="radio" name="mapStyle" id="binglayer" (click)="MapSwitch('0')"><span>Bing Map</span></li>
+                    <li class="switcherLi shadow"><input type="radio" name="mapStyle" id="binghyblayer"  (click)="MapSwitch('1')"><span>Bing Hybrid Map</span></li>
+                    <li class="switcherLi shadow"><input type="radio" name="mapStyle" id="tomlayer"  (click)="MapSwitch('2')"><span>Tom Tom Map</span></li>
+                    <li class="switcherLi shadow"><input type="radio" name="mapStyle" id="osmlayer" (click)="MapSwitch('3')" checked><span>OSM Map</span></li>
+                    <li class="switcherLi shadow"><input type="radio" name="mapStyle" id="indialayer" (click)="MapSwitch('4')"><span>India Map</span></li>
+
+                </ul>
+
+        </div>
+
+
+        <div class="switchbutton" style="    color: black;    padding: 4px;">
+            Switch Map Style
+        </div>  -->
+
+
+    <div data-toggle="collapse" (click)="OpenCollapse()" id="collapseButton">
+        <span class="dot" style="    height: 35px; width: 36px; background-color: white;">
+            <img src="assets/mapimages/mapstyleicon/mapswitchericonnew.png"
+                style="width: 35px;   margin-top: -2px;   margin-left: -1px;">
+            <!-- <h6><i class='fa fa-layer-group' style="font-size: 14px; color: black;"></i></h6> -->
+        </span>
+    </div>
+
+
+
+    <div class="collapse" id="mapswitcher" style="    background-color: #1e295c; padding: 7px;width: 234px;  
+         margin-left: -6%;">
+
+        <div><span (click)="CloseCollapse()" class="customCircle">&times;</span></div>
+        <div class="cardheader">Map Types</div>
+
+        <div>
+            <div class="iconDiv activeSwitchOption effect8" id="switch3">
+                <img src="assets/mapimages/mapstyleicon/osm.JPG" (click)="MapSwitch('3')" class="mapicons">
+                <h6 class="imagelabel">OSM</h6>
+
+            </div>
+            <!-- <div class="iconDiv"  id="0">
+                    <img src="assets/mapimages/mapstyleicon/bingmap.JPG" class="mapicons"  (click)="MapSwitch('0')">
+                    <h6 class="imagelabel">Bing</h6>
+    
+                  </div> -->
+            <div class="iconDiv" id="switch1">
+                <img src="assets/mapimages/mapstyleicon/binghybrid.JPG" class="mapicons" (click)="MapSwitch('1')">
+                <h6 class="imagelabel">Satellite</h6>
+
+            </div>
+            <div class="iconDiv" id="switch2">
+                <img src="assets/mapimages/mapstyleicon/tomtom.JPG" class="mapicons" (click)="MapSwitch('2')">
+                <h6 class="imagelabel" id="">Tom Tom</h6>
+            </div>
+            <div class="iconDiv" id="switch4">
+                <img src="assets/mapimages/mapstyleicon/india.JPG" class="mapicons" (click)="MapSwitch('4')">
+                <h6 class="imagelabel">Indtrack</h6>
+            </div>
+
+        </div>
+
+
+
+
+        <!-- map Detailss   ======  -->
+        <div class="cardheader">Map Data</div>
+
+        <div>
+            <!-- <div class="iconDiv activeSwitchOption effect8" id="polygonSwitch">
+                      <img src="assets/mapimages/mapstyleicon/polygonDataicon.jpg" class="mapicons" (click)="SwitchPolygon()" style="width: 29px;">
+                      <h6 class="imagelabel">Polygon</h6>
+    
+                    </div>
+                    <div class="iconDiv activeSwitchOption effect8" id="routeSwitch" style="    margin-left: 5px;">
+                    <img src="assets/mapimages/mapstyleicon/routeDataicon.JPG" class="mapicons "  style="  width: 29px;   height: 29px;" (click)="SwitcherRoute()">
+                    <h6 class="imagelabel">Route</h6>
+    
+                  </div> -->
+
+            <div class="iconDiv activeSwitchOption effect8" id="routeSwitch" style="    margin-left: 5px;">
+                <img src="assets/mapimages/mapstyleicon/routeDataicon.JPG" class="mapicons "
+                    style="  width: 29px;   height: 29px;" (click)="SwitcherRoute()">
+                <h6 class="imagelabel">Route</h6>
+
+            </div>
+            <div class="iconDiv activeSwitchOption effect8" id="poiSwitch" style="    margin-left: 5px;">
+                <img src="assets/mapimages/mapstyleicon/poiDataicon2.JPG" class="mapicons "
+                    style="       width: 29px; height: 29px;" (click)="SwitchPoi()">
+                <h6 class="imagelabel">POI</h6>
+
+            </div>
+
+        </div>
+
+        <div class="cardheader">Create Data</div>
+        <div>
+            <div class="iconDiv" id="polygonCreate" title="Create Polygon">
+                <img src="assets/mapimages/mapstyleicon/polygonDataicon.jpg" class="mapicons" (click)="CreatePolygon()"
+                    style="width: 29px;">
+                <h6 class="imagelabel">Polygon</h6>
+
+            </div>
+            <div class="iconDiv" id="routeCreate" style="    margin-left: 5px;" title="Create Route">
+                <img src="assets/mapimages/mapstyleicon/routeDataicon.JPG" class="mapicons "
+                    style="  width: 29px;   height: 29px;" (click)="CreateRoute()">
+                <h6 class="imagelabel">Route</h6>
+
+            </div>
+            <div class="iconDiv" id="poiCreate" style="    margin-left: 5px;" title="Create POI">
+                <img src="assets/mapimages/mapstyleicon/poiDataicon2.JPG" class="mapicons "
+                    style="       width: 29px; height: 29px;" (click)="CreatePoi()">
+                <h6 class="imagelabel">POI</h6>
+
+            </div>
+
+            <div style="margin-top: 5px;"><span style="    font-size: 11px;
+                  color: #15e81c;
+                  font-weight: bold; margin-left: 9px;">{{creationstatus}}</span></div>
+
+        </div>
+    </div>
+
+</div>
+
+
+
+
+<!-- The Modal -->
+<div class="modal" id="historymodal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div>
+                    <div><button type="button" class="close" data-dismiss="modal">&times;</button></div>
+
+                </div>
+
+                <div>
+                    <table class="customTable"
+                        style=" margin-top: 40px; font-size: 10px; color: black; font-weight: bold;">
+                        <tr>
+                            <td>From Date</td>
+                            <td>
+                                <div class="col-md-12" id="single">
+
+                                    <input id="fromDate" type="text" class="form-control  datepicker"
+                                        style="    height: 27px;  width: 124px;" placeholder="">
+                                </div>
+                            </td>
+
+                            <td>From Time</td>
+                            <td>
+
+                                <input class="form-control timepicker1" style=" height: 27px;  width: 124px;"
+                                    id="fromTime" />
+
+                            </td>
+
+                        </tr>
+
+
+                        <tr>
+                            <td>To Date</td>
+                            <td>
+                                <div class="col-md-12" id="single">
+
+                                    <input id="toDate" type="text" class="form-control  datepicker" style="    height: 27px;
+                            width: 124px;" placeholder="">
+                                </div>
+                            </td>
+
+                            <td>To Time</td>
+                            <td>
+                                <input class="form-control timepicker2" style=" height: 27px;  width: 124px;"
+                                    id="toTime" />
+
+                            </td>
+
+                        </tr>
+
+                        <tr>
+                            <td colspan="4" style="    width: 457px;">
+                                <div
+                                    style="  font-weight: bold;font-size: 12px;       width: 96px;
+                            height: 20px; background-color: #2b258a; text-align: center;float: right; cursor: pointer;">
+                                    <a class="anchorTag" style="color:white;"><i style="color: white;"
+                                            (click)="HistoryFunction(historyvehicleno)">History Track</i></a>
+                                </div>
+                            </td>
+                        </tr>
+
+                    </table>
+
+
+
+                </div>
+            </div>
+
+            <!-- Modal footer -->
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,552 @@
+<div class="container-fluid">
+    <div class="row mt-3">
+        <div class="col-md-12 col-lg-8">
+            <fieldset id="main">
+                <legend>Sim Summary</legend>
+                <div class="row">
+                    <div class=" col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                        <div class="card widget2" style="background-color:  #f0f3ff;">
+                            <div class=" card-body px-0 pb-0">
+                                <div class="diamond">
+                                    <h6
+                                        style="position: absolute ; top: 3px; left: 7px; color:white; font-size: 14px; font-weight: bold;">
+                                        1234<br><span
+                                            style="position: absolute ; top: 18px; left: 11px; color:white; font-size: 14px;">V!</span>
+                                    </h6>
+                                </div>
+
+                                <div class="row mx-1">
+                                    <div class="col-md-4 col-sm-4 col-xs-4 px-1">
+                                        <h6 class="text-center"
+                                            style="background: #13a618; ; border-radius: 6px; padding: 3px 4px 7px 4px;">
+                                            <span style="font-size: 17px; font-weight: 700; text-align: center;">
+                                                234</span><br><span
+                                                style="font-size: 11px; font-weight: 700;text-align: center;">INSTALLED</span>
+                                        </h6>
+                                    </div>
+                                    <div class="col-md-4 col-sm-4 col-xs-4 px-1">
+                                        <h6 class="text-center"
+                                            style="background: #3944d7; border-radius: 6px; padding: 3px 4px 7px 4px;">
+                                            <span style="font-size: 17px; font-weight: 700; text-align: center;">
+                                                234</span><br><span
+                                                style="font-size: 11px; font-weight: 700;text-align: center;">STOCK</span>
+                                        </h6>
+                                    </div>
+                                    <div class="col-md-4 col-sm-4 col-xs-4 px-1">
+                                        <h6 class="text-center"
+                                            style="background: #13a618; ;border-radius: 6px; padding: 3px 4px 7px 4px;">
+                                            <span style="font-size: 17px; font-weight: 700; text-align: center;">
+                                                234</span><br><span
+                                                style="font-size: 11px; font-weight: 700;text-align: center;">N.A.</span>
+                                        </h6>
+                                    </div>
+                                </div>
+                                <hr style="margin: 10px 0px;">
+                                <div (click)="openviModal()" id="vichart" style="height: 150px;">
+
+                                </div>
+                                <!-- <div class="Info" ><i class="fa fa-info" style="padding: 3px 10px;"></i></div> -->
+
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                    <div class=" col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                        <div class="card widget2" style="background-color:  #f0f3ff;">
+                            <div class=" card-body px-0">
+                                <div class="diamond ">
+                                    <h6
+                                        style="position: absolute ; top: 3px; left: 7px; color:white; font-size: 14px; font-weight: bold;">
+                                        1234<br>
+                                        <span
+                                            style="position: absolute ; top: 18px; left: -2px; color:white; font-size: 14px;">AIRTEL</span>
+                                    </h6>
+                                </div>
+
+                                <div class="row mx-1">
+                                    <div class="col-md-4 col-sm-4 col-xs-4 px-1">
+                                        <h6 class="text-center"
+                                            style="background: #c79f16; ;border-radius: 6px; padding: 3px 4px 7px 4px;">
+                                            <span style="font-size: 17px; font-weight: 700; text-align: center;">
+                                                234</span><br><span
+                                                style="font-size: 11px; font-weight: 700;text-align: center;">INSTALLED</span>
+                                        </h6>
+                                    </div>
+                                    <div class="col-md-4 col-sm-4 col-xs-4 px-1">
+                                        <h6 class="text-center"
+                                            style="background: #b21bbc; border-radius: 6px; padding: 3px 4px 7px 4px;">
+                                            <span style="font-size: 17px; font-weight: 700; text-align: center;">
+                                                234</span><br><span
+                                                style="font-size: 11px; font-weight: 700;text-align: center;">STOCK</span>
+                                        </h6>
+                                    </div>
+                                    <div class="col-md-4 col-sm-4 col-xs-4 px-1">
+                                        <h6 class="text-center"
+                                            style="background: #19b29d; ;border-radius: 6px; padding: 3px 4px 7px 4px;">
+                                            <span style="font-size: 17px; font-weight: 700; text-align: center;">
+                                                234</span><br><span
+                                                style="font-size: 11px; font-weight: 700;text-align: center;">N.A.</span>
+                                        </h6>
+                                    </div>
+                                </div>
+
+                                <div (click)="openairtelModal()" id="airtelchart" style="height: 160px;width: 100%;">
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                    <div class=" col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                        <div class="card widget2" style="background-color:  #f0f3ff;">
+                            <div class=" card-body px-0">
+                                <div class="diamond">
+                                    <h6
+                                        style="position: absolute ; top: 3px; left: 7px; color:white; font-size: 14px; font-weight: bold;">
+                                        1234<br><span
+                                            style="position: absolute ; top: 18px; left: 1px; color:white; font-size: 14px;">BSNL</span>
+                                    </h6>
+                                </div>
+                                <div class="row  mx-1">
+                                    <div class="col-md-4 col-sm-4 col-xs-4 px-1">
+                                        <h6 class="text-center"
+                                            style="background: #db3280; ; border-radius: 6px; padding: 3px 4px 7px 4px;">
+                                            <span style="font-size: 17px; font-weight: 700; text-align: center;">
+                                                234</span><br><span
+                                                style="font-size: 11px; font-weight: 700;text-align: center;">INSTALLED</span>
+                                        </h6>
+                                    </div>
+                                    <div class="col-md-4 col-sm-4 col-xs-4 px-1">
+                                        <h6 class="text-center"
+                                            style="background: #29a873; border-radius: 6px; padding: 3px 4px 7px 4px;">
+                                            <span style="font-size: 17px; font-weight: 700; text-align: center;">
+                                                234</span><br><span
+                                                style="font-size: 11px; font-weight: 700;text-align: center;">STOCK</span>
+                                        </h6>
+                                    </div>
+                                    <div class="col-md-4 col-sm-4 col-xs-4 px-1">
+                                        <h6 class="text-center"
+                                            style="background: #11a1b8; ; border-radius: 6px; padding: 3px 4px 7px 4px;">
+                                            <span style="font-size: 17px; font-weight: 700; text-align: center;">
+                                                234</span><br><span
+                                                style="font-size: 11px; font-weight: 700;text-align: center;">N.A.</span>
+                                        </h6>
+                                    </div>
+                                </div>
+                                <div (click)="openbsnlModal()" id="bsnlchart" style="height: 160px;width: 100%;">
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </fieldset>
+        </div>
+        <div class="col-md-12 col-lg-4">
+            <fieldset id="main">
+                <legend>Live update</legend>
+                <div class="row">
+                    <div class="col-lg-3  col-md-3 col-sm-3 col-6    px-1">
+                        <h6 class="text-center text-white"
+                            style="background-color: darkcyan; border-radius: 6px; padding: 10px; font-size: 14px;"><span
+                                style="font-size:20px; font-weight: 700;">234</span><br> Installation</h6>
+                    </div>
+                    <div class="col-lg-3  col-md-3 col-sm-3 col-6   px-1">
+                        <h6 class="text-center text-white"
+                            style="background-color: #8b007a; border-radius: 6px; padding: 10px;font-size: 14px;"><span
+                                style="font-size:20px; font-weight: 700;">234</span><br>Payment</h6>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-6   px-1">
+                        <h6 class="text-center text-white"
+                            style="background-color: #8b4000; border-radius: 6px; padding: 10px; font-size: 14px;"><span
+                                style="font-size:20px; font-weight: 700;">234</span><br>Renewal</h6>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-6  px-1">
+                        <h6 class="text-center text-white"
+                            style="background-color: #15008b; border-radius: 6px; padding: 10px; font-size: 14px;"><span
+                                style="font-size:20px; font-weight: 700;">234</span><br>Sim Validity</h6>
+                    </div>
+                </div>
+                 <div id="multiLine" style="width: 100%;height:180px;"></div>
+<!-- <div id="liveupdate" style="width: 100%; height:180px"> </div> -->
+            </fieldset>
+        </div>
+
+    </div>
+    <div class="row mt-5">
+        <div class="col-md-12 col-lg-6">
+            <fieldset id="main">
+                <legend>Device Statistics</legend>
+                <div class="card">
+                    <div class="card-header mt-1">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="card">
+                                    <p style="margin: 3px;"><span class="counta">1234</span><span class="float-right"
+                                            style="font-size: 15px;
+                                        font-weight: bold;">Member</span></p>
+                                    <hr style="margin: 0px;">
+                                    <div class="card-body p-0"
+                                        style="  background-image: linear-gradient(to right, #200371,#200371,#00dbda , #00dbda); ">
+                                        <p class=""
+                                            style="border-radius: 0px 0px 30px 0px; margin-bottom: 0px; padding-left:20px;background-color: #200371; color: white;font-weight: bold; font-size: 14px;">
+                                            <span style="font-size: 16px;">1235</span><br>Installed
+                                        </p>
+                                        <p class=""
+                                            style="border-radius: 30px 0px 0px 0px;padding-right: 20px; text-align: right; margin-bottom: 0px;background-color: #00dbda; color:black ; font-weight: bold;  font-size: 14px;">
+                                            <span style="font-size: 16px;">1235</span><br>Renewal
+                                        </p>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card">
+                                    <p style="margin: 3px;"><span class="counta">1234</span><span class="float-right"
+                                            style="font-size: 15px;
+                                        font-weight: bold;">Mines</span></p>
+                                    <hr style="margin: 0px;">
+                                    <div class="card-body p-0"
+                                        style="  background-image: linear-gradient(to right, #600021,#600021,#f4dee6 , #f4dee6);                                    ">
+                                        <p class=""
+                                            style="border-radius: 0px 0px 30px 0px; margin-bottom: 0px; padding-left:20px;background-color: #600021; color: #f4dee6;font-weight: bold;  font-size: 14px;">
+                                            <span style="font-size: 16px;">1235</span><br>Installed
+                                        </p>
+                                        <p class=""
+                                            style="border-radius: 30px 0px 0px 0px;padding-right: 20px; text-align: right; margin-bottom: 0px;background-color: #f4dee6; color:#600021 ; font-weight: bold;  font-size: 14px;">
+                                            <span style="font-size: 16px;">1235</span><br>Renewal
+                                        </p>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card">
+                                    <p style="margin: 3px;"><span class="counta">1234</span><span class="float-right"
+                                            style="font-size: 15px;
+                                        font-weight: bold;">Corporate</span></p>
+                                    <hr style="margin: 0px;">
+                                    <div class="card-body p-0"
+                                        style="  background-image: linear-gradient(to right, #040f4d,#040f4d,#ed9c1c , #ed9c1c); ">
+                                        <p class=""
+                                            style="border-radius: 0px 0px 30px 0px; margin-bottom: 0px; padding-left:10px;background-color: #040f4d; color: #ed9c1c;font-weight: bold;  font-size: 14px;">
+                                            <span style="font-size: 16px;">1235</span><br>Installed
+                                        </p>
+                                        <p class=""
+                                            style="border-radius: 30px 0px 0px 0px;padding-right: 10px; text-align: right; margin-bottom: 0px;background-color: #ed9c1c; color:#040f4d ; font-weight: bold;  font-size: 14px;">
+                                            <span style="font-size: 16px;">1235</span><br>Renewal
+                                        </p>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card">
+                                    <p style="margin: 3px;"><span class="counta">1234</span><span class="float-right"
+                                            style="font-size: 15px;
+                                        font-weight: bold;">Railway</span></p>
+                                    <hr style="margin: 0px;">
+                                    <div class="card-body p-0"
+                                        style="  background-image: linear-gradient(to right, #ff5126,#ff5126,#fcedda , #fcedda);  ">
+                                        <p class=""
+                                            style="border-radius: 0px 0px 30px 0px; padding-left: 10px; margin-bottom: 0px;background-color: #ff5126; color: #fcedda; font-weight: bold;  font-size: 14px;">
+                                            <span style="font-size: 16px;">1235</span><br>Installed
+                                        </p>
+                                        <p class=""
+                                            style="border-radius: 30px 0px 0px 0px;padding-right: 10px; text-align: right; margin-bottom: 0px;background-color: #fcedda; color:#ff5126 ;font-weight: bold;  font-size: 14px;">
+                                            <span style="font-size: 16px;">1235</span><br>Renewal
+                                        </p>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="statistic" style="height: 250px"></div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <div class="col-lg-6 col-md-12">
+            <fieldset id="main">
+                <legend>Device Summary</legend>
+                <div class="row">
+                    <div class=" col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <div class="card widget2" style="background-color:  #f0f3ff;">
+                            <div class=" card-body px-0 pb-0">
+                                <span class="counta">1233</span>
+                                <div class="card-title">
+                                    <p class="" style="position: absolute; top:-25px; left: 4px; font-size: 13px;
+                                font-weight: 700;">BASIC</p>
+                                </div>
+
+                                <div class="row mt-3 mx-1">
+                                    <div class="col-md-4 col-sm-4 col-xs-4 px-1">
+                                        <h6 class="text-center"
+                                            style="background: #13a618; ; border-radius: 6px; padding: 3px 4px 7px 4px;">
+                                            <span style="font-size: 17px; font-weight: 700; text-align: center;">
+                                                234</span><br><span
+                                                style="font-size: 11px; font-weight: 700;text-align: center;">INSTALLED</span>
+                                        </h6>
+                                    </div>
+                                    <div class="col-md-4 col-sm-4 col-xs-4 px-1">
+                                        <h6 class="text-center"
+                                            style="background: #3944d7; border-radius: 6px; padding: 3px 4px 7px 4px;">
+                                            <span style="font-size: 17px; font-weight: 700; text-align: center;">
+                                                234</span><br><span
+                                                style="font-size: 11px; font-weight: 700;text-align: center;">STOCK</span>
+                                        </h6>
+                                    </div>
+                                    <div class="col-md-4 col-sm-4 col-xs-4 px-1">
+                                        <h6 class="text-center"
+                                            style="background: #13a618; ;border-radius: 6px; padding: 3px 4px 7px 4px;">
+                                            <span style="font-size: 17px; font-weight: 700; text-align: center;">
+                                                234</span><br><span
+                                                style="font-size: 11px; font-weight: 700;text-align: center;">REPAIR</span>
+                                        </h6>
+                                    </div>
+                                </div>
+                                <hr style="margin: 10px 0px;">
+                                <div (click)="openviModal()" id="vichart" style="height: 100px;">
+
+                                </div>
+                                <!-- <div class="Info" ><i class="fa fa-info" style="padding: 3px 10px;"></i></div> -->
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class=" col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <div class="card widget2" style="background-color:  #f0f3ff;">
+                            <div class=" card-body px-0 pb-0">
+                                <span class="counta">1233</span>
+                                <div class="card-title">
+                                    <p class="" style="position: absolute; top:-25px; left: 4px; font-size: 13px;
+                                 font-weight: 700;">AIS-140</p>
+                                </div>
+                                <div class="row mt-3 mx-1">
+                                    <div class="col-md-4 col-sm-4 col-xs-4 px-1">
+                                        <h6 class="text-center"
+                                            style="background: #13a618; ; border-radius: 6px; padding: 3px 4px 7px 4px;">
+                                            <span style="font-size: 17px; font-weight: 700; text-align: center;">
+                                                234</span><br><span
+                                                style="font-size: 11px; font-weight: 700;text-align: center;">INSTALLED</span>
+                                        </h6>
+                                    </div>
+                                    <div class="col-md-4 col-sm-4 col-xs-4 px-1">
+                                        <h6 class="text-center"
+                                            style="background: #3944d7; border-radius: 6px; padding: 3px 4px 7px 4px;">
+                                            <span style="font-size: 17px; font-weight: 700; text-align: center;">
+                                                234</span><br><span
+                                                style="font-size: 11px; font-weight: 700;text-align: center;">STOCK</span>
+                                        </h6>
+                                    </div>
+                                    <div class="col-md-4 col-sm-4 col-xs-4 px-1">
+                                        <h6 class="text-center"
+                                            style="background: #13a618; ;border-radius: 6px; padding: 3px 4px 7px 4px;">
+                                            <span style="font-size: 17px; font-weight: 700; text-align: center;">
+                                                234</span><br><span
+                                                style="font-size: 11px; font-weight: 700;text-align: center;">REPAIR</span>
+                                        </h6>
+                                    </div>
+                                </div>
+                                <hr style="margin: 10px 0px;">
+                                <div (click)="openviModal()" id="vichart" style="height: 100px;">
+
+                                </div>
+                                <!-- <div class="Info" ><i class="fa fa-info" style="padding: 3px 10px;"></i></div> -->
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row mt-4">
+                    <div class=" col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <div class="card widget2" style="background-color:  #f0f3ff;">
+                            <div class=" card-body px-0 pb-0">
+                                <span class="counta">1233</span>
+                                <div class="card-title">
+                                    <p  style="position: absolute; top:-25px; left: 4px; font-size: 13px;
+                                font-weight: 700;">PERSONNAL TRACKER</p>
+                                </div>
+
+
+                                <div class="row mt-3 mx-1">
+                                    <div class="col-md-4 col-sm-4 col-xs-4 px-1">
+                                        <h6 class="text-center"
+                                            style="background: #13a618; ; border-radius: 6px; padding: 3px 4px 7px 4px;">
+                                            <span style="font-size: 17px; font-weight: 700; text-align: center;">
+                                                234</span><br><span
+                                                style="font-size: 11px; font-weight: 700;text-align: center;">INSTALLED</span>
+                                        </h6>
+                                    </div>
+                                    <div class="col-md-4 col-sm-4 col-xs-4 px-1">
+                                        <h6 class="text-center"
+                                            style="background: #3944d7; border-radius: 6px; padding: 3px 4px 7px 4px;">
+                                            <span style="font-size: 17px; font-weight: 700; text-align: center;">
+                                                234</span><br><span
+                                                style="font-size: 11px; font-weight: 700;text-align: center;">STOCK</span>
+                                        </h6>
+                                    </div>
+                                    <div class="col-md-4 col-sm-4 col-xs-4 px-1">
+                                        <h6 class="text-center"
+                                            style="background: #13a618; ;border-radius: 6px; padding: 3px 4px 7px 4px;">
+                                            <span style="font-size: 17px; font-weight: 700; text-align: center;">
+                                                234</span><br><span
+                                                style="font-size: 11px; font-weight: 700;text-align: center;">REPAIR</span>
+                                        </h6>
+                                    </div>
+                                </div>
+                                <hr style="margin: 10px 0px;">
+                                <div (click)="openviModal()" id="vichart" style="height: 100px;">
+
+                                </div>
+                                <!-- <div class="Info" ><i class="fa fa-info" style="padding: 3px 10px;"></i></div> -->
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class=" col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <div class="card widget2" style="background-color:  #f4f3f0;">
+                            <div class=" card-body px-0 pb-0">
+                                <span class="counta">1233</span>
+                                <div class="card-title">
+                                    <p class="" style="position: absolute; top:-25px; left: 4px; font-size: 13px;
+                                 font-weight: 700;">STOCK TRACKER</p>
+                                </div>
+                                <div class="row mt-3 mx-1">
+                                    <div class="col-md-4 col-sm-4 col-xs-4 px-1">
+                                        <h6 class="text-center"
+                                            style="background: #13a618; ; border-radius: 6px; padding: 3px 4px 7px 4px;">
+                                            <span style="font-size: 17px; font-weight: 700; text-align: center;">
+                                                234</span><br><span
+                                                style="font-size: 11px; font-weight: 700;text-align: center;">INSTALLED</span>
+                                        </h6>
+                                    </div>
+                                    <div class="col-md-4 col-sm-4 col-xs-4 px-1">
+                                        <h6 class="text-center"
+                                            style="background: #3944d7; border-radius: 6px; padding: 3px 4px 7px 4px;">
+                                            <span style="font-size: 17px; font-weight: 700; text-align: center;">
+                                                234</span><br><span
+                                                style="font-size: 11px; font-weight: 700;text-align: center;">STOCK</span>
+                                        </h6>
+                                    </div>
+                                    <div class="col-md-4 col-sm-4 col-xs-4 px-1">
+                                        <h6 class="text-center"
+                                            style="background: #13a618; ;border-radius: 6px; padding: 3px 4px 7px 4px;">
+                                            <span style="font-size: 17px; font-weight: 700; text-align: center;">
+                                                234</span><br><span
+                                                style="font-size: 11px; font-weight: 700;text-align: center;">REPAIR</span>
+                                        </h6>
+                                    </div>
+                                </div>
+                                <hr style="margin: 10px 0px;">
+                                <div (click)="openviModal()" id="vichart" style="height: 100px;">
+
+                                </div>
+                                <!-- <div class="Info" ><i class="fa fa-info" style="padding: 3px 10px;"></i></div> -->
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </fieldset>
+        </div>
+
+
+    </div>
+
+</div>
+
+
+<!-- The vi Modal -->
+<div class="modal fade" id="myviModal">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header pb-4">
+                <h4 class="modal-title" style="font-size: 14px;">Sim summary(Vi)</h4>
+                <select class="form-control" style="width: 130px; position: absolute; right: 55px;">
+                    <option>Today</option>
+                    <option>This Week</option>
+                    <option>This month</option>
+                </select>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div id="vichartmodal"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- The vi Modal end -->
+
+
+<!--the airtel model-->
+<div class="modal fade" id="myairtelModal">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header p-0">
+                <h4 class="modal-title">Modal Heading</h4>
+                <select class="form-control" style="width: 130px; position: absolute; right: 55px;">
+                    <option>Today</option>
+                    <option>This Week</option>
+                    <option>This month</option>
+                </select>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div id="airtelchartmodal"></div>
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+<!--the airtel model end-->
+
+
+<!--the bsnl model-->
+<div class="modal fade" id="mybsnlModal">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header p-0">
+                <h4 class="modal-title">Modal Heading</h4>
+                <select class="form-control" style="width: 130px; position: absolute; right: 55px;">
+                    <option>Today</option>
+                    <option>This Week</option>
+                    <option>This month</option>
+                </select>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div id="bsnlchartmodal" style="width: 100%;height:300px;"></div>
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+<!--the bsnl model end-->

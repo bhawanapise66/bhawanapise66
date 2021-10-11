@@ -1,0 +1,378 @@
+<!--
+Developer 	: Kanchan
+Date      	: 18-09-2020
+Description :  Module
+Modified By:  
+Update date : 
+-->
+<div class="content shadow-sm">
+  <!-- Main container starts -->
+  <div class="container-fluid main-container" id="main-container">
+    <div class="row">
+      <div class="col-12 col-md-12 col-lg-12 col-xl-12 mx-auto align-self-center">
+        <div class="card shadow-sm border-0 mb-4">
+          <div class="card-header" style="padding-top: 0; padding-bottom: 0; background-color: black;color: white;">
+
+            <!-- <img src="../assets/img/logoicon.svg" alt="" class="w-50px mt-4"> -->
+            <h4 class="text-left m-1"><i class="material-icons md-18">grid_on</i>&nbsp;Device
+              <span class="text-template-primary" style=" color: #00ed53;">Master</span>
+              <button type="button" class="btn btn-sm ml-2 float-right"
+                style="margin-right: 33px; background-color: #91ffeb;" data-toggle="modal"
+                data-target="#bulkexampleModal">
+                BULK ENTRY
+                <i class="material-icons md-18">file_upload</i>
+              </button>
+              <button type="button" class="btn btn-sm ml-2 float-right"
+                style="margin-right: 0px; background-color: #b0ff59;" data-toggle="modal" data-target="#exampleModal">
+                ADD NEW
+                <i class="material-icons md-18">navigate_next</i>
+              </button>
+
+            </h4>
+
+          </div>
+          <div class="card-body">
+            <div class="row justify-content-center">
+              <div class="col-md-12 mx-auto">
+                <div class="row">
+                  <div class="col-lg-12 col-md-12">
+                    <!-- <button type="button" class="btn btn-primary float-left" data-toggle="modal" >
+                        ADD NEW
+                      </button> -->
+
+                  </div>
+                </div>
+
+                <div class="container-fluid main-container" id="main-container">
+                  <!-- <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-header border-0 bg-none">
+
+                    </div>
+
+                  </div> -->
+                  <!-- <div class="row">
+                    <form class="form-inline search col-auto align-self-center px-0">
+                      <input class="form-control form-control-md" type="search" placeholder="Search" aria-label="Search">
+                      <button class="btn btn-link btn-sm" type="submit">
+                        <i class="material-icons">search</i>
+                      </button>
+                    </form>
+                    <div class="col-sm-1">
+                       <button type="button" class="mb-0 mr-0 btn-rounded-circle shadow btn btn-sm btn-outline-template fa-spin-hover:hover">
+                        <i class="material-icons">loop</i>
+                      </button> --
+                     
+                    </div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <i class="fa fa-refresh fa-2x fa-spin-hover" style="padding-top: 5px;"></i> &nbsp; &nbsp;
+                    <span style="padding-top: 10px;">Show Rows: </span>&nbsp; &nbsp;
+
+                    <div style="padding-top: 2px;">
+                      <select class="form-control" data-live-search="true" tabindex="1" aria-hidden="true" style=" font-size:12px ">
+                        <option value="5" selected>5</option>
+                        <option value="5">5</option>
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="50">50</option>
+                      </select>
+                    </div>
+                    <div class="col-sm-2" style="padding-top: 10px;">
+                      Total Records&nbsp;&nbsp;:&nbsp;&nbsp;5&nbsp;/&nbsp;10
+                    </div>
+                    <div class="col-auto align-self-center">
+                      <div class="btn-group" role="group" ngbDropdown>
+                        <button id="btnGroupDrop1" type="button" class="btn btn-sm btn-outline-template ml-2 dropdown-toggle active " ngbDropdownToggle>
+                          <i class="material-icons md-18">cloud_download</i> Export
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="btnGroupDrop1" ngbDropdownMenu>
+
+                          <button type="button" class="btn btn-link" data-toggle="modal" data-target="#">
+                            <i class="material-icons md-18">picture_as_pdf</i>
+                            PDF
+                          </button>
+                          <br>
+
+                          <button type="button" class="btn btn-link" data-toggle="modal" data-target="#">
+                            <i class="material-icons md-18">import_export</i> Excel
+                          </button>
+                          <br>
+
+                        </div>
+                      </div>
+                       <button class="btn btn-sm btn-outline-template ml-2"> 
+                     
+                      
+                    </button> --
+
+                    </div>
+
+                  </div> -->
+
+                  <div class="col-md-12">
+                    <div class="row">
+                      <div class="col-md-3">
+                        <div class="input-group">
+                          <input type="text" placeholder="Search" class="form-control searchicon "
+                            aria-label="Amount (to the nearest dollar)" [(ngModel)]="filter">
+                          <div class="input-group-append">
+                            <span class="input-group-text apendbtn"><i style="color: #00ed53" class="fa fa-search"></i>
+                            </span>
+                          </div>
+                        </div>
+                      </div>&nbsp; <i class="fa fa-refresh fa-2x fa-spin-hover" style="font-size: 17px;
+                          padding-top: 4px; color: #effc2d;"></i>
+                      <div class="col-md-1">
+
+                      </div>
+                      <div class="col">
+                        <!-- <i class="fa fa-file-pdf-o" style="font-size:26.5px;color:rgb(250, 77, 77)"></i>&nbsp; -->
+                        <!-- &nbsp; <button type="submit" class="btn btn-sm" style="background-color:white; float: right;"><img src="assets/images/pdflogo.png"></button> &nbsp; 
+                           &nbsp; <i  class="fa fa-file-excel-o"  aria-hidden="true" style="font-size:26.5px; float: right; padding-right: 10px;  color:rgb(109, 255, 109) "></i> &nbsp; -->
+                      </div>
+                      <!-- <i class="fa fa-refresh fa-2x fa-spin-hover" style="padding-top: 2px;"></i>   -->
+
+                      <div class="col-md-4">
+                        <div class="row">
+                          <div class="col-md-3" style=" float: right;">
+                            <button style="    font-size: 11px; background-color: #f6f5f5; color: tomato;
+                                  font-weight: bold; border: 2px groove tomato; "><i
+                                style="font-size:15.5px;color:rgb(250, 77, 77) " class="fa fa-file-pdf-o"></i></button>
+                          </div>
+                          <div class="col-md-3" style=" float: left; margin-left: -10%;">
+                            <button style=" font-size: 11px; background-color: #f6f5f5; color: rgb(63 143 2);
+                                 font-weight: bold; border: 2px groove rgb(139 255 52); "
+                              (click)="DeviceExcelDetail();"><i style="font-size: 15.5px; color: rgb(46 155 19);"
+                                class="fa fa-file-excel-o"></i></button>
+                            <!-- <img style="float: right; cursor: pointer; height: 20px; margin-top: 3px;" ngbTooltip="PDF" src="assets/images/images.jpg"> -->
+                            <!-- <img style="cursor: pointer;" ngbTooltip="Excel" src="assets/images/excellogo.png"> -->
+                          </div>
+                          <div class="col-md-1">
+                            <span style="padding-top: 0px; font-size: 12px;
+                          font-weight: bold; float: right;">Rows: </span> </div>
+
+                          <div class="col-md-2">
+                            <div style="padding-top: 2px; width: 45px; margin-left: -70%;">
+                              <select class="form-control" data-live-search="true" tabindex="1"
+                                [(ngModel)]="selectRowsText" id="selectrow"  aria-hidden="true"
+                                style=" font-size:12px">
+                                <option value="5" selected>5</option>
+                                <option value="5">5</option>
+                                <option value="10">10</option>
+                                <option value="20">20</option>
+                                <option value="50">50</option>
+                              </select>
+
+                            </div>
+                          </div>
+                          <div class="col-md-5" style="text-align: right; font-size: 12px; margin-left: -10%;
+                          font-weight: bold;">
+
+                            <span>Total&nbsp;Records&nbsp;:&nbsp;{{outorec}}&nbsp;/&nbsp;{{totrec}} </span>
+                          </div>
+
+                        </div>
+
+                      </div>
+
+                      <div class="card-body table-responsive">
+                        <table class="table table-hover table-striped">
+                          <thead style="background-color: black; font-size: 9px;">
+                            <tr>
+                              <th (click)="sort('rowNumber')">#</th>
+                              <th>Device</th>
+                              <th>Vendor</th>
+                              <th>Model</th>
+                              <th>IMEI No.</th>
+                              <th>Mobile No.</th>
+                              <!-- <th>Action</th> -->
+                            </tr>
+                          </thead>
+                          <tbody id="grid">
+                            <tr
+                              *ngFor="let dev of devdetail$ | filter:filter | orderBy: key : reverse | paginate: { itemsPerPage: pagecount, currentPage: p, totalItems: totrec} ;"
+                              style=" padding: 0.35rem 0.5rem;">
+                              <td style=" padding: 0.35rem 0.5rem;">{{dev.rowNumber}}</td>
+                              <td style=" padding: 0.35rem 0.5rem;">{{dev.param12}}</td>
+                              <td style=" padding: 0.35rem 0.5rem;">{{dev.param15}}</td>
+                              <td style=" padding: 0.35rem 0.5rem;">{{dev.param14}}</td>
+                              <td style=" padding: 0.35rem 0.5rem;">{{dev.param4}}</td>
+                              <td style=" padding: 0.35rem 0.5rem;">{{dev.param7}}</td>
+                              <!-- <td>
+                            <span class="iconhover" data-toggle="modal" data-target="#myModalwizard"  (click)="setdata(com)">
+                              <i class="material-icons" style="color: white">visibility</i>
+                            </span>
+                          </td> -->
+                            </tr>
+                          </tbody>
+                          <tfoot id="foot">
+                            <tr>
+                              <td colspan="8">
+                                <pagination-controls style=" float: right;" (pageChange)="pageChanged($event)">
+                                </pagination-controls> <!-- (pageChange)="pageChanged($event)"  -->
+                              </td>
+                            </tr>
+                          </tfoot>
+                        </table>
+                        <!--Dummy Table of Excel -->
+                        <div style=" display: none;">
+                          <div class="row" id="PDFTableactive" style=" height : 480px; overflow-y: hidden; " #epltable>
+                            <table id="dtBasicExample" class="table table-striped table-bordered table-responsive"
+                              width="100%"
+                              style="font-size: 11px; text-align: center; color:black; border-collapse:collapse; ">
+                              <thead>
+                                <tr>
+                                  <th>#</th>
+                                  <th>Device</th>
+                                  <th>Vendor</th>
+                                  <th>Model</th>
+                                  <th>IMEI No.</th>
+                                  <th>Mobile No.</th>
+                                  <!-- <th>Action</th> -->
+                                </tr>
+                              </thead>
+                              <tbody id="grid">
+                                <tr *ngFor="let dev of devdetail$" style=" padding: 0.35rem 0.5rem;">
+                                  <td style=" padding: 0.35rem 0.5rem;">{{dev.rowNumber}}</td>
+                                  <td style=" padding: 0.35rem 0.5rem;">{{dev.param12}}</td>
+                                  <td style=" padding: 0.35rem 0.5rem;">{{dev.param15}}</td>
+                                  <td style=" padding: 0.35rem 0.5rem;">{{dev.param14}}</td>
+                                  <td style=" padding: 0.35rem 0.5rem;">{{dev.param4}}</td>
+                                  <td style=" padding: 0.35rem 0.5rem;">{{dev.param7}}</td>
+                                  <!-- <td>
+                                <span class="iconhover" data-toggle="modal" data-target="#myModalwizard"  (click)="setdata(com)">
+                                  <i class="material-icons" style="color: white">visibility</i>
+                                </span>
+                              </td> -->
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                        <!-- <div class="float-right mt-3">
+                      <ngb-pagination [collectionSize]="50" [(page)]="paginationSize" size="sm"></ngb-pagination>
+                    </div> -->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ------------------ Delete Model Start ------------------------>
+
+    <!-- Delete Model-->
+    <div class="modal fade" id="modeldelete">
+      <div class="modal-dialog modal-sm modal-dialog-centered">
+        <div class="modal-content">
+
+          <!-- Modal Header -->
+          <div class="modal-header" style="background-color: 	#FF7F50;">
+            <h4 class="modal-title text-center" style="color: rgb(236, 253, 80)">Are You Sure?</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+
+          <!-- Modal body -->
+          <div class="modal-body">
+
+            <div class="form-group row">
+
+
+              <div class="col-lg-12 col-md-12">
+                <label class="indlabel">Remark</label>&nbsp;
+                <span class="indlabelstar">*</span>
+                <textarea class="form-control" rows="2" style=" font-size:12px" placeholder="Enter Remark" tabindex="1"
+                  minlength="10" maxlength="40" [(ngModel)]="deleteText" #regaddress="ngModel"></textarea>
+                <div class="invalidmsg" *ngIf="regaddress.errors?.minlength">
+                  Remark must be at least minimum 10 characters & maximum 40 characters long.
+                </div>
+              </div>
+            </div>
+            <p style=" background-color: rgb(236, 253, 80);">Do You want to Delete !!&hellip;</p>
+          </div>
+
+          <!-- Modal footer -->
+          <div class="modal-footer text-center">
+            <button type="submit" class="btndel btn-primary mr-3" data-toggle="modal" data-target="#Noclickmodel"
+              data-dismiss="modal" tabindex="18" >
+              No
+            </button>
+            <button type="reset" tabindex="19" class="btndel btn-danger " data-toggle="modal"
+              data-target="#Yesclickmodel" data-dismiss="modal" >
+              Yes
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <!-- Delete Model -->
+
+    <!-- ------------------- Delete model End ----------------------- -->
+
+    <!-- ------------------- onclick no btn model  ----------------------- -->
+    <!-- The Modal -->
+    <div class="modal fade" id="Noclickmodel">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-contentno">
+
+          <!-- Modal Header -->
+          <div class="modal-header" style="background-color: 	rgb(255, 255, 255);">
+            <h4 class="modal-title text-center" style="color: rgb(0, 0, 0)">Your Data is not Delete</h4>
+            <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+          </div>
+
+          <!-- Modal body -->
+          <!-- <div class="modal-body">
+          Your Data is Not delete..
+        </div> -->
+
+          <!-- Modal footer -->
+          <div class="modal-footer" style="background-color: 	rgb(255, 255, 255);">
+            <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal"><span class="material-icons">
+                highlight_off
+              </span></button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ------------------- onclick no btn model End ----------------------- -->
+    <!-- ------------------- onclick Yes btn model ----------------------- -->
+
+    <div class="modal fade" id="Yesclickmodel">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-contentno">
+
+          <!-- Modal Header -->
+          <div class="modal-header" style="background-color: 	rgb(255, 255, 255);">
+            <h4 class="modal-title text-center" style="color: rgb(0, 0, 0)">Data Deleted Successfully</h4>
+            <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+          </div>
+
+          <!-- Modal body -->
+          <!-- <div class="modal-body">
+          Your Data is Not delete..
+        </div> -->
+
+          <!-- Modal footer -->
+          <div class="modal-footer" style="background-color: 	rgb(255, 255, 255);">
+            <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal"><span class="material-icons">
+                highlight_off
+              </span></button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ------------------- onclick yes btn model End ----------------------- -->
+
+
+    <app-bulkentry></app-bulkentry>
+<app-device-new-entry></app-device-new-entry>

@@ -1,0 +1,750 @@
+<!--
+Developer 	: Dhammadeep Dahiwale
+Date      	: 20-ar-2021
+Description :company employee entry
+Modified By:  
+Update date : 
+-->
+<div class="content shadow-sm">
+  <!-- Main container starts -->
+  <div class="container-fluid main-container" id="main-container">
+    <div class="row">
+      <div class="col-12 col-md-12 col-lg-12 col-xl-12 mx-auto align-self-center">
+        <div class="card shadow-sm border-0 mb-4">
+          <div class="card-header" style="padding-top: 0; padding-bottom: 0">
+
+            <!-- <img src="../assets/img/logoicon.svg" alt="" class="w-50px mt-4"> -->
+            <h4 class="text-left m-1" style="font-size: 15px;">Company Employee
+              <span class="text-template-primary" style="color: #00ed54">Master</span>
+              <button type="button" class="btn btn-sm btn-primaryyel ml-2 float-right"
+                style="margin-right: 15px; background-color: #f6c53b; font-size: 12px;" data-toggle="modal"
+                data-target="#exampleModal" id="addnewemp">
+                ADD NEW
+                <i class="material-icons md-18">navigate_next</i>
+
+              </button>
+              <button type="button" class="btn btn-sm ml-2 float-right"
+                style="margin-right: 0px; background-color: #b0ff59;" [routerLink]="['/companyEmployeebulkupload']" id="bulkadd">
+                Bulk Entry
+                <i class="material-icons md-18">navigate_next</i>
+              </button>
+            </h4>
+
+          </div>
+          <div class="card-body" style="padding: 5px;">
+            <div class="row justify-content-center">
+              <div class="col-md-12 mx-auto">
+                <div class="row">
+                  <div class="col-lg-12 col-md-12">
+                    <!-- <button type="button" class="btn btn-primary float-left" data-toggle="modal" >
+                          ADD NEW
+                        </button> -->
+
+                  </div>
+                </div>
+
+                <div class="container-fluid main-container" id="main-container">
+
+                  <!--    ---------------        Table Header Staret=------------------------    -->
+                  <div class="row  mx-1">
+                    <div class="col-12 col-sm-12 col-md text-md-left align-self-center pr-0">
+                      <ul class="nav  justify-sm-content-center  justify-content-left">
+                        <li class="nav-item ">
+                          <div class="input-group" style="max-width: 250px;">
+                            <input type="text" placeholder="Search" id="searchData" class="form-control searchicon"
+                              id="searchData" [(ngModel)]="filter" aria-label="Amount (to the nearest dollar)">
+                            <div class="input-group-append">
+                              <button class="btn  apendbtn" (click)="searchdata()">
+                                <i style="color: #00ed54; margin-top: -15px;" class="fa fa-search"></i>
+                              </button>
+                            </div>
+                          </div>
+                        </li>
+                        <li class="nav-item mx-3">
+                          <i class="fa fa-refresh fa-2x fa-spin-hover"
+                            style="font-size: 17px;padding-top: 4px;color: #00fff3;"
+                            (click)="sort('param2');Refreshfunction();"></i>
+                        </li>
+                      </ul>
+                    </div>
+
+                    <div class="col-12 col-sm-12 col-md-auto text-right text-md-end pl-0">
+                      <ul class="nav justify-content-center justify-lg-content-end  justify-sm-content-center">
+                        <li class="nav-item mx-2">
+                          <img style="cursor: pointer; height: 20px; margin-top: 3px;" (click)="createPDF()"
+                            ngbTooltip="PDF" src="assets/images/PDFicon.png">
+                        </li>
+                        <li class="nav-item mx-2">
+                          <img style="cursor: pointer;" (click)="exportToExcel()" ngbTooltip="Excel"
+                            src="assets/images/excellogo.png">
+                        </li>
+                        <li class="nav-item mx-3">
+                          <span style="display: inline;font-size:12px;font-weight :bold;">Show Rows : </span>
+                          <select class="form-control p-1" style="width: 44px;display: inline;" ata-live-search="true"
+                            tabindex="1" [(ngModel)]="itemsPerPage" id="selectrow1" aria-hidden="true"
+                            (change)="CompanyEmpDetails()">
+                            <option value="5">5</option>
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="50">50</option>
+                          </select>
+                        </li>
+                        <li class="nav-item pt-1">
+                          <span style="font-size:12px;font-weight: bold;">Total Records : {{viewcount}} of
+                            {{totalcount}}</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <!-- ---------------------  Table header end  ------------------------------ -->
+
+
+                  <div id="PDFTable" class="card-body table-responsive" #epltable>
+                    <table class="table table-hover table-striped">
+                      <thead>
+                        <tr role="row">
+                          <th (click)="sort('rowNumber')">#</th>
+                          <th (click)="sort('param2')">Employee Name</th>
+                          <th (click)="sort('param4')">Mobile No</th>
+                          <th (click)="sort('param26')">Email</th>
+                          <th (click)="sort('param26')">Department</th>
+                          <th (click)="sort('param10')">Address</th>
+                          <th style="background-color: #99c049; text-align: center;">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody id="grid">
+                        <tr
+                          *ngFor="let com of companyEmpGrid |  filter:filter | orderBy: key : !reverse | paginate : {itemsPerPage:itemsPerPage,currentPage:pageNumber,totalItems:totalcount} ;"
+                          class="trheight">
+                          <td>{{com.rowNumber}}</td>
+                          <td>{{com.param2}}</td>
+                          <td>{{com.param4}}</td>
+                          <td>{{com.param24}}</td>
+                          <td>{{com.param22}} </td>
+                          <td>{{com.param10}}</td>
+                          <td [ngStyle]="{'background-color':com.altColor}" class="viewbtncss">
+                            <span class="iconhover" data-toggle="modal" data-target="#myModalwizard"
+                              (click)="setdata(com)">
+                              <i class="material-icons" style="color: #161e43">visibility</i>
+                            </span>
+                          </td>
+                        </tr>
+                      </tbody>
+                      <tfoot id="foot" class="box-footer clearfix">
+                        <tr>
+                          <td colspan="12">
+                            <pagination-controls style=" float: right;" (pageChange)="employeerpageChanged($event)">
+                            </pagination-controls>
+                          </td>
+                        </tr>
+                      </tfoot>
+                    </table>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- --------------------  view & Edit Modal start------------------------>
+
+<div class="modal fade " id="myModalwizard" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-lg ">
+    <div class="modal-content ">
+
+      <!-- Modal Header -->
+      <div class="modal-header modelcolor">
+        <h5 class="modal-title" id="vmd" style="display: block;">Employee Details</h5>
+        <h5 class="modal-title" id="uvmd" style="display: none;">Update Employee</h5>
+        <div style="float:right; margin-left: 59%;">
+          <button type="button" class=" btn btn-sm btn-secondary float-right ml-2 bg-warning" style="display: block;"
+            id="editbtn" ngbTooltip="Edit" (click)="editpageform()">
+
+            <i class="material-icons md-18">edit</i>
+          </button>
+          <button type="button" class=" btn btn-sm btn-danger float-right ml-2" id="deletebtn" ngbTooltip="Delete"
+            data-toggle="modal" data-target="#modeldelete">
+
+            <i class="material-icons md-18">delete</i>
+          </button>
+          <button type="button" class=" btn btn-sm btn-primary float-right ml-2" id="backdetailsbtn" ngbTooltip="Back"
+            style="display: none;" (click)="backdetailsbtn()">
+
+            <i class="material-icons md-18">arrow_back</i>
+          </button>
+        </div>
+        <button type="button" style="color: white" class="close" data-dismiss="modal" (click)="clearfunction();">&times;</button>
+      </div>
+
+
+      <!-- Modal body -->
+      <div class="modal-body " style=" background-color: #CBD2F1;">
+        <div class="container">
+          <div class="">
+            <div id="container" style="display: none;">
+              <div class="step-wizard" role="navigation">
+                <div class="progress">
+                  <div class="progressbar empty"></div>
+                  <div id="prog" class="progressbar"></div>
+                </div>
+                <ul>
+                  <li class="active">
+                    <button id="step1">
+                      <div class="step">1</div>
+                      <div class="title">Basic Details</div>
+                    </button>
+                  </li>
+                  <li class="">
+                    <button id="step2">
+                      <div class="step">2</div>
+                      <div class="title">Professional Details</div>
+                    </button>
+                  </li>
+                  <li class="">
+                    <button id="step3">
+                      <div class="step">3</div>
+                      <div class="title">Bank Details</div>
+                    </button>
+                  </li>
+                  <!-- <li class="">
+                      <button id="step4"> 
+                        <div class="step">4</div>
+                        <div class="title">Successful</div>
+                      </button>
+                    </li> -->
+                </ul>
+
+
+                <div class="stepsection">
+                  <span class="invalidmsg" id="msg_mainmessage"></span>
+                  <div id="step-14" class="stepsdiv">
+
+                    <div class="form-group row">
+                      <div class="col-lg-4 col-md-4">
+                        <label class="indlabel">Employee Name</label>
+                        <span class="mandatory">*</span>
+                        <input type="text" class="form-control" placeholder="Enter Employee name" tabindex="1" required
+                          minlength="3" maxlength="30" id="employeeNameupdate" onpaste="return false;"
+                          [(ngModel)]="empName" #employeename="ngModel" onkeypress="return onlyAlphabets(event);"
+                          ondrop="return false;">
+
+                      </div>
+
+                      <div class="col-lg-4 col-md-4">
+                        <label class="indlabel">Mobile No.</label>
+                        <span class="mandatory">*</span>
+                        <input type="text" class="form-control" placeholder="Enter Mobile No" tabindex="5" required
+                          minlength="10" maxlength="12" [(ngModel)]="empMobile" #officialnonew="ngModel"
+                          id="officialNoupdate" onkeypress="return isNumberKey(event)">
+                        <div class="invalidmsg" *ngIf="officialnonew.errors?.minlength">
+                          Official number must 10 or 12 digits
+                        </div>
+                      </div>
+                      <div class="col-lg-4 col-md-4">
+                        <label class="indlabel">Email Id.</label>
+                        <span class="mandatory">*</span>
+                        <input type="email" class="form-control" placeholder="Enter Email Address" tabindex="5" required
+                          minlength="13" maxlength="30" [(ngModel)]="empEmail" #officialemailnew="ngModel"
+                          id="officialEmailupdate">
+                        <div class="invalidmsg" *ngIf="officialemailnew.errors?.minlength">
+                          EmailID must be at least minimum 13 characters & maximum 30 characters long.
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <div class="col-lg-5 col-md-5">
+                        <label class="indlabel">Per. Addres</label>
+                        <span class="mandatory">*</span>
+                        <textarea class="form-control" rows="2" style=" font-size:12px"
+                          placeholder="Enter Registration Address." tabindex="12" minlength="5" maxlength="30"
+                          [(ngModel)]="empAddress" #regaddressnew="ngModel" id="regaddressupdate"></textarea>
+                        <div class="invalidmsg" *ngIf="regaddressnew.errors?.minlength">
+                          Registered Address must be at least minimum 5 characters & maximum 30 characters long.
+                        </div>
+                        <span class="invalidmsg" id="msg_regaddentry"></span>
+                      </div>
+                      <div class="col-lg-5 col-md-5">
+                        <label class="indlabel">Cor. Addres</label>
+                        &nbsp; <input type="checkbox" name="" id="" [(ngModel)]="isChecked"
+                          (change)="AddressSelection()">
+                        <label class="indlabel">Copy</label>
+                        <textarea class="form-control" rows="2" style=" font-size:12px"
+                          placeholder="Enter Registration Address." tabindex="12" minlength="5" maxlength="30"
+                          [(ngModel)]="corrAddress" #regaddressnew="ngModel" id="corrospondaddressentry"></textarea>
+                        <div class="invalidmsg" *ngIf="regaddressnew.errors?.minlength">
+                          Registered Address must be at least minimum 5 characters & maximum 30 characters long.
+                        </div>
+                        <span class="invalidmsg" id="msg_regaddentry"></span>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <div class="col-lg-4 col-md-4">
+                        <label class="indlabel">State</label>
+                        <span class="mandatory">*</span>
+
+                        <ngx-select-dropdown tabindex="0" id="stateentry" [multiple]="false" [(ngModel)]="empState"
+                          [config]="config" [options]="statelistarr" (change)="getStateId1();getStateId();">
+                        </ngx-select-dropdown>
+
+                        <span class="invalidmsg" id="msg_vendorName"></span>
+                        <div style="display: none;">
+                          <input type="text" class="form-control" placeholder="Enter Device IMEI No" tabindex="1"
+                            required minlength="3" maxlength="50" id="statedummyupdate" onpaste="return false;"
+                            [(ngModel)]="selectstatereturn1" #vendornm="ngModel" ondrop="return false;">
+                        </div>
+                      </div>
+
+                      <div class="col-lg-4 col-md-4">
+                        <label class="indlabel">City</label>
+                        <span class="mandatory">*</span>
+
+                        <ngx-select-dropdown tabindex="0" id="cityentry" [multiple]="false" [(ngModel)]="empCity"
+                          [config]="config" [options]="citylistarr" (change)="getCityId()"></ngx-select-dropdown>
+
+                        <span class="invalidmsg" id="msg_vendorName"></span>
+                        <div class="col-lg-4 col-md-4" style="display: none;">
+                          <input type="text" class="form-control" placeholder="Enter Device IMEI No" tabindex="1"
+                            required minlength="3" maxlength="30" id="citydummyupdate" onpaste="return false;"
+                            [(ngModel)]="selectcityreturn1" #vendornm="ngModel"
+                            onkeypress="return onlyAlphabets(event);" ondrop="return false;">
+                        </div>
+                      </div>
+
+                      <div class="col-lg-4 col-md-4">
+                        <label class="indlabel">Pin Code No.</label>&nbsp;
+                        <!-- <span class="mandatory">*</span> -->
+                        <input type="text" class="form-control" style=" font-size:12px" placeholder="Enter Pincode No."
+                          tabindex="15 " minlength="3" maxlength="6" [(ngModel)]="empPincode" id="pincodenoupdate"
+                          #pincodenoid="ngModel" onkeypress="return isNumberKey(event)">
+                        <div class="invalidmsg" *ngIf="pincodenoid.errors?.minlength">
+                          Official number must be at least minimum 10 characters & maximum 12 characters long.
+                        </div>
+                        <span class="invalidmsg" id="msg_pincode" style="position: absolute;bottom:5px;"></span>
+                      </div>
+
+                    </div>
+                    <span class="invalidmsg" id="msg_error"></span>
+                  </div>
+                  <div id="step-15" class="stepsdiv">
+                    <div class="form-group row">
+                      <div class="col-lg-4 col-md-4">
+                        <label class="indlabel">Department</label>
+                        <span class="mandatory">*</span>
+                        <ngx-select-dropdown tabindex="0" id="Departmentupdate" [multiple]="false" [(ngModel)]="empDept"
+                          [config]="config" [options]="departmentlistarr" (change)="getDeptId()">
+                        </ngx-select-dropdown>
+
+                        <div style="display: none;">
+                          <input type="text" class="form-control" id="deptUpdate" [(ngModel)]="selectdeptreturn">
+                        </div>
+                      </div>
+
+                      <div class="col-lg-4 col-md-4">
+                        <label class="indlabel">Designation</label>
+                        <span class="mandatory">*</span>
+
+                        <ngx-select-dropdown tabindex="0" id="Designationupdate" [multiple]="false"
+                          [(ngModel)]="empDesignation" [config]="config" [options]="designationlistarr"
+                          (change)="getDesignationId()"></ngx-select-dropdown>
+
+
+                        <div style="display: none;">
+                          <input type="text" class="form-control" id="designationUpdate"
+                            [(ngModel)]="selectdesignationreturn">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+
+                    </div>
+                    <span class="invalidmsg" id="msg_error_contact" style="position: absolute;bottom:20px;"></span>
+                  </div>
+
+                  <div id="step-16" class="stepsdiv">
+
+                    <div class="form-group row">
+
+                      <div class="col-lg-5 col-md-5">
+                        <label class="indlabel">Bank Name</label>
+                        <input type="text" name="bankname" [(ngModel)]="bankName" id="bankNameupdate"
+                          class="form-control mb-3">
+                      </div>
+
+                      <div class="col-lg-5 col-md-5">
+                        <label class="indlabel">Account Number</label>
+                        <input type="text" name="accountNumber" [(ngModel)]="accNo" id="bankAccountupdate"
+                          class="form-control mb-3">
+                      </div>
+                      <div class="col-lg-5 col-md-5">
+                        <label class="indlabel">IFSC Code</label>
+                        <input type="text" name="ifscCode" [(ngModel)]="ifcsCode" id="ifscCodeUpdate"
+                          class="form-control mb-3">
+                      </div>
+
+                      <div class="col-lg-5 col-md-5">
+                        <label class="indlabel">Bank Address</label>
+                        <textarea type="text" name="ifscCode" [(ngModel)]="bankAddress" id="bankaddressUpdate"
+                          class="form-control mb-3"></textarea>
+                      </div>
+
+                      <div class="col-lg-4 col-md-4">
+                        <label class="indlabel">Bank State</label>
+                        <ngx-select-dropdown id="BankStateUpdate" [multiple]="false" [(ngModel)]="bankState"
+                          [config]="config" [options]="statelistarr" (change)="getIdState();getBankStateId1();">
+                        </ngx-select-dropdown>
+                        <span class="invalidmsg" id="msg_vendorName"></span>
+
+                        <div style="display: none;">
+                          <input type="text" name="bankStateUpdate1" [(ngModel)]="statebank" id="bankstateencidupdate">
+                        </div>
+                      </div>
+                      <div class="col-lg-4 col-md-4">
+                        <label class="indlabel">Bank City</label>
+                        <ngx-select-dropdown id="BankCityUpdate" [multiple]="false" [(ngModel)]="bankCity"
+                          [config]="config" [options]="bankcitylistarr" (change)="getBankCityId1()">
+                        </ngx-select-dropdown>
+
+                        <span class="invalidmsg" id="msg_vendorName"></span>
+
+                        <div style="display: none;">
+                          <input type="text" name="bankCityUpdate1" [(ngModel)]="citybank" id="bankcityencidupdate">
+                        </div>
+                      </div>
+
+                    </div>
+
+                    <br><br>
+                    <span class="invalidmsg" id="msg_error_loginentry" style="position: absolute;bottom: 20px;"></span>
+                  </div>
+
+
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- --------------------------------------------- View Section ------------------------------------------- -->
+          <div class="">
+            <div id="vendordtls" class="row" style="background-color: #0e2145; border: 1px ridge #02108d;">
+              <div class="col-12 col-md-12 col-lg-12">
+
+                <div class="row" style="background-color: rgb(198 201 202);">
+                  <div class="col-12 col-md-12 col-lg-12">
+                    <div class="viewheading">Basic Details</div>
+                  </div>
+                </div>
+                <br>
+
+                <div class="row">
+                  <div class="col-12 col-md-12 col-lg-12">
+                    <div class="col-4 col-md-4 col-lg-4" style=" float: left;">
+                      <span class="caplable">Employee Name: </span>&nbsp;
+                      <span class="viewlable"> {{empName}} </span>
+                    </div>
+                    <div class="col-4 col-md-4 col-lg-4" style=" float: left;">
+                      <span class="caplable">Mobile No: </span>&nbsp;
+                      <span class="viewlable">{{empMobile}}</span>
+                    </div>
+                    <div class="col-4 col-md-4 col-lg-4" style=" float: left;">
+                      <span class="caplable">Email: </span>&nbsp;
+                      <span class="viewlable">{{empEmail}}</span>
+                    </div>
+
+
+                  </div>
+                  <div class="col-12 col-md-12 col-lg-12">
+
+                    <div class="col-4 col-md-4 col-lg-4" style=" float: left;">
+                      <span class="caplable">State: </span>&nbsp;
+                      <span class="viewlable"> {{empState}} </span>
+                    </div>
+                    <div class="col-4 col-md-4 col-lg-4" style=" float: left;">
+                      <span class="caplable">City: </span>&nbsp;
+                      <span class="viewlable"> {{empCity}} </span>
+                    </div>
+                    <div class="col-4 col-md-4 col-lg-4" style=" float: left;">
+                      <span class="caplable">PinCode No.: </span>&nbsp;
+                      <span class="viewlable"> {{empPincode}}</span>
+                    </div>
+
+
+                  </div>
+                  <div class="col-12 col-md-12 col-lg-12">
+
+                    <div class="col-01 col-md-10 col-lg-10" style=" float: left;">
+                      <span class="caplable">Address: </span>&nbsp;
+                      <span class="viewlable">{{empAddress}}</span>
+                    </div>
+                  </div>
+                </div>
+                <br>
+
+                <div class="row" style="background-color: rgb(198 201 202);">
+                  <div class="col-12 col-md-12 col-lg-12">
+                    <div class="viewheading">Professional Details</div>
+                  </div>
+                </div>
+                <br>
+
+                <div class="row">
+                  <div class="col-4 col-md-4 col-lg-4" style=" float: left;">
+                    <span class="caplable">Designation: </span>&nbsp;
+                    <span class="viewlable">{{empDesignation}} </span>
+                  </div>
+                  <div class="col-4 col-md-4 col-lg-4" style=" float: left;">
+                    <span class="caplable">Department: </span>&nbsp;
+                    <span class="viewlable">{{empDept}} </span>
+                  </div>
+                </div>
+
+                <br>
+                <div class="row" style="background-color: rgb(198 201 202);">
+                  <div class="col-12 col-md-12 col-lg-12">
+                    <div class="viewheading">Bank Details</div>
+                  </div>
+                </div>
+                <br>
+
+                <div class="row">
+                  <div class="col-4 col-md-4 col-lg-4" style=" float: left;">
+                    <span class="caplable">Bank Name: </span>&nbsp;
+                    <span class="viewlable">{{bankName}} </span>
+                  </div>
+                  <div class="col-4 col-md-4 col-lg-4" style=" float: left;">
+                    <span class="caplable">Account No: </span>&nbsp;
+                    <span class="viewlable">{{accNo}} </span>
+                  </div>
+
+                  <div class="col-4 col-md-4 col-lg-4" style=" float: left;">
+                    <span class="caplable">IFSC Code: </span>&nbsp;
+                    <span class="viewlable">{{ifcsCode}} </span>
+                  </div>
+
+                  <div class="col-4 col-md-4 col-lg-4" style=" float: left;">
+                    <span class="caplable">Bank State: </span>&nbsp;
+                    <span class="viewlable">{{bankState}} </span>
+                  </div>
+                  <div class="col-4 col-md-4 col-lg-4" style=" float: left;">
+                    <span class="caplable">Bank City: </span>&nbsp;
+                    <span class="viewlable">{{bankCity}} </span>
+                  </div>
+                  <div class="col-12 col-md-12 col-lg-12" style=" float: left;">
+                    <span class="caplable">Bank Address: </span>&nbsp;
+                    <span class="viewlable">{{bankAddress}} </span>
+                  </div>
+                </div>
+                <br>
+
+              </div>
+              <!-- --------------------- View Section End ------------------------------ -->
+
+            </div>
+          </div>
+
+        </div>
+        <!-- --------------------- View Section End ------------------------------ -->
+
+      </div>
+
+
+      <!-- Modal footer -->
+
+      <div class="modal-footer" style="display: none;" id="modelfooter">
+
+        <div class="">
+          <div class="row">
+            <div class="col-md-7">
+              <textarea type="text" class="form-control bg-white" rows="1" placeholder="Enter Remark" tabindex="1" required
+              minlength="10" id="remarkUpdate" [(ngModel)]="remark" #remarkCtrl="ngModel" onpaste="return false;" style="margin-left: 80px;"
+               ></textarea>
+               <div class="invalidmsg" *ngIf="remarkCtrl.errors?.minlength" style="margin-left: 79px;">
+                Remark must be atleast of 10 characters long.
+              </div>
+              <span class="invalidmsg" id="msg_err" style="margin-left: 80px;"></span>
+              </div>
+              <div class="col-md-5">
+            <div class="actionBar" style="margin-right: 4pc;">
+              <button id="save" class="mb-2 btn btn-wizard btn-sm btn-success buttonFinish" (click)="UpdateEmployee()">
+                <i class="material-icons">save</i>
+              </button>
+              <button id="next" class="mb-2 btn btn-wizard btn-sm btn-primary buttonNext">
+                <i class="material-icons">arrow_forward</i>
+              </button>
+              <button id="prev" class="mb-2 btn btn-wizard btn-sm btn-primary buttonPrevious"
+                onclick="validateAllSteps(4,4)">
+                <i class="material-icons">arrow_back</i>
+              </button>
+            </div>
+          </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ------------------- view & Edit model close ------------------------ -->
+
+<!-- ------------------ Delete Model Start ------------------------>
+<!-- Developer 	: Aditya Londhe
+  Date      	: 30-11-2020
+  Description : Added a popup for Delete
+  Modified By:  
+  Update date : -->
+<!-- Delete Model-->
+<div class="modal fade" id="modeldelete" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-sm modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header" style="background-color: 	red;">
+        <h4 class="modal-title text-center" style="color: yellow">Are You Sure?</h4>
+        <button type="button" class="close" data-dismiss="modal" (click)="closemodal();">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body" style="background-color: #f0e8e9">
+
+        <div class="form-group row">
+          <div class="col-lg-12 col-md-12">
+            <label style="color: black">Remark</label>&nbsp;
+            <span class="indlabelstar">*</span>
+            <textarea class="form-control" rows="2" style=" font-size:12px" placeholder="Enter Remark" tabindex="1"
+              minlength="10" maxlength="40" [(ngModel)]="deleteremark" #regaddress="ngModel"
+              id="employeedelremark"></textarea>
+          </div>
+        </div>
+        <span class="invalidmsg" id="msg_error_delete"></span>
+
+      </div>
+
+
+      <!-- Modal footer -->
+      <div class="modal-footer text-center" style="background-color: #cfbaa8">
+        <button type="submit" class="btndel btn-primary mr-3" data-toggle="modal" data-dismiss="modal" tabindex="18"
+          (click)="closemodal();">
+          No
+        </button>
+        <button type="reset" tabindex="19" class="btndel btn-danger" data-toggle="modal" (click)="DeleteEmployee()">
+          Yes
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!-- Delete Model -->
+
+<!-- ------------------- Delete model End ----------------------- -->
+
+<!-- ------------------- onclick no btn model  ----------------------- -->
+<!-- The Modal -->
+<div class="modal fade" id="Noclickmodel">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-contentno">
+
+      <!-- Modal Header -->
+      <div class="modal-header" style="background-color: 	rgb(133, 195, 197);">
+        <h4 class="modal-title text-center" style="color: rgb(0, 0, 0)">Error</h4>
+        <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body" style="background-color: white;">
+        Your Data is Not delete..
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer" style="background-color: 	rgb(255, 255, 255);">
+        <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal"><span class="material-icons">
+            highlight_off
+          </span></button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ------------------- onclick no btn model End ----------------------- -->
+<!-- ------------------- onclick Yes btn model ----------------------- -->
+
+<div class="modal fade" id="Yesclickmodel">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-contentno">
+
+      <!-- Modal Header -->
+      <div class="modal-header" style="background-color: 	rgb(133, 195, 197);">
+        <h4 class="modal-title text-center" style="color: rgb(0, 0, 0)">Successfully</h4>
+        <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body" style="background-color: white;">
+        Your Data is delete..
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer" style="background-color: 	rgb(255, 255, 255);">
+        <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal"><span class="material-icons">
+            highlight_off
+          </span></button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ------------------- onclick yes btn model End ----------------------- -->
+
+
+<div class="modal fade " id="successmodel" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+  aria-hidden="true">
+  <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+    <div class="modal-content box-shadow">
+      <div class="card border-0">
+        <div class="card-header  py-1 pl-3 m-0" style="background-color: green;">
+          <p style="font-size:17px; font-weight:bold"> Success </p>
+        </div>
+        <div class="card-body bg-white text-dark">
+          <p> {{datafromrespo}}</p>
+          <div class="text-right">
+            <button class="btn btn-sm btn-success" data-dismiss="modal">ok</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade " id="notifymodel" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+  aria-hidden="true">
+  <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+    <div class="modal-content box-shadow">
+      <div class="card border-0">
+        <div class="card-header  py-1 pl-3 m-0" style="background-color: red;">
+          <p style="font-size:17px; font-weight:bold"> Error </p>
+        </div>
+        <div class="card-body bg-white text-dark">
+          <p> {{datafromrespo}}</p>
+          <div class="text-right">
+            <button class="btn btn-sm btn-success" data-dismiss="modal">ok</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+<app-company-employee-entry (showDetails)="CompanyEmpDetails()"></app-company-employee-entry>

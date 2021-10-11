@@ -1,0 +1,665 @@
+<!--
+Developer 	: Aditya Londhe
+Date      	: 18-09-2020
+Description : Vendor Master Module
+Modified By:  
+Update date : 
+-->
+<div class="content shadow-sm">
+  <!-- Main container starts -->
+  <div class="container-fluid main-container" id="main-container">
+    <div class="row">
+      <div class="col-12 col-md-12 col-lg-12 col-xl-12 mx-auto align-self-center">
+        <div class="card shadow-sm border-0 mb-4">
+          <div class="card-header" style="padding-top: 0; padding-bottom: 0">
+
+            <!-- <img src="../assets/img/logoicon.svg" alt="" class="w-50px mt-4"> -->
+            <h4 class="text-left m-1">Device Assign to 
+              <span class="text-template-primary" style="color: #00ed54">Distributor</span>
+              <button type="button" class="btn btn-sm btn-primaryyel ml-2 float-right" style="margin-right: 89px; background-color: #f6c53b"
+                data-toggle="modal" data-target="#exampleModal">
+                ADD NEW
+                <i class="material-icons md-18">navigate_next</i>
+
+              </button>
+            </h4>
+
+          </div>
+          <div class="card-body" style="padding: 5px;">
+            <div class="row justify-content-center">
+              <div class="col-md-12 mx-auto">
+                <div class="row">
+                  <div class="col-lg-12 col-md-12">
+                    <!-- <button type="button" class="btn btn-primary float-left" data-toggle="modal" >
+                        ADD NEW
+                      </button> -->
+
+                  </div>
+                </div>
+
+                <div class="container-fluid main-container" id="main-container">
+
+
+
+
+                  <!--    ---------------        Table Header Staret=------------------------    -->
+                  <div class="col-md-12">
+                    <div class="row">
+
+
+
+                      <div class="col-md-2">
+
+                        <!-- <div class="search">
+                             <input type="text" class="searchTerm" placeholder="Search here">
+                             <button type="submit" class="searchButton">
+                               <i class="fa fa-search"></i>
+                            </button>
+                          </div> -->
+                        <div class="input-group">
+
+                          <input type="text" placeholder="Search" id="searchData" class="form-control searchicon" id="searchData" aria-label="Amount (to the nearest dollar)">
+                          <div class="input-group-append">
+                            <button class="btn  apendbtn" (click)="searchdata()">
+                              <i style="color: #00ed54; margin-top: -15px;" class="fa fa-search"></i>
+                            </button>
+                          </div>
+                        </div>
+
+                      </div>
+                      <div class="col-md-2">
+                        <i class="fa fa-refresh fa-2x fa-spin-hover" style="font-size: 17px;
+                      padding-top: 4px;
+                      color: #00fff3;" (click)="Refreshfunction()"></i>
+                      </div>
+
+                      <div class="col-md-2">
+
+                      </div>
+                      <div class="col-md-2">
+                        <!-- <i class="fa fa-file-pdf-o" style="font-size:26.5px;color:rgb(250, 77, 77)"></i>&nbsp; -->
+                        <!-- &nbsp; <button type="submit" class="btn btn-sm" style="background-color:white; float: right;"><img src="assets/images/pdflogo.png"></button> &nbsp; 
+                   &nbsp; <i  class="fa fa-file-excel-o"  aria-hidden="true" style="font-size:26.5px; float: right; padding-right: 10px;  color:rgb(109, 255, 109) "></i> &nbsp; -->
+                      </div>
+                      <!-- <i class="fa fa-refresh fa-2x fa-spin-hover" style="padding-top: 2px;"></i>   -->
+
+                      <div class="col-md-4">
+                        <div class="row">
+                          <div class="col-md-3">
+                            <!-- <i class="fa fa-file-pdf-o" style="font-size:26.5px;color:rgb(250, 77, 77)"></i>&nbsp; -->
+                            <img style="float: right; cursor: pointer; height: 20px; margin-top: 3px;" (click)="createPDF()" ngbTooltip="PDF" src="assets/images/PDFicon.png">
+                            <img style="cursor: pointer;" (click)="exportToExcel()" ngbTooltip="Excel" src="assets/images/excellogo.png">
+                          </div>
+                          <!-- <div class="col-md-3">
+
+                  <span style="padding-top: 0px; font-size: 12px;
+                  font-weight: bold; float: right;">Show Rows: </span> </div> -->
+                          <span style="padding-top: 0px; font-size: 12px;
+                  font-weight: bold; float: right;">Show Rows: </span>
+                          <div class="col-md-1">
+                            <div style="padding-top: 2px; width: 45px;">
+                              <select class="form-control" data-live-search="true" tabindex="1" id="selectrow" (change)="SelectRows()" aria-hidden="true"
+                                style=" font-size:12px">
+                                <option value="5" selected>5</option>
+                                <option value="5">5</option>
+                                <option value="10">10</option>
+                                <option value="20">20</option>
+                                <option value="50">50</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="col-md-5" style="text-align: right; font-size: 12px;
+                  font-weight: bold;">
+
+                            <span> Total Records&nbsp;:&nbsp;{{viewcount}}&nbsp;of&nbsp;{{count}} </span>
+                          </div>
+                        </div>
+                      </div>
+
+
+
+                    </div>
+
+                  </div>
+
+                  <!-- ---------------------  Table header end  ------------------------------ -->
+
+
+                  <div id="PDFTable" class="card-body table-responsive" #epltable>
+                    <table class="table table-hover table-striped">
+                      <thead>
+                        <tr role="row">
+                          <th (click)="sort('rowNumber')">#</th>
+                          <th (click)="sort('rowNumber')">Distributor Name</th>
+                          <!-- <th class="all sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 86px;" aria-label="Order ID: activate to sort column descending" aria-sort="ascending">Order ID</th> -->
+                          <th (click)="sort('rowNumber')">Device Type</th>
+                          <th (click)="sort('rowNumber')">Device List.</th>
+                          <th (click)="sort('rowNumber')">Count.</th>
+                          <th (click)="sort('rowNumber')">Remark</th>
+
+                          <!-- <th style="text-align: center; background-color: #b69090;">Status</th> -->
+                          <th style="background-color: #99c049">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody id="grid">
+                        <tr *ngFor="let com of PlaceOrderDetails$ | filter:filter | orderBy: key : reverse | paginate : {itemsPerPage:pagecount,currentPage:p,totalItems:count} ;" class="trheight">
+                          <td>{{com.rowNumber}}</td>
+                          <td>{{com.param2}}</td>
+                          <td>{{com.param3}}</td>
+                          <td>{{com.param4}}</td>
+                          <td>{{com.param6}}</td>
+
+                          <td class="font-weight-bold statustd" style="color: red; background-color: #f1c6c6;
+                          text-align: center; width: 30px;">{{com.param5}}</td>
+                          <!-- <td>
+                            <div class="btn-group" role="group" ngbDropdown>
+                              <button id="btnGroupDrop1" class="btn btn-link dropdown-toggle active " ngbDropdownToggle>
+                             
+                              </button >
+                              <!-- <span class="dropdown-toggle" ngbDropdownToggle> 
+                                  <i class="material-icons">more_horiz</i>
+                              </span> 
+                              <div class="dropdown-menu" aria-labelledby="btnGroupDrop1" ngbDropdownMenu>
+                                <button type="button" class="btn btn-link" data-toggle="modal" data-target="#myModalview">
+                                  View
+                                </button>
+                              </div>
+                            </div>
+                          </td> -->
+                          <td style="background-color: #a8c5ff;
+                          text-align: center; width: 30px;">
+                            <span class="iconhover" data-toggle="modal" data-target="#myModalwizard" (click)="setdata(com)">
+                              <i class="material-icons" style="color: #161e43">visibility</i>
+                            </span>
+                          </td>
+                        </tr>
+
+                         <tr>
+                          <td>3</td>
+                          <td>Indtrack</td>
+                          <td>abc@gmail.com</td>
+                          <td>123521763567</td>
+                          <td>9767644776</td>
+                          <td>ammakkaa</td>
+                          <!-- <td class="font-weight-bold statustd" style="color: red ">Pending</td> -->
+
+                          <td style="background-color: #a8c5ff;
+                          text-align: center; width: 30px;">
+                            <span class="iconhover" data-toggle="modal" data-target="#myModalwizard" >
+                              <i class="material-icons" style="color: #161e43">visibility</i>
+                            </span>
+                          </td>
+                        </tr> 
+                        <!-- <tr>
+                          <td>4</td>
+                          <td>Indtrack</td>
+                          <td>abc@gmail.com</td>
+                          <td>123521763567</td>
+                          <td>123521567</td>
+                          <td>9767644776</td>
+                          <td>Maharashtra</td>
+                          <td>Nagpur</td>
+                          <td>Nagpur</td>
+                          <td class="font-weight-bold statustd" style="color: rgb(0, 255, 0) ">Completed</td>
+
+                          <td>
+                            <span class="iconhover" data-toggle="modal" data-target="#myModalwizard">
+                              <i class="material-icons" style="color: white">visibility</i>
+                            </span>
+                          </td>
+                        </tr>
+                        <tr style="height: 5px;">
+                          <td>5</td>
+                          <td>Indtrack</td>
+                          <td>abc@gmail.com</td>
+                          <td>123521763567</td>
+                          <td>123521567</td>
+                          <td>9767644776</td>
+                          <td>Maharashtra</td>
+                          <td>Nagpur</td>
+                          <td>Nagpur</td>
+                          <td class="font-weight-bold statustd" style="color: red ">Pending</td>
+
+                          <td>
+                            <span class="iconhover" data-toggle="modal" data-target="#myModalwizard">
+                              <i class="material-icons " style="color: white">visibility</i>
+                            </span>
+                          </td>
+                        </tr> -->
+
+
+                      </tbody>
+                      <tfoot id= "foot" class="box-footer clearfix">
+                          <tr>
+                              <td colspan="12">
+                                <pagination-controls  style=" float: right;" (pageChange)="PlaceOrderpageChanged($event)" ></pagination-controls>                                               
+                              </td>
+                          </tr>
+                      </tfoot>
+                      
+                    </table>
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- --------------------  view & Edit Modal start------------------------>
+
+<div class="modal fade " id="myModalwizard">
+  <div class="modal-dialog modal-lg ">
+    <div class="modal-content ">
+
+      <!-- Modal Header -->
+      <div class="modal-header modelcolor">
+        <h5 class="modal-title" id="vmd" style="display: block;">Assign Details</h5>
+        <h5 class="modal-title" id="uvmd" style="display: none;">Update Assign</h5>
+        <div style="float:right; margin-left: 64%;">
+          <button type="button" class=" btn btn-sm btn-secondary float-right ml-2 bg-warning" style="display: block;" id="editbtn"
+            ngbTooltip="Edit" (click)="editpageform()">
+
+            <i class="material-icons md-18">edit</i>
+          </button>
+          <button type="button" class=" btn btn-sm btn-danger float-right ml-2" id="deletebtn" ngbTooltip="Delete" data-toggle="modal"
+            data-target="#modeldelete">
+
+            <i class="material-icons md-18">delete</i>
+          </button>
+          <button type="button" class=" btn btn-sm btn-primary float-right ml-2" id="backdetailsbtn" ngbTooltip="Back" style="display: none;"
+            (click)="backdetailsbtn()">
+
+            <i class="material-icons md-18">arrow_back</i>
+          </button>
+        </div>
+        <button type="button" style="color: white" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+
+      <!-- Modal body -->
+      <div class="modal-body " style="background-color: #CBD2F1">
+        <div class="container">
+          <div class="container-fluid">
+            <div id="container" style="display: none;">
+              <div class="step-wizard" role="navigation">
+                <!-- <div class="progress">
+                  <div class="progressbar empty"></div>
+                  <div id="prog" class="progressbar"></div>
+                </div> -->
+                <ul style="display: none;">
+                  <li class="active">
+                    <button id="step1">
+                      <div class="step">1</div>
+                      <div class="title"> Details</div>
+                    </button>
+                  </li>
+                  <li class="">
+                    <button id="step2">
+                      <div class="step">2</div>
+                      <div class="title">Contact Details</div>
+                    </button>
+                  </li>
+                  <li class="">
+                    <button id="step3">
+                      <div class="step">3</div>
+                      <div class="title">Account Details</div>
+                    </button>
+                  </li>
+                  <li class="">
+                    <button id="step4">
+                      <div class="step">4</div>
+                      <div class="title">Successful</div>
+                    </button>
+                  </li>
+                </ul>
+
+
+                <div class="stepsection">
+                  <span class="invalidmsg" id="msg_mainmessage"></span>
+                  <div id="step-14" class="stepsdiv">
+                    <!-- <span class="StepTitle">Step 1: Basic Details</span> -->
+                    <div class="form-group row">
+                      <div class="col-lg-3 col-md-3">
+                        <label class="indlabel">Distributor Name</label>
+                        <span class="mandatory">*</span>
+                        <!-- <input type="text" class="form-control" placeholder="Enter State" tabindex="1" required minlength="3" maxlength="30" id="state"> -->
+                        <select class="form-control" id="distrbutornameentry" data-live-search="true" [(ngModel)]="distibutorText" tabindex="8" placeholder="Select Distributor." aria-hidden="true" style=" font-size:12px">
+                          <option *ngFor = "let list of ListOfDistributor$" value={{list.param1}} >{{list.param2}}</option>
+                         
+                        </select>
+                         <!-- <select class="form-control" data-live-search="true" id="distrbutorname" [(ngModel)]="distibutorText" tabindex="7" aria-hidden="true" style=" font-size:12px">
+                          <option value="choose" selected>Choose</option>
+                          <option value="AL">AIS140</option>
+                          <option value="AL">Basic</option>
+                        </select> -->
+
+                        <span class="invalidmsg" id="msg_vendorName"></span>
+                      </div>
+                      <div class="col-lg-3 col-md-3">
+                        <label class="indlabel">Device Type</label>
+                        <span class="mandatory">*</span>
+                        <!-- <input type="text" class="form-control" placeholder="Enter State" tabindex="1" required minlength="3" maxlength="30" id="state"> -->
+                        <select class="form-control" id="devicetype" data-live-search="true" [(ngModel)]="devicetypeText" tabindex="8" placeholder="Select Distributor." aria-hidden="true" style=" font-size:12px">
+                          <option *ngFor = "let list of ListOfDevicetype$" value={{list.param1}} >{{list.param2}}</option>
+                         
+                        </select>
+                         <!-- <select class="form-control" data-live-search="true" id="distrbutorname" [(ngModel)]="distibutorText" tabindex="7" aria-hidden="true" style=" font-size:12px">
+                          <option value="choose" selected>Choose</option>
+                          <option value="AL">AIS140</option>
+                          <option value="AL">Basic</option>
+                        </select> -->
+
+                        <span class="invalidmsg" id="msg_vendorName"></span>
+                      </div>
+                     
+                      <div class="col-lg-3 col-md-3">
+                        <label class="indlabel">Device list</label>
+                        <span class="mandatory">*</span>
+                        <!-- <input type="text" class="form-control" placeholder="Enter State" tabindex="1" required minlength="3" maxlength="30" id="state"> -->
+                        <select class="form-control" id="devicelist" data-live-search="true" [(ngModel)]="devicelistText" tabindex="8" placeholder="Select Distributor." aria-hidden="true" style=" font-size:12px">
+                          <option *ngFor = "let list of ListOfDevicelist$" value={{list.param1}} >{{list.param2}}</option>
+                         
+                        </select>
+                         <!-- <select class="form-control" data-live-search="true" id="distrbutorname" [(ngModel)]="distibutorText" tabindex="7" aria-hidden="true" style=" font-size:12px">
+                          <option value="choose" selected>Choose</option>
+                          <option value="AL">AIS140</option>
+                          <option value="AL">Basic</option>
+                        </select> -->
+
+                        <span class="invalidmsg" id="msg_vendorName"></span>
+                      </div>
+
+                      <div class="col-lg-3 col-md-3">
+                        <label class="indlabel">Count</label>
+                        <span class="mandatory">*</span>
+                        <input type="number" class="form-control" placeholder="Select Count" tabindex="1" required minlength="1" maxlength="4"
+                          id="noofdeviceentry" onpaste="return false;" [(ngModel)]="noOfdeviceentryText" #noofdevice="ngModel" onkeypress="return isNumberKey(event)"
+                          ondrop="return false;">
+                        <div class="invalidmsg" *ngIf="noofdevice.errors?.minlength">
+                          Vendor name must be at least minimum 3 characters & maximum 30 characters long.
+                        </div>
+                        <span class="invalidmsg" id="msg_vendorName"></span>
+                      </div>
+                     
+
+                    </div>
+                    <div class="form-group row">
+                     
+                     
+                      <div class="col-lg-3 col-md-3">
+                        <label class="indlabel">Remark</label>
+                        <span class="mandatory">*</span>
+                        <textarea class="form-control" value="{{remark_}}" rows="1" placeholder="Enter Remark" tabindex="3" minlength="10" maxlength="40" id="Remark"
+                          [(ngModel)]="remarkText" #remark="ngModel"></textarea>
+                        <div class="invalidmsg" *ngIf="remark.errors?.minlength">
+                          Remark must be at least minimum 10 characters & maximum 40 characters long.
+                        </div>
+                      </div>
+
+
+                    </div>
+                    <br>
+                    <span class="invalidmsg" id="msg_error"></span>
+                  </div>
+
+                  <!-- <div class="actionBar">
+                    <button id="save" class="mb-2 btn btn-wizard btn-sm btn-success buttonFinish" (click)="vensaveeditbtn()">
+                      <i class="material-icons">save</i>
+                    </button>
+                    <button id="next" class="mb-2 btn btn-wizard btn-sm btn-primary buttonNext">
+                      <i class="material-icons">arrow_forward</i>
+                    </button>
+                    <button id="prev" class="mb-2 btn btn-wizard btn-sm btn-primary buttonPrevious" onclick="validateAllSteps(4,4)">
+                      <i class="material-icons">arrow_back</i>
+                    </button>
+                  </div> -->
+
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- --------------------------------------------- View Section ------------------------------------------- -->
+          <div class="">
+            <!-- <div id="vendordtls" style="display: block;">
+              <div class="page-subtitle viewheading">Order Details</div>
+              <div class="row">
+                <div class="col-12 col-md-6 col-lg-3">
+                  <div class="form-group">
+                    <label class="caplable">No of Device</label>
+                    <p class="detailsfont">123</p>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-3">
+                  <div class="form-group">
+                    <label class="caplable" >Mobile No.</label>
+                    <p class="detailsfont">9876856638</p>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-3">
+                  <div class="form-group">
+                    <label class="caplable" >Remarks</label>
+                    <p class="detailsfont">wdhjdhjhwejfh</p>
+                  </div>
+                </div>
+                
+              </div>
+              
+              </div>-->
+
+            <div id="vendordtls" class="row" style="background-color: #0e2145; border: 1px ridge #02108d;">
+              <div class="col-12 col-md-12 col-lg-12">
+
+                <div class="row" style="background-color: rgb(198 201 202);">
+                  <div class="col-12 col-md-12 col-lg-12">
+                    <div class="viewheading">Distributor Assign Details</div>
+                  </div>
+                </div>
+                <br>
+
+                <div class="row">
+                  <div class="col-12 col-md-12 col-lg-12">
+                    <div class="col-4 col-md-4 col-lg-4" style=" float: left;">
+                      <span class="caplable">Distributor Name:</span>&nbsp;
+                      <span class="viewlable">{{noof_device}}</span>
+                    </div>
+                    <div class="col-4 col-md-4 col-lg-4" style=" float: left;">
+                      <span class="caplable">Device Type:</span>&nbsp;
+                      <span class="viewlable">{{cust_name}}</span>
+                    </div>
+                    <div class="col-4 col-md-4 col-lg-4" style=" float: left;">
+                      <span class="caplable">Device List.:</span>&nbsp;
+                      <span class="viewlable">{{mobile_no}}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-12 col-md-12 col-lg-12">
+                    <!-- <div class="page-subtitle viewheading">Basic Details</div> -->
+                    <div class="col-4 col-md-4 col-lg-4" style=" float: left;">
+                      <span class="caplable">Count:</span>&nbsp;
+                      <span class="viewlable">{{remark_}}</span>
+                    </div>
+                    <div class="col-4 col-md-4 col-lg-4" style=" float: left;">
+                      <span class="caplable">Remark:</span>&nbsp;
+                      <span class="viewlable">{{remark_}}</span>
+                    </div>
+
+                  </div>
+                </div>
+                <br>
+
+
+
+
+
+
+
+                <br>
+
+              </div>
+              <!-- --------------------- View Section End ------------------------------ -->
+
+            </div>
+
+          </div>
+          <!-- <div class="row">
+            <button id="revbtn" ngbTooltip="Back" class="mb-2 btn btn-wizard btn-sm btn-primary " (click)="revback()" style="display: none;">
+                <i class="material-icons" >arrow_back</i>
+              </button>  &nbsp; &nbsp;
+            <button id="nextviewbtn" ngbTooltip="Next" class="mb-2 btn btn-wizard btn-sm btn-primary "(click)="viewnext()" style="display: block;">
+                <i class="material-icons">arrow_forward</i>
+              </button> 
+               <button id="next2viewbtn" ngbTooltip="Next" class="mb-2 btn btn-wizard btn-sm btn-primary"(click)="viewnext2()" style="display: none;">
+                  <i class="material-icons">arrow_forward</i>
+                </button>
+                 <button id="rev2btn" ngbTooltip="Back" class="mb-2 btn btn-wizard btn-sm btn-primary " (click)="revback2()" style="display: none;">
+                    <i class="material-icons" >arrow_back</i>
+                  </button>  
+              </div> -->
+        </div>
+        <!-- --------------------- View Section End ------------------------------ -->
+
+      </div>
+
+
+      <!-- Modal footer -->
+
+      <div class="modal-footer" style="display: none;" id="modelfooter">
+
+        <div class="actionBar">
+          <button id="save" class="mb-2 btn btn-wizard btn-sm btn-success buttonFinish" (click)="vensaveeditbtn()" style="display: none;">
+            <i class="material-icons">save</i>
+          </button>
+          <button id="next" class="mb-2 btn btn-wizard btn-sm btn-success buttonNext" (click)="vensaveeditbtn()">
+            <i class="material-icons">save</i>
+          </button>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ------------------- view & Edit model close ------------------------ -->
+
+<!-- ------------------ Delete Model Start ------------------------>
+
+<!-- Delete Model-->
+<div class="modal fade" id="modeldelete">
+  <div class="modal-dialog modal-sm modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header" style="background-color: 	#FF7F50;">
+        <h4 class="modal-title text-center" style="color: white">Are You Sure?</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+
+        <div class="form-group row">
+
+
+          <div class="col-lg-12 col-md-12">
+            <label class="indlabel">Remark</label>&nbsp;
+            <span class="indlabelstar">*</span>
+            <textarea class="form-control" rows="2" style=" font-size:12px" placeholder="Enter Remark" tabindex="1" minlength="10" maxlength="40"
+              [(ngModel)]="deleteText" #regaddress="ngModel"></textarea>
+            <div class="invalidmsg" *ngIf="regaddress.errors?.minlength">
+              Remark must be at least minimum 10 characters & maximum 40 characters long.
+            </div>
+          </div>
+        </div>
+        <p>Do You want to Delete !!&hellip;</p>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer text-center">
+        <button type="submit" class="btndel btn-primary mr-3" data-toggle="modal" data-target="#Noclickmodel" data-dismiss="modal"
+          tabindex="18">
+          No
+        </button>
+        <button type="reset" tabindex="19" class="btndel btn-danger " data-toggle="modal" data-target="#Yesclickmodel" data-dismiss="modal">
+          Yes
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!-- Delete Model -->
+
+<!-- ------------------- Delete model End ----------------------- -->
+
+<!-- ------------------- onclick no btn model  ----------------------- -->
+<!-- The Modal -->
+<div class="modal fade" id="Noclickmodel">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-contentno">
+
+      <!-- Modal Header -->
+      <div class="modal-header" style="background-color: 	rgb(255, 255, 255);">
+        <h4 class="modal-title text-center" style="color: rgb(0, 0, 0)">Your Data is not Delete</h4>
+        <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+      </div>
+
+      <!-- Modal body -->
+      <!-- <div class="modal-body">
+          Your Data is Not delete..
+        </div> -->
+
+      <!-- Modal footer -->
+      <div class="modal-footer" style="background-color: 	rgb(255, 255, 255);">
+        <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">
+          <span class="material-icons">
+            highlight_off
+          </span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ------------------- onclick no btn model End ----------------------- -->
+<!-- ------------------- onclick Yes btn model ----------------------- -->
+
+<div class="modal fade" id="Yesclickmodel">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-contentno">
+
+      <!-- Modal Header -->
+      <div class="modal-header" style="background-color: 	rgb(255, 255, 255);">
+        <h4 class="modal-title text-center" style="color: rgb(0, 0, 0)">Data Deleted Successfully</h4>
+        <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+      </div>
+
+      <!-- Modal body -->
+      <!-- <div class="modal-body">
+          Your Data is Not delete..
+        </div> -->
+
+      <!-- Modal footer -->
+      <div class="modal-footer" style="background-color: 	rgb(255, 255, 255);">
+        <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">
+          <span class="material-icons">
+            highlight_off
+          </span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ------------------- onclick yes btn model End ----------------------- -->
+
+<app-distributorassignment></app-distributorassignment>

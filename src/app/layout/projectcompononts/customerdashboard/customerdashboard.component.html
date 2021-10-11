@@ -1,0 +1,708 @@
+<style>
+  .ol-unselectable,
+  .ol-viewport {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    border-radius: 11px !important;
+  }
+</style>
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+  integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+<div class=" col-md-12 col-lg-12 col-xl-12" id="mainDiv">
+  <div class="row" style="color:black;margin-left: -30px;">
+    <div class="col-lg-2 col-md-6 col-sm-12 col-xs-12 ">
+      <div class="verticalwidgets">
+        <div class="titlecontainer">
+          <div class="titlediv" (click)="FilterVehicleStatus('All')"> <i class="titlelabel">Total Vehicles</i> <i
+              class="titlecount">{{countdata.param1}}</i> </div>
+        </div>
+        <div style="display: flex;">
+          <div class="smallwidgetscontainer">
+            <div class="smallwidgets shadow" style="    background-color: #64c146fc;"
+              (click)="FilterVehicleStatus('Polling')">
+              <div class="countdiv">{{countdata.param2}}</div>
+              <div class="labeldiv">Polling</div>
+
+            </div>
+            <div class="smallwidgets shadow" style="    background-color: #468a8a;"
+              (click)="FilterVehicleStatus('Non Polling')">
+              <div class="countdiv">{{countdata.param3}}</div>
+              <div class="labeldiv">Not Polling</div>
+
+            </div>
+            <div class="smallwidgets shadow" style="background-color: #da3c3c;"
+              (click)="FilterVehicleStatus('Never Polling')">
+              <div class="countdiv">{{countdata.param19}}</div>
+              <div class="labeldiv">Never Polling</div>
+
+            </div>
+
+            <div class="smallwidgets shadow" style="background-color: #efe92d;"
+              (click)="FilterVehicleStatus('Maintenance')">
+              <div class="countdiv">{{countdata.param4}}</div>
+              <div class="labeldiv">Maintenance</div>
+
+            </div>
+
+          </div>
+          <div style="width:70%;">
+            <div id="vehicleschart" style="width: 100%;height: 100%;font-size: 10px;  font-weight: bold;"></div>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="col-lg-2 col-md-6 col-sm-12 col-xs-12 " style="    margin-left: 65px;">
+      <div class="verticalwidgets">
+        <div class="titlecontainer">
+          <div class="titlediv" (click)="FilterVehicleStatus('All')"> <i class="titlelabel">Live Vehicles</i> <i
+              class="titlecount">{{countdata.param2}}</i> </div>
+        </div>
+        <div style="display:flex;">
+
+          <div class="smallwidgetscontainer">
+            <div class="smallwidgets shadow" style="      background-color: #5abccc;"
+              (click)="FilterVehicleStatus('Running')">
+              <div class="countdiv">{{countdata.param5}}</div>
+              <div class="labeldiv">Running</div>
+
+            </div>
+            <div class="smallwidgets shadow" style="    background-color: #3d4ecc;"
+              (click)="FilterVehicleStatus('Idle')">
+              <div class="countdiv">{{countdata.param6}}</div>
+              <div class="labeldiv">Idle</div>
+
+            </div>
+            <div class="smallwidgets shadow" style="    background-color: #c13aca;"
+              (click)="FilterVehicleStatus('Stop')">
+              <div class="countdiv">{{countdata.param7}}</div>
+              <div class="labeldiv">Stop</div>
+
+            </div>
+
+            <div class="smallwidgets shadow" style="    background-color: #6a905e;"
+              (click)="FilterVehicleStatus('OnTrip')">
+              <div class="countdiv">{{countdata.param8}}</div>
+              <div class="labeldiv">On Trip</div>
+
+            </div>
+
+          </div>
+          <div style="width:70%;">
+            <div id="livevehiclechart" style="    width: 112%;
+            height: 100%;
+            font-size: 10px;
+            margin-left: -11px;
+            margin-top: 10px;"></div>
+
+          </div>
+        </div>
+
+
+      </div>
+
+    </div>
+
+
+    <div class="col-lg-2 col-md-6 col-sm-12 col-xs-12 " style="    margin-left: 65px;">
+      <div class="verticalwidgets">
+
+        <div class="titlecontainer">
+          <div class="titlediv"> <i class="titlelabel">Emergency ON</i> <i class="titlecount">45</i> </div>
+        </div>
+
+        <div id="emergencychart" style="    width: 100%; height: 100%;  margin-left: 0px;    margin-top: -11px;"></div>
+      </div>
+
+    </div>
+
+    <div class="col-lg-1 col-md-6 col-sm-12 col-xs-12 " style="margin-left:65px">
+      <div class="verticalwidgets" style="width:100px">
+        <div class="titlecontainer">
+          <div class="titlediv" style="     margin-right: 5px; width: 80px;"> <i class="titlelabel"
+              style="    margin-left: 13px;">Geofence</i> </div>
+        </div>
+        <div class="shadow" style="border-radius: 5px;background-color: #9ca2e4;cursor:pointer;    width: 84px;
+        margin-left: 9px;">
+          <div class="geofencecount">{{countdata.param13}}</div>
+          <div class="geofencelabel" style="    color: #07075d;">On Route</div>
+        </div>
+        <div class="shadow" style="    border-radius: 5px;margin-top: 6px;    width: 84px;
+        margin-left: 9px;    background-color: #92ca94;cursor:pointer;">
+          <div class="geofencecount">{{countdata.param14}}</div>
+          <div class="geofencelabel" style="    color: #084a08;">Route Deviation</div>
+        </div>
+
+        <div class="shadow" style="       width: 84px;
+     margin-left: 9px; border-radius: 5px;background-color: #ded387;  margin-top: 6px;cursor:pointer;">
+          <div class="geofencecount">{{countdata.param11}}</div>
+          <div class="geofencelabel" style="     color: #716905;  ">Geofence In</div>
+        </div>
+
+        <div class="shadow" style="     width: 84px;
+      margin-left: 9px;   border-radius: 5px;margin-top: 6px;    background-color: #f7b2bb;cursor:pointer;">
+          <div class="geofencecount">{{countdata.param12}}</div>
+          <div class="geofencelabel" style=" color: #770303;">Geofence Out</div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="col-lg-2 col-md-6 col-sm-12 col-xs-12">
+
+
+      <div class="horizentalwidgets">
+        <div class="titlecontainer">
+          <div class="titlediv" style="    left: 115px;" (click)="FilterOverspeed()"> <i
+              class="titlelabel">Overspeed</i> <i class="titlecount">{{countdata.param16}}</i> </div>
+        </div>
+        <div style="display:flex;">
+          <div
+            style="  margin-left: -20px;         margin-top: -15px; color: black; font-weight: bold;width: 60%;font-size: 12px;">
+
+            <!-- <div style="margin-left: 29px;"><span class="clickable"
+                (click)="PlotOverspeedVehicle(singleoverspeedvehicle)">{{singleoverspeedvehicle.param12}}</span></div> -->
+
+            <canvas id="demo" style="       margin-left: -2px;width: 100%; height: 80px;    margin-top: -8px;"></canvas>
+            <div id="preview-textfield" style="  
+           margin-left: 84px; margin-top: -29px;"></div>
+          </div>
+
+          <div>
+            <ul class="overspeedul">
+              <li *ngFor="let item of overspeedvehicles"><span class="clickable"
+                  (click)="PlotOverspeedVehicle(item)"><i>{{item.param12}}</i> <i class="licount">{{item.param37}}
+                    km/h</i></span></li>
+
+
+
+            </ul>
+          </div>
+
+        </div>
+      </div>
+      <div class="horizentalwidgets" style="margin-top: 5px;">
+        <div class="titlecontainer">
+          <div class="titlediv" style="    left: 115px;" (click)="FilterDevicetype('All')"> <i class="titlelabel">Device
+              Type</i> <i class="titlecount">2</i> </div>
+        </div>
+
+        <div style="display: flex;">
+          <div style="width: 50%;">
+            <div (click)="FilterDevicetype('Basic')" style="cursor: pointer;
+                  padding-top: 1px;    width: 100%;">
+              <canvas id="basic" style="        position: absolute;
+                    width: 300px;
+                    height: 150px;
+                    margin-top: -52px;
+                    padding-top: 9px; margin-left: -95px;"></canvas>
+              <div id="basic-preview"></div>
+              <div class="horizentalwidgetsLabel">BASIC</div>
+            </div>
+
+          </div>
+          <div style="width: 50%;  ">
+            <div (click)="FilterDevicetype('AIS140')" style="cursor: pointer; padding-top: 1px;    width: 100%;">
+              <canvas id="ais" style="      position: absolute;
+                  width: 300px;
+                  height: 150px;
+                  margin-top: -52px;
+                  padding-top: 9px; margin-left: -95px;"></canvas>
+              <div id="ais-preview"> 0</div>
+              <div class="horizentalwidgetsLabel">AIS 140</div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+  </div>
+
+
+
+  <!-- fliper work -->
+  <div class="row" style=" margin-top: 1%; ">
+    <div class="mainContainer">
+      <div style="display:flex;">
+        <div id="vehiclesummary" style="width:95%">
+          <table class="summarytable" id="summarytable" style="display:none">
+            <tr>
+              <td class="summarylabel">
+                Last Updated At
+              </td>
+              <td>
+                ewee
+              </td>
+              <td class="summarylabel">
+                Status
+              </td>
+              <td>
+                kjd
+              </td>
+              <td class="summarylabel">
+                Gps Status
+              </td>
+              <td>
+                ytr
+              </td>
+              <td class="summarylabel">
+                Speed
+              </td>
+              <td>hjgj</td>
+              <td class="summarylabel">
+                Battery Status
+              </td>
+              <td>trre</td>
+              <td class="summarylabel">
+                Section
+              </td>
+              <td>dff</td>
+            </tr>
+
+          </table>
+        </div>
+        <div class="menusection" style="width:5%">
+
+          <ul>
+            <li (click)="ActiveDetails('mapview')" id="mapview" style="display:none"><img
+                src="assets/mapimages/mapstyleicon/mapswitch.png" title="Map View"></li>
+            <li (click)="ActiveDetails('gridview')" id="gridview"><img
+                src="assets/mapimages/mapstyleicon/gridswitch.png" title="Grid View"></li>
+          </ul>
+
+        </div>
+      </div>
+
+      <div class="innercontainer" id="innercontainer">
+        <!--front div  -->
+        <div class="frontmap" id="frontmap" style="z-index: 1;">
+          <div style="width:101%;display:flex">
+            <div style="width:86%;">
+
+              <div style="z-index: 1; position: absolute;">
+
+                <div style="    display: none;" id="historytrackoption">
+                  <div style="padding-left: 7px;
+               
+                  text-align: center;">
+
+                    <i class="fa fa-refresh" ngbTooltip="Restart" (click)="RestartAnimation()"></i>
+
+
+                  </div>
+
+                  <div style="padding-left: 7px;
+                  
+                  text-align: center;" id="playbutton">
+                    <i class="fa fa-play" ngbTooltip="Resume" (click)="ResumeAnimation()"></i>
+
+                  </div>
+
+                  <div style="padding-left: 7px;    text-align: center;" id="pausebutton">
+                    <i class="fa fa-pause" ngbTooltip="Pause" (click)="PauseHistory()"></i>
+
+
+                  </div>
+
+
+                  <div style="padding-left: 7px;    text-align: center;">
+
+                    <i class="fa fa-stop" ngbTooltip="Stop" (click)="StopHistory()"></i>
+
+
+                  </div>
+
+
+                  <div style="padding-left: 7px;  padding-top: 4px;   text-align: center;">
+                    <div style="display: flex;background-color: #d07628;  padding-left: 14px;     padding-right: 14px;">
+                      <input type="range" min="1" max="10" [(ngModel)]="historytrackspeed"
+                        (change)="ChangeHistoryspeed()">
+                      <span style="color: white;font-size: 15px;margin-left: 5px;">{{historytrackspeed}}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="switcherContainer" style="     color: black; position: absolute;
+              z-index: 1;    margin-top: 3px;    width: 15%; left: 95%;">
+
+                <div data-toggle="collapse" (click)="OpenCollapse()" id="collapseButton"
+                  style="   margin-right: 280px;  float: right;">
+                  <span class="dot" style="    height: 35px; width: 36px; background-color: white;">
+                    <img src="assets/mapimages/mapstyleicon/mapswitchericonnew.png"
+                      style="width: 35px;   margin-top: -2px;   margin-left: -1px;">
+                    <!-- <h6><i class='fa fa-layer-group' style="font-size: 14px; color: black;"></i></h6> -->
+                  </span>
+                </div>
+
+
+
+                <div class="collapse" id="mapswitcher"
+                  style="   margin-right: 280px;  background-color: #1e295c; padding: 7px;width: 234px;   float: right;">
+
+                  <div><span (click)="CloseCollapse()" class="customCircle">&times;</span></div>
+                  <div class="cardheader">Map Types</div>
+
+                  <div>
+                    <div class="iconDiv activeSwitchOption effect8" id="switch3">
+                      <img src="assets/mapimages/mapstyleicon/osm.JPG" (click)="MapSwitch('3')" class="mapicons">
+                      <h6 class="imagelabel">OSM</h6>
+
+                    </div>
+                    <div class="iconDiv" id="switch0">
+                      <img src="assets/mapimages/mapstyleicon/bingmap.JPG" class="mapicons" (click)="MapSwitch('0')">
+                      <h6 class="imagelabel">Bing</h6>
+
+                    </div>
+                    <div class="iconDiv" id="switch1">
+                      <img src="assets/mapimages/mapstyleicon/binghybrid.JPG" class="mapicons" (click)="MapSwitch('1')">
+                      <h6 class="imagelabel">Satellite</h6>
+
+                    </div>
+                    <div class="iconDiv" id="switch2">
+                      <img src="assets/mapimages/mapstyleicon/tomtom.JPG" class="mapicons" (click)="MapSwitch('2')">
+                      <h6 class="imagelabel" id="">Tom Tom</h6>
+                    </div>
+                    <div class="iconDiv" id="switch4">
+                      <img src="assets/mapimages/mapstyleicon/india.JPG" class="mapicons" (click)="MapSwitch('4')">
+                      <h6 class="imagelabel">Indtrack</h6>
+                    </div>
+
+                  </div>
+
+
+
+
+                  <!-- map Detailss   ======  -->
+                  <!-- <div class="cardheader">Map Data</div> -->
+
+                  <!-- <div >
+                                     <div class="iconDiv activeSwitchOption effect8" id="polygonSwitch">
+                                      <img src="assets/mapimages/mapstyleicon/polygonDataicon.jpg" class="mapicons" (click)="SwitchPolygon()" style="width: 29px;">
+                                      <h6 class="imagelabel">Polygon</h6>
+                    
+                                    </div>
+                                    <div class="iconDiv activeSwitchOption effect8" id="routeSwitch" style="    margin-left: 5px;">
+                                    <img src="assets/mapimages/mapstyleicon/routeDataicon.JPG" class="mapicons "  style="  width: 29px;   height: 29px;" (click)="SwitcherRoute()">
+                                    <h6 class="imagelabel">Route</h6>
+                    
+                                  </div> 
+                
+                                  <div class="iconDiv activeSwitchOption effect8" id="routeSwitch" style="    margin-left: 5px;">
+                                    <img src="assets/mapimages/mapstyleicon/routeDataicon.JPG" class="mapicons "  style="  width: 29px;   height: 29px;" (click)="SwitcherRoute()">
+                                    <h6 class="imagelabel">Route</h6>
+                    
+                                  </div>
+                                    <div class="iconDiv activeSwitchOption effect8" id="poiSwitch" style="    margin-left: 5px;">
+                                      <img src="assets/mapimages/mapstyleicon/poiDataicon2.JPG" class="mapicons " style="       width: 29px; height: 29px;" (click)="SwitchPoi()" >
+                                      <h6 class="imagelabel">POI</h6>
+                    
+                                    </div>
+                                  
+                                </div>           -->
+
+                  <!-- <div class="cardheader">Create Data</div>  -->
+                  <!-- <div >
+                                  <div class="iconDiv" id="polygonCreate"  title="Create Polygon">
+                                  <img src="assets/mapimages/mapstyleicon/polygonDataicon.jpg" class="mapicons" (click)="CreatePolygon()" style="width: 29px;">
+                                  <h6 class="imagelabel">Polygon</h6>
+                    
+                                </div>
+                                <div class="iconDiv" id="routeCreate" style="    margin-left: 5px;" title="Create Route">
+                                <img src="assets/mapimages/mapstyleicon/routeDataicon.JPG" class="mapicons "  style="  width: 29px;   height: 29px;" (click)="CreateRoute()">
+                                <h6 class="imagelabel">Route</h6>
+                    
+                              </div>
+                                <div class="iconDiv" id="poiCreate" style="    margin-left: 5px;" title="Create POI">
+                                  <img src="assets/mapimages/mapstyleicon/poiDataicon2.JPG" class="mapicons " style="       width: 29px; height: 29px;" (click)="CreatePoi()" >
+                                  <h6 class="imagelabel">POI</h6>
+                    
+                                </div>
+                    
+                                <div style="margin-top: 5px;"><span style="    font-size: 11px;
+                                  color: #15e81c;
+                                  font-weight: bold; margin-left: 9px;">{{creationstatus}}</span></div>
+                              
+                            </div> -->
+                </div>
+
+              </div>
+              <div id="map"></div>
+
+              <div id="popup" class="ol-popup">
+                <a id="popup-closer" class="ol-popup-closer"></a>
+                <div id="popup-content"></div>
+              </div>
+            </div>
+
+            <div id="gridfulldiv"
+              style=" float:left; width: 14%; text-align:left;background-color: white;  box-shadow: -7px 0 43px -2px #0d0d0d; height: 78vh;">
+              <div id="allpgloadgrid"
+                style="text-align: left; margin-left: 1px; font-size: 10px; height: 95%!important; overflow-y: scroll; ">
+                <div class="input-group" style="  color: #011651;">
+                  <input type="text" placeholder="Type here to search" class="form-control searchicon "
+                    style=" background-color: white;color: #011651; font-size: 11px;" id="searchDataside"
+                    [(ngModel)]="filterside" aria-label="search">
+                </div>
+                <div class="input-group-append" style=" color: #03471a;  height: 34px; width:10%;  ">
+                  <button class="btn  apendbtn" (click)="sidesummarysearch()"
+                    style=" margin-top: -341%; margin-left: 809%;">
+                    <i class="fa fa-search"></i>
+                  </button>
+                </div>
+                <table class="table table-hover table-striped" style=" margin-top: -15%;">
+                  <thead>
+                    <tr style=" background-color: #073a22;">
+                      <th><input type="checkbox" [(ngModel)]="isMasterSel" name="list_name" value="h1"
+                          (change)="checkUncheckAllside()" /></th>
+                      <th>Vehicle No</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let item of globalclickdetails$ | filter:filterside " style=" color: #00190d;">
+                      <input type="checkbox" [(ngModel)]="item.isSelected" name="list_name" value="{{item.param11}}"
+                        (change)="isAllSelectedside()" checked>
+                      <td class="grdcontent" (click)="TypeVehicleClickDetails(item);">{{item.param12}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div id="vehicleonclickdetail"
+                style="text-align: left; margin-left: 10px; font-size: 14px; height: 48%; overflow-y: scroll; ">
+                <a (click)="Back(); "><i class="material-icons" style=" font-size: 20px; margin-left: 85%; margin-top: -30%; color: #046b66;
+                          font-weight: bold;">arrow_back</i></a>
+                <div style="text-align: left;">
+                  <dl id="vehcileDetailsdl">
+                    <dt>Vehicle No</dt>
+                    <dd>{{vehicleno}}</dd>
+                    <dt>Polling Time</dt>
+                    <dd>{{pollingtime}}</dd>
+                    <dt>Customer Name</dt>
+                    <dd>{{customername}}</dd>
+                    <dt>Contact</dt>
+                    <dd>{{contactno}}</dd>
+                    <!-- <dt>Last Alert</dt>
+                              <dd>NA</dd> -->
+                    <dt>Location</dt>
+                    <dd>{{locationlat}},{{locationlong}}</dd>
+                  </dl>
+
+                </div>
+              </div><br>
+
+              <div id="livetrackdiv"
+                style=" width: 120px; margin-left: 11%; color: rgb(11, 29, 196); font-size: 35px; "><a class=""
+                  (click)="SingleTrail(vehicleno)"><b>
+                    <div class="wrapsidebutton">
+                      <button class="sidebutton">Live Track</button>
+                    </div>
+                  </b></a></div>
+              <!-- <div id = "livetrackdiv" style=" width: 96px; margin-left: 8%; color: rgb(11, 29, 196); font-size: 17px; "><a class="" (click) = "SingleTrail(vehicleno)"><b>Live Track</b></a></div> -->
+              <br>
+              <div id="speedodiv" style="background-color: #AAD3DF;">
+
+                <br>
+                <app-customersideoverspeedchart></app-customersideoverspeedchart>
+                <!--    <div id="chartdiv" style=" font-weight: bold; width: 161px;  height: 118px; font-size: 8px;
+                                color: white; margin-top: -21px; margin-left: -3px;"></div>  -->
+              </div>
+            </div>
+          </div>
+
+
+
+
+
+        </div>
+        <!-- back div -->
+        <div class="gridfront">
+          <div id="gridContainer" style="width:100%; display:block">
+
+
+            <!--  <div style="display:flex"> -->
+
+            <div style=" background-color: white; height: 414px;  ">
+
+
+              <div class="row" style=" width:100%;    margin-top: 7px;">
+                <div class="col-md-3">
+                  <div class="input-group" style=" margin-left: 8%; ">
+                    <input type="text" placeholder="Search" class="form-control searchicon " id="searchData"
+                      [(ngModel)]="filtersummary" style=" background-color: #edeeef;    height: 30px; color: black;"
+                      (keyup)="SearchFilterTable()">
+
+                  </div>
+
+                </div>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-refresh fa-2x fa-spin-hover"
+                  style="    font-size: 17px;    padding-top: 5px;color: #002898;" (click)="RefreshSummary()"></i>
+
+
+
+                <div class="row" style="margin-left: 60%;    font-size: 12px; font-weight: bold;">
+                  <div style="    margin-right: 10px;">
+                    <img style=" cursor: pointer;  width: 18px;  margin-top: 3px;    margin-right: 10px;"
+                      (click)="createPDF()" ngbTooltip="PDF" src="assets/images/PDFicon.png">
+
+                  </div>
+                  <div style="    margin-right: 10px;">
+                    <img style="cursor: pointer;width: 20px;     margin-top: 2px;    margin-right: 10px;"
+                      (click)="exportToExcel()" ngbTooltip="Excel" src="assets/images/excellogo.png">
+
+                  </div>
+                  <div style=" margin-top: 3px;">
+                    <span>{{totalrecords}}</span>&nbsp;/&nbsp;<span>{{totalrecords}}</span>
+                  </div>
+
+                </div>
+
+
+
+                <!-- <div class="row">
+                                <div class="col-md-3" style=" float: right;    display: flex;    margin-top: 3px;">
+                                  <img style=" cursor: pointer;  width: 18px;  margin-top: 3px;" (click)="createPDF()" ngbTooltip="PDF" src="assets/images/PDFicon.png">
+                                  <img style="cursor: pointer;width: 20px; "  (click)="exportToExcel()" ngbTooltip="Excel" src="assets/images/excellogo.png"> 
+                            
+                            
+                                </div>
+                                <div class="col-md-3" style=" float: right;    margin-top: 5px;  font-size: 12px;font-weight: bold; ">
+                                  <span>10</span>&nbsp;/&nbsp;<span>10</span>
+                            
+                                </div>
+                                
+                            
+                        
+                       
+                        </div>  -->
+                <div class="card-body table-responsive" style=" margin-top: -14px; height: 385px; width: 102%;
+                                margin-left: 2%; " id="tablediv">
+
+
+                </div>
+              </div>
+              <div>
+
+              </div>
+
+
+
+
+
+
+
+
+              <!-- </div> -->
+
+
+
+
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+
+</div>
+
+
+
+<!-- The Modal -->
+<div class="modal" id="historymodal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <div>
+          <div><button type="button" class="close" data-dismiss="modal">&times;</button></div>
+
+        </div>
+
+        <div>
+          <table class="customTable" style=" margin-top: 40px; font-size: 10px; color: black; font-weight: bold;">
+            <tr>
+              <td>From Date</td>
+              <td>
+                <div class="col-md-12" id="single">
+
+                  <input id="fromDate" type="text" class="form-control  datepicker"
+                    style="    height: 27px;  width: 124px;" placeholder="">
+                </div>
+              </td>
+
+              <td>From Time</td>
+              <td>
+
+                <input class="form-control timepicker1" style=" height: 27px;  width: 124px;" id="fromTime" />
+
+              </td>
+
+            </tr>
+
+
+            <tr>
+              <td>To Date</td>
+              <td>
+                <div class="col-md-12" id="single">
+
+                  <input id="toDate" type="text" class="form-control  datepicker" style="    height: 27px;
+                          width: 124px;" placeholder="">
+                </div>
+              </td>
+
+              <td>To Time</td>
+              <td>
+                <input class="form-control timepicker2" style=" height: 27px;  width: 124px;" id="toTime" />
+
+              </td>
+
+            </tr>
+
+            <tr>
+              <td colspan="4" style="    width: 457px;">
+                <div style="  font-weight: bold;font-size: 12px;       width: 96px;
+                          height: 20px; background-color: #2b258a; text-align: center;float: right; cursor: pointer;">
+                  <a class="anchorTag" style="color:white;"><i style="color: white;"
+                      (click)="HistoryFunction(historyvehicleno)">History Track</i></a>
+                </div>
+              </td>
+            </tr>
+
+          </table>
+
+
+
+        </div>
+      </div>
+
+      <!-- Modal footer -->
+
+    </div>
+  </div>
+</div>

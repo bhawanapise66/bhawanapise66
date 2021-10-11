@@ -1,0 +1,482 @@
+<body>
+
+
+  <div class="container-fluid mt-3" id="inputform">
+    <fieldset style="max-width: 1086px;">
+      <legend class="text-dark text-uppercase">Exception Report</legend>
+
+      <div class="row justify-content-center">
+        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 "
+          *ngIf="isCustomer==false && isDivision==false && isSubDivision ==false && isSection ==false">
+          <div class="form-group">
+            <label class="indlabel">Customer :</label>
+            <ngx-select-dropdown tabindex="0" id="customer" style="font-size:11px" [multiple]="false"
+              [(ngModel)]="customerObj" [config]="config" [options]="customerListArray"
+              (change)="getDivisionList()">
+            </ngx-select-dropdown>
+            <span class="text-danger validation"
+              *ngIf="(customerObj==null || customerObj =='') && submitted && !isCustomer">
+              Select Customer</span>
+          </div>
+        </div>
+
+        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 "
+          *ngIf="isDivision==false && isSubDivision ==false && isSection ==false">
+          <div class="form-group">
+            <label class="indlabel">Division :</label>
+            <ngx-select-dropdown tabindex="0" id="customer" style="font-size:11px" [multiple]="true"
+              [(ngModel)]="divisionObjArr" [config]="config" [options]="divisionList" >
+            </ngx-select-dropdown>
+
+            <span class="text-danger validation" *ngIf="(divisionObjArr==null) && submitted ">
+              Select Customer</span>
+
+          </div>
+        </div>
+
+        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 " *ngIf="isSubDivision ==false && isSection ==false">
+          <div class="form-group">
+            <label class="indlabel">Subdivision :</label>
+            <ngx-select-dropdown tabindex="0" id="customer" style="font-size:11px" [multiple]="true"
+              [(ngModel)]="subDivisionObjArr" [config]="config" [options]="subDivisionlist" (open)="getSubDivisionList()">
+            </ngx-select-dropdown>
+
+            <span class="text-danger validation" *ngIf="(subDivisionObjArr==null) && submitted  ">
+              Select Customer</span>
+
+          </div>
+        </div>
+
+        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 " *ngIf="isSection ==false">
+          <div class="form-group">
+            <label class="indlabel">Section :</label>
+            <ngx-select-dropdown tabindex="0" id="customer" style="font-size:11px" [multiple]="true"
+              [(ngModel)]="sectionObjArr" [config]="config" [options]="deptList" (open)="getDeptList()">
+            </ngx-select-dropdown>
+
+            <span class="text-danger validation" *ngIf="(sectionObjArr==null) && submitted ">
+              Select Customer</span>
+
+          </div>
+        </div>
+
+      </div>
+      <div class="row">
+
+        <div class="col-xl-2 col-lg-3 col-sm-6">
+          <div class="form-group">
+            <label class="indlabel">Group :</label>
+            <ngx-select-dropdown tabindex="0" id="customer" style="font-size:11px" [multiple]="true"
+              [(ngModel)]="groupObjArr" [config]="config" [options]="GroupList" (change)="checkAll(groupObjArr,'group')">
+            </ngx-select-dropdown>
+
+            <span class="text-danger validation" *ngIf="(groupObjArr==null) && submitted  ">
+              Select Customer</span>
+
+          </div>
+        </div>
+
+        <div class="col-xl-3 col-lg-3 col-sm-6">
+          <div class="form-group">
+            <label class="indlabel">Device : </label>
+            <ngx-select-dropdown tabindex="0" id="vehicle" style="font-size:11px" [multiple]="true"
+              [(ngModel)]="deviceObjArr" [config]="config" [options]="vehicleList" (open)="GetVehicleListAfterCustomer();" (change)="checkAll(deviceObjArr,'device')">
+            </ngx-select-dropdown>
+
+            <span class="text-danger validation" *ngIf="(deviceObjArr==null || deviceObj =='') && submitted">
+              Select Device</span>
+          </div>
+        </div>
+
+        <div class="col-xl-3 col-lg-6 col-sm-6">
+          <div class="form-group">
+            <label class="indlabel">Select date :</label>
+            <div id="daterangeadminux2" class="form-control pr-0">
+              <span id="daterange"></span> <i
+                class="material-icons avatar avatar-26 text-template-primary cal-icon float-right">event</i>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-2 col">
+          <div class="form-group">
+
+            <label class="indlabel">from time :</label>
+            <input class="timepicker form-control" type='text' id="fromTime" name='fromtime'
+              placeholder="Select From Time" value="00:00" />
+            <span class="text-danger validation" *ngIf="(fromTime==null || fromTime =='') && submitted"> Please Select
+              From Time</span>
+          </div>
+        </div>
+
+        <div class="col-lg-2 col">
+          <div class="form-group">
+            <label class="indlabel">to time :</label>
+            <input class="timepicker form-control" type='text' id="toTime" name='totime' placeholder="Select To Time"
+              value="23:59" />
+            <span class="text-danger validation" *ngIf="(toTime==null || toTime =='') && submitted"> Please Select To
+              Time</span>
+          </div>
+        </div>
+
+
+
+      </div>
+      <div class="text-right pt-1 pb-0">
+        <button type="submit" class="btn btn-sm btn-success mr-1" (click)="onSubmit()">Submit</button>
+        <button type="reset" class="btn btn-sm btn-secondary">Reset </button>
+      </div>
+
+    </fieldset>
+  </div>
+
+  <div class="container-fluid" id="outputform" style="display: none;">
+    <h6 class="text-dark text-center mt-3 text-uppercase"> <b>Exception Report</b></h6>
+    <span style="float:left;position:relative;top:30;cursor: pointer;" (click)="gotoBack();"> <img
+        src="assets/images/Back-Button.png" width="30" height="30" style="margin-top: -65px;"></span>
+    <br>
+
+    <div class="card">
+      <div class="card-header text-bold">
+        <div class="row">
+          <div class="col"> <b> Summary</b> </div>
+          <div class="col" *ngIf="!isCustomer"> <b>Customer :</b> {{customerName}} </div>
+          <div class="col"> <b>Device :</b> {{deviceName}} </div>
+          <div class="col"> <b> Start Date : </b>{{fromDate |date:'dd-MMM-yyyy'}} {{fromTime}} </div>
+          <div class="col"> <b> End Date : </b>{{toDate |date:'dd-MMM-yyyy'}} {{toTime}} </div>
+        </div>
+      </div>
+      <div class="card-body">
+
+        <div class="row">
+
+          <div class="  col-lg-3 col-sm-6  col-xs-12 my-1">
+            <div class="card border-1 shadow-sm overflow-hidden" style="margin: auto;cursor: pointer;"
+              (click)="filterBy_NotWorking()">
+              <div class="card-body py-0">
+                <div class="row">
+                  <div class="col-3 text-center text-dark px-0" style="background-color: #ffc05a;">
+                    <img src="assets/report icons/distance.png" style="width: 30px ;height: 30px;margin-top: 5px;"
+                      alt="">
+                  </div>
+                  <div class="col px-1 text-right" style="background-color: #ededed;">
+                    <p class="mb-0" style=" color:#0000c0"><b> Not Working</b></p>
+                    <h6 class="font-weight-light mb-0"><b> 6 </b></h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="  col-lg-3 col-sm-6  col-xs-12 my-1">
+            <div class="card border-1 shadow-sm overflow-hidden" style="margin: auto;cursor: pointer;"
+              (click)="filterBy_NotStartedOnTime()">
+              <div class="card-body py-0">
+                <div class="row">
+                  <div class="col-3 text-white px-0 text-center" style="background-color: #fdff8a;">
+                    <img src="assets/report icons/idle.png" style="width: 30px ;height: 30px;margin-top: 5px;" alt="">
+
+                  </div>
+                  <div class="col text-right px-1 pr-0" style="background-color: #ededed;">
+                    <p class="mb-0" style=" color:#0000c0"><b>Not Started On Time</b></p>
+                    <h6 class="font-weight-light mb-0"><b> 7 </b></h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="  col-lg-3 col-sm-6  col-xs-12 my-1">
+            <div class="card border-1 shadow-sm overflow-hidden" style="margin: auto;cursor: pointer;"
+              (click)="filterBy_NotOnStartLocation()">
+              <div class="card-body py-0">
+                <div class="row">
+                  <div class="col-3 text-white px-0 text-center" style="background-color: #9af357;">
+                    <img src="assets/report icons/running.png" alt=""
+                      style="width: 30px ;height: 30px;margin-top: 5px;">
+                  </div>
+                  <div class="col text-right px-1 pr-0" style="background-color: #ededed;">
+                    <p class="mb-0" style=" color:#0000c0"><b>Not Started On Start Location</b></p>
+                    <h6 class="font-weight-light mb-0"><b> 8</b> </h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="  col-lg-3 col-sm-6  col-xs-12 my-1">
+            <div class="card border-1 shadow-sm overflow-hidden" style="margin: auto;cursor: pointer;"
+              (click)="filterBy_NotCompleted()">
+              <div class="card-body py-0">
+                <div class="row">
+                  <div class="col-3 text-white px-0 text-center" style="background-color: #9af357;">
+                    <img src="assets/report icons/running.png" alt=""
+                      style="width: 30px ;height: 30px;margin-top: 5px;">
+                  </div>
+                  <div class="col text-right px-1 pr-0" style="background-color: #ededed;">
+                    <p class="mb-0" style=" color:#0000c0"><b>Not Completed (beat/trip)</b></p>
+                    <h6 class="font-weight-light mb-0"><b> 9 </b> </h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+
+    </div>
+
+
+
+    <div class="card mt-2 mb-2">
+      <div class="card-header text-bold">
+        <b> Details</b><span style="float: right;"><b> Current Time :</b> {{d | date:'dd-MMM-yyyy hh:mm'}}</span>
+      </div>
+      <div class="card-body">
+
+        <!--    ---------------        Table Header Staret=------------------------    -->
+
+
+
+        <div class="row mb-3">
+          <div class="col-12 col-sm-12 col-md text-md-left align-self-center pr-0">
+            <ul class="nav  justify-sm-content-center  justify-content-left">
+              <li class="nav-item ">
+                <div class="input-group" style="max-width: 250px;">
+                  <input type="text" placeholder="Search" id="searchData" class="form-control searchicon"
+                    id="searchData" [(ngModel)]="filter" aria-label="Amount (to the nearest dollar)">
+                  <div class="input-group-append">
+                    <button class="btn  apendbtn" (click)="searchdata()" [disabled]="filter==''">
+                      <i style="color: #00ed54; margin-top: -15px;" class="fa fa-search"></i>
+                    </button>
+                  </div>
+                </div>
+              </li>
+              <li class="nav-item mx-3">
+                <i class="fa fa-refresh fa-2x fa-spin-hover" style="font-size: 17px;
+                padding-top: 4px;color: #00fff3;" (click)="Refreshfunction()"></i>
+              </li>
+            </ul>
+          </div>
+
+          <div class="col-12 col-sm-12 col-md-auto text-right text-md-end pl-0">
+            <ul class="nav justify-content-center justify-lg-content-end  justify-sm-content-center">
+              <li class="nav-item mx-2">
+                <img style="cursor: pointer; height: 20px; margin-top: 3px;" (click)="ReportPDFDownload()"
+                  ngbTooltip="PDF" src="assets/images/PDFicon.png">
+              </li>
+              <li class="nav-item mx-2">
+                <img style="cursor: pointer;" (click)="exportToExcel()" ngbTooltip="Excel"
+                  src="assets/images/excellogo.png">
+              </li>
+              <li class="nav-item mx-3">
+                <span style="display: inline;">Show Rows : </span> <select class="form-control p-0"
+                  (change)="changeItemsPerPage()" [(ngModel)]="itemsPerPage" style="width: 44px;display: inline;">
+                  <option>5</option>
+                  <option>10</option>
+                  <option>20</option>
+                  <option>50</option>
+                </select>
+              </li>
+              <li class="nav-item ">
+                <span>Total Records : {{viewcount}} of {{totalcount}}</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+
+        <!-- ---------------------  Table header end  ------------------------------ -->
+
+
+        <div class="table-responsive">
+          <table class="table table-striped text-center">
+            <thead style="font-weight: bold;color: rgb(105, 28, 28);">
+              <tr>
+                <th>#</th>
+                <th (click)="sort('param3')">Set Name</th>
+                <th (click)="sort('param2')">Device Id</th>
+                <th (click)="sort('param39')">IMEI Number </th>
+                <th (click)="sort('param37')">Last Updated At </th>
+                <th (click)="sort('param38')">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- <tr class="trheight" *ngFor="let item of reportList"> -->
+              <tr
+                *ngFor="let item of reportData | filter:filter |  orderBy: key : reverse | paginate : {itemsPerPage:itemsPerPage,currentPage:pageNumber,totalItems:totalcount} "
+                class="trheight">
+
+                <td>{{item.rowNumber}}</td>
+                <td>{{item.param3}}</td>
+                <td>{{item.param2}} </td>
+                <td>{{item.param39}}</td>
+                <td>{{item.param37}}</td>
+                <td>{{item.param38}}</td>
+              </tr>
+            </tbody>
+            <tfoot id="foot" class="box-footer clearfix">
+              <tr>
+                <td colspan="12">
+                  <pagination-controls style=" float: right;color: black;" (pageChange)="pageChange($event)">
+                  </pagination-controls>
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+          <div class="float-right mt-3">
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!--Dummy Table of Excel -->
+  <div style=" display: none;">
+    <div class="row" id="ReportForPDF" style=" overflow-y: hidden; " #epltable>
+
+      <img src="https://track.indtrack.com/indtrack/assets/images/indgps.png" style="position: absolute;">
+      <br><br>
+      <h5 style="font-weight: bold;text-align :center;margin-top:0px;">ALERT MESSAGE REPORT</h5>
+
+      <table style="width: 100%;border:none">
+        <tr>
+          <th style="text-align: right;border:none" *ngIf="!isCustomer"> Customer <span style="float: right;">:</span>
+          </th>
+          <td style="text-align: left;border:none" *ngIf="!isCustomer">{{customerName}} </td>
+          <th style="text-align: right;border:none">Device <span style="float: right;">:</span></th>
+          <td style="text-align: left;border:none">{{deviceName}} </td>
+          <th style="text-align: right;border:none">Start Time <span style="float: right;">:</span></th>
+          <td style="text-align: left;border:none">{{fromDate |date:'dd-MMM-yyyy'}} {{fromTime}} </td>
+          <th style="text-align: right;border:none">End Time <span style="float: right;">:</span></th>
+          <td style="text-align: left;border:none">{{toDate |date:'dd-MMM-yyyy'}} {{toTime}} </td>
+        </tr>
+      </table>
+
+      <br><br>
+      <div style="width: 100%;">
+        <div class="center" style="padding:auto;">
+          <table>
+            <tr>
+              <td style="background-color: #ffc05a;"><img
+                  src="https://track.indtrack.com/indtrack/assets/report icons/distance.png" width="30px" height="30px"
+                  style="margin:0 5px 0 5px;"></td>
+              <td style=" text-align: right; width: 100%;">
+                <p style="font-size: 14px; font-weight: bold; color: blue;">Not Working<br>
+                  <span style="color: black;"> 4</span>
+                </p>
+              </td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="center">
+          <table>
+            <tr>
+              <td style="background-color: #fdff8a;"><img
+                  src="https://track.indtrack.com/indtrack/assets/report icons/idle.png" width="30px" height="30px"
+                  style="margin:0 5px 0 5px;"></td>
+              <td style=" text-align: right; width: 100%; ">
+                <p style=" font-size: 14px;font-weight: bold; color: blue;">Not Started On Time<br>
+                  <span style="color: black;"> 3</span>
+                </p>
+              </td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="center">
+          <table>
+            <tr>
+              <td style="background-color: #fdff8a;"><img
+                  src="https://track.indtrack.com/indtrack/assets/report icons/idle.png" width="30px" height="30px"
+                  style="margin:0 5px 0 5px;"></td>
+              <td style=" text-align: right; width: 100%; ">
+                <p style=" font-size: 14px;font-weight: bold; color: blue;">Not Started On Start Location <br>
+                  <span style="color: black;"> 2</span>
+                </p>
+              </td>
+            </tr>
+          </table>
+        </div>
+
+
+        <div class="center">
+          <table>
+            <tr>
+              <td style="background-color: #9af357;"><img
+                  src="https://track.indtrack.com/indtrack/assets/report icons/running.png" width="30px" height="30px"
+                  style="margin:0 5px 0 5px;"></td>
+              <td style=" text-align: right;  width: 100%;">
+                <p style="font-size: 14px; font-weight: bold; color: blue;">Not Completed (beat/trip)<br>
+                  <span style="color: black;"> 1 </span>
+                </p>
+              </td>
+            </tr>
+          </table>
+        </div>
+
+      </div>
+      <br>
+      <br>
+      <table class="table table-hover table-striped">
+
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Set Name</th>
+            <th>Device Id</th>
+            <th>IMEI Number </th>
+            <th>Last Updated At </th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of reportPDFData" class="trheight">
+            <td class="text-dark">{{item.rowNumber}}</td>
+            <td class="text-dark">{{item.param3}}</td>
+            <td class="text-dark">{{item.param2}} </td>
+            <td class="text-dark">{{item.param39}}</td>
+            <td class="text-dark">{{item.param6}}</td>
+            <td class="text-dark">{{item.param38}}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <footer>
+        <span> Date : {{d |date:'dd-MMM-yyyy hh:mm' }}</span>
+        <p style="text-align: center;"><b>This is system generated report</b></p>
+      </footer>
+    </div>
+  </div>
+  <!--Dummy Table of Excel -->
+
+
+
+
+  <!-- <error modal -->
+    <div class="modal fade " id="ErrorModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+    aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+      <div class="modal-content box-shadow">
+        <div class="card  border-0">
+          <div class="card-header  py-1 pl-3 m-0" style="background-color: red;">
+            <p style="font-size:17px; font-weight:bold"> Error </p>
+          </div>
+          <div class="card-body bg-white text-dark">
+            <p> {{errorMessage}}</p>
+            <div class="text-right">
+              <button class="btn btn-sm btn-success" data-dismiss="modal">ok</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- error modal -->
+
+</body>

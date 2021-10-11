@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>Welcome to APMVTS- APMVTS is an integrated vehicle tracking system for all mineral 
+        carrying vehicles across the state of Andhra Pradesh. The system ensures that only 
+        vehicles fitted with GPS devices can be issued an e-permit for carrying minerals from 
+        the source to a pre-defined destination in a pre-determined time frame.</title>
+
+  <!-- <base href="https://track.indtrack.com/indtrack/"/>   -->
+  <base href="/">
+  <!-- <base href="https://api.indtrack.co.in/indtrack1/"/> -->
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" type="image/x-icon" href="assets/images/ap-govt-logo.png" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <link href="assets/daterangepicker-master/daterangepicker.css" rel="stylesheet">
+  <script src="assets/daterangepicker-master/moment.min.js"></script>
+  <script src="assets/daterangepicker-master/daterangepicker.js"></script>
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/js/bootstrap-select.js"></script> -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet"> -->
+  <link rel="stylesheet" href="assets/timepicker/wickedpicker.css">
+  <link rel="stylesheet" href="assets/ol.css" type="text/css">
+
+  <!-- <link rel="stylesheet" href="../node_modules/ngx-select-dropdown/dist/assets/style.css"> -->
+
+  <!--  Developer: Tafseer and Kanchan 
+              Details: map Integration -->
+
+
+
+  <script src="assets/amCharts/amchartscore.js"></script>
+  <script src="assets/js/resources.js"></script>
+
+  <script src="assets/chartjs/canvasjs.min.js"></script>
+
+
+  <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
+  <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+  <script src="assets/chartjs/guage.js"></script>
+
+  <script src="assets/chartjs/gauge.js"></script>
+  <script src="assets/mapscripts/historynewanimation.js"></script>
+
+
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.4.3/css/ol.css" -->
+  <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.5.0/build/ol.js"></script>
+  <script src="https://cdn.rawgit.com/Viglino/ol-ext/master/dist/ol-ext.js"></script>
+  <script src="https://cdnjssidemenu-open sidebar-icon.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+
+  <script
+    src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL,Object.assign"></script>
+  <link rel="stylesheet" href="assets/css/mapcustomcss.css">
+  <!-- map js plain -->
+
+  <!-- map js plain -->
+
+
+
+  <script src="assets/mapscripts/mapview.js"></script>
+  <script src="assets/mapscripts/mapclusters.js"></script>
+  <script src="assets/mapscripts/maphistory.js"></script>
+  <script src="assets/mapscripts/poiscript.js"></script>
+  <script src="assets/mapscripts/mapswitcher.js"></script>
+  <script src="assets/mapscripts/historyanimation.js"></script>
+  <script src="assets/mapscripts/liveanimation.js"></script>
+  <script src="assets/mapscripts/headermapscript.js"></script>
+  <script src="assets/mapscripts/geoserverlayers.js"></script> 
+  <script src="assets/mapscripts/creategeofence.js"></script>
+  <script src="assets/chartjs/customerdashboardcharts.js"></script>
+
+  <script src="assets/js/generateqrcode.js"></script>
+  <script src="assets/js/qrcode.min.js"></script>
+  <!-- <script src="assets/exportexcel.js"></script>  -->
+  <!-- map js Minified -->
+  <!-- -->
+
+
+  <!-- <script src="assets/mapscriptsmin/mapview.min.js"></script>
+  <script src="assets/mapscriptsmin/mapclusters.min.js"></script>
+  <script src="assets/mapscriptsmin/maphistory.min.js"></script>
+  <script src="assets/mapscriptsmin/poiscript.min.js"></script>
+  <script src="assets/mapscriptsmin/mapswitcher.min.js"></script>
+  <script src="assets/mapscriptsmin/historyanimation.min.js"></script>
+  <script src="assets/mapscriptsmin/liveanimation.min.js"></script>
+  <script src="assets/mapscriptsmin/headermapscript.min.js"></script>
+
+  <script src="assets/mapscripts/getlocation.js"></script>
+  <script src="assets/mapscriptsmin/creategeofence.min.js"></script>
+  <script src="assets/mapscriptsmin/geoserverlayers.min.js"></script> -->
+
+
+  <!-- <link href="..assets/vendor/smartwizard/css/smart_wizard_theme_dots.min.css" rel="stylesheet">
+        <link href="..assets/vendor/smartwizard/css/smart_wizard_theme_dots.css" rel="stylesheet">
+        <link href="..assets/vendor/smartwizard/css/smart_wizard_theme_arrows.css" rel="stylesheet">
+        <link href="..assets/vendor/smartwizard/css/smart_wizard_theme_arrows.min.css" rel="stylesheet"> -->
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.5/js/swiper.min.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.5/css/swiper.css" rel="stylesheet" />
+
+
+  <style>
+    .lds-roller {
+      display: inline-block;
+      position: relative;
+      width: 64px;
+      height: 64px;
+    }
+
+    .lds-roller div {
+      animation: lds-roller 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+      transform-origin: 32px 32px;
+    }
+
+    .card .card-header {
+      padding: 4px 15px !important;
+      background-color: #034362;
+      color: black;
+  }
+
+    .lds-roller div:after {
+      content: ' ';
+      display: block;
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #ffffff;
+      margin: -3px 0 0 -3px;
+    }
+
+    .lds-roller div:nth-child(1) {
+      animation-delay: -0.036s;
+    }
+
+    .lds-roller div:nth-child(1):after {
+      top: 50px;
+      left: 50px;
+    }
+
+    .lds-roller div:nth-child(2) {
+      animation-delay: -0.072s;
+    }
+
+    .lds-roller div:nth-child(2):after {
+      top: 54px;
+      left: 45px;
+    }
+
+    .lds-roller div:nth-child(3) {
+      animation-delay: -0.108s;
+    }
+
+    .lds-roller div:nth-child(3):after {
+      top: 57px;
+      left: 39px;
+    }
+
+    .lds-roller div:nth-child(4) {
+      animation-delay: -0.144s;
+    }
+
+    .lds-roller div:nth-child(4):after {
+      top: 58px;
+      left: 32px;
+    }
+
+    .lds-roller div:nth-child(5) {
+      animation-delay: -0.18s;
+    }
+
+    .lds-roller div:nth-child(5):after {
+      top: 57px;
+      left: 25px;
+    }
+
+    .lds-roller div:nth-child(6) {
+      animation-delay: -0.216s;
+    }
+
+    .lds-roller div:nth-child(6):after {
+      top: 54px;
+      left: 19px;
+    }
+
+    .lds-roller div:nth-child(7) {
+      animation-delay: -0.252s;
+    }
+
+    .lds-roller div:nth-child(7):after {
+      top: 50px;
+      left: 14px;
+    }
+
+    .lds-roller div:nth-child(8) {
+      animation-delay: -0.288s;
+    }
+
+    .lds-roller div:nth-child(8):after {
+      top: 45px;
+      left: 10px;
+    }
+
+    @keyframes lds-roller {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+
+    #outer {
+      /* float: left; */
+      width: 100%;
+      overflow: hidden;
+      white-space: nowrap;
+      display: inline-block;
+    }
+
+    #left-button {
+      float: left;
+      width: 30px;
+      text-align: center;
+      padding-top: 32px;
+        }
+
+    #right-button {
+      float: left;
+      width: 30px;
+      text-align: center;
+      padding-top: 32px;   
+     }
+
+
+
+    #inner:first-child {
+      margin-left: 0;
+      display: flex;
+      padding: 5px
+    }
+
+
+
+    .hide {
+      display: none;
+    }
+
+
+
+
+    /* ---------------------------------------------------------------------------------------------- */
+  </style>
+  <link rel="stylesheet" href="assets/indtrack.css" type="text/css">
+
+
+
+  <!-- Developer dhammadeep dahiwale -->
+  <!-- style for timepicki -->
+  <link rel="stylesheet" href="assets/timepicki/css/timepicki.css" type="text/css">
+
+
+  <!-- Developer dhammadeep dahiwale -->
+  <!-- style for timepicki -->
+
+  <script>
+    function AddLoader() {
+      document.getElementById("mainloader").style.display = "block";
+    }
+    function RemoveLoader() {
+      document.getElementById("mainloader").style.display = "none";
+    }
+
+  </script>
+
+
+  <!-- date picker     -->
+
+  <script>
+
+
+  </script>
+
+  <script type="text/javascript">
+   
+   function callAngularFunction(inputdata) {
+      window.angularComponentReference.zone.run(() => { window.angularComponentReference.loadAngularFunction(inputdata); });
+    }
+
+
+    function livetrackfunction(inputdata) {
+      window.angularComponentReferencelive.zone.run(() => { window.angularComponentReferencelive.loadAngularFunction(inputdata); });
+    }
+
+
+    function historytrackfunction(inputdata) {
+
+
+      document.getElementById("detailstrackingdiv").style.display = "none";
+
+      document.getElementById("detailsbody").style.display = "none";
+      document.getElementById("historyinputdiv").style.display = "block";
+
+
+      // window.angularComponentReferencehistory.zone.run(() => { window.angularComponentReferencehistory.loadAngularFunction(inputdata); });
+    }
+
+
+    function Backtodetails() {
+      document.getElementById("historyinputdiv").style.display = "none";
+
+      document.getElementById("detailstrackingdiv").style.display = "flex";
+
+      document.getElementById("detailsbody").style.display = "block";
+
+
+    }
+
+
+    function historytrack(inputdata) {
+      var hr = document.getElementById("fromtime").value.substring(0, 2);
+      var min = document.getElementById("fromtime").value.substring(3, 5)
+      var fromtime = formatAMPM(hr, min);
+      hr = document.getElementById("totime").value.substring(0, 2);
+      min = document.getElementById("totime").value.substring(3, 5)
+      var totime = formatAMPM(hr, min);
+
+
+
+      vehicledata = {
+        "vehicleid": inputdata,
+        "fromdate": document.getElementById("fromdate").value,
+        "fromtime": fromtime,
+        "todate": document.getElementById("todate").value,
+        "totime": totime
+      }
+      window.angularComponentReferencehistory.zone.run(() => { window.angularComponentReferencehistory.loadAngularFunction(vehicledata); });
+
+    }
+
+    function formatAMPM(hr, min) {
+      var hours = Number(hr);
+      var minutes = Number(min);
+      var ampm = hours >= 12 ? 'PM' : 'AM';
+      hours = hours % 12;
+      hours = hours ? hours : 12; // the hour '0' should be '12'
+      hours = hours < 10 ? '0' + hours : hours;
+
+      minutes = minutes < 10 ? '0' + minutes : minutes;
+      var strTime = hours + ':' + minutes + ' ' + ampm;
+      return strTime;
+    }
+
+    function SortingTable(id) {
+
+      var stIsIE = /*@cc_on!@*/false;
+      sorttable = {
+        init: function () {
+          // quit if this function has already been called
+          if (arguments.callee.done) return;
+          // flag this function so we don't do the same thing twice
+          arguments.callee.done = true;
+          // kill the timer
+          if (_timer) clearInterval(_timer);
+
+          if (!document.createElement || !document.getElementsByTagName) return;
+
+          sorttable.DATE_RE = /^(\d\d?)[\/\.-](\d\d?)[\/\.-]((\d\d)?\d\d)$/;
+
+          var table = document.getElementById(id);
+          if (table.className.search(/\bsortable\b/) != -1) {
+            sorttable.makeSortable(table);
+          }
+
+
+        },
+
+        makeSortable: function (table) {
+          if (table.getElementsByTagName('thead').length == 0) {
+            // table doesn't have a tHead. Since it should have, create one and
+            // put the first table row in it.
+            the = document.createElement('thead');
+            the.appendChild(table.rows[0]);
+            table.insertBefore(the, table.firstChild);
+          }
+          // Safari doesn't support table.tHead, sigh
+          if (table.tHead == null) table.tHead = table.getElementsByTagName('thead')[0];
+
+          if (table.tHead.rows.length != 1) return; // can't cope with two header rows
+
+          // Sorttable v1 put rows with a class of "sortbottom" at the bottom (as
+          // "total" rows, for example). This is B&R, since what you're supposed
+          // to do is put them in a tfoot. So, if there are sortbottom rows,
+          // for backwards compatibility, move them to tfoot (creating it if needed).
+          sortbottomrows = [];
+          for (var i = 0; i < table.rows.length; i++) {
+            if (table.rows[i].className.search(/\bsortbottom\b/) != -1) {
+              sortbottomrows[sortbottomrows.length] = table.rows[i];
+            }
+          }
+          if (sortbottomrows) {
+            if (table.tFoot == null) {
+              // table doesn't have a tfoot. Create one.
+              tfo = document.createElement('tfoot');
+              table.appendChild(tfo);
+            }
+            for (var i = 0; i < sortbottomrows.length; i++) {
+              tfo.appendChild(sortbottomrows[i]);
+            }
+            delete sortbottomrows;
+          }
+
+          // work through each column and calculate its type
+          headrow = table.tHead.rows[0].cells;
+          for (var i = 0; i < headrow.length; i++) {
+            // manually override the type with a sorttable_type attribute
+            if (!headrow[i].className.match(/\bsorttable_nosort\b/)) { // skip this col
+              mtch = headrow[i].className.match(/\bsorttable_([a-z0-9]+)\b/);
+              if (mtch) { override = mtch[1]; }
+              if (mtch && typeof sorttable["sort_" + override] == 'function') {
+                headrow[i].sorttable_sortfunction = sorttable["sort_" + override];
+              } else {
+                headrow[i].sorttable_sortfunction = sorttable.guessType(table, i);
+              }
+              // make it clickable to sort
+              headrow[i].sorttable_columnindex = i;
+              headrow[i].sorttable_tbody = table.tBodies[0];
+              dean_addEvent(headrow[i], "click", sorttable.innerSortFunction = function (e) {
+
+                if (this.className.search(/\bsorttable_sorted\b/) != -1) {
+                  // if we're already sorted by this column, just
+                  // reverse the table, which is quicker
+                  sorttable.reverse(this.sorttable_tbody);
+                  this.className = this.className.replace('sorttable_sorted',
+                    'sorttable_sorted_reverse');
+                  this.removeChild(document.getElementById('sorttable_sortfwdind'));
+                  sortrevind = document.createElement('span');
+                  sortrevind.id = "sorttable_sortrevind";
+                  sortrevind.innerHTML = stIsIE ? '&nbsp<font face="webdings">5</font>' : '&nbsp;&#x25B4;';
+                  this.appendChild(sortrevind);
+                  return;
+                }
+                if (this.className.search(/\bsorttable_sorted_reverse\b/) != -1) {
+                  // if we're already sorted by this column in reverse, just
+                  // re-reverse the table, which is quicker
+                  sorttable.reverse(this.sorttable_tbody);
+                  this.className = this.className.replace('sorttable_sorted_reverse',
+                    'sorttable_sorted');
+                  this.removeChild(document.getElementById('sorttable_sortrevind'));
+                  sortfwdind = document.createElement('span');
+                  sortfwdind.id = "sorttable_sortfwdind";
+                  sortfwdind.innerHTML = stIsIE ? '&nbsp<font face="webdings">6</font>' : '&nbsp;&#x25BE;';
+                  this.appendChild(sortfwdind);
+                  return;
+                }
+
+                // remove sorttable_sorted classes
+                theadrow = this.parentNode;
+                forEach(theadrow.childNodes, function (cell) {
+                  if (cell.nodeType == 1) { // an element
+                    cell.className = cell.className.replace('sorttable_sorted_reverse', '');
+                    cell.className = cell.className.replace('sorttable_sorted', '');
+                  }
+                });
+                sortfwdind = document.getElementById('sorttable_sortfwdind');
+                if (sortfwdind) { sortfwdind.parentNode.removeChild(sortfwdind); }
+                sortrevind = document.getElementById('sorttable_sortrevind');
+                if (sortrevind) { sortrevind.parentNode.removeChild(sortrevind); }
+
+                this.className += ' sorttable_sorted';
+                sortfwdind = document.createElement('span');
+                sortfwdind.id = "sorttable_sortfwdind";
+                sortfwdind.innerHTML = stIsIE ? '&nbsp<font face="webdings">6</font>' : '&nbsp;&#x25BE;';
+                this.appendChild(sortfwdind);
+
+                // build an array to sort. This is a Schwartzian transform thing,
+                // i.e., we "decorate" each row with the actual sort key,
+                // sort based on the sort keys, and then put the rows back in order
+                // which is a lot faster because you only do getInnerText once per row
+                row_array = [];
+                col = this.sorttable_columnindex;
+                rows = this.sorttable_tbody.rows;
+                for (var j = 0; j < rows.length; j++) {
+                  row_array[row_array.length] = [sorttable.getInnerText(rows[j].cells[col]), rows[j]];
+                }
+                /* If you want a stable sort, uncomment the following line */
+                //sorttable.shaker_sort(row_array, this.sorttable_sortfunction);
+                /* and comment out this one */
+                row_array.sort(this.sorttable_sortfunction);
+
+                tb = this.sorttable_tbody;
+                for (var j = 0; j < row_array.length; j++) {
+                  tb.appendChild(row_array[j][1]);
+                }
+
+                delete row_array;
+              });
+            }
+          }
+        },
+
+        guessType: function (table, column) {
+          // guess the type of a column based on its first non-blank row
+          sortfn = sorttable.sort_alpha;
+          for (var i = 0; i < table.tBodies[0].rows.length; i++) {
+            text = sorttable.getInnerText(table.tBodies[0].rows[i].cells[column]);
+            if (text != '') {
+              if (text.match(/^-?[£$¤]?[\d,.]+%?$/)) {
+                return sorttable.sort_numeric;
+              }
+              // check for a date: dd/mm/yyyy or dd/mm/yy
+              // can have / or . or - as separator
+              // can be mm/dd as well
+              possdate = text.match(sorttable.DATE_RE)
+              if (possdate) {
+                // looks like a date
+                first = parseInt(possdate[1]);
+                second = parseInt(possdate[2]);
+                if (first > 12) {
+                  // definitely dd/mm
+                  return sorttable.sort_ddmm;
+                } else if (second > 12) {
+                  return sorttable.sort_mmdd;
+                } else {
+                  // looks like a date, but we can't tell which, so assume
+                  // that it's dd/mm (English imperialism!) and keep looking
+                  sortfn = sorttable.sort_ddmm;
+                }
+              }
+            }
+          }
+          return sortfn;
+        },
+
+        getInnerText: function (node) {
+          // gets the text we want to use for sorting for a cell.
+          // strips leading and trailing whitespace.
+          // this is *not* a generic getInnerText function; it's special to sorttable.
+          // for example, you can override the cell text with a customkey attribute.
+          // it also gets .value for <input> fields.
+
+          if (!node) return "";
+
+          hasInputs = (typeof node.getElementsByTagName == 'function') &&
+            node.getElementsByTagName('input').length;
+
+          if (node.getAttribute("sorttable_customkey") != null) {
+            return node.getAttribute("sorttable_customkey");
+          }
+          else if (typeof node.textContent != 'undefined' && !hasInputs) {
+            return node.textContent.replace(/^\s+|\s+$/g, '');
+          }
+          else if (typeof node.innerText != 'undefined' && !hasInputs) {
+            return node.innerText.replace(/^\s+|\s+$/g, '');
+          }
+          else if (typeof node.text != 'undefined' && !hasInputs) {
+            return node.text.replace(/^\s+|\s+$/g, '');
+          }
+          else {
+            switch (node.nodeType) {
+              case 3:
+                if (node.nodeName.toLowerCase() == 'input') {
+                  return node.value.replace(/^\s+|\s+$/g, '');
+                }
+              case 4:
+                return node.nodeValue.replace(/^\s+|\s+$/g, '');
+                break;
+              case 1:
+              case 11:
+                var innerText = '';
+                for (var i = 0; i < node.childNodes.length; i++) {
+                  innerText += sorttable.getInnerText(node.childNodes[i]);
+                }
+                return innerText.replace(/^\s+|\s+$/g, '');
+                break;
+              default:
+                return '';
+            }
+          }
+        },
+
+        reverse: function (tbody) {
+          // reverse the rows in a tbody
+          newrows = [];
+          for (var i = 0; i < tbody.rows.length; i++) {
+            newrows[newrows.length] = tbody.rows[i];
+          }
+          for (var i = newrows.length - 1; i >= 0; i--) {
+            tbody.appendChild(newrows[i]);
+          }
+          delete newrows;
+        },
+
+        /* sort functions
+           each sort function takes two parameters, a and b
+           you are comparing a[0] and b[0] */
+        sort_numeric: function (a, b) {
+          aa = parseFloat(a[0].replace(/[^0-9.-]/g, ''));
+          if (isNaN(aa)) aa = 0;
+          bb = parseFloat(b[0].replace(/[^0-9.-]/g, ''));
+          if (isNaN(bb)) bb = 0;
+          return aa - bb;
+        },
+        sort_alpha: function (a, b) {
+          if (a[0] == b[0]) return 0;
+          if (a[0] < b[0]) return -1;
+          return 1;
+        },
+        sort_ddmm: function (a, b) {
+          mtch = a[0].match(sorttable.DATE_RE);
+          y = mtch[3]; m = mtch[2]; d = mtch[1];
+          if (m.length == 1) m = '0' + m;
+          if (d.length == 1) d = '0' + d;
+          dt1 = y + m + d;
+          mtch = b[0].match(sorttable.DATE_RE);
+          y = mtch[3]; m = mtch[2]; d = mtch[1];
+          if (m.length == 1) m = '0' + m;
+          if (d.length == 1) d = '0' + d;
+          dt2 = y + m + d;
+          if (dt1 == dt2) return 0;
+          if (dt1 < dt2) return -1;
+          return 1;
+        },
+        sort_mmdd: function (a, b) {
+          mtch = a[0].match(sorttable.DATE_RE);
+          y = mtch[3]; d = mtch[2]; m = mtch[1];
+          if (m.length == 1) m = '0' + m;
+          if (d.length == 1) d = '0' + d;
+          dt1 = y + m + d;
+          mtch = b[0].match(sorttable.DATE_RE);
+          y = mtch[3]; d = mtch[2]; m = mtch[1];
+          if (m.length == 1) m = '0' + m;
+          if (d.length == 1) d = '0' + d;
+          dt2 = y + m + d;
+          if (dt1 == dt2) return 0;
+          if (dt1 < dt2) return -1;
+          return 1;
+        },
+
+        shaker_sort: function (list, comp_func) {
+          // A stable sort function to allow multi-level sorting of data
+          // see: http://en.wikipedia.org/wiki/Cocktail_sort
+          var b = 0;
+          var t = list.length - 1;
+          var swap = true;
+
+          while (swap) {
+            swap = false;
+            for (var i = b; i < t; ++i) {
+              if (comp_func(list[i], list[i + 1]) > 0) {
+                var q = list[i]; list[i] = list[i + 1]; list[i + 1] = q;
+                swap = true;
+              }
+            } // for
+            t--;
+
+            if (!swap) break;
+
+            for (var i = t; i > b; --i) {
+              if (comp_func(list[i], list[i - 1]) < 0) {
+                var q = list[i]; list[i] = list[i - 1]; list[i - 1] = q;
+                swap = true;
+              }
+            } // for
+            b++;
+
+          } // while(swap)
+        }
+      }
+
+      /* ******************************************************************
+       Supporting functions: bundled here to avoid depending on a library
+       ****************************************************************** */
+
+
+      /* for Mozilla/Opera9 */
+      if (document.addEventListener) {
+        document.addEventListener("DOMContentLoaded", sorttable.init, false);
+      }
+
+      /* for Internet Explorer */
+      /*@cc_on @*/
+      /*@if (@_win32)
+        document.write("<script id=__ie_onload defer src=javascript:void(0)><\/script>");
+        var script = document.getElementById("__ie_onload");
+        script.onreadystatechange = function() {
+            if (this.readyState == "complete") {
+                sorttable.init(); // call the onload handler
+            }
+        };
+      /*@end @*/
+
+      /* for Safari */
+      if (/WebKit/i.test(navigator.userAgent)) { // sniff
+        var _timer = setInterval(function () {
+          if (/loaded|complete/.test(document.readyState)) {
+            sorttable.init(); // call the onload handler
+          }
+        }, 10);
+      }
+
+      /* for other browsers */
+      window.onload = sorttable.init;
+
+      // written by Dean Edwards, 2005
+      // with input from Tino Zijdel, Matthias Miller, Diego Perini
+
+      // http://dean.edwards.name/weblog/2005/10/add-event/
+
+      function dean_addEvent(element, type, handler) {
+        if (element.addEventListener) {
+          element.addEventListener(type, handler, false);
+        } else {
+          // assign each event handler a unique ID
+          if (!handler.$$guid) handler.$$guid = dean_addEvent.guid++;
+          // create a hash table of event types for the element
+          if (!element.events) element.events = {};
+          // create a hash table of event handlers for each element/event pair
+          var handlers = element.events[type];
+          if (!handlers) {
+            handlers = element.events[type] = {};
+            // store the existing event handler (if there is one)
+            if (element["on" + type]) {
+              handlers[0] = element["on" + type];
+            }
+          }
+          // store the event handler in the hash table
+          handlers[handler.$$guid] = handler;
+          // assign a global event handler to do all the work
+          element["on" + type] = handleEvent;
+        }
+      };
+      // a counter used to create unique IDs
+      dean_addEvent.guid = 1;
+
+      function removeEvent(element, type, handler) {
+        if (element.removeEventListener) {
+          element.removeEventListener(type, handler, false);
+        } else {
+          // delete the event handler from the hash table
+          if (element.events && element.events[type]) {
+            delete element.events[type][handler.$$guid];
+          }
+        }
+      };
+
+      function handleEvent(event) {
+        var returnValue = true;
+        // grab the event object (IE uses a global event object)
+        event = event || fixEvent(((this.ownerDocument || this.document || this).parentWindow || window).event);
+        // get a reference to the hash table of event handlers
+        var handlers = this.events[event.type];
+        // execute each event handler
+        for (var i in handlers) {
+          this.$$handleEvent = handlers[i];
+          if (this.$$handleEvent(event) === false) {
+            returnValue = false;
+          }
+        }
+        return returnValue;
+      };
+
+      function fixEvent(event) {
+        // add W3C standard event methods
+        event.preventDefault = fixEvent.preventDefault;
+        event.stopPropagation = fixEvent.stopPropagation;
+        return event;
+      };
+      fixEvent.preventDefault = function () {
+        this.returnValue = false;
+      };
+      fixEvent.stopPropagation = function () {
+        this.cancelBubble = true;
+      }
+
+      // Dean's forEach: http://dean.edwards.name/base/forEach.js
+      /*
+        forEach, version 1.0
+        Copyright 2006, Dean Edwards
+        License: http://www.opensource.org/licenses/mit-license.php
+      */
+
+      // array-like enumeration
+      if (!Array.forEach) { // mozilla already supports this
+        Array.forEach = function (array, block, context) {
+          for (var i = 0; i < array.length; i++) {
+            block.call(context, array[i], i, array);
+          }
+        };
+      }
+
+      // generic enumeration
+      Function.prototype.forEach = function (object, block, context) {
+        for (var key in object) {
+          if (typeof this.prototype[key] == "undefined") {
+            block.call(context, object[key], key, object);
+          }
+        }
+      };
+
+      // character enumeration
+      String.forEach = function (string, block, context) {
+        Array.forEach(string.split(""), function (chr, index) {
+          block.call(context, chr, index, string);
+        });
+      };
+
+      // globally resolve forEach enumeration
+      var forEach = function (object, block, context) {
+        if (object) {
+          var resolve = Object; // default
+          if (object instanceof Function) {
+            // functions have a "length" property
+            resolve = Function;
+          } else if (object.forEach instanceof Function) {
+            // the object implements a custom forEach method so use that
+            object.forEach(block, context);
+            return;
+          } else if (typeof object == "string") {
+            // the object is a string
+            resolve = String;
+          } else if (typeof object.length == "number") {
+            // the object is array-like
+            resolve = Array;
+          }
+          resolve.forEach(object, block, context);
+        }
+      };
+    }
+
+  </script>
+
+
+</head>
+
+<body>
+  <app-root> </app-root>
+
+
+  <div class="modal fade " id="newSuccessModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+    aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+      <div class="modal-content box-shadow">
+        <div class="card  border-0">
+
+          <div class="card-body bg-white text-dark" style="    border-radius: 7px; ">
+            <div
+              style="        background-color: #1eb91e;  margin-top: -15px;  margin-left: -16px;  width: 300px;  color: white;  font-weight: bold;  text-align: center;">
+              Success</div>
+            <div style="   padding-top: 10px;">
+              <div style="   text-align: center; width: 100%;"><i class="fa fa-check"
+                  style="font-size: 29px;  color: green;"></i></div>
+              <div id="successmessagediv" style="    width: 100%;
+            font-size: 13px;font-weight: bold; padding: 3px;  padding-top: 7px;  padding-left: 55px;"> </div>
+
+
+
+            </div>
+            <div style="  padding-top: 5px;  text-align: center;">
+              <button class="btn btn-sm btn-success" data-dismiss="modal"
+                style="    background-color: #1eb91e; ">ok</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="modal fade " id="newErrorModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+    aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+      <div class="modal-content box-shadow">
+        <div class="card  border-0">
+
+          <div class="card-body bg-white text-dark" style="    border-radius: 7px; ">
+            <div
+              style="          background-color: #f9502a;  margin-top: -15px;  margin-left: -16px;  width: 300px;  color: white;  font-weight: bold;  text-align: center;">
+              Failed</div>
+            <div style="   padding-top: 10px;">
+              <div style="   text-align: center; width: 100%;"><i class="fa fa-exclamation-triangle"
+                  style="font-size: 29px;  color: #f9502a;"></i></div>
+              <div id="errormessagediv" style="    width: 100%;
+            font-size: 13px;font-weight: bold; padding: 3px;  padding-top: 7px;  padding-left: 55px;"> </div>
+
+
+
+            </div>
+            <div style="  padding-top: 5px;  text-align: center;">
+              <button class="btn btn-sm btn-success" data-dismiss="modal"
+                style="     background-color: #f9502a;">ok</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function isNumberKey(evt) {
+      var charCode = (evt.which) ? evt.which : evt.keyCode;
+      if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57))
+        return false;
+      return true;
+    }
+
+    function onlyNumberKey(evt) {
+      var charCode = (evt.which) ? evt.which : evt.keyCode;
+      // if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57))
+      if (charCode < 48 || charCode > 57)
+        return false;
+      return true;
+    }
+
+    function onlyAlphabets(e, t) {
+      try {
+        if (window.event) {
+          var charCode = window.event.keyCode;
+        }
+
+        else if (e) {
+          var charCode = e.which;
+        }
+        else { return true; }
+        if (charCode == 32)
+          return true;
+        if ((charCode > 64 && charCode < 91) || (charCode > 96 && charCode < 123))
+          return true;
+        else
+          return false;
+      }
+      catch (err) {
+        alert(err.Description);
+      }
+    }
+
+
+
+  </script>
+
+
+  <script>
+
+    function GetEmergencyalertDetails(x, y) {
+      window.angularComponentReference.zone.run(() => { window.angularComponentReference.loadAngularFunction(x, y); });
+    }
+  </script>
+
+
+
+
+  <script language="JavaScript" type="text/javascript">
+
+    function avoidSplChars(e) {
+      e = e || window.event;
+      var bad = /[^\sa-z\d]/i,
+        key = String.fromCharCode(e.keyCode || e.which);
+
+      if (e.which !== 0 && e.charCode !== 0 && bad.test(key)) {
+        e.returnValue = false;
+        if (e.preventDefault) {
+          e.preventDefault();
+        }
+      }
+    }
+
+
+    function display_c() {
+      var refresh = 1000; // Refresh rate in milli seconds
+      mytime = setTimeout('display_ct()', refresh)
+    }
+
+    function display_ct() {
+      var x = new Date()
+      //var x1=x.getMonth('MM') + 1 + "/" + x.getDate('DD') + "/" + x.getYear('YYYY'); 
+      x1 = +  x.getHours() + ":" + x.getMinutes() + ":" + x.getSeconds();
+      document.getElementById('ct').innerHTML = x1;
+      display_c();
+    }
+
+    $(function () {
+      // Enables popover
+      $("[data-toggle=popover]").popover();
+    });
+  </script>
+  <style>
+    .customTable th,
+    .customTable td {
+      padding: .20rem !important;
+    }
+
+    .customTable tbody tr td {
+      color: #000000 !important;
+    }
+
+    .ngx-dropdown-container .ngx-dropdown-list-container {
+        height: 150px !important;
+    }
+
+    .ngx-dropdown-container .ngx-dropdown-list-container ul li{
+      width: 100%;
+    }
+
+    /* .ngx-dropdown-container .ngx-dropdown-list-container .serach-container{
+      margin-top: 0 !important;
+      padding: 0 !important;
+    } */
+
+    /* .selected-items{
+      margin-top: 45px !important;
+      margin-left: -13px;
+    }
+
+    .available-items{
+      margin-top: 70px !important;
+      margin-left: -13px;
+    } */
+
+  </style>
+
+
+</body>
+
+</html>

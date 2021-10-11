@@ -1,0 +1,184 @@
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Order Entry</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true" style="color: white">×</span>
+              </button>
+          </div>
+          <div class="modal-body">
+            <div class="container-fluid">
+            <div  id="container">
+              <div class="step-wizardentry" role="navigation">
+                <div class="progress" style="display: none;">
+                  <div class="progressbar empty" style="display: none;"></div>
+                  <div id="progentry" class="progressbar" style="display: none;"></div>
+                </div>
+                <ul style="display: none;">
+                  <li class="active">
+                    <button id="stepentry1">
+                      <div class="step">1</div>
+                      <div class="title">Basic Details</div>
+                    </button>
+                  </li>
+                  <!-- <li class="">
+                    <button id="stepentry2">
+                      <div class="step">2</div>
+                      <div class="title">Contact Details</div>
+                    </button>
+                  </li> -->
+                  <li class="">
+                    <button id="stepentry3">
+                      <div class="step">2</div>
+                      <div class="title">Contact Details</div>
+                    </button>
+                  </li>
+                  <!-- <li class="">
+                    <button id="stepentry4">
+                      <div class="step">4</div>
+                      <div class="title">Successful</div>
+                    </button>
+                  </li> -->
+                </ul>
+          
+                <div class="stepsection" >
+                  <span class="invalidmsg" id="msg_mainmessageentry"></span>
+                  <div id="step-14" class="stepsdiv">
+                      <!-- <span class="StepTitle">Step 1: Basic Details</span> -->
+                      <div class="form-group row">
+                        <div class="col-lg-3 col-md-3">
+                          <label class="indlabel">No Of Device</label>
+                          <span class="mandatory">*</span>
+                          <input type="number" class="form-control" placeholder="No of Device" tabindex="1" required minlength="1" maxlength="4"
+                            id="noofdeviceentry" onpaste="return false;" [(ngModel)]="noOfdeviceentryText" #noofdevice="ngModel" onkeypress="return isNumberKey(event)"
+                            ondrop="return false;">
+                          <div class="invalidmsg" *ngIf="noofdevice.errors?.minlength">
+                            Vendor name must be at least minimum 3 characters & maximum 30 characters long.
+                          </div>
+                          <span class="invalidmsg" id="msg_vendorName"></span>
+                        </div>
+                        <div class="col-lg-4 col-md-4">
+                          <label class="indlabel">Mobile No.</label>
+                          <span class="mandatory">*</span>
+                          <input type="text" class="form-control" placeholder="Enter Mobile No" tabindex="2" required minlength="10" maxlength="10"
+                            id="Mobnoentry" [(ngModel)]="mobilenoentryText" #mobileno="ngModel" onkeypress="return isNumberKey(event)">
+                          <div class="invalidmsg" *ngIf="mobileno.errors?.minlength">
+                            Official number must be at least minimum 10 characters & maximum 10 characters long.
+                          </div>
+                          <span class="invalidmsg" id="msg_shortcode"></span>
+                        </div>
+                        <div class="col-lg-5 col-md-5"> 
+                          <label class="indlabel">Remark</label>
+                          <!-- <span class="mandatory">*</span> -->
+                          <textarea class="form-control" rows="1"  placeholder="Enter Remark" tabindex="3" minlength="10" maxlength="40" id="Remarkentry"
+                            [(ngModel)]="remarkText" #remark="ngModel"></textarea>
+                          <div class="invalidmsg" *ngIf="remark.errors?.minlength">
+                            Remark must be at least minimum 10 characters & maximum 40 characters long.
+                          </div>
+                        </div>
+                       
+  
+                      </div>
+                        <br><br>
+                      <span class="invalidmsg" id="msg_errorentry"></span>
+                    </div>
+                 
+                  
+                 
+              <!-- <div class="actionBar">
+                <button  id="saveentry" class="mb-2 btn btn-sm btn-success buttonFinish"  (click)="vensavebtn()"><i class="material-icons">save</i></button>
+                <button  id="nextentry" class="mb-2 btn btn-sm btn-primary buttonNext"><i class="material-icons">arrow_forward</i></button>
+                
+                <button  id="preventry" class="mb-2 btn btn-sm btn-primary buttonPrevious" onclick="validateAllSteps(4,4)"><i class="material-icons">arrow_back</i></button>
+                </div> -->
+          
+              </div>
+            </div>  
+          </div>
+          </div>
+          </div>
+           <!-- Modal footer -->
+
+       <div class="modal-footer" id="modelfooter">
+
+          <div class="actionBar">
+              <button id="save" class="mb-2 btn btn-wizard btn-sm btn-success buttonFinish" (click)="vensavebtn()" style="display: none;">
+                  <i class="material-icons">save</i>
+                </button>
+                <button id="next" class="mb-2 btn btn-wizard btn-sm btn-success buttonNext"  (click)="vensavebtn()">
+                  <i class="material-icons">save</i>
+                </button>
+            </div>
+    </div> 
+        
+      </div>
+  </div>
+</div>
+
+
+<!-- Developer 	: Aditya Londhe
+Date      	: 1-12-2020
+Description : Added a popup for success and error msg 
+Modified By:  
+Update date : -->
+
+
+<div class="modal fade" id="notifymodelentry">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-contentno">
+    
+      <!-- Modal Header -->
+      <div class="modal-header" style="background-color: 	rgb(133, 195, 197);">
+          <h4 class="modal-title text-center" style="color: rgb(0, 0, 0)">Error</h4>
+          <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+        </div>
+      
+      <!-- Modal body -->
+       <div class="modal-body" style="background-color: white;">
+        {{datafromrespo}}
+      </div> 
+      
+      <!-- Modal footer -->
+      <div class="modal-footer" style="background-color: 	rgb(255, 255, 255); margin-right: 0px;">
+        <!-- <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal"><span class="material-icons">
+            highlight_off
+            </span></button> -->
+            <button class="btn btn-success"  data-dismiss="modal" ><span class="material-icons">
+              highlight_off
+              </span></button>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="successmodelentry">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-contentno">
+    
+      <!-- Modal Header -->
+      <div class="modal-header" style="background-color: 	rgb(124, 255, 146);">
+          <h4 class="modal-title text-center" style="color: rgb(0, 0, 0)">Success</h4>
+          <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+        </div>
+      
+      <!-- Modal body -->
+       <div class="modal-body" style="background-color: white;">
+        {{datafromrespo}}
+      </div> 
+      
+      <!-- Modal footer -->
+      <div class="modal-footer" style="background-color: 	rgb(255, 255, 255); margin-right: 0px;">
+        <!-- <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal"><span class="material-icons">
+            highlight_off
+            </span></button> -->
+            <button class="btn btn-success"  data-dismiss="modal" ><span class="material-icons">
+              check_circle_outline
+              </span></button>
+      </div>
+      
+    </div>
+  </div>
+</div>

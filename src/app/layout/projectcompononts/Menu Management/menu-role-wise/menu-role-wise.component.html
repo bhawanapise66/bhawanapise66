@@ -1,0 +1,183 @@
+<!-- developer:dhammadeep dahiwale
+description: menu role wise component -->
+
+<div class="">
+    <div class="row form-group">
+        <div class="col-md-3 col-sm-3 col-xs-3">
+            <label class="indlabel">Select Role :<span class="text-danger">*</span></label>
+            <select [(ngModel)]="role.roleId" class="form-control form-control-sm" (change)="roleIdEmpty =false;">
+                <option disabled>Select Role</option>
+                <option></option>
+                <!-- <option>Admin</option> -->
+                <option *ngFor="let item of roleLists" value="{{item.param1}}"> {{item.param2}} </option>
+            </select>
+            <span class="text-danger validation" *ngIf="roleIdEmpty">Please enter menu type</span>
+        </div>
+
+        <div class="col-md-3 col-sm-3 col-xs-3">
+            <label class="indlabel"> Menu Type <span class="text-danger">*</span></label>
+            <select [(ngModel)]="roleMenuType" (change)="SelectRoleSubmenu();menuTypeEmpty=false;"
+                class="form-control form-control-sm">
+                <option disabled>Select Menu type</option>
+                <option>Main Menu</option>
+                <option>Sub Menu</option>
+            </select>
+            <span class="text-danger validation" *ngIf="menuTypeEmpty">Please enter menu type</span>
+
+        </div>
+
+        <div class="col-md-3 col-sm-3 col-xs-3" *ngIf="isRoleSubMenu">
+            <label class="indlabel"> Menu<span class="text-danger">*</span></label>
+            <select class="form-control form-control-sm" [(ngModel)]="roleSubMenu">
+                <option></option>
+                <option *ngFor="let item of products" value="{{item.param1}}">{{item.param2}}</option>
+            </select>
+        </div>
+
+        <div class="col mt-4">
+            <button type="submit" class="btn btn-sm btn-success" (click)="GetMenuRoleWise()">
+                View</button>
+            <hr>
+        </div>
+
+    </div>
+    <div class="" *ngIf="isRoleMainMenu">
+        <div class="row">
+            <div class="col-md-12">
+                <h6 style="display: inline; color: yellow; font-weight: bold;">Menu List</h6>
+                <form class="form-inline search" style="float: right;">
+                    <input class="form-control form-control-sm" type="search" placeholder="Search"
+                        aria-label="Search" />
+                    <button class="btn btn-link btn-sm" type="submit"><i class="material-icons">search</i></button>
+                </form>
+
+
+                <div style="display: block;;max-height: 500px;overflow-y: scroll;width: 100%;">
+                    <table class="table table-hover table-striped">
+                        <thead id="tableHeader">
+                            <tr>
+                                <th>#</th>
+                                <th>Menu List </th>
+                                <th>Menu Description</th>
+                                <th>Menu Url</th>
+                                <th>Select </th>
+                                <th>Order Number</th>
+                            </tr>
+
+                        </thead>
+                        <tbody id="tableBody">
+                            <tr *ngFor="let item of menuRoleList" class="trheight">
+                                <td> {{item.rowNumber}}</td>
+                                <td>{{item.param2}}</td>
+                                <td>{{item.param3}}</td>
+                                <td>{{item.param4}}</td>
+                                <td> <input *ngIf="item.param6=='true'" type="checkbox"
+                                        (change)="triggerSomeEvent(item.param1,item.rowNumber)"
+                                        id="check{{item.rowNumber}}" [checked]="true">
+                                    <input *ngIf="item.param6=='false'" type="checkbox"
+                                        (change)="triggerSomeEvent(item.param1,item.rowNumber)"
+                                        id="check{{item.rowNumber}}" [checked]="false">
+                                </td>
+                                <td>
+                                    <input class="inputNumber" type="number" id="text{{item.rowNumber}}"
+                                        [disabled]="isDisabled" min="1" value="{{item.param6=='true'?item.param5:''}}">
+                                    <!--<input class="inputNumber" type="number" id="text{{item.rowNumber}}"
+                                        [disabled]="isDisabled" min="1" value="{{item.param8}}"> -->
+                                </td>
+                                <td style="display: none;" id="menuid{{item.rowNumber}}">{{item.param1}}</td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- <table class="table table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Menu List </th>
+                            <th>Menu Description</th>
+                            <th>Menu Url</th>
+                            <th>Select </th>
+                            <th>Order Number</th>
+                        </tr>
+
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of menuRoleList">
+                            <td> {{item.rowNumber}}</td>
+                            <td>{{item.param2}}</td>
+                            <td>{{item.param3}}</td>
+                            <td>{{item.param4}}</td>
+                            <td> <input *ngIf="item.param6=='true'" type="checkbox"
+                                    (change)="triggerSomeEvent(item.param1,item.rowNumber)" id="check{{item.rowNumber}}"
+                                    [checked]="true">
+                                <input *ngIf="item.param6=='false'" type="checkbox"
+                                    (change)="triggerSomeEvent(item.param1,item.rowNumber)" id="check{{item.rowNumber}}"
+                                    [checked]="false">
+                            </td>
+                            <td> <input class="inputNumber" type="number" id="text{{item.rowNumber}}"
+                                    [disabled]="isDisabled" (change)="checkDuplicate(item.rowNumber,item.param1)"
+                                    min="1" value="{{item.param8}}">
+                            </td>
+                            <td style="display: none;" id="menuid{{item.rowNumber}}">{{item.param1}}</td>
+
+                        </tr>
+                    </tbody>
+                </table> -->
+
+                <span class="text-danger validation" id="duplicatevalueMessage"></span>
+
+                <div class="text-right">
+                    <button class="btn btn-success btn-sm mr-5" [disabled]="isSuccessfullCall"
+                        (click)="AssignMenuRoleWise(menuRoleList)">Submit</button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+
+<div class="modal fade " id="updateSuccessModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
+    role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm dialogModal" role="document">
+        <div class="modal-content box-shadow">
+            <div class="card text-center border-0">
+                <div class="card-header bg-success m-0 p-0">
+                    <h5>Success</h5>
+                </div>
+                <div class="card-body bg-white">
+                    Data Saved Successfully
+                    <div class="text-right">
+                        <button class="btn btn-sm btn-success" data-dismiss="modal">ok</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade " id="ErrorModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+    aria-hidden="true">
+    <div class="modal-dialog modal-sm dialogModal" role="document">
+        <div class="modal-content box-shadow">
+            <div class="card text-center border-0">
+                <div class="card-header bg-warning m-0 p-0">
+                    <h5>Failed</h5>
+                </div>
+                <div class="card-body bg-white">
+                    Error In Assigning Menus
+                    <div class="text-right pt-3">
+                        <button class="btn btn-sm btn-success" data-dismiss="modal">ok</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

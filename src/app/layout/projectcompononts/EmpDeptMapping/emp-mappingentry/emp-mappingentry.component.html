@@ -1,0 +1,405 @@
+<!--
+Developer 	: Aditya Londhe
+Date      	: 15-12-2020
+Description : Device Department Mapping
+Modified By:  
+Update date : 
+-->
+<div class="content shadow-sm">
+  <!-- Main container starts -->
+  <div class="container-fluid main-container" id="main-container">
+    <div class="row">
+      <div class="col-12 col-md-12 col-lg-12 col-xl-12 mx-auto align-self-center">
+        <div class="card shadow-sm border-0 mb-4">
+          <div class="card-header" style="padding-top: 0; padding-bottom: 0">
+
+            <!-- <img src="../assets/img/logoicon.svg" alt="" class="w-50px mt-4"> -->  
+            <h4 class="text-left m-1" style="font-size: 15px;">Assign Device To
+              <span class="text-template-primary" style="color: #00ed54; font-size: 15px;">Division</span>
+              <button type="button" class="btn btn-sm btn-primaryyel ml-2 float-right" style="margin-right: 15px; background-color: #f6c53b; font-size: 12px;" (click)="DeviceDetailsClick()" >
+               DeviceDetails
+                <i class="material-icons md-18">navigate_next</i>  
+               
+              </button>
+              <!-- <button type="button" class="btn btn-sm ml-2 float-right"
+              style="margin-right: 0px; background-color: #b0ff59;" (click)="bulkentryClick()">
+              Bulk Entry
+              <i class="material-icons md-18">navigate_next</i>
+            </button> -->
+            </h4>
+          
+          </div>
+          <div class="card-body" style="padding: 5px;">
+            <div class="row justify-content-center">
+              <div class="col-md-12 mx-auto">
+                <div class="row">
+                  <div class="col-lg-12 col-md-12">
+                    <!-- <button type="button" class="btn btn-primary float-left" data-toggle="modal" >
+                        ADD NEW
+                      </button> -->
+                   
+                  </div>
+                </div>
+
+
+                <div class="container-fluid">
+                <div class="col-lg-12 col-md-12">
+                <div class="form-group row">
+
+                  <div class="col-lg-2 col-md-2" id="custlist">
+                    <label class="indlabel" id="label3">Customer</label>
+                    <span class="mandatory" id="label4">*</span>
+                    <ngx-select-dropdown tabindex="0" id="customerentry" [multiple]="false"
+                      [(ngModel)]="customerText" [config]="config" [options]="ListOfCustomer"
+                      (change)="CustId();Divisionlist()"></ngx-select-dropdown>
+                    <span class="invalidmsg" id="msg_vendorName1"></span>
+                  </div>
+
+
+
+              <div class="col-lg-4 col-md-4" style="display: none;">
+                <label class="indlabel">customer </label>
+                <span class="mandatory">*</span>
+                <input type="text" class="form-control" placeholder="Enter customer" tabindex="5" required minlength="4" maxlength="20"
+                  [(ngModel)]="customerentryid" #Divisiondemo="ngModel" id="customerentryid" >
+               
+              </div>
+                 
+                  <div class="col-lg-2 col-md-2">
+                    <label class="indlabel">Division</label>
+                    <span class="mandatory">*</span>
+                   
+                    <ngx-select-dropdown tabindex="0" id="devicetypebulkentry" [multiple]="false" [(ngModel)]="EmployeeentryText" 
+                    [config]="config" [options]="ListOfEmployee" (change)="SelectEmployeeData();DeviceTypelist()" ></ngx-select-dropdown>  
+
+                    <span class="invalidmsg" id="msg_vendorName"></span>
+                  </div>
+
+                  
+                  <div class="col-lg-4 col-md-4" style="display: none;">
+                    <label class="indlabel">Dummy Employee</label>
+                    <span class="mandatory">*</span>
+                    <input type="text" class="form-control" placeholder="Enter Device IMEI No" tabindex="1" required minlength="3" maxlength="30"
+                      id="employeedummy" onpaste="return false;" [(ngModel)]="selectemployee" #vendornm="ngModel" onkeypress="return onlyAlphabets(event);"
+                      ondrop="return false;">
+                  </div>
+
+                  <!-- <div class="col-lg-3 col-md-3" style=" margin-left: -100px;">
+                      
+                      </div> -->
+                  
+                 
+                     
+                          <br>
+                          <span class="invalidmsg" id="msg_errorentry" style="margin-top: 36px;"></span>
+                          
+
+                </div>
+                </div>
+                <div class="col-lg-12 col-md-12">
+                <div class="form-group row">
+                  
+                  <div class="col-lg-10 col-md-10">
+                    <label class="indlabel" style="padding-left: 40px; width: 100%" id="label1">Device No
+                    <span class="mandatory" id="label2">* </span>   
+                  
+                     <div class="input-group searchdevid">
+
+                      <input type="text" placeholder="Search" id="searchDataDeviceID" [(ngModel)]="filter"  class="form-control searchicon" aria-label="Amount (to the nearest dollar)">
+                      <div class="input-group-append">
+                        <button class="btn  apendbtn" (click)="searchdataDeviceid();">
+                          <i style="color: #00ed54; margin-top: -15px;" class="fa fa-search"></i>
+                        </button>
+                      </div>
+                    </div> </label> 
+                  <ul class="checkbox-items deviceno" id="myList">
+                    <li *ngFor="let item of ListOfDevicetype | filter:filter" style="width: 19%;">
+                      <input type="checkbox" name="" id="{{'abc' + item.rowNumber}}" [(ngModel)]="item.isChecked" (change)="changeSelection()">{{item.param2}}
+                    </li>
+                  </ul>
+                </div>  
+                <div class="col-lg-2 col-md-2" >
+                  <br>
+                  <button type="button" id="assignbutton" class="btn btn-sm btn-primary ml-1 float-right" style="margin-right: 100px; width: 78px;margin-top: 201px;" disabled (click)="EmployeeMapping()" >
+                        Assign
+                      <i class="material-icons md-18">cloud_upload</i>  
+                     
+                    </button>
+                  </div>                    
+                 
+                    </div>
+                </div>
+
+</div>
+
+
+              
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- --------------------  view & Edit Modal start------------------------>
+
+
+
+<!-- ------------------- view & Edit model close ------------------------ -->
+
+<!-- ------------------ Delete Model Start ------------------------>
+<!-- Developer 	: Aditya Londhe
+Date      	: 30-11-2020
+Description : Added a popup for Delete
+Modified By:  
+Update date : -->
+<!-- Delete Model-->
+<div class="modal fade" id="modeldelete">
+    <div class="modal-dialog modal-sm modal-dialog-centered">
+      <div class="modal-content">
+  
+        <!-- Modal Header -->
+        <div class="modal-header" style="background-color: 	red;">
+          <h4 class="modal-title text-center" style="color: yellow">Are You Sure?</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+  
+        <!-- Modal body -->
+        <div class="modal-body" style="background-color: #f0e8e9">
+  
+          <div class="form-group row">
+  
+  
+            <div class="col-lg-12 col-md-12">
+              <label style="color: black">Remark</label>&nbsp;
+              <span class="indlabelstar">*</span>
+              <textarea class="form-control" rows="2" style=" font-size:12px" placeholder="Enter Remark" tabindex="1" minlength="10" maxlength="40"
+                [(ngModel)]="deleteText" #regaddress="ngModel" id="vendelremark"></textarea>
+             
+            </div>
+            
+          </div>
+          <span class="invalidmsg" id="msg_error_delete">{{successMessageUpdate}}</span>
+          <p style="    background-color: yellow;
+          /* padding-right: 20px; */
+          margin-right: 89px;
+          color: red; display: none;">Do You want to Delete !!&hellip;</p>
+        </div>
+        
+  
+        <!-- Modal footer -->
+        <div class="modal-footer text-center" style="background-color: #cfbaa8">
+          <button type="submit" class="btndel btn-primary mr-3" data-toggle="modal" data-dismiss="modal" tabindex="18" >
+            No
+          </button>
+          <button type="reset" tabindex="19" class="btndel btn-danger " data-toggle="modal" data-dismiss="modal" >
+            Yes
+          </button>
+        </div>
+  
+      </div>
+    </div>
+  </div>
+  <!-- Delete Model -->
+
+<!-- ------------------- Delete model End ----------------------- -->
+
+<!-- ------------------- onclick no btn model  ----------------------- -->
+<!-- The Modal -->
+<div class="modal fade" id="Noclickmodel">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-contentno">
+      
+        <!-- Modal Header -->
+        <div class="modal-header" style="background-color: 	rgb(133, 195, 197);">
+            <h4 class="modal-title text-center" style="color: rgb(0, 0, 0)">Error</h4>
+            <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+          </div>
+        
+        <!-- Modal body -->
+         <div class="modal-body" style="background-color: white;">
+          Your Data is Not delete..
+        </div> 
+        
+        <!-- Modal footer -->
+        <div class="modal-footer" style="background-color: 	rgb(255, 255, 255);">
+          <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal"><span class="material-icons">
+              highlight_off
+              </span></button>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+<!-- ------------------- onclick no btn model End ----------------------- -->
+<!-- ------------------- onclick Yes btn model ----------------------- -->
+
+<div class="modal fade" id="Yesclickmodel">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-contentno">
+      
+        <!-- Modal Header -->
+        <div class="modal-header" style="background-color: 	rgb(133, 195, 197);">
+            <h4 class="modal-title text-center" style="color: rgb(0, 0, 0)">Successfully</h4>
+            <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+          </div>
+        
+        <!-- Modal body -->
+         <div class="modal-body" style="background-color: white;">
+          Your Data is delete..
+        </div> 
+        
+        <!-- Modal footer -->
+        <div class="modal-footer" style="background-color: 	rgb(255, 255, 255);">
+          <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal"><span class="material-icons">
+              highlight_off
+              </span></button>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+<!-- ------------------- onclick yes btn model End ----------------------- -->
+
+<div class="modal fade" id="notifymodel">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-contentno">
+    
+      <!-- Modal Header -->
+      <div class="modal-header" style="background-color: 	rgb(133, 195, 197);">
+          <h4 class="modal-title text-center" style="color: rgb(0, 0, 0)">Error</h4>
+          <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+        </div>
+      
+      <!-- Modal body -->
+       <div class="modal-body" style="background-color: white;">
+        {{datafromrespo}}
+      </div> 
+      
+      <!-- Modal footer -->
+      <div class="modal-footer" style="background-color: 	rgb(255, 255, 255); margin-right: 0px;">
+        <!-- <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal"><span class="material-icons">
+            highlight_off
+            </span></button> -->
+            <button class="btn btn-success"  data-dismiss="modal" ><span class="material-icons">
+              highlight_off
+              </span></button>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="successmodel">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-contentno">
+    
+      <!-- Modal Header -->
+      <div class="modal-header" style="background-color: 	rgb(124, 255, 146);">
+          <h4 class="modal-title text-center" style="color: rgb(0, 0, 0)">Success</h4>
+          <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+        </div>
+      
+      <!-- Modal body -->
+       <div class="modal-body" style="background-color: white;">
+        {{datafromrespo}}
+      </div> 
+      
+      <!-- Modal footer -->
+      <div class="modal-footer" style="background-color: 	rgb(255, 255, 255); margin-right: 0px;">
+        <!-- <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal"><span class="material-icons">
+            highlight_off
+            </span></button> -->
+            <button class="btn btn-success" style="width: 36px;"  data-dismiss="modal" ><span class="material-icons">
+              check_circle_outline
+              </span></button>
+      </div>
+      
+    </div>
+  </div>
+</div>
+<div class="modal fade " id="SuccessModalEntry" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+aria-hidden="true">
+<div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+  <div class="modal-content box-shadow">
+    <div class="card border-0">
+      <div class="card-header  py-1 pl-3 m-0" style="background-color: green;">
+        <p style="font-size:17px; font-weight:bold"> Success </p>
+      </div>
+      <div class="card-body bg-white text-dark">
+       <p> {{datafromrespo}}</p>
+        <div class="text-right">
+          <button class="btn btn-sm btn-success" data-dismiss="modal">ok</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="modal fade " id="ErrorModalEntry" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+aria-hidden="true">
+<div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+  <div class="modal-content box-shadow">
+    <div class="card border-0">
+      <div class="card-header  py-1 pl-3 m-0" style="background-color: red;">
+        <p style="font-size:17px; font-weight:bold"> Error </p>
+      </div>
+      <div class="card-body bg-white text-dark">
+       <p> {{datafromrespo}}</p>
+        <div class="text-right">
+          <button class="btn btn-sm btn-success" data-dismiss="modal">ok</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<!-- <app-devicesingleentry></app-devicesingleentry> -->
+<!-- <app-devicebulkentry></app-devicebulkentry> -->
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <h1>Checklist</h1>
+<div class="row">
+
+  <div class="col-md-4">
+    <h4>List of Hobbies</h4>
+
+    <ul class="checkbox-items" id="myList">
+      <li *ngFor="let item of checkboxesDataList">
+        <input type="checkbox" name="" id="" [(ngModel)]="item.isChecked" (change)="changeSelection()">{{item.label}}
+      </li>
+    </ul>
+  </div>
+
+  
+
+</div> -->

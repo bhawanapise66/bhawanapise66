@@ -1,0 +1,403 @@
+<!-- developer :dhammadeep dahiwale
+    
+description : menu entry form -->
+
+
+<div>
+
+
+    <!--  form to choose menu type starts -->
+    <div class="row form-group">
+        <div class="col-md-4 col-sm-4 col-xs-4">
+            <label class="indlabel"> Menu Type : <span class="text-danger">*</span></label>
+            <select [(ngModel)]="menuType" class="form-control form-control-sm" (change)="MenuEntry();">
+                <option>Main Menu</option>
+                <option>Sub Menu</option>
+            </select>
+            <span class="text-danger validation" *ngIf="menuType==null"> Select Menu Type</span>
+        </div>
+        <div *ngIf="isSubMenu" class="col-md-4 col-sm-4 col-xs-4">
+            <label class="indlabel"> Menu Name :<span class="text-danger">*</span></label>
+            <select class="form-control form-control-sm" [(ngModel)]="subMenu" (change)="GetSubMenu();">
+                <option></option>
+                <option *ngFor="let item of mainMenuList" value="{{item.param1}}"> {{item.param2}} </option>
+            </select>
+            <span class="text-danger validation" *ngIf="subMenu == null"> Select Sub Menu</span>
+        </div>
+    </div>
+    <!--  form to choose menu type ends -->
+
+    <hr style="border: 1px solid #d3cfcf;">
+    <div class="container-fluid" *ngIf="isMainMenu">
+        <div class="row">
+            <div class="col-md-12 mb-3">
+
+                <!-- menu entry form  -->
+                <form novadalidate #menuEntryForm="ngForm">
+                    <h6 style=" color: #06d7a6; font-weight: bold;">{{menuType}} Entry</h6>
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                            <div class="row">
+                                <div class="col-md-5 pr-0">
+                                    <label class="indlabel" for="menuName">Menu Name :<span
+                                            class="text-danger">*</span></label>
+                                </div>
+                                <div class="col-md-7 ">
+                                    <input type="text" name="menuName" class="form-control form-control-sm"
+                                        id="menuName" [(ngModel)]="menuentry.menuName" placeholder="Enter Menu Name"
+                                        #nameCtrl="ngModel" required>
+                                    <small class="text-danger" *ngIf="nameCtrl.touched &&nameCtrl.invalid ">Enter
+                                        Menu Name</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                            <div class="row">
+                                <div class="col-md-3 pr-0">
+                                    <label class="indlabel" for="menuUrl">Url :<span
+                                            class="text-danger">*</span></label>
+                                </div>
+                                <div class="col-md-9">
+                                    <input type="url" name="menuUrl" class="form-control form-control-sm" id="menuUrl"
+                                        [(ngModel)]="menuentry.menuUrl" placeholder="Enter Menu Url"
+                                        (keyup)="urlValidator(menuentry.menuUrl)" #urlCtrl="ngModel" required>
+                                    <small class="text-danger" *ngIf="urlCtrl.error && urlCtrl.invalid ">Enter
+                                        Menu Url</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                            <div class="row">
+                                <div class="col-md-5 mt-1 pr-0">
+                                    <label class="indlabel" for="menuDescription">Description :<span
+                                            class="text-danger">*</span></label>
+                                </div>
+                                <div class="col-md-7 mt-1">
+                                    <textarea type="text" name="menuDescription" class="form-control form-control-sm"
+                                        id="menuDescription" [(ngModel)]="menuentry.menuDescription"
+                                        placeholder="Enter menu Description" #descriptionCtrl="ngModel" required
+                                        minlength="10" maxlength="30" placeholder="Enter Menu Description">
+                                    </textarea>
+
+                                    <span *ngIf="descriptionCtrl.touched && descriptionCtrl.invalid">
+                                        <small class="text-danger" *ngIf="descriptionCtrl.errors.required">please enter
+                                            description </small>
+                                        <small class="text-danger"
+                                            *ngIf="descriptionCtrl.errors.minlength || descriptionCtrl.errors.maxlength">
+                                            length should be between 10 to 30 characters </small>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 col-sm-6 col-xs-6">
+                            <div class="row">
+                                <div class="col-md-3 pr-0">
+                                    <label class="indlabel" for="menuUrl">Icon :<span
+                                            class="text-danger">*</span></label>
+                                </div>
+                                <div class="col-md-9">
+                                    <input type="url" name="menuicon" class="form-control form-control-sm" id="menuicon"
+                                        [(ngModel)]="menuentry.menuicon" placeholder="Enter Menu Icon"
+                                        #iconCtrl="ngModel">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 mt-1" style="float: right;">
+                            <div class="text-center mt-1">
+                                <button class="btn btn-success btn-sm mr-3"
+                                    (click)="InsertMainMenu();menuEntryForm.resetForm()"
+                                    *ngIf="this.menuType=='Main Menu' && isSaveEntryValid"
+                                    [disabled]="menuEntryForm.invalid">Save </button>
+                                <button class="btn btn-success btn-sm mr-3"
+                                    (click)="InsertSubMenu();menuEntryForm.resetForm()"
+                                    *ngIf="this.menuType=='Sub Menu' && isSaveEntryValid"
+                                    [disabled]="menuEntryForm.invalid">Save </button>
+                                <button class="btn btn-warning btn-sm mr-3"
+                                    (click)="UpdateMenu();menuEntryForm.resetForm()"
+                                    *ngIf="this.menuType=='Main Menu' && isEditEntryValid"
+                                    [disabled]="menuEntryForm.invalid">Edit</button>
+                                <button class="btn btn-warning btn-sm mr-3"
+                                    (click)="UpdateMenu();menuEntryForm.resetForm()"
+                                    *ngIf="this.menuType=='Sub Menu' &&isEditEntryValid"
+                                    [disabled]="menuEntryForm.invalid">Edit</button>
+                                <button type="reset" class="btn btn-sm  btn-secondary">Reset</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <!-- menu entry form  -->
+                <hr style="border: 1px solid #d3cfcf;">
+            </div>
+
+            <!-- for main menu  -->
+            <div class="col-md-12" *ngIf="this.menuType == 'Main Menu'">
+                <h6 style="display: inline;color: #06d7a6; font-weight: bold;">Main Menu List</h6>
+                <span style="font-size: 12px;margin-left: 18px;">Total records : {{mainMenuViewcount}} of
+                    {{mainMenuCount}} </span>
+
+                <span style=" font-size: 12px;margin-left: 10px;">Show Rows: </span>
+                <div style="display: inline-block; ">
+                    <div style="padding-top: 2px; width: 45px;">
+                        <select class="form-control form-control-sm" data-live-search="true" tabindex="1"
+                            [(ngModel)]="selectRowsTextForSubMenu" (change)="changeCountMainMenu()" id="selectrow"
+                            aria-hidden="true" style=" font-size:12px;padding: 0;">
+                            <option value="5">5</option>
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="50">50</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-inline search" style="float:right">
+                    <input class="form-control form-control-sm" type="search" placeholder="Search" [(ngModel)]="filter1"
+                        style="width: 100px;" aria-label="Search" />
+                    <button class="btn btn-link" style="background: aquamarine;" (click)="searchMainMenu();"><i
+                            class="material-icons">search</i></button>
+                </div>
+                <!-- <h6 style="display: inline;color: #06d7a6; font-weight: bold;">Main Menu List</h6>
+
+                <span style="font-size: 12px;margin-left: 18px;">Total Records : {{mainMenuViewcount}} of
+                    {{mainMenuCount}} </span>
+
+                <span style=" font-size: 12px;margin-left: 10px;">Show Rows: </span>
+                <div style="display: inline-block; ">
+                    <div style="padding-top: 2px; width: 45px;">
+                        <select class="form-control form-control-sm" data-live-search="true" tabindex="1"
+                            [(ngModel)]="selectRowsTextForMainMenu" (change)="changeCountMainMenu()" id="selectrow"
+                            aria-hidden="true" style=" font: size 12px;padding: 0;">
+                            <option value="5">5</option>
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="50">50</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-inline search" style="float:right;">
+                    <input class="form-control form-control-sm" style="width: 100px;" type="search" placeholder="Search"
+                        [(ngModel)]="filter" aria-label="Search" />
+                    <button class="btn btn-link" style="background: aquamarine;" (click)="searchMainMenu();"><i
+                            class="material-icons">search</i></button>
+                </div> -->
+
+
+
+                <!-- <div class="table-responsive"> -->
+                <div style="display: block;;max-height: 400px;overflow-y: scroll;width: 100%;">
+                    <table class="table table-striped table-hover table-sm">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Main Menu</th>
+                                <th>Url</th>
+                                <th>Description</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let list of mainMenuListTable | filter:filter | paginate : {itemsPerPage:selectRowsTextForMainMenu,currentPage:pageNumber,totalItems:mainMenuCount}"
+                                class="trheight">
+                                <td>{{list.rowNumber}} </td>
+                                <td> {{list.param2}} </td>
+                                <td> {{list.param4}} </td>
+                                <td> {{list.param3}} </td>
+                                <td>
+                                    <span class="material-icons text-success text-sm" style="cursor:pointer"
+                                        placement="bottom" ngbTooltip="Edit Entry" (click)="EditEntry(list)">
+                                        create
+                                    </span>
+                                    &nbsp;
+                                    <span class="material-icons text-danger text-sm" style="cursor:pointer"
+                                        placement="bottom" ngbTooltip="Delete Entry" data-toggle="modal"
+                                        (click)="getData(list)" data-target="#menuDeleteModal">
+                                        delete
+                                    </span>
+
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot id="foot" class="box-footer clearfix">
+                            <tr>
+                                <td colspan="12">
+                                    <pagination-controls style=" float: right;"
+                                        (pageChange)="MainMenuPageChange($event)"></pagination-controls>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+            <!--  for main menus -->
+
+            <!-- for sub menus -->
+            <div class="col-md-12" *ngIf="this.menuType == 'Sub Menu'">
+                <h6 style="display: inline;color: #06d7a6; font-weight: bold;">Sub Menu List</h6>
+                <span style="font-size: 12px;margin-left: 18px;">Total records : {{subMenuViewcount}} of
+                    {{subMenuCount}} </span>
+
+                <span style=" font-size: 12px;margin-left: 10px;">Show Rows: </span>
+                <div style="display: inline-block; ">
+                    <div style="padding-top: 2px; width: 45px;">
+                        <select class="form-control form-control-sm" data-live-search="true" tabindex="1"
+                            [(ngModel)]="selectRowsTextForSubMenu" (change)="changeCountSubMenu()" id="selectrow"
+                            aria-hidden="true" style=" font-size:12px;padding: 0;">
+                            <option value="5">5</option>
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="50">50</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-inline search" style="float:right">
+                    <input class="form-control form-control-sm" type="search" placeholder="Search" [(ngModel)]="filter1"
+                        style="width: 100px;" aria-label="Search" />
+                    <button class="btn btn-link" style="background: aquamarine;" (click)="SearchSubMenu();"><i
+                            class="material-icons">search</i></button>
+                </div>
+                <!-- <div class="table-responsive"> -->
+                <div style="display: block;;max-height: 400px;overflow-y: scroll;width: 100%;">
+
+                    <table class="table table-striped table-hover table-sm">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th> Sub Menu</th>
+                                <th>Url</th>
+                                <th>Description</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let list of subMenuList | filter:filter | paginate : {itemsPerPage:selectRowsTextForSubMenu,currentPage:pageNumber,totalItems:subMenuCount}"
+                                class="trheight">
+                                <td>{{list.rowNumber}} </td>
+                                <td> {{list.param2}} </td>
+                                <td> {{list.param4}} </td>
+                                <td> {{list.param3}} </td>
+                                <td> <span class="material-icons text-success" style="cursor:pointer" placement="bottom"
+                                        ngbTooltip="Edit Entry" (click)="EditEntry(list)">
+                                        create
+                                    </span>
+                                    &nbsp;
+                                    <span class="material-icons text-danger" style="cursor:pointer" placement="bottom"
+                                        ngbTooltip="Delete Entry" data-toggle="modal" (click)="getData(list)"
+                                        data-target="#menuDeleteModal">
+                                        delete
+                                    </span>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                        <tfoot id="foot" class="box-footer clearfix">
+                            <tr>
+                                <td colspan="12">
+                                    <pagination-controls style=" float: right;"
+                                        (pageChange)="SubMenuPageChange($event)"></pagination-controls>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+            <!-- for sub menus -->
+
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="modal fade " id="menuSuccessModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+    aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+        <div class="modal-content box-shadow">
+            <div class="card border-0">
+                <div class="card-header py-1 pl-3 m-0" style="background-color: green;">
+                    <p style="font-size:17px; font-weight:bold"> Success </p>
+                </div>
+                <div class="card-body bg-white text-dark">
+                    <p> {{errorMessage}}</p>
+                    <div class="text-right">
+                        <button class="btn btn-sm btn-success" data-dismiss="modal" (click)="refresh()">ok</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade " id="menuDeleteSuccessModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
+    role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+        <div class="modal-content box-shadow">
+            <div class="card border-0">
+                <div class="card-header py-1 pl-3 m-0" style="background-color: green;">
+                    <p style="font-size:17px; font-weight:bold"> Success </p>
+                </div>
+                <div class="card-body bg-white text-dark">
+                    <p> {{errorMessage}}</p>
+                    <div class="text-right">
+                        <button class="btn btn-sm btn-success" data-dismiss="modal">ok</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade " id="menuErrorModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+    aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+        <div class="modal-content box-shadow">
+            <div class="card  border-0">
+                <div class="card-header  py-1 pl-3 m-0" style="background-color: red;">
+                    <p style="font-size:17px; font-weight:bold"> Error </p>
+                </div>
+                <div class="card-body bg-white text-dark">
+                    <p> {{errorMessage}}</p>
+                    <div class="text-right">
+                        <button class="btn btn-sm btn-success" data-dismiss="modal">ok</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="menuDeleteModal" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-sm modal-dialog-centered">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header p-1" style="background-color: red;">
+                <h5 class="modal-title text-center" style="color: yellow">Confirm Delete</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body" style="background-color: #f0e8e9">
+
+                <p style="text-transform: capitalize;"> Are You sure want to delete Menu !</p>
+
+                <p class="text-center"><b>Menu Name : {{MenuName}}</b> </p>
+            </div>
+
+
+            <!-- Modal footer -->
+            <div class="modal-footer text-center" style="background-color: #cfbaa8">
+                <button type="submit" class="btndel btn-primary mr-3" data-toggle="modal" data-dismiss="modal">
+                    No
+                </button>
+                <button type="reset" class="btndel btn-danger " data-toggle="modal" data-dismiss="modal"
+                    (click)="DeleteMenu(menuId)">
+                    Yes
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>

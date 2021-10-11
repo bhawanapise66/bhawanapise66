@@ -1,0 +1,335 @@
+<!-- developer :dhammadeeep
+date : 13-10-2020
+description: role management master -->
+
+<div class="content shadow-sm">
+  <!-- main content starts -->
+
+  <div class="container-fluid main-container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card shadow-sm mb-3">
+          <div class="card-header p-0">
+            <h4 class="text-left m-1" style="font-size: 15px;">Page
+              <span class="text-template-primary" style="color: #00ed54">Entry</span>
+              <button type="button" class="btn btn-sm btn-primaryyel ml-2 float-right"
+                style="margin-right: 89px;  " data-toggle="modal" data-target="#exampleModal">
+                ADD NEW
+                <i class="material-icons md-18">navigate_next</i>
+
+              </button>
+            </h4>
+          </div>
+          <div class="card-body">
+            <div class="row justify-content-center">
+              <div class="col-md-12">
+              </div>
+            </div>
+
+            <div class="container-fluid main-container" id="main-container">
+              <!--    ---------------        Table Header Staret=------------------------    -->
+          
+              <div class="row mb-3 ">
+                <div class="col-12 col-sm-12 col-md text-md-left align-self-center pr-0">
+                  <ul class="nav  justify-sm-content-center  justify-content-left">
+                    <li class="nav-item ">
+                      <div class="input-group" style="max-width: 250px;">
+                        <input type="text" placeholder="Search" id="searchData" class="form-control searchicon"
+                          id="searchData" [(ngModel)]="filter" aria-label="Amount (to the nearest dollar)">
+                        <div class="input-group-append">
+                          <button class="btn  apendbtn" (click)="searchdata()">
+                            <i style="color: #00ed54; margin-top: -15px;" class="fa fa-search"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </li>
+                    <li class="nav-item mx-3">
+                      <i class="fa fa-refresh fa-2x fa-spin-hover" style="font-size: 17px;
+                      padding-top: 4px;color: #00fff3;" (click)="Refreshfunction()"></i>
+                    </li>
+                  </ul>
+                </div>
+
+                <div class="col-12 col-sm-12 col-md-auto text-right text-md-end pl-0">
+                  <ul class="nav justify-content-center justify-lg-content-end  justify-sm-content-center">
+                    <li class="nav-item mx-2">
+                      <img style="cursor: pointer; height: 20px; margin-top: 3px;" (click)="createPDF()"
+                        ngbTooltip="PDF" src="assets/images/PDFicon.png">
+                    </li>
+                    <li class="nav-item mx-2">
+                      <img style="cursor: pointer;" (click)="exportToExcel()" ngbTooltip="Excel"
+                        src="assets/images/excellogo.png">
+                    </li>
+                    <li class="nav-item mx-3">
+                      <span style="display: inline;">Show Rows : </span> <select class="form-control p-1"
+                        [(ngModel)]="itemsPerPage" style="width: 44px;display: inline;" (change)="changeItemsPerPage()">
+                        <option>5</option>
+                        <option>10</option>
+                        <option>20</option>
+                        <option>50</option>
+                      </select>
+                    </li>
+                    <li class="nav-item ">
+                      <span>Total Records : {{viewCount}} of {{totalcount}}</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <!-- ---------------------  Table header end  ------------------------------ -->
+
+              <div class="table-responsive">
+                <table class="table table-hover table-striped">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Page Name</th>
+                      <th>Page Url</th>
+                      <th>Page Description</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="grid" title="When Click On Header Columns then show Asc to Desc / Desc to Asc records.">
+                    <!-- <tr class="trheight" *ngFor="let item of roleDetails"> -->
+                    <tr
+                      *ngFor="let item of pageDetails | filter:filter | paginate : {itemsPerPage:itemsPerPage,currentPage:pageNumber,totalItems:totalcount} ;"
+                      class="trheight">
+                      <td>{{item.rowNumber}}</td>
+                      <td>{{item.param2}}</td>
+                      <td>{{item.param3}}</td>
+                      <td>{{item.param4}}</td>
+                      <td><span class="iconhover text-warning" data-toggle="modal" data-target="#exampleModal"
+                          placement="bottom" ngbTooltip="edit Entry" (click)="EditPageEntry(item)"><i
+                            class="material-icons">edit</i>
+                        </span>&nbsp;&nbsp;
+                        <span class="material-icons text-danger" style="cursor:pointer" placement="bottom"
+                          ngbTooltip="Delete Entry" id="deletebtn" data-toggle="modal"
+                          data-target="#modeldelete,item.param1">
+                          delete
+                        </span>
+
+                        <!-- Delete Model-->
+                        <!-- <ng-template #modeldelete let-modal style="width: min-content;"> -->
+                        <div class="modal fade" id="modeldelete">
+                          <div class="modal-dialog modal-sm modal-dialog-centered">
+                            <div class="modal-content">
+
+                              <!-- Modal Header -->
+                              <div class="modal-header" style="background-color: 	#FF7F50;">
+                                <h4 class="modal-title text-center" style="color: white">Are You
+                                  Sure?
+                                </h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                              </div>
+
+                              <!-- Modal body -->
+                              <div class="modal-body">
+                                <div class="form-group row">
+                                  <div class="col-lg-12 col-md-12">
+                                    <label class="indlabel">Remark</label>&nbsp;
+                                    <span class="indlabelstar">*</span>
+                                    <textarea class="form-control" rows="2" style=" font-size:12px" id="remarkField"
+                                      placeholder="Enter Remark" tabindex="1" minlength="10" maxlength="40"
+                                      [(ngModel)]="pEntry.remark" #regaddress="ngModel"></textarea>
+                                    <div class="maxminwarn" *ngIf="regaddress.errors?.minlength">
+                                      Remark must be at least minimum 10 characters & maximum 40 characters long.
+                                    </div>
+                                    <span class="maxminwarn" id="invalidRemark">
+                                    </span>
+                                  </div>
+                                </div>
+                                <p>Do You want to Delete !!&hellip;</p>
+                              </div>
+
+                              <!-- Modal footer -->
+                              <div class="modal-footer text-center">
+                                <button type="submit" class="btndel btn-primary mr-3" tabindex="18"
+                                  data-dismiss="modal">
+                                  No
+                                </button>
+                                <button tabindex="19" class="btndel btn-danger" (click)="DeletePageEntry(item.param1);">
+                                  Yes
+                                </button>
+                              </div>
+
+                            </div>
+                          </div>
+                        </div>
+                        <!-- </ng-template> -->
+                        <!-- Delete Model -->
+                      </td>
+                    </tr>
+                  </tbody>
+                  <tfoot id="foot" class="box-footer clearfix">
+                    <tr>
+                      <td colspan="12">
+                        <pagination-controls style=" float: right;" (pageChange)="pageChanged($event)">
+                        </pagination-controls>
+                      </td>
+                    </tr>
+                  </tfoot>
+                </table>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1"  data-backdrop="static" data-keyboard="false"  role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">&nbsp;Page Entry</h5>
+        <div style="float:right; margin-left: 59%;">
+
+          <button type="button" class=" btn btn-sm btn-primary float-right ml-2" id="backdetailsbtn" ngbTooltip="Back"
+            style="display: none;">
+
+            <i class="material-icons md-18">arrow_back</i>
+          </button>
+        </div>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="refreshForm();">
+          <span aria-hidden="true" style="color: white">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div id="container">
+            <div id="singleEntry">
+              <div class="step-wizardentry" role="navigation">
+                <div class="stepsection">
+                  <span class="invalidmsg"></span>
+                  <div id="stepentry-14" class="stepsdiv">
+                    <span class="StepTitle">Page Details</span>
+                    <div class="form-group row">
+                      <div class="col-lg-4 col-md-4">
+                        <label class="indlabel">Page Name</label>
+                        <span class="mandatory">*</span>
+                        <input type="text" id="pname" name="pageName" class="form-control" [(ngModel)]="pEntry.pageName"
+                          (keyup)="isPageNameEmpty=false" placeholder="Enter Page Name">
+
+                      </div>
+                      <div class="col-lg-4 col-md-4">
+                        <label class="indlabel">Page Url</label>
+                        <span class="mandatory">*</span>
+                        <input type="text" id="purl" name="pageUrl" class="form-control" [(ngModel)]="pEntry.pageUrl"
+                          (keyup)="isPageUrlEmpty = false" placeholder="Enter Page Url">
+
+                      </div>
+                      <div class="col-lg-4 col-md-4">
+                        <label class="indlabel">Page Description</label>
+                        <span class="mandatory">*</span><br>
+                        <textarea name="description" id="pdesc" class="form-control"
+                          [(ngModel)]="pEntry.pageDescription" (keyup)="isPageDescEmpty = false"
+                          placeholder="Enter Page Description"></textarea>
+                      </div>
+                      <!-- <span class="invalidmsg ml-5 mt-3" style="float: right;" *ngIf="isRoleManagementFormValid"> Please
+                        enter the above fields</span> -->
+                    </div>
+
+                    <div class="form-group row" *ngIf="toEdit">
+                      <!-- <div class="col-md-4">
+                        <label class="indlabel">Remark</label>
+                        <span class="mandatory">*</span>
+                        <textarea name="remark" class="form-control" [(ngModel)]="pEntry.remark"></textarea>
+                      </div> -->
+
+                      <div class="col-lg-4 col-md-4" *ngIf="toEdit">
+                        <label class="indlabel">Remark</label>
+                        <span class="mandatory">*</span><br>
+                        <textarea name="remark" id="remark" class="form-control" [(ngModel)]="pEntry.remark"
+                          placeholder="Enter Remark"></textarea>
+                      </div>
+                    </div>
+
+
+
+                  </div>
+                  <div class="mb-0 " style="position: absolute; bottom: 20px;">
+                    <span class="invalidmsg" *ngIf="isPageNameEmpty ==true"> Please enter page name </span>
+                    <span class="invalidmsg" *ngIf="isPageUrlEmpty==true"> Please enter page url</span>
+                    <span class="invalidmsg" *ngIf="isPageDescEmpty==true"> Please enter page description</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <div class="actionBar">
+          <button *ngIf="!toEdit" id="saveentry" class="mb-2 btn btn-sm btn-success buttonFinish"
+            (click)="insertPageEntry()"><i class="material-icons">save</i></button>
+          <button *ngIf="toEdit" id="editentry" class="mb-2 btn btn-sm btn-warning"><span (click)="updatePageEntry()"
+              class="material-icons"> edit </span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- popup message alerts  -->
+
+<div class="modal fade" id="insertSuccessModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
+  role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-sm dialogModal" role="document">
+    <div class="modal-content box-shadow">
+      <div class="card text-center border-0">
+        <div class="card-header bg-success m-0 p-0">
+          <h5>Success</h5>
+        </div>
+        <div class="card-body bg-white">
+          {{errorMessage}}
+          <div class="text-right">
+            <button class="btn btn-sm btn-success" data-dismiss="modal">ok</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade " id="ErrorModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+  aria-hidden="true">
+  <div class="modal-dialog modal-sm dialogModal" role="document">
+    <div class="modal-content box-shadow">
+      <div class="card text-center border-0">
+        <div class="card-header bg-warning m-0 p-0">
+          <h5>Failed</h5>
+        </div>
+        <div class="card-body bg-white">
+          {{errorMessage}}
+          <div class="text-right pt-3">
+            <button class="btn btn-sm btn-success" data-dismiss="modal">ok</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade " id="updateSuccessModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
+  role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-sm dialogModal" role="document">
+    <div class="modal-content box-shadow">
+      <div class="card text-center border-0">
+        <div class="card-header bg-success m-0 p-0">
+          <h5>Success</h5>
+        </div>
+        <div class="card-body bg-white">
+          {{errorMessage}}
+          <div class="text-right">
+            <button class="btn btn-sm btn-success" data-dismiss="modal">ok</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,295 @@
+<div class="modal fade" id="exampleModal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document" data-backdrop="static" data-keyboard="false">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Dispatched Devices Entry</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="clearfunction();">
+          <span aria-hidden="true" style="color: white; margin-top: 3%;">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div id="container">
+            <fieldset style="max-width: 1141px;">
+              <legend class="text-uppercase" style = " color: rgb(173, 247, 150);" >Party Details</legend>
+              <div class="form-group row">
+              <div class="col-lg-3 col-md-3">
+                <label class="indlabel">Party Name</label>
+                <span class="mandatory">*</span>
+                <input type="text" class="form-control" placeholder="Party Name" tabindex="1"
+                minlength="3" maxlength="30" [(ngModel)]="partynameText" #partyname="ngModel"
+                  id="partynameentry" onpaste="return false;" [(ngModel)]="partynameText" #partyname="ngModel" onkeypress="return onlyAlphabets(event); "
+                  ondrop="return false;" autofocus >
+                <div class="invalidmsg" *ngIf="partyname.errors?.minlength">
+                  Party name must be at least minimum 3 characters & maximum 30 characters long.
+                </div>
+              </div>
+              <div class="col-lg-2 col-md-2">
+                <label class="indlabel">Contact No</label>
+                <span class="mandatory">*</span>
+                <input type="text" class="form-control" placeholder="Contact No" tabindex="2" required minlength="10" maxlength="10"
+                  [(ngModel)]="contactnoText" #contactNo="ngModel" id="contactNoentry" onkeypress="return isNumberKey(event)">
+                <div class="invalidmsg" *ngIf="contactNo.errors?.minlength">
+                  Contact number must be at least minimum 10 characters & maximum 11 characters long.
+                </div>
+              </div>
+              <div class="col-lg-3 col-md-3">
+                <label class="indlabel">Email Id.</label>
+                <span class="mandatory">*</span>
+                <input type="email" class="form-control" placeholder="Email ID" tabindex="3" required minlength="13" maxlength="30"
+                  [(ngModel)]="emailText" #email="ngModel" id="emailidentry">
+                <div class="invalidmsg" *ngIf="email.errors?.minlength">
+                  EmailID must be at least minimum 13 characters & maximum 30 characters long.
+                </div>
+              </div>
+              <div class="col-lg-4 col-md-4">
+                <label class="indlabel">Party Address</label>
+                <span class="mandatory">*</span>
+                <textarea class="form-control" rows="1" style=" font-size:12px" placeholder="Party Address." tabindex="4" minlength="5"
+                  maxlength="100" [(ngModel)]="partyaddressText" #partyaddressnew="ngModel" id="partyaddressnewentry"></textarea>
+                <div class="invalidmsg" *ngIf="partyaddressnew.errors?.minlength">
+                  Party Address must be at least minimum 5 characters & maximum 100 characters long.
+                </div>
+              </div>
+
+              </div>
+            </fieldset>
+
+            <fieldset style="max-width: 1141px; height: 489px;">
+              <legend class="text-uppercase" style = " color: rgb(173, 247, 150);" >Courier Details</legend>
+            <div class="form-group row">
+              <div class="col-lg-2 col-md-2">
+                <label class="indlabel">Courier Name</label>
+                <span class="mandatory">*</span>
+                <input type="text" class="form-control" placeholder="Courier Name." tabindex="5" minlength="3" maxlength="50" 
+                [(ngModel)]="courierbyText" #coby="ngModel" style=" font-size:12px" required onkeypress="return onlyAlphabets(event);"
+                ondrop="return false;" onpaste="return false;" id="courierbyentry">
+                <div class="invalidmsg" *ngIf="coby.errors?.minlength">
+                  Courier name must be at least minimum 3 characters & maximum 50 characters long.
+                </div>
+              </div>
+           
+              <div class="col-lg-3 col-md-3">
+                <label class="indlabel">Courier Address</label>
+                <span class="mandatory">*</span>
+                <textarea class="form-control" rows="1" style=" font-size:12px" placeholder="Courier Address." tabindex="6" minlength="5"
+                  maxlength="100" [(ngModel)]="courieraddressText" #courieraddress="ngModel" id="courieraddressid"></textarea>
+                <div class="invalidmsg" *ngIf="courieraddress.errors?.minlength">
+                  Courier Address must be at least minimum 5 characters & maximum 100 characters long.
+                </div>
+              </div>
+
+              <div class="col-lg-2 col-md-2" id="date">
+                <label class="indlabel">Courier Date</label>
+                <input type="text" class="form-control datepicker" [(ngModel)]="courierdate" tabindex="14">
+              </div>
+
+              <div class="col-lg-2 col-md-2">
+                <label class="indlabel">Tracker ID</label>&nbsp;
+                <!-- <span class="mandatory">*</span> -->
+                <input type="text" class="form-control" style=" font-size:12px" placeholder="Tracker ID." tabindex="7" minlength="6"
+                  maxlength="6" [(ngModel)]="trackeridText" id="trackeridentry" #trackerid="ngModel" onkeypress="return isNumberKey(event)">
+                <div class="invalidmsg" *ngIf="trackerid.errors?.minlength">
+                  Tracker ID must be at least minimum 6 characters & maximum 6 characters long.
+                </div>
+              </div>
+
+              <div class="col-lg-1 col-md-1" style=" float:left;" >
+                <label class="indlabel">Asset&nbsp;Type</label></div>
+                <div class="col-lg-1 col-md-1" style=" float:left;">
+                <label class="container" style=" float:left;">Device&nbsp;&nbsp;<input type="checkbox" [(ngModel)]="deviceasset" 
+                  tabindex="8" id="deviceassetid" data-md-icheck (change)="devicetoggleEditable($event)">&nbsp;
+                    <span class="checkmark"></span>
+                  </label>
+                </div>
+
+                <div class="col-lg-1 col-md-1" style=" float:left;">
+                  <label class="container" style=" float:left;">Sim&nbsp;&nbsp;<input type="checkbox" [(ngModel)]="simasset" 
+                    tabindex="8" id="simassetid" data-md-icheck (change)="simtoggleEditable($event)" >&nbsp;
+                      <span class="checkmark"></span>
+                    </label>
+                </div>
+
+            </div>                  
+
+            <div class="form-group row">
+              <div class="col-lg-2 col-md-2" id = "devicetypediv">
+                <label class="indlabel">Device Type</label>
+                <span class="mandatory">*</span>
+
+                <ngx-select-dropdown tabindex="9" id="devicetypeentry" [multiple]="false"
+                  [(ngModel)]="devicetypeText" (change)="DeviceTypeChange()" [config]="config"
+                  [options]="ListOfdevicetype"></ngx-select-dropdown>
+
+                <span class="invalidmsg" id="msg_devicetype"></span>
+              </div>
+
+              <div class="col-lg-2 col-md-2" style="display: none;">
+                <label class="indlabel">Device Type Dummy</label>
+                <span class="mandatory">*</span>
+                <input type="text" class="form-control" id="devicetypeentrydummy" [(ngModel)]="devicetypelist" >                      
+              </div>
+              <div class="col-lg-2 col-md-2" id = "vendordiv">
+                <label class="indlabel">Vendor</label>
+                <span class="mandatory">*</span>
+                <ngx-select-dropdown tabindex="10" id="vendorentrydemo" [multiple]="false" [(ngModel)]="vendorText"
+                  (change)="DeviceModelList()" [config]="config" [options]="ListOfvendor"></ngx-select-dropdown>
+                <span class="invalidmsg" id="msg_vendorName"></span>
+              </div>
+              <div class="col-lg-2 col-md-2" style="display: none;">
+                <label class="indlabel">Vendor List Dummy</label>
+                <span class="mandatory">*</span>
+                <input type="text" class="form-control" id="vendordummy" [(ngModel)]="vendorlistdata" >                     
+              </div>
+              <div class="col-lg-2 col-md-2" id = "devicemodeldiv"> 
+                <label class="indlabel">Device Model</label>
+                <span class="mandatory">*</span>
+
+                <ngx-select-dropdown tabindex="11" id="modelentry" [multiple]="false" [(ngModel)]="modelText"
+                  (change)="step2validation()" [config]="config" [options]="ListOfmodel"></ngx-select-dropdown>
+                <span class="invalidmsg" id="msg_vendorName"></span>
+              </div>
+              <div class="col-lg-2 col-md-2" style="display: none;">
+                <label class="indlabel">Model List Dummy</label>
+                <span class="mandatory">*</span>
+                <input type="text" class="form-control" [(ngModel)]="modellist" id="modellistdummy" >
+               </div>
+               
+
+              <div class="col-lg-2 col-md-2" id = "networkdiv"> 
+                <label class="indlabel">Network</label>
+                <span class="mandatory">*</span>
+
+                <ngx-select-dropdown tabindex="11" id="networkentry" [multiple]="false" [(ngModel)]="networkText"
+                  (change)="networkchange()" [config]="config" [options]="ListOfnetwork"></ngx-select-dropdown>
+              </div>
+              <div class="col-lg-2 col-md-2" style="display: none;">
+                <label class="indlabel">Network List Dummy</label>
+                <span class="mandatory">*</span>
+                <input type="text" class="form-control" [(ngModel)]="networklistdummy" id="networkllistiddummy" >
+               </div>                    
+              
+            </div>
+
+            <div class="row">
+              <div class="col-12 col-md-12 col-lg-12 col-xl-12" style=" height: 265px;">
+                <div class="card border-1 shadow-sm overflow-hidden h-100 col-md-6 col-lg-6 col-xl-6" id="devicetbl" style=" float:left;">
+
+                  <div class="card-header">Device List</div>
+                  <div class="card-body " style=" height:343px ; ">
+                     <div class="input-group searchdevid">
+
+                      <input type="text" placeholder="Search" id="searchDataDeviceID" [(ngModel)]="filter"  class="form-control searchicon" 
+                          aria-label="Amount (to the nearest dollar)" style=" width: 30%;" >                     
+                    </div>  
+                  <ul class="checkbox-items deviceno" id="myList">
+                    <li *ngFor="let item of ListOfDevice | filter:filter">
+                      <input type="checkbox" name="" id="" [(ngModel)]="item.isSelecteddevicesummary" name="item_name" 
+                      value="{{item.param1}}" (change)="getcheckitemlistdevice()" checked>{{item.param2}}
+                    </li>
+                  </ul>
+
+                    <span class="invalidmsg" id="msg_AlertSelect"></span>
+                    
+                  </div>
+                </div>
+
+                <div class="card border-1 shadow-sm overflow-hidden h-100 col-md-6 col-lg-6 col-xl-6" id="simtbl" style=" float:left;">
+
+                  <div class="card-header">Sim List</div>
+                  <div class="card-body " style=" height:343px ; ">
+
+                     <div class="input-group searchdevid">
+
+                      <input type="text" placeholder="Search" id="searchDataSimID" [(ngModel)]="filtersim"  class="form-control searchicon" aria-label="Amount (to the nearest dollar)">
+                    
+                    </div> 
+                  <ul class="checkbox-items deviceno" id="mysimList">
+                    <li *ngFor="let item1 of ListOfSim | filter:filtersim">
+                      <input type="checkbox" name="" id="" [(ngModel)]="item1.isSelectedsimsummary" name="item1_name" 
+                      value="{{item1.param1}}" (change)="getcheckitemlistsim()" checked>{{item1.param2}}
+                    </li>
+                  </ul>
+                   <span class="invalidmsg" id="msg_AlertSelect"></span>
+                  
+                  </div>
+                </div>
+                </div> 
+             <br>
+            
+            </div> 
+            
+            <div class="row">
+              <div class="col-md-3 col-lg-3 col-xl-3" style=" float:left; height:343px;">
+                    
+                <span class="invalidmsg" id="msg_error_contactentry" style=" top: 4%; margin-left: 34%;"></span>
+
+                <button id="saveentry" class="mb-2 btn btn-sm btn-success" (click)="submit()" style=" top: 4%; margin-left: 300%;" >
+                  <i class="material-icons">save</i>
+                </button>
+            </div>
+            </div>
+          </fieldset>         
+        </div>
+      </div>
+     
+    </div>
+  </div>
+</div>
+
+<div class="modal fade " id="SuccessModalEntry" data-backdrop="static" data-keyboard="false" tabindex="-1"
+  role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-sm dialogModal"  role="document">
+    <div class="modal-content box-shadow">
+      <div class="card text-center border-0">
+        <div class="card-header bg-success m-0 p-0">
+          <h5>Success</h5>
+        </div>
+        <div class="card-body bg-white">
+          {{datafromrespo}}
+          <div class="text-right">
+            <button class="btn btn-sm btn-success" (click)="closemodal()" data-dismiss="modal">ok</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade " id="ErrorModalEntry" data-backdrop="static" data-keyboard="false" tabindex="-1"
+  role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-sm dialogModal" role="document">
+    <div class="modal-content box-shadow">
+      <div class="card text-center border-0">
+        <div class="card-header bg-warning m-0 p-0">
+          <h5>Failed</h5>
+        </div>
+        <div class="card-body bg-white">
+          {{datafromrespo}}
+          <div class="text-right pt-3">
+            <button class="btn btn-sm btn-success" (click)="closemodal()" data-dismiss="modal">ok</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade " id="WarningModalEntry" data-backdrop="static" data-keyboard="false" tabindex="-1"
+  role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-sm dialogModal" role="document">
+    <div class="modal-content box-shadow">
+      <div class="card text-center border-0">
+        <div class="card-header bg-warning m-0 p-0">
+          <h5>Warning</h5>
+        </div>
+        <div class="card-body bg-white">
+          {{validationmsg}}
+          <div class="text-right pt-3">
+            <button class="btn btn-sm btn-success" (click)="closemodal()" data-dismiss="modal">ok</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

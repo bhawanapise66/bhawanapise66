@@ -1,0 +1,570 @@
+<!--
+Developer 	: Aditya Londhe
+Date      	: 15-7-2021
+Description : Icon Master 
+Modified By:  
+Update date : 
+-->
+<div class="content shadow-sm">
+  <!-- Main container starts -->
+  <div class="container-fluid main-container" id="main-container">
+    <div class="row">
+      <div class="col-12 col-md-12 col-lg-12 col-xl-12 mx-auto align-self-center">
+        <div class="card shadow-sm border-0 mb-4">
+          <div class="card-header" style="padding-top: 0; padding-bottom: 0">
+
+            <!-- <img src="../assets/img/logoicon.svg" alt="" class="w-50px mt-4"> -->  
+            <h4 class="text-left m-1" style="font-size: 15px;">Vehicle Icon
+              <span class="text-template-primary" style="color: #00ed54">Master</span>
+              <button type="button" class="btn btn-sm btn-primaryyel ml-2 float-right" style="margin-right: 89px;" data-toggle="modal" data-target="#exampleModal" >
+                ADD NEW 
+                <i class="material-icons md-18">navigate_next</i>  
+               
+              </button>
+            </h4>
+           
+          </div>
+          <div class="card-body" style="padding: 5px;">
+            <div class="row justify-content-center">
+              <div class="col-md-12 mx-auto">
+                <div class="row">
+                  <div class="col-lg-12 col-md-12">
+                    <!-- <button type="button" class="btn btn-primary float-left" data-toggle="modal" >
+                        ADD NEW
+                      </button> -->
+                   
+                  </div>
+                </div>
+
+                <div class="container-fluid main-container" id="main-container">
+                 
+             <!--    ---------------        Table Header Staret=------------------------    -->
+             <div class="col-md-12">
+              <div class="row  mx-1">
+                <div class="col-12 col-sm-12 col-md text-md-left align-self-center pr-0">
+                  <ul class="nav  justify-sm-content-center  justify-content-left">
+                    <li class="nav-item ">
+                      <div class="input-group" style="max-width: 250px;">
+                        <input type="text" placeholder="Search" id="searchData" class="form-control searchicon"
+                         [(ngModel)]="filter" aria-label="Amount (to the nearest dollar)">
+                        <div class="input-group-append">
+                          <button class="btn  apendbtn" (click)="searchdata()">
+                            <i style="color: #00ed54; margin-top: -15px;" class="fa fa-search"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </li>
+                    <li class="nav-item mx-3">
+                      <i class="fa fa-refresh fa-2x fa-spin-hover" style="font-size: 17px;
+                      padding-top: 4px;color: #00fff3;" (click)="Refreshfunction()"></i>
+                    </li>
+                  </ul>
+                </div>
+
+                <div class="col-12 col-sm-12 col-md-auto text-right text-md-end pl-0">
+                  <ul class="nav justify-content-center justify-lg-content-end  justify-sm-content-center">
+                    <!-- <li class="nav-item mx-2">
+                      <img style="cursor: pointer; height: 20px; margin-top: 3px;" (click)="createPDF()"
+                        ngbTooltip="PDF" src="assets/images/PDFicon.png">
+                    </li>
+                    <li class="nav-item mx-2">
+                      <img style="cursor: pointer;" (click)="exportToExcel()" ngbTooltip="Excel"
+                        src="assets/images/excellogo.png">
+                    </li> -->
+                    <li class="nav-item mx-3">
+                      <span style="display: inline;font-size:12px;font-weight :bold;">Show Rows : </span> <select class="form-control p-1"
+                      style="width: 44px;display: inline;" data-live-search="true" tabindex="1" id="selectronet" (change)="SelectRows()" aria-hidden="true"
+                       [(ngModel)]="itemsPerPage">
+                       <option value="5">5</option>
+                       <option value="10" selected>10</option>
+                       <option value="20">20</option>
+                       <option value="50">50</option>
+                      </select>
+                    </li>
+                    <li class="nav-item pt-1">
+                      <span style="font-size:12px;font-weight: bold;">Total Records : {{viewcount}} of {{count}}</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+    
+              </div>
+    
+         <!-- ---------------------  Table header end  ------------------------------ --> 
+                 
+                  
+                  <div id="PDFTable" class="card-body table-responsive">
+                    <table class="table table-hover table-striped">
+                      <thead >
+                        <tr role="row">
+                          <th (click)="sort('rowNumber')">#</th>
+                          <th (click)="sort('param2')">Vehicle Icon Name</th>
+                          <th (click)="sort('param3')">Icon Description</th>
+                          <!-- <th (click)="sort('param5')">Running Icon</th>
+                          <th (click)="sort('param6')">Stop Icon</th>
+                          <th (click)="sort('param7')">Idle Icon</th>
+                          <th (click)="sort('param8')">Non polling Icon</th> -->
+
+                          <th style="background-color: #99c049; width: 30px;">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody id = "grid" > 
+                        <tr
+                        *ngFor="let com of IconDetails | filter:filter | orderBy: key : reverse | paginate : {itemsPerPage:pagecount,currentPage:p,totalItems:count} ;"
+                        class="trheight">
+                        <td>{{com.rowNumber}}</td>
+                        <td>{{com.param2}}</td>
+                        <td>{{com.param4}}</td>
+                        <!-- <td>{{com.param5}}</td>
+                        <td>{{com.param6}}</td>
+                        <td>{{com.param7}}</td>
+                        <td>{{com.param8}}</td> -->
+
+                        <td [ngStyle]="{'background-color':com.altColor}" class="viewbtncss">
+                          <span class="iconhover" data-toggle="modal" data-target="#myModalwizard"
+                            (click)="setdata(com)">
+                            <i class="material-icons" style="color: #161e43; padding-left: 9px;">visibility</i>
+                          </span>
+                        </td>
+                      </tr>
+                      
+
+                      </tbody>
+                      <tfoot id= "foot" class="box-footer clearfix">
+                        <tr>
+                          <td colspan="12">
+                            <pagination-controls style=" float: right;" (pageChange)="IconpageChanged($event)">
+                            </pagination-controls>
+                          </td>
+                        </tr>
+                      </tfoot>
+                    </table>
+                   
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <!-- --------------------  view & Edit Modal start------------------------>
+  
+    <div class="modal fade " id="myModalwizard" data-backdrop="static" data-keyboard="false">
+      <div class="modal-dialog modal-lg ">
+        <div class="modal-content ">
+  
+         
+          <!-- Modal Header -->
+          <div class="modal-header modelcolor">
+            <h5 class="modal-title" id="vmd" style="display: block;">Network Details</h5>
+            <h5 class="modal-title" id="uvmd" style="display: none;">Update Network</h5>
+            <div style="float:right; margin-left: 65%;">
+              <button type="button" class=" btn btn-sm btn-secondary float-right ml-2 bg-warning" style="display: block;"
+                id="editbtn" ngbTooltip="Edit" (click)="editpageform()">
+  
+                <i class="material-icons md-18">edit</i>
+              </button>
+              <button type="button" class=" btn btn-sm btn-danger float-right ml-2" id="deletebtn" ngbTooltip="Delete"
+                data-toggle="modal" data-target="#modeldelete">
+  
+                <i class="material-icons md-18">delete</i>
+              </button>
+              <button type="button" class=" btn btn-sm btn-primary float-right ml-2" id="backdetailsbtn" ngbTooltip="Back"
+                style="display: none;" (click)="backdetailsbtn()">
+  
+                <i class="material-icons md-18">arrow_back</i>
+              </button>
+            </div>
+            <button type="button" style="color: white" class="close" data-dismiss="modal" (click)="clear();">&times;</button>
+          </div>
+  
+  
+          <!-- Modal body -->
+          <div class="modal-body " style="background-color: #CBD2F1">
+            <div class="container">
+              <div class="">
+                <div id="container" style="display: none;">
+                  <div class="step-wizard" role="navigation">
+                    <!-- <div class="progress">
+                    <div class="progressbar empty"></div>
+                    <div id="prog" class="progressbar"></div>
+                  </div> -->
+                    <ul style="display: none;">
+                      <li class="active">
+                        <button id="step1">
+                          <div class="step">1</div>
+                          <div class="title"> Details</div>
+                        </button>
+                      </li>
+                     
+                    </ul>
+  
+  
+                    <div class="stepsection">
+                      <span class="invalidmsg" id="msg_mainmessage"></span>
+                      <div id="step-14" class="stepsdiv">
+                        <!-- <span class="StepTitle">Step 1: Basic Details</span> -->
+                        <div class="form-group row">
+                         
+                          <div class="col-lg-4 col-md-4">
+                            <label class="indlabel">Icon Name</label>
+                            <span class="mandatory">*</span>
+                            <input type="text" name="networkName" class="form-control" [(ngModel)]="iconname"
+                              id="icon_name" placeholder="Enter Network" required minlength="4" maxlength="20"
+                              #networkCtrl="ngModel">
+                            <div class="invalidmsg" *ngIf="networkCtrl.errors?.minlength">
+                               Network must be at least minimum 4 characters & maximum 20 characters long.
+                            </div>
+                          </div>
+                          <div class="col-lg-6 col-md-6">
+                            <label class="indlabel">Icon Description</label>
+                            <span class="mandatory">*</span>
+                            <textarea class="form-control" rows="2" style=" font-size:12px"
+                              placeholder="Enter Description." tabindex="2" minlength="5" maxlength="30"
+                              name="subDivisionDesc" [(ngModel)]="icondescription"
+                              #subDivisionDescCtrl="ngModel"
+                              id="descriptionupdate"></textarea>
+                            <div class="invalidmsg" *ngIf="subDivisionDescCtrl.errors?.minlength">
+                              Description must be at least minimum 5 characters & maximum 30 characters long.
+                            </div>
+                            <!-- <span class="invalidmsg" id="msg_regaddentry"></span> -->
+                          </div>
+                        </div>
+
+                        <div class="form-group row">
+  
+                          <div class="col-lg-6 col-md-6">
+                            <label class="indlabel">Running </label>
+                            <span class="mandatory">*</span>
+                            <label class="btn btn-default indlabel">
+                              <input type="file" id="imgInpupdate" (change)="selectFileupdate($event)">
+                            </label><br><br>
+    
+                            <img id="defaultimgupdate" style="display: block" src="{{actualrunnpath}}" style="width: 50px; height: 50px; margin-left: 65px;"/>
+                            <img id="blahupdate" src="#" alt="your image" style="height:70px; width:140px; display: none;" /> <br><br>
+                          </div>
+    
+                          <div class="col-lg-6 col-md-6">
+                            <label class="indlabel">Stop </label>
+                            <span class="mandatory">*</span>
+                            <label class="btn btn-default indlabel">
+                              <input type="file" id="imgInp2update" (change)="selectFile2update($event)">
+                            </label><br><br>
+    
+                            <img id="defaultimg2update" style="display: block" src="{{actualstoppath}}" style="width: 50px; height: 50px; margin-left: 65px;"/>
+                            <img id="blah2update" src="#" alt="your image" style="height:70px; width:140px; display: none;" /> <br><br>
+                          </div>
+                        </div>
+    
+                        <div class="form-group row">
+                          <div class="col-lg-6 col-md-6">
+                            <label class="indlabel">Idle </label>
+                            <span class="mandatory">*</span>
+                            <label class="btn btn-default indlabel">
+                              <input type="file" id="imgInp3update" (change)="selectFile3update($event)">
+                            </label><br><br>
+    
+                            <img id="defaultimg3update" style="display: block" src="{{actualidlepath}}" style="width: 50px; height: 50px; margin-left: 65px;"/>
+                            <img id="blah3update" src="#" alt="your image" style="height:70px; width:140px; display: none;" /> <br><br>
+                          </div>
+
+                          <div class="col-lg-6 col-md-6">
+                            <label class="indlabel">Non Polling </label>
+                            <span class="mandatory">*</span>
+                            <label class="btn btn-default indlabel">
+                              <input type="file" id="imgInp4update" (change)="selectFile4update($event)">
+                            </label><br><br>
+    
+                            <img id="defaultimg4update" style="display: block" src="{{actualnonpollpath}}" style="width: 50px; height: 50px; margin-left: 65px;"/>
+                            <img id="blah4update" src="#" alt="your image" style="height:70px; width:140px; display: none;" /> <br><br>
+                          </div>
+                        
+                       </div>
+                        <br><br>
+                        <span class="invalidmsg" id="msg_errorentry2">{{successMessageUpdate}}</span>
+                        </div>
+                       </div>
+  
+                    </div>
+                  </div>
+                </div>
+                <!-- --------------------------------------------- View Section ------------------------------------------- -->
+                <div class="">
+  
+  
+                  <div id="vendordtls" class="row" style="background-color: #0e2145; border: 1px ridge #02108d;">
+                    <div class="col-12 col-md-12 col-lg-12">
+  
+                      <div class="row" style="background-color: rgb(198 201 202);">
+                        <div class="col-12 col-md-12 col-lg-12">
+                          <div class="viewheading">Network Details</div>
+                        </div>
+                      </div>
+                      <br>
+  
+                      <div class="row">
+  
+                        <div class="col-12 col-md-12 col-lg-12">
+                          <div class="col-4 col-md-4 col-lg-4" style=" float: left;">
+                            <span class="caplable">Icon Name:</span>&nbsp;
+                            <span class="viewlable">{{iconname}}</span>
+                          </div>
+                         
+                          <div class="col-4 col-md-4 col-lg-4" style=" float: left;">
+                            <span class="caplable">Icon Description:</span>&nbsp;
+                            <span class="viewlable">{{icondescription}}</span>
+                          </div>
+                         
+                        </div>
+
+
+                        <div class="col-12 col-md-12 col-lg-12">
+                          <div class="col-6 col-md-6 col-lg-6" style=" float: left;">
+                            <span class="caplable">Running Icon:</span>&nbsp;
+                            <!-- <span class="viewlable">{{running}}</span> -->
+                            <img style="display: block" src="{{actualnonpollpath}}" style="width: 50px; height: 50px; margin-left: 65px;"/>
+
+                          </div>
+                         
+                          <div class="col-6 col-md-6 col-lg-6" style=" float: left;">
+                            <span class="caplable">Stop Icon:</span>&nbsp;
+                            <!-- <span class="viewlable">{{stop}}</span> -->
+                            <img style="display: block" src="{{actualstoppath}}" style="width: 50px; height: 50px; margin-left: 65px;"/>
+
+                          </div>
+                         
+                        </div><br><br>
+                        <div class="col-12 col-md-12 col-lg-12">
+                          <div class="col-6 col-md-6 col-lg-6" style=" float: left;">
+                            <span class="caplable">Idle Icon:</span>&nbsp;
+                            <!-- <span class="viewlable">{{idle}}</span> -->
+                            <img style="display: block" src="{{actualidlepath}}" style="width: 50px; height: 50px; margin-left: 65px;"/>
+
+                          </div>
+                         
+                          <div class="col-6 col-md-6 col-lg-6" style=" float: left;">
+                            <span class="caplable">Non polling Icon:</span>&nbsp;
+                            <!-- <span class="viewlable">{{non_polling}}</span> -->
+                            <img style="display: block" src="{{actualnonpollpath}}" style="width: 50px; height: 50px; margin-left: 65px;"/>
+
+                          </div>
+                         
+                        </div>
+
+              
+                      </div>
+  
+                      <br>
+                      <br>
+  
+                    </div>
+                    <!-- --------------------- View Section End ------------------------------ -->
+  
+                  </div>
+  
+                </div>
+              
+              </div>
+              <!-- --------------------- View Section End ------------------------------ -->
+  
+            </div>
+         
+  
+          <!-- Modal footer -->
+  
+         
+        <div class="modal-footer" style="display: none;" id="modelfooter">
+          <div class=" container mx-5 px-5">
+            <div class="row">
+              <div class="col-md-7">
+                <textarea class="form-control bg-white" rows="1" style="margin-left: -14px;" placeholder="Enter Remark" tabindex="21" minlength="10"
+                   id="remarkupdatenetwork" [(ngModel)]="remarkiconText" #remark="ngModel" required
+                 ></textarea>
+                     <div class="invalidmsg" *ngIf="remark.errors?.minlength" style="margin-left: -11px;">
+                Remark must be atleast of 10 characters long.
+              </div>
+  
+                <span class="invalidmsg" id="msg_errorremark" style="margin-left: -10px;"></span>
+              </div>
+              <div class="col-md-4">
+                <div class="actionBar" style="margin-right: 1pc;">
+                  <button id="save" class="mb-2 btn btn-wizard btn-sm btn-success buttonFinish float-right"
+                    (click)="editIcon()">
+                    <i class="material-icons">save</i>
+                  </button>
+  
+                </div>
+              </div>
+            </div>
+  
+          </div>
+  
+        </div>
+  
+        </div>
+      </div>
+    </div>
+  
+    <!-- ------------------- view & Edit model close ------------------------ -->
+  
+    <!-- ------------------ Delete Model Start ------------------------>
+  
+    <!-- Delete Model-->
+    <div class="modal fade" id="modeldelete" data-backdrop="static" data-keyboard="false">
+      <div class="modal-dialog modal-sm modal-dialog-centered">
+        <div class="modal-content">
+  
+          <!-- Modal Header -->
+          <div class="modal-header" style="background-color: 	red;">
+            <h4 class="modal-title text-center" style="color: yellow">Are You Sure?</h4>
+            <button type="button" class="close" data-dismiss="modal" (click)="closemodal();">&times;</button>
+          </div>
+  
+          <!-- Modal body -->
+          <div class="modal-body" style="background-color: #f0e8e9">
+  
+            <div class="form-group row">
+  
+  
+              <div class="col-lg-12 col-md-12">
+                <label style="color: black">Remark</label>&nbsp;
+                <span class="indlabelstar">*</span>
+                <textarea class="form-control" rows="2" style=" font-size:12px" placeholder="Enter Remark" tabindex="1"
+                  minlength="10" maxlength="40" [(ngModel)]="deleteText" #regaddress="ngModel" id="networkdelremark"
+                  onchange=""></textarea>
+  
+              </div>
+  
+            </div>
+            <span class="invalidmsg" id="msg_error_delete"></span>
+            <p style="    background-color: yellow;
+          /* padding-right: 20px; */
+          margin-right: 89px;
+          color: red; display: none;">Do You want to Delete !!&hellip;</p>
+          </div>
+  
+  
+          <!-- Modal footer -->
+          <div class="modal-footer text-center" style="background-color: #cfbaa8">
+            <button type="submit" class="btndel btn-primary mr-3" data-toggle="modal" data-dismiss="modal" tabindex="18" (click)="closemodal();">
+              No
+            </button>
+            <button type="reset" tabindex="19" class="btndel btn-danger" data-toggle="modal"
+              (click)="IconDeletefunction()">
+              Yes
+            </button>
+          </div>
+  
+        </div>
+      </div>
+    </div>
+    <!-- Delete Model -->
+  
+    <!-- ------------------- Delete model End ----------------------- -->
+  
+    <!-- ------------------- onclick no btn model  ----------------------- -->
+    <!-- The Modal -->
+    <div class="modal fade" id="Noclickmodel">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-contentno">
+  
+          <!-- Modal Header -->
+          <div class="modal-header" style="background-color: 	rgb(255, 255, 255);">
+            <h4 class="modal-title text-center" style="color: rgb(0, 0, 0)">Your Data is not Delete</h4>
+            <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+          </div>
+  
+          <!-- Modal body -->
+          <!-- <div class="modal-body">
+            Your Data is Not delete..
+          </div> -->
+  
+          <!-- Modal footer -->
+          <div class="modal-footer" style="background-color: 	rgb(255, 255, 255);">
+            <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">
+              <span class="material-icons">
+                highlight_off
+              </span>
+            </button>
+          </div>
+  
+        </div>
+      </div>
+    </div>
+  
+    <!-- ------------------- onclick no btn model End ----------------------- -->
+    <!-- ------------------- onclick Yes btn model ----------------------- -->
+  
+    <div class="modal fade" id="Yesclickmodel">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-contentno">
+  
+          <!-- Modal Header -->
+          <div class="modal-header" style="background-color: 	rgb(255, 255, 255);">
+            <h4 class="modal-title text-center" style="color: rgb(0, 0, 0)">Data Deleted Successfully</h4>
+            <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+          </div>
+  
+          <!-- Modal body -->
+          <!-- <div class="modal-body">
+            Your Data is Not delete..
+          </div> -->
+  
+          <!-- Modal footer -->
+          <div class="modal-footer" style="background-color: 	rgb(255, 255, 255);">
+            <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">
+              <span class="material-icons">
+                highlight_off
+              </span>
+            </button>
+          </div>
+  
+        </div>
+      </div>
+    </div>
+  
+    <div class="modal fade " id="SuccessModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+    aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+      <div class="modal-content box-shadow">
+        <div class="card border-0">
+          <div class="card-header  py-1 pl-3 m-0" style="background-color: green;">
+            <p style="font-size:17px; font-weight:bold"> Success </p>
+          </div>
+          <div class="card-body bg-white text-dark">
+           <p> {{datafromrespo}}</p>
+            <div class="text-right">
+              <button class="btn btn-sm btn-success" data-dismiss="modal">ok</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    
+    <div class="modal fade " id="ErrorModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+    aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+      <div class="modal-content box-shadow">
+        <div class="card border-0">
+          <div class="card-header  py-1 pl-3 m-0" style="background-color: red;">
+            <p style="font-size:17px; font-weight:bold"> Error </p>
+          </div>
+          <div class="card-body bg-white text-dark">
+           <p> {{datafromrespo}}</p>
+            <div class="text-right">
+              <button class="btn btn-sm btn-success" data-dismiss="modal">ok</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <!-- ------------------- onclick yes btn model End ----------------------- -->
+  
+   
+<app-iconentry></app-iconentry>

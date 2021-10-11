@@ -1,0 +1,213 @@
+
+<!--
+Developer 	: Aditya Londhe
+Date      	: 02-10-2020
+Description : Device Module Master
+Modified By:  
+Update date : 
+-->
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Device Model Entry</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true" style="color: white">×</span>
+              </button>
+          </div>
+          <div class="modal-body">
+            <div class="container-fluid">
+            <div  id="container">
+              <div class="step-wizardentry" role="navigation">
+                <div class="progress">
+                  <div class="progressbar empty"></div>
+                  <div id="progentry" class="progressbar"></div>
+                </div>
+                <ul>
+                  <li class="active">
+                    <button id="step1">
+                      <div class="step">1</div>
+                      <div class="title">Device Details</div>
+                    </button>
+                  </li>
+                  <li class="">
+                    <button id="step2" style="display: block;">
+                      <div class="step">2</div>
+                      <div class="title">Certificate Details</div>
+                    </button>
+                  </li>
+                  <!-- <li class="">
+                    <button id="step3">
+                      <div class="step">3</div>
+                      <div class="title">Document Details</div>
+                    </button>
+                  </li> -->
+                  <li class="">
+                    <button id="step4">
+                      <div class="step">{{stepno}}</div>
+                      <div class="title">Successful</div>
+                    </button>
+                  </li>
+                </ul>
+          
+                <div class="stepsection" >
+                  <span class="invalidmsg" id="msg_mainmessageentry"></span>
+                  <div id="stepentry-14" class="stepsdiv">
+                    <span class="StepTitle">Step 1: Device Details</span>
+                    <div class="form-group row">
+                      <div class="col-lg-3 col-md-3">
+                        <label class="indlabel">Device Type</label>
+                        <span class="mandatory">*</span>
+                         <!-- <select class="form-control" id="devicetypeentry" data-live-search="true" [(ngModel)]="DeviceTypelistText" tabindex="8" placeholder="Select Device Type."  aria-hidden="true" style=" font-size:12px">
+                          <option *ngFor =  "let list1 of ListOfDevicetype$" value={{list1.param1}} >{{list1.param1}}</option>
+                         
+                        </select>  -->
+                        <select class="form-control" id="devicetypeentry" data-live-search="true" [(ngModel)]="DeviceTypelistText" data-live-search="true" tabindex="7" (change)="DeviceNormOnchange()" aria-hidden="true" style=" font-size:12px">
+                          <option value="" selected>Choose</option>
+                          <option value="AIS140">AIS140</option>
+                          <option value="basic">Basic</option>
+                        </select>
+                        <span class="invalidmsg" id="msg_devicetypeentry"></span>
+                      </div>
+                      <div class="col-lg-3 col-md-3">
+                        <label class="indlabel">Vendor List</label>
+                        <span class="mandatory">*</span>
+                          <!-- <select class="form-control" id="vendorlistentry" data-live-search="true" [(ngModel)]="VendorListText" tabindex="9" placeholder="Select Vendor List."  aria-hidden="true" style=" font-size:12px">
+                          <option *ngFor =  "let list of ListOfVendor$" value={{list.param1}} >{{list.param2}}</option>
+                         
+                        </select>  -->
+                        <select class="form-control" id="vendorlistentry" data-live-search="true" [(ngModel)]="VendorListText" data-live-search="true" tabindex="7"  aria-hidden="true" style=" font-size:12px">
+                          <option value="" selected>Choose</option>
+                          <option value="AIS140">AIS140</option>
+                          <option value="basic">Basic</option>
+                        </select>
+                        <span class="invalidmsg" id="msg_vendorlistentry"></span>
+                      </div>
+                      
+                      <div class="col-lg-3 col-md-3">
+                        <label class="indlabel">Model Code</label>
+                        <span class="mandatory">*</span>
+                        <input type="text" class="form-control" placeholder="Enter Model Code" tabindex="3" required minlength="2" maxlength="2" id="modelcodeentry"
+                          [(ngModel)]="Modelcode" #modelcode="ngModel" onkeypress="avoidSplChars(event)">
+                        <div class="maxminwarn" *ngIf="modelcode.errors?.minlength">
+                          model code must be at least minimum 2 characters & maximum 20 characters long.
+                        </div>
+                        <span class="invalidmsg" id="msg_modelcodeentry"></span>
+                      </div>
+                      <div class="col-lg-3 col-md-3">
+                        <label class="indlabel">Model Name</label>
+                        <span class="mandatory">*</span>
+                        <input type="text" class="form-control" placeholder="Enter Model Name" tabindex="4" required minlength="2" maxlength="20" id="modelnameentry"
+                          [(ngModel)]="ModelName" #modelname="ngModel" onkeypress="avoidSplChars(event)">
+                        <div class="maxminwarn" *ngIf="modelname.errors?.minlength">
+                          Model Name must be at least minimum 2 characters & maximum 20 characters long.
+                        </div>
+                        <span class="invalidmsg" id="msg_modelnameentry"></span>
+                      </div>
+
+                    </div>
+                    <div class="form-group row">
+                      <div class="col-lg-3 col-md-3">
+                        <label class="indlabel" >Production Date</label>
+                        <input type="text" class="form-control datepicker" [(ngModel)]="Productiondate" id="proddate">
+                    </div>
+                     
+                     
+                    </div>
+                </div>
+              <div id="stepentry-15" class="stepsdiv" style="display: none;" >
+      
+                    <span class="StepTitle">Step 2: Certificate Details</span>
+                    <div class="form-group row">
+                      <div class="col-lg-3 col-md-3">
+                        <label class="indlabel">Certificate Authority</label>
+                        <!-- <span class="mandatory">*</span> -->
+                        <select class="form-control" id="certauth" data-live-search="true" [(ngModel)]="CertiAutho" tabindex="9" placeholder="Select Vendor List." aria-hidden="true" style=" font-size:12px">
+                          <option *ngFor =  "let list of ListOfCertAuth$" value={{list.param1}} >{{list.param2}}</option>                         
+                        </select>
+                        <!-- <select class="form-control" data-live-search="true" [(ngModel)]="CertiAutho" tabindex="1" aria-hidden="true" style=" font-size:12px" id="certauthoaa">
+                          <option value="" >Choose</option>
+                          <option value="cert1">Certificate 1</option>
+                          <option value="cert2">Certificate 2</option>
+                        </select> -->
+                        <span class="invalidmsg" id="msg_certautho"></span>
+                      </div>
+                      <div class="col-lg-3 col-md-3">
+                        <label class="indlabel">TAC Certification No.</label>
+                        <!-- <span class="mandatory">*</span> -->
+                        <input type="text" class="form-control" placeholder="Enter TAC Certficate No" tabindex="2" required minlength="5" maxlength="12"
+                          id="taccertnoaa" [(ngModel)]="TACcertNo" #taccertNo="ngModel" required onkeypress="return isNumberKey(event)">
+                        <div class="maxminwarn" *ngIf="taccertNo.errors?.minlength">
+                          TAC Numner must be at least minimum 10 characters & maximum 12 characters long.
+                        </div> 
+                        <span class="invalidmsg" id="msg_taccertNo"></span>
+                      </div>
+                     
+                        <div class="col-lg-3 col-md-3">
+                          <label class="indlabel" >TAC Certification Date</label>
+                          <input type="text" class="form-control datepicker " [(ngModel)]="TACcertDate" id="taccertidate" >
+                      </div>
+                        <!-- <span class="invalidmsg" id="msg_alternateNo"></span> -->
+                    
+
+                      
+                        <div class="col-lg-3 col-md-3">
+                          <label class="indlabel" >TAC Certification Validity</label>
+                          <input type="text" class="form-control datepicker" [(ngModel)]="TACcertval" id="taccertval">
+                      </div>
+                      
+                    </div>
+
+                    <div class="form-group row">
+
+                      <div class="col-lg-3 col-md-3">
+                        <label class="indlabel">COP Certificate No.</label>
+                        <!-- <span class="mandatory">*</span> -->
+                        <input type="text" class="form-control" placeholder="Enter TAC Certficate No" tabindex="2" required minlength="5" maxlength="12"
+                          id="copcertno" [(ngModel)]="COPcertNo" #taccertNo="ngModel" required onkeypress="return isNumberKey(event)">
+                        <!-- <div class="maxminwarn" *ngIf="taccertNo.errors?.minlength">
+                          TAC Numner must be at least minimum 10 characters & maximum 12 characters long.
+                        </div> >
+                        <span class="invalidmsg" id="msg_taccertNo"></span> -->
+                      </div>
+                     
+                        <div class="col-lg-3 col-md-3">
+                          <label class="indlabel" >COP Certification Date</label>
+                          <input type="text" class="form-control datepicker" [(ngModel)]="COPcertDate" id="copcertdate" >
+                      </div>
+                     
+                     
+                        <div class="col-lg-3 col-md-3">
+                          <label class="indlabel" >COP Certification Validity</label>
+                          <input type="text" class="form-control datepicker " [(ngModel)]="COPcertval" id="copcertval">
+                      </div>
+                      
+                     
+                    </div>
+                      </div>
+                  
+                  <div id="stepentry-17" class="">
+                    <h1>THIS iS 4th step</h1>
+                  </div>
+              
+          
+              </div>
+            </div>  
+          </div>
+          </div>
+
+
+          </div>
+
+          <!-- Modal footer -->
+          <div class="actionBar" id="modelfooter">
+              <button  id="saveentry" class="mb-2 btn btn-sm btn-success buttonFinish" ><i class="material-icons">save</i></button>
+              <button  id="nextentry" class="mb-2 btn btn-sm btn-primary buttonNext"><i class="material-icons">arrow_forward</i></button>
+              
+              <button  id="preventry" class="mb-2 btn btn-sm btn-primary buttonPrevious" onclick="validateAllSteps(4,4)"><i class="material-icons">arrow_back</i></button>
+              </div>
+
+      </div>
+  </div>
+</div>

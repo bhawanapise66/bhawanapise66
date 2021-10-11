@@ -1,0 +1,657 @@
+<!--
+Developer 	: Dhammadeep Dahiwale
+Date      	: 21-may-2021
+Description : driver update
+Modified By:  
+Update date : 
+-->
+
+<div class="content shadow-sm">
+  <!-- Main container starts -->
+  <div class="container-fluid main-container" id="main-container">
+    <div class="row">
+      <div class="col-12 col-md-12 col-lg-12 col-xl-12 mx-auto align-self-center">
+        <div class="card shadow-sm border-0 mb-4">
+          <div class="card-header" style="padding-top: 0; padding-bottom: 0">
+
+            <!-- <img src="../assets/img/logoicon.svg" alt="" class="w-50px mt-4"> -->
+            <h4 class="text-left m-1 fs15">Driver
+              <span class="text-template-primary" style="color: #00ed54">Master</span>
+              <button type="button" class="btn btn-sm btn-primaryyel ml-2 float-right" style="margin-right: 89px;"
+                data-toggle="modal" data-target="#driverModal">
+                ADD NEW
+                <i class="material-icons md-18">navigate_next</i>
+
+              </button>
+            </h4>
+
+          </div>
+          <div class="card-body" style="padding: 5px;">
+            <div class="row justify-content-center">
+              <div class="col-md-12 mx-auto">
+                <div class="row">
+                  <div class="col-lg-12 col-md-12">
+                    <!-- <button type="button" class="btn btn-primary float-left" data-toggle="modal" >
+                        ADD NEW
+                      </button> -->
+
+                  </div>
+                </div>
+
+                <div class="container-fluid main-container" id="main-container">
+
+                  <!--    ---------------        Table Header Staret=------------------------    -->
+
+                  <div class="row  mx-1">
+                    <div class="col-12 col-sm-12 col-md text-md-left align-self-center pr-0">
+                      <ul class="nav  justify-sm-content-center  justify-content-left">
+                        <li class="nav-item">
+                          <div class="input-group" style="max-width: 250px;">
+                            <input type="text" placeholder="Search" class="form-control searchicon" [(ngModel)]="filter"  maxlength="30"
+                              aria-label="Amount (to the nearest dollar)">
+                            <div class="input-group-append">
+                              <button class="btn  apendbtn" (click)="searchdata()">
+                                <i style="color: #00ed54; margin-top: -15px;" class="fa fa-search"></i>
+                              </button>
+                            </div>
+                          </div>
+                        </li>
+                        <li class="nav-item mx-3">
+                          <i class="fa fa-refresh fa-2x fa-spin-hover"
+                            style="font-size: 17px;padding-top: 4px;color: #00fff3;" (click)="Refreshfunction()"></i>
+                        </li>
+                      </ul>
+                    </div>
+
+                    <div class="col-12 col-sm-12 col-md-auto text-right text-md-end pl-0">
+                      <ul class="nav justify-content-center justify-lg-content-end  justify-sm-content-center">
+                        <li class="nav-item mx-2">
+                          <img style="cursor: pointer; height: 20px; margin-top: 3px;" (click)="createPDF()"
+                            ngbTooltip="PDF" src="assets/images/PDFicon.png">
+                        </li>
+                        <li class="nav-item mx-2">
+                          <img style="cursor: pointer;" (click)="createExcel()" ngbTooltip="Excel"
+                            src="assets/images/excellogo.png">
+                        </li>
+                        <li class="nav-item mx-3">
+                          <span style="display: inline;font-size:12px;font-weight :bold;">Show Rows : </span> <select
+                            class="form-control p-1" style="width: 44px;display: inline;" ata-live-search="true"
+                            tabindex="1" [(ngModel)]="itemsPerPage" (change)="changeItemsPerPage()" aria-hidden="true">
+                            <option value="5" selected>5</option>
+                            <!-- <option value="5">5</option> -->
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="50">50</option>
+                          </select>
+                        </li>
+                        <li class="nav-item pt-1">
+                          <span style="font-size:12px;font-weight: bold;">Total Records : {{viewcount}} of
+                            {{totalcount}}</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <!-- ---------------------  Table header end  ------------------------------ -->
+
+
+                  <div id="PDFTable" class="card-body table-responsive" #epltable>
+                    <table class="table table-hover table-striped">
+                      <thead>
+                        <tr role="row">
+                          <th (click)="sort('rowNumber')"># </th>
+                          <th *ngIf="isCustomer"><span (click)="sort('param18')">Customer</span></th>
+                          <th><span (click)="sort('param3')">Driver</span></th>
+                          <th><span (click)="sort('param2')">License No.</span></th>
+                          <th><span (click)="sort('param4')">Mobile No.</span></th>
+                          <th><span (click)="sort('param5')">Email Id</span></th>
+                          <th><span (click)="sort('param20')">Vehicle No.</span></th>
+                          <th><span (click)="sort('param25')">Status</span></th>
+                          <th style="background-color: #99c049; text-align: center;">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody id="grid">
+                        <tr
+                          *ngFor="let com of driverdetails | orderBy: key : !reverse | paginate : {itemsPerPage:itemsPerPage,currentPage:pageNumber,totalItems:totalcount} ;"
+                          class="trheight">
+
+                          <td>{{com.rowNumber}}</td>
+                          <td *ngIf="isCustomer">{{com.param17}}</td>
+                          <td>{{com.param2}}</td>
+                          <td>{{com.param15}}</td>
+                          <td>{{com.param3}}</td>
+                          <td>{{com.param4}} </td>
+                          <td> {{com.param20}} </td>
+                          <td> {{com.param27}} </td>
+
+                          <td [ngStyle]="{'background-color':com.altColor}" class="viewbtncss">
+                            <span class="iconhover" data-toggle="modal" data-target="#myModalwizard"
+                              (click)="setdata(com)">
+                              <i class="material-icons" style="color: #161e43">visibility</i>
+                            </span>
+                          </td>
+                        </tr>
+
+
+
+                      </tbody>
+                      <tfoot id="foot" class="box-footer clearfix">
+                        <tr>
+                          <td colspan="12">
+                            <pagination-controls style=" float: right;" (pageChange)="pageChange($event)">
+                            </pagination-controls>
+                          </td>
+                        </tr>
+                      </tfoot>
+                    </table>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- --------------------  view & Edit Modal start------------------------>
+
+<div class="modal fade " id="myModalwizard" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-lg ">
+    <div class="modal-content ">
+
+      <!-- Modal Header -->
+      <div class="modal-header modelcolor">
+        <h5 class="modal-title" id="vmd" style="display: block;">Driver Details</h5>
+        <h5 class="modal-title" id="uvmd" style="display: none;">Update Driver</h5>
+        <h5 class="modal-title" id="asvh" style="display: none;">Assign Vehicle</h5>
+
+        <div style="float:right; margin-left: 59%;">
+
+          <button type="button" class=" btn btn-sm btn-secondary  float-right  ml-2 bg-warning" style="display: block;"
+            id="assignbtn" ngbTooltip="Assign/Unassign" (click)="assignpageform()">
+            <span *ngIf="assignmentStatus=='Not Assigned'">Assign </span>
+            <span *ngIf="assignmentStatus!='Not Assigned'">Unassign </span>
+          </button>
+
+          <button type="button" class=" btn btn-sm btn-secondary float-right ml-2 bg-warning" style="display: block;"
+            id="editbtn" ngbTooltip="Edit" (click)="editpageform()">
+
+            <i class="material-icons md-18">edit</i>
+          </button>
+
+          <button type="button" class=" btn btn-sm btn-danger float-right ml-2" id="deletebtn" ngbTooltip="Delete"
+            data-toggle="modal" data-target="#modaldelete">
+
+            <i class="material-icons md-18">delete</i>
+          </button>
+          <button type="button" class=" btn btn-sm btn-primary float-right ml-2" id="backdetailsbtn" ngbTooltip="Back"
+            style="display: none;" (click)="backdetailsbtn()">
+
+            <i class="material-icons md-18">arrow_back</i>
+          </button>
+        </div>
+        <button type="button" style="color: white" class="close" data-dismiss="modal"
+          (click)="clearfunction();">&times;</button>
+      </div>
+
+
+      <!-- Modal body -->
+      <div class="modal-body" style="background-color: #CBD2F1;">
+        <div class="container">
+          <div class="container-fluid">
+            <div id="container" style="display: none;">
+              <div class="step-wizard" role="navigation">
+                <div class="progress">
+                  <div class="progressbar empty"></div>
+                  <div id="prog" class="progressbar"></div>
+                </div>
+                <ul>
+                  <li class="active">
+                    <button id="step1">
+                      <div class="step">1</div>
+                      <div class="title">Basic Details</div>
+                    </button>
+                  </li>
+                  <!-- <li class="" style="display: none;">
+                    <button id="step2">
+                      <div class="step">2</div>
+                      <div class="title">Contact Details</div>
+                    </button>
+                  </li> -->
+                  <li class="">
+                    <button id="step3">
+                      <div class="step">2</div>
+                      <div class="title">Contact Details</div>
+                    </button>
+                  </li>
+                  <!-- <li class="" style="display: none;">
+                    <button id="step4"> 
+                      <div class="step">4</div>
+                      <div class="title">Successful</div>
+                    </button>
+                  </li>  -->
+                </ul>
+
+
+                <div class="stepsection">
+                  <span class="invalidmsg" id="msg_mainmessage"></span>
+                  <div id="step-14" class="stepsdiv">
+                    <!-- <span class="StepTitle">Step 1: Basic Details</span> -->
+                    <div class="form-group row">
+
+                      <div class="col-lg-4 col-md-4" *ngIf="isCustomer">
+                        <label class="indlabel">Customer</label>
+                        <span class="mandatory">*</span>
+
+                        <ngx-select-dropdown tabindex="0" id="customerupdate" [multiple]="false"
+                          [(ngModel)]="customerObjedit" [config]="config" [options]="customerlistedit"
+                          (change)="getCustomerId()">
+                        </ngx-select-dropdown>
+
+                        <input type="text" name="customeidUpdate" id="customeridupdate" [(ngModel)]="customerIdedit"
+                          style="display: none;">
+
+                        <span class="invalidmsg" id="msg_vendorName"></span>
+                      </div>
+
+                      <div class="col-lg-4 col-md-4">
+                        <label class="indlabel">Driver </label>
+                        <span class="mandatory">*</span>
+
+                        <input type="text" name="driver" onkeypress="return onlyAlphabets(event);" class="form-control"
+                          [(ngModel)]="driverNameedit" id="dnameupdate" required minlength="3" maxlength="50"
+                          #driverCtrl="ngModel">
+                        <span class="invalidmsg" id="msg_vendorName" *ngIf="driverCtrl.errors?.minlength">
+                          Driver Name should be 3 to 50 characters long.
+                        </span>
+                      </div>
+
+                      <div class="col-lg-4 col-md-4">
+                        <label class="indlabel">License Number</label>
+                        <input type="text" name="licanace" id="licnumupdate" class="form-control" required  onkeypress="return avoidSplChars(event)"
+                          minlength="15" maxlength="15" #licCtrl="ngModel" [(ngModel)]="licanceedit">
+                        <span class="invalidmsg" *ngIf="licCtrl.errors?.minlength">
+                          license Number should be 15 characters long.
+                        </span>
+                      </div>
+
+
+                    </div>
+                    <div class="form-group row">
+
+                      <div class="col-lg-4 col-md-4" id="dealeridcheck">
+                        <label class="indlabel">Mobile Number</label>
+                        <span class="mandatory">*</span>
+                        <input type="text" onkeypress="return onlyNumberKey(event)" name="mobilenum" class="form-control"
+                          [(ngModel)]="primaryNumberedit" id="mobileupdate" required minlength="10" maxlength="10"
+                          #mobileCtrl="ngModel">
+                        <span class="invalidmsg" *ngIf="mobileCtrl.errors?.minlength">
+                          Mobile Number Should Be 10 digits
+                        </span>
+                      </div>
+
+
+                      <div class="col-lg-4 col-md-4">
+                        <label class="indlabel">Alternate Number</label>
+                        <input type="text" onkeypress="return onlyNumberKey(event)" name="altNumber" class="form-control" placeholder="Enter Alternate No."
+                          [(ngModel)]="altNumberedit" id="altnumupdate" minlength="10" maxlength="10"
+                          #altnumCtrl="ngModel">
+                        <span class="invalidmsg" *ngIf=" altnumCtrl.errors?.minlength">Alternate Number should
+                          be 10 Digits</span>
+                      </div>
+
+                    </div>
+                    <span class="invalidmsg" style="position: absolute;bottom:20px;left:20px;" id="msg_error"></span>
+                  </div>
+
+                  <div id="step-15" class="stepsdiv">
+
+                    <!-- <span class="StepTitle">Step 2: Contact Details</span> -->
+                    <div class="form-group row">
+                      <div class="col-lg-4 col-md-4">
+                        <label class="indlabel">Email Id</label>&nbsp;
+                        <!-- <span class="indlabelstar">*</span> -->
+                        <input type="email" class="form-control" style=" font-size:12px" placeholder="Enter Email Id. "
+                          email minlength="13" maxlength="30" [(ngModel)]="emailedit" #emailCtrl="ngModel"
+                          id="emailupdate">
+
+                        <div class="invalidmsg" *ngIf="emailCtrl.errors?.minlength">
+                          Email must be 13 to 30 characters long.
+                        </div>
+                      </div>
+
+                      <div class="col-lg-4 col-md-4">
+                        <label class="indlabel">State</label>
+                        <span class="mandatory">*</span>
+
+                        <ngx-select-dropdown tabindex="9" id="stateup" [multiple]="false" [(ngModel)]="stateObjedit"
+                          (change)="getStateId()" [config]="config" [options]="statesListedit"></ngx-select-dropdown>
+
+                        <input type="text" name="state" style="display: none;" id="stateupdate"
+                          [(ngModel)]="stateIdedit">
+                      </div>
+
+                      <div class="col-lg-4 col-md-4">
+                        <label class="indlabel">City</label>
+                        <span class="mandatory">*</span>
+
+                        <ngx-select-dropdown tabindex="9" id="cityup" [multiple]="false" [(ngModel)]="cityObjedit"
+                          [config]="config" [options]="cityListedit" (change)="getCityId()"></ngx-select-dropdown>
+
+                        <input type="text" name="citynew" style="display: none;" id="cityupdate"
+                          [(ngModel)]="cityIdedit">
+
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+
+                      <div class="col-lg-5 col-md-5">
+                        <label class="indlabel"> Address</label>
+                        <span class="indlabelstar">*</span>
+                        <textarea class="form-control" rows="2" style=" font-size:12px"
+                          placeholder="Enter Registration Address." tabindex="12" minlength="5" maxlength="100"
+                          [(ngModel)]="addressedit" #regaddressnew="ngModel" id="addressupdate"></textarea>
+                        <div class="invalidmsg" *ngIf="regaddressnew.errors?.minlength">
+                          Registered Address must be 5 to 80 characters long.
+                        </div>
+                        <span class="invalidmsg" id="msg_regadd"></span>
+                      </div>
+                      <div class="col-lg-3 col-md-3">
+                        <label class="indlabel">Pin Code No.</label>&nbsp;
+                        <span class="mandatory">*</span>
+                        <input type="text" class="form-control" style=" font-size:12px" placeholder="Enter Pincode"
+                          tabindex="15 " minlength="3" maxlength="6" [(ngModel)]="pincodeedit" id="pincodeupdate"
+                          #pincodeno="ngModel" onkeypress="return isNumberKey(event)">
+                        <div class="invalidmsg" *ngIf="pincodeno.errors?.minlength">
+                          Pincode must be 4 to 6 digits long.
+                        </div>
+                        <span class="invalidmsg" id="msg_pincode"></span>
+                      </div>
+                      <div class="col-lg-4 col-md-4">
+
+                        <span class="invalidmsg" id="msg_regadd"></span>
+                      </div>
+                    </div>
+                    <span class="invalidmsg" style="position: absolute;bottom:10px;" id="msg_error_contact"></span>
+                  </div>
+
+
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- --------------------------------------------- View Section ------------------------------------------- -->
+          <div class="">
+            <div id="vendordtls" class="row" style="background-color: #0e2145; border: 1px ridge #02108d;">
+              <div class="col-12 col-md-12 col-lg-12">
+
+                <div class="row" style="background-color: rgb(198 201 202);">
+                  <div class="col-12 col-md-12 col-lg-12">
+                    <div class="viewheading">Basic Details</div>
+                  </div>
+                </div>
+                <br>
+
+                <div class="row">
+                  <div class="col-12 col-md-12 col-lg-12">
+                    <div class="col-6 col-md-6 col-lg-6" style=" float: left;">
+                      <span class="caplable">Customer :</span>&nbsp;<span class="viewlable">{{customerNameedit}}</span>
+                    </div>
+                    <div class="col-6 col-md-6 col-lg-6" style=" float: left;">
+                      <span class="caplable">Driver Name:</span>&nbsp;<span class="viewlable">{{driverNameedit}}</span>
+                    </div>
+
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-12 col-md-12 col-lg-12">
+                    <div class="col-6 col-md-6 col-lg-6" style=" float: left;">
+                      <span class="caplable">License No.:</span>&nbsp;<span class="viewlable">{{licanceedit}}</span>
+                    </div>
+                    <div class="col-6 col-md-6 col-lg-6" style=" float: left;">
+                      <span class="caplable">Vehicle:</span>&nbsp;<span class="viewlable">{{vehicleNoedit}}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-12 mx-3">
+                    <span class="caplable">Assignment Status:</span>&nbsp;<span
+                      class="viewlable">{{assignmentStatus}}</span>
+                  </div>
+                </div>
+
+                <br>
+
+                <div class="row" style="background-color: rgb(198 201 202);">
+                  <div class="col-12 col-md-12 col-lg-12">
+                    <div class="viewheading">Contact Details</div>
+                  </div>
+                </div>
+                <br>
+
+                <div class="row">
+                  <div class="col-12 col-md-12 col-lg-12">
+                    <div class="col-6 col-md-6 col-lg-6" style=" float: left;">
+                      <span class="caplable">Mobile No.:</span>&nbsp;<span
+                        class="viewlable">{{primaryNumberedit}}</span>
+                    </div>
+                    <div class="col-6 col-md-6 col-lg-6" style=" float: left;">
+                      <span class="caplable">Alternate No.:</span>&nbsp;<span class="viewlable">{{altNumberedit}}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-12 col-md-12 col-lg-12">
+
+                    <div class="col-12 col-md-12 col-lg-12" style=" float: left;">
+                      <span class="caplable">Email.:</span>&nbsp;<span class="viewlable"
+                        style="text-transform: lowercase !important;">{{emailedit}}</span>
+                    </div>
+
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-12 col-md-12 col-lg-12">
+
+                    <div class="col-6 col-md-6 col-lg-6" style=" float: left;">
+                      <span class="caplable">State :</span>&nbsp;<span class="viewlable">{{stateNameedit}}</span>
+                    </div>
+                    <div class="col-6 col-md-6 col-lg-6" style=" float: left;">
+                      <span class="caplable">City:</span>&nbsp;<span class="viewlable">{{cityNameedit}}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-12 col-md-12 col-lg-12">
+
+                    <div class="col-6 col-md-6 col-lg-6" style=" float: left;">
+                      <span class="caplable"> Address:</span>&nbsp;<span class="viewlable">{{addressedit}}</span>
+                    </div>
+                    <div class="col-6 col-md-6 col-lg-6" style=" float: left;">
+                      <span class="caplable">PinCode:</span>&nbsp;<span class="viewlable">{{pincodeedit}}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <br>
+                <div style="display: none;" id="assignform">
+                  <div class="row" style="background-color: rgb(198 201 202);">
+                    <div class="col-12 col-md-12 col-lg-12">
+                      <div class="viewheading">Assign Vehicle</div>
+                    </div>
+                  </div>
+                  <br>
+                  <table>
+                    <tr>
+                      <td style="width: 120px;" class="caplable">Select Vehicle</td>
+                      <td style="width: 200px;">
+                        <ngx-select-dropdown id="vehicleassign" [multiple]="false" [(ngModel)]="vehicleObjedit"
+                          [config]="configvehicle" [options]="vehicleListedit" (change)="getVehicleId()"
+                          [disabled]="assignmentStatus=='Assigned'">
+                        </ngx-select-dropdown>
+                        <span class="text-danger" id="vehicleEmpty"></span>
+
+                      </td>
+                      <td>
+                        <button class="btn btn-sm btn-info" (click)="assignVehicle();">
+                          <span *ngIf="assignmentStatus=='Not Assigned'">Assign </span>
+                          <span *ngIf="assignmentStatus!='Not Assigned'">Unassign </span>
+                        </button>
+                      </td>
+                    </tr>
+
+                  </table>
+                  <br>
+                </div>
+                <br>
+
+              </div>
+              <!-- --------------------- View Section End ------------------------------ -->
+
+            </div>
+          </div>
+
+        </div>
+        <!-- --------------------- View Section End ------------------------------ -->
+
+      </div>
+
+
+      <!-- Modal footer -->
+
+      <div class="modal-footer" style="display: none;" id="modelfooter">
+
+        <div class="container row mx-5 mr-3">
+          <div class="col-md-7">
+            <textarea class="form-control bg-white" rows="1" style=" font-size:12px" placeholder="Enter Remark."
+              tabindex="12" minlength="5" maxlength="100" [(ngModel)]="remarkedit" #custremark="ngModel"
+              id="driverremark"></textarea>
+            <div class="invalidmsg" *ngIf="custremark.errors?.minlength">
+              Remark must be 5 to 30 characters long.
+            </div>
+            <span class="invalidmsg" id="invalidremark"></span>
+          </div>
+          <div class="col-md-4">
+            <!-- <div class="actionBar"> -->
+            <button id="prev" class="mb-2 btn btn-wizard btn-sm btn-primary buttonPrevious"
+              onclick="validateAllSteps(4,4)">
+              <i class="material-icons">arrow_back</i>
+            </button>
+            <button id="next" class="mb-2 btn btn-wizard btn-sm btn-primary buttonNext">
+              <i class="material-icons">arrow_forward</i>
+            </button>
+            <button id="save" class="mb-2 btn btn-wizard btn-sm btn-success buttonFinish" (click)="updateDriver()">
+              <i class="material-icons">save</i>
+            </button>
+            <!-- </div> -->
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ------------------- view & Edit model close ------------------------ -->
+<!-- ------------------ Delete Model Start ------------------------>
+
+<!-- Delete Model-->
+<div class="modal fade" id="modaldelete" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-sm modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header" style="background-color: 	red;">
+        <h4 class="modal-title text-center" style="color: yellow">Are You Sure?</h4>
+        <button type="button" class="close" data-dismiss="modal" (click)="closemodal();">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body" style="background-color: #f0e8e9">
+
+        <div class="form-group row">
+
+
+          <div class="col-lg-12 col-md-12">
+            <label style="color: black">Remark</label>&nbsp;
+            <span class="indlabelstar">*</span>
+            <textarea class="form-control" rows="2" style=" font-size:12px" placeholder="Enter Remark" minlength="3"
+              maxlength="40" [(ngModel)]="deleteText" id="deleteremark"></textarea>
+
+          </div>
+
+        </div>
+        <span class="invalidmsg" id="msg_error_delete"></span>
+        <p style="    background-color: yellow;
+         margin-right: 89px;
+        color: red; display: none;">Do You want to Delete !!&hellip;</p>
+      </div>
+
+
+      <!-- Modal footer -->
+      <div class="modal-footer text-center" style="background-color: #cfbaa8">
+        <button class="btndel btn-primary mr-3" (click)="clearfunction();">
+          No
+        </button>
+        <button class="btndel btn-danger " (click)="deleteDriver()"> Yes </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!-- Delete Model -->
+
+<!-- ------------------- Delete model End ----------------------- -->
+
+<!-- ------------------- onclick no btn model  ----------------------- -->
+<div class="modal fade " id="SuccessModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+  aria-hidden="true">
+  <div class="modal-dialog modal-sm dialogModal" role="document">
+    <div class="modal-content box-shadow">
+      <div class="card text-center border-0">
+        <div class="card-header bg-success m-0 p-0">
+          <h5>Success</h5>
+        </div>
+        <div class="card-body bg-white">
+          {{datafromrespo}}
+          <div class="text-right">
+            <button class="btn btn-sm btn-success" data-dismiss="modal" (click)="closemodal()">ok</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade " id="ErrorModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+  aria-hidden="true">
+  <div class="modal-dialog modal-sm dialogModal" role="document">
+    <div class="modal-content box-shadow">
+      <div class="card text-center border-0">
+        <div class="card-header bg-warning m-0 p-0">
+          <h5>Failed</h5>
+        </div>
+        <div class="card-body bg-white">
+          {{datafromrespo}}
+          <div class="text-right pt-3">
+            <button class="btn btn-sm btn-success" data-dismiss="modal">ok</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ------------------- onclick yes btn model End ----------------------- -->
+
+<app-driver-entry (showDetails)="driverDetails()"></app-driver-entry>

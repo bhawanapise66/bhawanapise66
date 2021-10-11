@@ -1,0 +1,127 @@
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Block Vehicle/Login</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true" style="color: white">×</span>
+              </button>
+          </div>
+          <div class="modal-body">
+            <div class="container-fluid">
+            <div  id="container">
+              <div class="step-wizardentry" role="navigation">
+                <div class="progress" style="display: none;">
+                  <div class="progressbar empty" style="display: none;"></div>
+                  <div id="progentry" class="progressbar" style="display: none;"></div>
+                </div>
+                <ul style="display: none;">
+                  <li class="active">
+                    <button id="stepentry1">
+                      <div class="step">1</div>
+                      <div class="title">Basic Details</div>
+                    </button>
+                  </li>
+                  <!-- <li class="">
+                    <button id="stepentry2">
+                      <div class="step">2</div>
+                      <div class="title">Contact Details</div>
+                    </button>
+                  </li> -->
+                  <li class="">
+                    <button id="stepentry3">
+                      <div class="step">2</div>
+                      <div class="title">Contact Details</div>
+                    </button>
+                  </li>
+                  <!-- <li class="">
+                    <button id="stepentry4">
+                      <div class="step">4</div>
+                      <div class="title">Successful</div>
+                    </button>
+                  </li> -->
+                </ul>
+          
+                <div class="stepsection" >
+                  <span class="invalidmsg" id="msg_mainmessageentry"></span>
+                  <div id="step-14" class="stepsdiv">
+                      <!-- <span class="StepTitle">Step 1: Basic Details</span> -->
+                      <div class="form-group row">
+                        <div class="col-lg-3 col-md-3">
+                          <label class="indlabel">Select </label>
+                          <select class="form-control" data-live-search="true" id="selectblockentry" tabindex="7" (change)="selectblockentry()" aria-hidden="true" style=" font-size:12px">
+                            <!-- <option value="choose" selected>Choose</option> -->
+                            <option value="login">Login</option>
+                            <option value="vehicle">Vehicle </option>
+                          </select>
+                        </div>
+                        <div class="col-lg-4 col-md-4" id="rolelist" style="display: none;">
+                          <label class="indlabel">Role Type</label>
+                          <span class="mandatory">*</span>
+                          <!-- <input type="text" class="form-control" placeholder="Enter State" tabindex="1" required minlength="3" maxlength="30" id="state"> -->
+                          <select class="form-control" id="selectroleentry" data-live-search="true" [(ngModel)]="RoleTypeTextentry" tabindex="8" placeholder="Select Distributor." (change)="selectrolelist()"  aria-hidden="true" style=" font-size:12px">
+                            <option *ngFor = "let list of ListOfRole$" value={{list.param1}} >{{list.param2}}</option>
+                           
+                          </select>
+                          <span class="invalidmsg" id="msg_vendorName"></span>
+                        </div>
+                        <div class="col-lg-4 col-md-4" id="customerlist" style="display: none;">
+                          <label class="indlabel">Customer </label>
+                          <span class="mandatory">*</span>
+                          <!-- <input type="text" class="form-control" placeholder="Enter State" tabindex="1" required minlength="3" maxlength="30" id="state"> -->
+                          <select class="form-control" id="devicetypeentry" data-live-search="true" [(ngModel)]="DeviceTypeTextentry" tabindex="8" placeholder="Select Distributor."  aria-hidden="true" style=" font-size:12px">
+                            <option *ngFor = "let list of ListOfCustomer$" value={{list.param2}} >{{list.param2}}</option>
+                           
+                          </select>
+                          <span class="invalidmsg" id="msg_vendorName"></span>
+                        </div>
+
+                        <div class="col-lg-4 col-md-4" id="rolewiseuserlist" style="display: none;">
+                          <label class="indlabel">Name List </label>
+                          <span class="mandatory">*</span>
+                          <!-- <input type="text" class="form-control" placeholder="Enter State" tabindex="1" required minlength="3" maxlength="30" id="state"> -->
+                          <select class="form-control" id="devicetypeentry" data-live-search="true" [(ngModel)]="DeviceTypeTextentry" tabindex="8" placeholder="Select Distributor."  aria-hidden="true" style=" font-size:12px">
+                            <option *ngFor = "let list of ListOfRolewise$" value={{list.param2}} >{{list.param2}}</option>
+                           
+                          </select>
+                          <span class="invalidmsg" id="msg_vendorName"></span>
+                        </div>
+                       
+                       
+  
+                      </div>
+                        <br><br>
+                      <span class="invalidmsg" id="msg_errorentry"></span>
+                    </div>
+                 
+                  
+                 
+              <!-- <div class="actionBar">
+                <button  id="saveentry" class="mb-2 btn btn-sm btn-success buttonFinish"  (click)="vensavebtn()"><i class="material-icons">save</i></button>
+                <button  id="nextentry" class="mb-2 btn btn-sm btn-primary buttonNext"><i class="material-icons">arrow_forward</i></button>
+                
+                <button  id="preventry" class="mb-2 btn btn-sm btn-primary buttonPrevious" onclick="validateAllSteps(4,4)"><i class="material-icons">arrow_back</i></button>
+                </div> -->
+          
+              </div>
+            </div>  
+          </div>
+          </div>
+          </div>
+           <!-- Modal footer -->
+
+       <div class="modal-footer" id="modelfooter">
+
+          <div class="actionBar">
+              <button id="save" class="mb-2 btn btn-wizard btn-sm btn-success buttonFinish"  style="display: none;">
+                  <i class="material-icons">save</i>
+                </button>
+                <button id="next" class="mb-2 btn btn-wizard btn-sm btn-success buttonNext"  (click)="blocksavebtn()">
+                  <i class="material-icons">save</i>
+                </button>
+            </div>
+    </div> 
+        
+      </div>
+  </div>
+</div>

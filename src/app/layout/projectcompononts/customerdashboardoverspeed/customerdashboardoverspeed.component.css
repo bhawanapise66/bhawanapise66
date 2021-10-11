@@ -1,0 +1,24 @@
+.widgetsLabel{
+    font-size: 12px;
+    background-color: #263474;
+    font-weight: bold;
+}
+
+.widgetsCountDiv{
+    font-size: 21px;
+    font-weight: bold;
+    width: 92px;
+    height: 45px;
+ 
+    text-shadow: 1px 1px 5px black, 0 0 25px blue, 0 0 5px darkblue;
+}
+dt{
+    font-size: 11px;
+}
+dd{
+    font-size: 11px;
+}
+
+.grdcontent{
+    padding: 0.35rem 0.5rem; font-size: 9px; color:rgb(2, 2, 46); font-weight: bold;
+}

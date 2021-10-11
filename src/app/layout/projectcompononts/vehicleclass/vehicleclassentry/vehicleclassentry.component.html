@@ -1,0 +1,73 @@
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-lg" role="document" style="width: 35rem;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="text-left m-1" style="font-size: 15px;">Vehicle
+          <span class="text-template-primary" style="color: #00ed54">Class Entry</span>
+        </h4>
+        <!-- <h5 class="modal-title" id="exampleModalLabel">Vehicle Class Master Entry</h5> -->
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="clear();">
+          <span aria-hidden="true" style="color: white">×</span>
+        </button>
+      </div>
+      <div class="modal-body p-0">
+        <div class="container-fluid p-0">
+          <!-- <div id="container"> -->
+          <div class="step-wizardentry" role="navigation">
+
+
+            <div class="stepsection">
+              <span class="invalidmsg" id="msg_mainmessageentry"></span>
+              <div id="stepentry-14" class="stepsdiv">
+                <!-- <span class="StepTitle">Step 1: Basic Details</span> -->
+                <div class="form-group row">
+
+
+                  <div class="col-lg-6 col-md-6">
+                    <label class="indlabel"> Vehicle Class</label>
+                    <span class="mandatory">*</span>
+                    <input type="text" class="form-control" placeholder="Enter Class Name." tabindex="1" minlength="3"
+                      maxlength="50" [(ngModel)]="classnameText" #classname="ngModel" style=" font-size:12px" required
+                      ondrop="return false;" onpaste="return false;" autofocus id="classnameentry"
+                      onkeypress="avoidSplChars(event)">
+                    <div class="invalidmsg" *ngIf="classname.errors?.minlength">
+                      Class Name should be at 3 to 50 characters long.
+                    </div>
+                    <span class="invalidmsg" id="msg_classname"></span>
+                  </div>
+
+                  <div class="col-lg-6 col-md-6">
+                    <label class="indlabel"> Description</label>
+                    <span class="mandatory">*</span>
+                    <textarea type="text" class="form-control" placeholder="Enter Description." tabindex="2"
+                      minlength="5" [(ngModel)]="descriptionText" #descriptionname="ngModel" style=" font-size:12px"
+                      required ondrop="return false;" onpaste="return false;" id="descriptionnameentry"></textarea>
+                    <div class="invalidmsg" *ngIf="descriptionname.errors?.minlength">
+                      Description required at least of 5 characters long.
+                    </div>
+                    <span class="invalidmsg" id="msg_descriptionname"></span>
+                  </div>
+                </div>
+                <span class="invalidmsg" id="msg_vehicleclass1" style="position :absolute;bottom :10px"></span>
+              </div>
+            </div>
+          </div>
+          <!-- </div> -->
+        </div>
+      </div>
+      <!-- Modal footer -->
+
+      <div class="modal-footer" id="modelfooter">
+        <div class="container-fluid">
+          <div class="actionBar">
+            <button id="saveentry" class="mb-2 btn btn-sm btn-success buttonFinish" (click)="insertVechicleClass()"
+              tabindex="3"><i class="material-icons">save</i></button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>

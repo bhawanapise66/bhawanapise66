@@ -1,0 +1,432 @@
+<!--
+Developer 	: Aditya Londhe
+Date      	: 28-10-2020
+Description : Vendor Device Model
+Modified By:  
+Update date : 
+-->
+<div class="content shadow-sm">
+  <!-- Main container starts -->
+  <div class="" id="main-container">
+    <div class="">
+      <div class="align-self-center">
+        <div class="card shadow-sm border-0 mb-4">
+          <div class="card-header" style="padding-top: 0; padding-bottom: 0">
+
+            <h4 class="text-left m-1" style="font-size: 15px;">Device Model
+              <span class="text-template-primary" style="color: #00ed54">Master</span>
+              <button type="button" class="btn btn-sm btn-primaryyel ml-2 float-right"
+                style="margin-right: 15px; background-color: #f6c53b; font-size: 12px;" data-toggle="modal"
+                data-target="#exampleModal">
+                ADD NEW
+                <i class="material-icons md-18">navigate_next</i>
+
+              </button>
+            </h4>
+
+          </div>
+          <div class="card-body" style="padding: 5px;">
+            <div class="row justify-content-center">
+              <div class="col-md-12 mx-auto">
+                <div class="row">
+                  <div class="col-lg-12 col-md-12">
+                    <!-- <button type="button" class="btn btn-primary float-left" data-toggle="modal" >
+                        ADD NEW
+                      </button> -->
+
+                  </div>
+                </div>
+
+                <div class="" id="main-container">
+                  <!-- tABLE header -->
+                  <div class="col-md-12 px-0">
+                    <div class="row  mx-1">
+                      <div class="col-12 col-sm-12 col-md text-md-left align-self-center pr-0">
+                        <ul class="nav  justify-sm-content-center  justify-content-left">
+                          <li class="nav-item ">
+                            <div class="input-group">
+                              <input type="text" placeholder="Search" class="form-control searchicon " id="searchData"
+                                [(ngModel)]="filter" aria-label="Amount (to the nearest dollar)">
+                              <div class="input-group-append">
+                                <button class="btn  apendbtn" (click)="searchdata()"><i
+                                    style="color: #00ed54; margin-top: -15px;" class="fa fa-search"></i> </button>
+                              </div>
+                            </div>
+                          </li>
+                          <li class="nav-item mx-3">
+                            <i class="fa fa-refresh fa-2x fa-spin-hover" style="font-size: 17px;padding-top: 4px;
+                          color: green;" (click)="Refreshfunction()"></i>
+                          </li>
+                        </ul>
+                      </div>
+
+                      <div class="col-12 col-sm-12 col-md-auto text-right text-md-end pl-0">
+                        <ul class="nav justify-content-center justify-lg-content-end  justify-sm-content-center">
+                          <li class="nav-item mx-2">
+                            <img style="float: right; cursor: pointer; height: 20px; margin-top: 3px;"
+                              (click)="createPDF()" ngbTooltip="PDF" src="assets/images/PDFicon.png">
+                          </li>
+                          <li class="nav-item mx-2">
+                            <img style="cursor: pointer;" (click)="exportToExcel()" ngbTooltip="Excel"
+                              src="assets/images/excellogo.png">
+                          </li>
+                          <li class="nav-item mx-3">
+                            <span style="display: inline;font-size:12px;font-weight :bold;">Show Rows : </span>
+                            <select class="form-control p-0" data-live-search="true" tabindex="1"
+                              [(ngModel)]="itemsPerPage" (change)="changeItemsPerPage()" aria-hidden="true"
+                              style=" font-size:12px;height: 25px; width: 40px;display: inline">
+                              <option value="5">5</option>
+                              <option value="10">10</option>
+                              <option value="20">20</option>
+                              <option value="50">50</option>
+                            </select>
+                          </li>
+                          <li class="nav-item pt-1">
+                            <span style="font-size:12px;font-weight: bold;">Total Records : {{viewcount}} of
+                              {{totalcount}}</span>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- table header -->
+
+
+                  <!-- ---------------------  Table header end  ------------------------------ -->
+
+
+                  <div id="PDFTable" class="card-body table-responsive" #epltable>
+                    <table class="table table-hover table-striped">
+                      <thead>
+                        <tr role="row">
+                          <th (click)="sort('rowNumber')">#</th>
+                          <th (click)="sort('param14')">Vendor Name</th>
+                          <!-- <th (click)="sort('param18')">Device Type</th> -->
+                          <th (click)="sort('param2')">Model Code</th>
+                          <th (click)="sort('param3')">Model Name</th>
+                          
+                          <th (click)="sort('param15')">Creation Date</th>
+                          <!-- <th>Document View</th> -->
+                          <th style="background-color: #99c049;">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody id="grid">
+                        <tr
+                          *ngFor="let com of DeviceModelDetails$ | filter:filter | orderBy: key : reverse | paginate : {itemsPerPage:itemsPerPage,currentPage:pageNumber,totalItems:totalcount} ;"
+                          class="trheight">
+                          <td>{{com.rowNumber}}</td>
+                          <td>{{com.param14}}</td>
+                          <!-- <td>{{com.param18}}</td> -->
+                          <td>{{com.param2}}</td>
+                          <td>{{com.param3}}</td>
+                          
+                          <td>{{com.param15}}</td>
+                          <!-- <td [ngStyle]="{'background-color':com.altColor}" class="viewbtncss">
+                            <span class="iconhover" data-toggle="modal" data-target="#myModalwizard"
+                              (click)="setdata(com)">
+                              <i class="material-icons" style="color: #161e43">visibility</i>
+                            </span>
+                          </td> -->
+                          <td [ngStyle]="{'background-color':com.altColor}" class="viewbtncss">
+                            <span class="iconhover" data-toggle="modal" data-target="#myModalwizard"
+                              (click)="setdata(com)">
+                              <i class="material-icons" style="color: #161e43">visibility</i>
+                            </span>
+                          </td>
+                        </tr>
+
+
+
+                      </tbody>
+                      <tfoot id="foot" class="box-footer clearfix">
+                        <tr>
+                          <td colspan="12">
+                            <pagination-controls style=" float: right;" (pageChange)="pageChange($event)">
+                            </pagination-controls>
+                          </td>
+                        </tr>
+                      </tfoot>
+                    </table>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- --------------------  view & Edit Modal start------------------------>
+
+<div class="modal fade " id="myModalwizard">
+  <div class="modal-dialog modal-lg ">
+    <div class="modal-content ">
+
+      <!-- Modal Header -->
+      <div class="modal-header modelcolor">
+        <h5 class="modal-title" id="vmd" style="display: block;">Device Model Details</h5>
+        <h5 class="modal-title" id="uvmd" style="display: none;">Update Model Master</h5>
+        <div style="float:right; margin-left: 50%;">
+          <button type="button" class=" btn btn-sm btn-secondary float-right ml-2 bg-warning" style="display: block;"
+            id="editbtn" ngbTooltip="Edit" (click)="editpageform()">
+
+            <i class="material-icons md-18">edit</i>
+          </button>
+          <button type="button" class=" btn btn-sm btn-danger float-right ml-2" id="deletebtn" ngbTooltip="Delete"
+            data-toggle="modal" data-target="#modeldelete">
+
+            <i class="material-icons md-18">delete</i>
+          </button>
+          <button type="button" class=" btn btn-sm btn-primary float-right ml-2" id="backdetailsbtn" ngbTooltip="Back"
+            style="display: none;" (click)="backdetailsbtn()">
+
+            <i class="material-icons md-18">arrow_back</i>
+          </button>
+        </div>
+        <button type="button" style="color: white" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <div class="container">
+          <div id="container" style="display: none;">
+            <div class="step-wizard" role="navigation">
+
+              <div class="stepsection">
+                <span class="invalidmsg" id="msg_mainmessage"></span>
+                <div id="step-14" class="stepsdiv">
+                  <div class="form-group row">
+
+                    <div class="col-lg-4 col-md-4">
+                      <label class="indlabel">Vendor Name</label>
+                      <span class="mandatory">*</span>
+
+                      <ngx-select-dropdown id="vendornameup" [multiple]="false" [(ngModel)]="vendor_name"
+                        [config]="config" [options]="ListOfVendor" tabindex="1"  (change)="vendornamereturn=vendor_name.param1" ></ngx-select-dropdown>
+                      <span class="invalidmsg" id="msg_vendorName"></span>
+
+                      <input type="text" style="display:none" id="vendornamedummyupdate" [(ngModel)]="vendornamereturn">
+                    </div>
+
+                    <div class="col-lg-4 col-md-4" style="display:none;">
+                      <label class="indlabel">Device Type</label>
+                      <span class="mandatory">*</span>
+
+                      <ngx-select-dropdown tabindex="0" id="devicetypeup" [multiple]="false" [(ngModel)]="dev_type"
+                        [config]="config" [options]="ListOfDevicetype" tabindex="2" (change)='getDevicetypeId()'>
+                      </ngx-select-dropdown>
+
+                      <span class="invalidmsg" id="msg_vendorName"></span>
+
+                      <input type="text" style="display: none;" id="devicetypedummyupdate"
+                        [(ngModel)]="devicetypereturn">
+
+                    </div>
+
+                  </div>
+                  <div class="form-group row">
+
+                    <div class="col-lg-4 col-md-4">
+                      <label class="indlabel">Model Name</label>
+                      <span class="mandatory">*</span>
+                      <input type="text" class="form-control" placeholder="Enter Model Name" tabindex="3" required
+                        minlength="2" maxlength="20" id="modelnameup" [(ngModel)]="model_name" #modelname="ngModel"
+                        onkeypress="avoidSplChars(event)">
+                      <div class="invalidmsg" *ngIf="modelname.errors?.minlength">
+                        Model Name must be at least minimum 2 characters & maximum 20 characters long.
+                      </div>
+                      <span class="invalidmsg" id="msg_modelname"></span>
+                    </div>
+
+                    <div class="col-lg-4 col-md-4">
+                      <label class="indlabel">Model Code</label>
+                      <span class="mandatory">*</span>
+                      <input type="text" class="form-control" placeholder="Enter Model Code" tabindex="4" required
+                        minlength="2" maxlength="2" id="modelcodeup" [(ngModel)]="model_code" #modelcode="ngModel"
+                        onkeypress="avoidSplChars(event)">
+                      <div class="invalidmsg" *ngIf="modelcode.errors?.minlength">
+                        model code must be at least minimum 2 characters & maximum 2 characters long.
+                      </div>
+                      <span class="invalidmsg" id="msg_modelcode"></span>
+                    </div>
+
+                  </div>
+                  <span class="invalidmsg" id="msg_error" style="position: absolute;bottom:10px;"></span>
+                </div>
+
+              </div>
+            </div>
+          </div>
+          <!-- --------------------------------------------- View Section ------------------------------------------- -->
+          <div class="">
+            <div id="modeldtls" class="row" style="background-color: #fff; border: 1px ridge #02108d;">
+              <div class="col-12 col-md-12 col-lg-12">
+
+                <div class="row" style="background-color: rgb(198 201 202);">
+                  <div class="col-12 col-md-12 col-lg-12">
+                    <div class="viewheading">Basic Details</div>
+                  </div>
+                </div><br>
+
+                <div class="row">
+                  <div class="col-6 col-md-6 col-lg-6" style=" float: left;">
+                    <span class="caplable">Vendor Name:</span>&nbsp;<span class="viewlable">{{vendor_name}}</span>
+                  </div>
+                  <div class="col-6 col-md-6 col-lg-6" style=" float: left;">
+                    <span class="caplable">Device Type:</span>&nbsp;<span class="viewlable">{{dev_type}}</span>
+                  </div>
+
+                </div>
+
+                <div class="row">
+                  <div class="col-6 col-md-6 col-lg-6" style=" float: left;">
+                    <span class="caplable">Model Name:</span>&nbsp;<span class="viewlable">{{model_name}}</span>
+                  </div>
+                  <div class="col-6 col-md-6 col-lg-6" style=" float: left;">
+                    <span class="caplable">Model Code:</span>&nbsp;<span class="viewlable">{{model_code}}</span>
+                  </div>
+                </div>
+                <br><br>
+              </div>
+              <!-- --------------------- View Section End ------------------------------ -->
+
+            </div>
+          </div>
+
+        </div>
+        <!-- --------------------- View Section End ------------------------------ -->
+
+      </div>
+
+
+      <!-- Modal footer -->
+
+      <div class="modal-footer" style="display: none;" id="modelfooter">
+        <div class="row container ml-5">
+          <div class="col-md-7">
+            <textarea class="form-control bg-white" rows="1" placeholder="Enter Remark" tabindex="21" minlength="10"
+            maxlength="40" id="remarkupdate" [(ngModel)]="remarkText" #remark="ngModel" required
+            [ngClass]="{'is-invalid': remark.invalid}"></textarea>
+          <div class="invalidmsg" *ngIf="remark.invalid">
+            Remark must be 10 to 40 characters long.
+          </div>
+          </div>
+          <div class="col-md-5">
+            <div class="actionBar" style="margin-right: 5pc;">
+              <button id="save" class="mb-2 btn btn-wizard btn-sm btn-success buttonFinish" (click)="updatedevicemodel()">
+                <i class="material-icons">save</i>
+              </button>
+    
+            </div>
+          </div>
+        </div>
+
+      
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ------------------- view & Edit model close ------------------------ -->
+
+<!-- ------------------ Delete Model Start ------------------------>
+
+<!-- Delete Model-->
+<div class="modal fade" id="modeldelete" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-sm modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header" style="background-color: 	red;">
+        <h4 class="modal-title text-center" style="color: yellow">Are You Sure?</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body" style="background-color: #f0e8e9">
+
+        <div class="form-group row">
+
+
+          <div class="col-lg-12 col-md-12">
+            <label style="color: black">Remark</label>&nbsp;
+            <span class="indlabelstar">*</span>
+            <textarea class="form-control" rows="2" style=" font-size:12px" placeholder="Enter Remark" tabindex="1"
+              minlength="10" maxlength="40" [(ngModel)]="deleteText" #regaddress="ngModel" id="cusdelremark"></textarea>
+
+          </div>
+
+        </div>
+        <span class="invalidmsg" id="msg_error_delete"></span>
+        <p style="    background-color: yellow;
+        /* padding-right: 20px; */
+        margin-right: 89px;
+        color: red; display: none;">Do You want to Delete !!&hellip;</p>
+      </div>
+
+
+      <!-- Modal footer -->
+      <div class="modal-footer text-center" style="background-color: #cfbaa8">
+        <button type="submit" class="btndel btn-primary mr-3" data-toggle="modal" data-dismiss="modal" tabindex="18">
+          No
+        </button>
+        <button type="reset" tabindex="19" class="btndel btn-danger " data-toggle="modal"
+          (click)="ModelDeletefunction()">
+          Yes
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!-- Delete Model -->
+
+<!-- ------------------- Delete model End ----------------------- -->
+
+<!-- ------------------- onclick no btn model  ----------------------- -->
+<!-- The Modal -->
+<div class="modal fade " id="SuccessModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+  aria-hidden="true">
+  <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+    <div class="modal-content box-shadow">
+      <div class="card border-0">
+        <div class="card-header py-1 pl-3 m-0" style="background-color: green;">
+          <p style="font-size:17px; font-weight:bold"> Success </p>
+        </div>
+        <div class="card-body bg-white text-dark">
+          <p> {{datafromrespo}}</p>
+          <div class="text-right">
+            <button class="btn btn-sm btn-success" (click)="closemodal()" data-dismiss="modal">ok</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade " id="ErrorModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+  aria-hidden="true">
+  <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+    <div class="modal-content box-shadow">
+      <div class="card  border-0">
+        <div class="card-header  py-1 pl-3 m-0" style="background-color: red;">
+          <p style="font-size:17px; font-weight:bold"> Error </p>
+        </div>
+        <div class="card-body bg-white text-dark">
+          <p> {{datafromrespo}}</p>
+          <div class="text-right">
+            <button class="btn btn-sm btn-success" data-dismiss="modal">ok</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ------------------- onclick yes btn model End ----------------------- -->
+
+<app-modelentry></app-modelentry>

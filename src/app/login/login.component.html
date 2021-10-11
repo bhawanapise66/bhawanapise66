@@ -1,0 +1,745 @@
+<!-- <div class="login-page " [@routerTransition]>
+    <div class="" style="height: 100%;">
+        <div class="content shadow-sm position-relative">
+            <header class="header">
+                <nav class="container-fluid">
+                    <div class="row">
+                        <div class="col align-self-center">
+                            <a href="" class="logo text-white">
+                                <img src="assets/images/indtrack_R_logo.png" style="width: 200px;"
+                                    title="Welcome to IndTrack- India's Leading GPS Solution provider | Vehicle Tracking System | Low Cost GPS Tracking | Sturdy VTS | Tracking On own GIS Map,Bing Map|Fuel Monitoring System"
+                                    class="logo-icon" />
+                            </a>
+                        </div>
+                    </div>
+                </nav>
+            </header>
+            <div class="background opac blur" style="/background-image:url('assets/images/login_pagebg.jpeg');/  background: url(assets/images/login_pagebg.jpeg) no-repeat center center fixed; 
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover; ">
+            </div>
+
+            <div class=" container main-container" id="main-container">
+                <div class="row login-row-height">
+                    <div class="col-12 col-md-6 col-lg-7 d-none d-md-flex"></div>
+                    <div class="col-12 col-md-6 col-lg-5 col-xl-4  align-self-center" style="margin-top: -50px;">
+                        <div class="card border-0 shadow-lg blur">
+                            <div class="card-body py-5">
+
+
+                                <button class="btn btn-link" id="backbutton" [disabled]="signInbuttonHit" *ngIf="viewPasswordPage" (click)="gotoBack();"
+                                    style="float: right; margin-top: -34px"> <img src="assets/images/Back-Button.png"
+                                        width="30" height="30"></button>
+
+                                <img src="assets/images/indlogo.png" style="text-align: center;"
+                                    class="btn btn-primary  btn-rounded-circle shadow chat-btn"
+                                    title="Welcome to IndTrack- India's Leading GPS Solution provider | Vehicle Tracking System | Low Cost GPS Tracking | Sturdy VTS | Tracking On own GIS Map,Bing Map|Fuel Monitoring System" />
+
+
+                                <p class="font-weight-normal welcometext">Welcome </p>
+                                <p class="font-weight-normal text-warning mb-4" style="color: white !important;
+                                    font-size: 17px;font-weight: bold !important;">Sign In </p>
+
+
+                                <div *ngIf="viewLoginIdPage">
+                                    <div class="field-wrapper">
+                                        <input type="text" name="loginid" id="loginid"
+                                            [(ngModel)]="loginCredentials.loginId" placeholder="Enter Login ID"
+                                            (keyup)=" isLoginIdTrue=false ;isUserNameWrong=false;messageVisible=false"
+                                            class="mb-3" [dataAutoFocus]="true">
+
+
+                                        <div id="randowmNumber" disabled>Security Code :
+                                            {{randomNumber}}<small class="material-icons"
+                                                (click)="changeRandomNumber()"> cached </small></div>
+
+
+                                        <input type="text" name="checkNumber" id="randomNumberId"
+                                            (keyup)="isCaptchaEmpty=false;wrongCaptcha=false" autocomplete="off"
+                                            (keydown)="submitusername($event);" onkeypress="return isNumberKey(event)"
+                                            [(ngModel)]="loginCredentials.checkNumber" maxlength="6"
+                                            placeholder="Enter Security Code">
+
+                                        <span *ngIf="wrongCaptcha" class="text-danger">Captcha Is Wrong</span>
+                                        <span *ngIf="isCaptchaEmpty" class="text-danger">Please enter Captcha</span>
+                                        <span *ngIf="isLoginIdTrue" class="text-danger">Please enter login id</span>
+
+                                    </div>
+                                    <p *ngIf="messageVisible ==true" style="font-size:smaller;">Username Did Not Matched
+                                    </p>
+                                    <div class="mb-4">
+                                        <button type="submit" class=" btn btn-primary " [disabled]="buttonHit"
+                                            (click)="verifyUsername()" id="checkusernamebutton">Next
+                                            <i class="material-icons md-18">arrow_forward</i></button>
+                                    </div>
+                                    <a *ngIf="isUserNameWrong==true;"
+                                        style="color: #5B92FF;font-size: 13px;font-weight: bold;">Forgot
+                                        Username?</a>
+                                </div>
+
+                                <div *ngIf="viewPasswordPage">
+                                    <div class="field-wrapper">
+                                        <input type="password" name="password" id="passwordfield"
+                                            [(ngModel)]="loginCredentials.password"
+                                            [type]="isTextFieldType ? 'text' : 'password'" placeholder="enter password"
+                                            (keyup)="isPasswordEmpty = false" (keydown)="submitpassword($event);"
+                                            [dataAutoFocus]="t">
+
+                                        <span class="material-icons" (click)="togglePasswordFieldType()"
+                                            style="position: absolute;top: 10px;    left: 274px">
+                                            visibility </span>
+
+                                    </div>
+
+                                    <div class="mb-4">
+                                        <button class=" btn btn-secondary btn-block" style="width: 40%;left: 31%;"
+                                            (click)="Login()" [disabled]="signInbuttonHit">Sign
+                                            In</button>
+                                        <img class="ng-tns-c1-0" id="loading"
+                                            src="http://rpg.drivethrustuff.com/shared_images/ajax-loader.gif"
+                                            style="float:right;position: absolute;left: 174px;top: 190px; display: none;"
+                                            width="100px">
+                                    </div>
+                                    <span *ngIf="isPasswordEmpty" class="text-danger">Please enter Passsword</span>
+                                    <small>{{warningMessage}} </small>
+
+                                    <br>
+                                    <a style="color: #5B92FF;font-size: 13px;font-weight: bold;"
+                                        [routerLink]="['/login/forgot_password']"
+                                        routerLinkActive="router-link-active">Forgot
+                                        Password?</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br><br>
+        <footer class="footer d-block">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12 col-md text-center text-md-left align-self-center">
+                        <p>All rights reserved by <a href="">IndTrack</a></p>
+                    </div>
+                    <div class="col-12 col-md-auto text-center text-md-right">
+                        <ul class="nav justify-content-center justify-md-content-end">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="javascript:void(0)">Terms of use</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="javascript:void(0)">Privacy Policy</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="javascript:void(0)">Contact us</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+</div> -->
+
+
+
+
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="author" content="Yinka Enoch Adedokun">
+	<title>Login Page</title>
+</head>
+<body style="background: url('assets/images/mines.jpg'); background-repeat: no-repeat;
+background-size: cover; height: 100vh;overflow: scroll;" >
+
+<div class="container-fluid" style="background-color: #b3ffb3;margin-top: 0px;">
+   
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid" style="margin-top: 0px;">
+
+            <div class="col-sm-6 col-xs-6">
+                <img class="header_img_adjust" src="assets/images/new-logo-hedaer_text_left.png"
+                style="height: 60px;">
+            </div>
+           
+            <div class="col-sm-6 col-xs-6">
+                <img class="header_img header_img_adjust" src="assets/images/header_apsac_right.png"
+                style="float: right; height: 60px;">
+            </div>
+        </div>
+    </nav>
+</div>
+
+	<div class="container-fluid col-md-12 row">
+
+    <div class="main-content text-center" style="    box-shadow: none;">
+
+    <div class="col-sm-6">
+        <img class="header_img_adjust" src="assets/images/CM_apsac.png" style="height:62%;width: 70%;">
+    </div>
+
+
+    <div class="col-md">
+        <img class="header_img_adjust" src="assets/images/minister_apsac.png" style="height:62%;width: 70%;">
+    </div>
+
+    </div>
+
+
+		<div class="row main-content text-center" style="background-color: #b3ffb3;height: 100%;z-index: 1;" id="frontcard">
+			<div class="col-md-4 text-center">
+				<span class="company__logo"><h2><img src="assets/images/ap-govt-logo.png" alt="vts_logo"
+                    style="height: 210px; width: -14pc; padding: 25px" class="logo-icon mt-1">
+				</h2></span>
+			</div>
+			<div class="col-md-8 col-xs-12 col-sm-12 login_form" style="background-color: #e2fff3;">
+				<div class="container-fluid" style="max-width:90%;">
+					<div class="" style="margin-top: 10px;">
+						<h6>Sign in</h6>
+                        <span id="backbutton" style="float: right; margin-top: -34px;display: none;">
+                            <img height="30" src="assets/images/Back-Button.png" width="30" (click)="PreviousFunction()"></span>
+					</div>
+					<div class="row" style="margin-top: 30px;">
+						<form control="" class="form-group" style="width: 100%;">
+							<!-- <div class="row col-md-12" >
+								<input type="text" name="username" style="margin-left: -7px" id="username" class="form__input" placeholder="Username">
+								<span id="usernameerror" style="color: red; font-weight: bold; margin-top: 40px;"></span>
+							</div> -->
+                            <div id="usernameDiv">
+                            <div class="row col-md-12">
+
+                                <input type="text" name="loginId" id="loginId" placeholder="Login ID"
+                                    class="mb-3 form-control inputval" [dataAutoFocus]="true" [(ngModel)]="loginCredentials.loginId"
+                                    (keyup)="KeyUpFun()" (keydown)="submitusername($event);" autofocus autocomplete="OFF"> 
+                                    <span id="usernameerror" style="color: red; font-weight: bold; margin-top: 40px;"></span>
+							
+                                </div>
+							
+							 <div class="row col-md-12">
+								 
+								 <div class="">
+                                    <input type="text" name="randomNumberId" id="randomNumberId" placeholder="Enter Captcha" maxlength="6"
+                                    class="mb-3 form-control inputval allownumericwithoutdecimal" [dataAutoFocus]="false"
+                                    (keydown)="submitusername($event);" [(ngModel)]="loginCredentials.checkNumber" (keyup)="KeyUpFun()" >	 
+                                </div>
+
+
+                                <div class="col-md">
+                                    <label class="customcaptcha">{{randomNumber}} </label>
+                                </div>
+
+                                <div class="">
+									<i class="fa fa-refresh" style="color: black;" (click)="changeRandomNumber()" aria-hidden="true"></i>
+								</div>
+
+									
+							</div> 
+
+                            <div class="col-md-12 row">
+
+                                <div class="">
+                                    <button type="submit"  (click)="NextFunction()" class="btn-primary">Next&nbsp;&nbsp;<i class="fa fa-arrow-right"></i></button>
+                                    <img id="userloading"
+                                src="http://rpg.drivethrustuff.com/shared_images/ajax-loader.gif"
+                                style="display: none;
+                                float: right;
+                                position: absolute;
+                                top: -32px;
+                                width: 85px;
+                                height: 85px;"
+                                width="100px">
+                                </div> 
+
+                                <div class="col-md"></div>
+
+                                <div class="">
+                                    <!-- <p style="float: right;">Don't have an account?  <a (click)="FlipLogin()" id="registration" class="customlink" >Sign Up</a></p> -->
+                                    <button type="submit" style="display: none;"  (click)="FlipLogin()" class="btn-danger" title="Don't have an account ?">Sign Up</button>
+                            </div>
+                            </div>
+
+                            <div class="col-md-10">
+                                <span style="color:red;font-size: 12px;" id="loginmsg">{{loginmsg}}</span>
+                            </div>
+
+							<!-- <div class="" style="display: none;">
+								<button type="submit"  (click)="NextFunction()" class="btn-primary">Next&nbsp;&nbsp;<i class="fa fa-arrow-right"></i></button>
+							</div> 
+
+                            <div class="" style="display: none;">
+                                <p>Don't have an account? <a (click)="FlipLogin()" id="registration" class="customlink" >Sign Up</a></p>
+                            </div> -->
+
+                        </div>
+
+
+                        <div id="passwordDiv"  style="display: none;">
+                            <div class="col-md-12 row">
+
+                                <input type="password" name="password" id="password" placeholder="Password" (keyup)="KeyUpFun()"
+                                    class="mb-3 form-control inputval" [dataAutoFocus]="true"
+                                    (keydown)="submitpassword($event);" [(ngModel)]="loginCredentials.password">
+                                    <span id="usernameerror" style="color: red; font-weight: bold; margin-top: 40px;"></span>
+							
+                                </div>
+
+                            <div class="col-md-12 row   ">
+							<div class="">
+								<button type="submit" (click)="Login()" class="btn-primary">Login</button>
+                                <img id="loading"
+                                src="http://rpg.drivethrustuff.com/shared_images/ajax-loader.gif"
+                                style="display: none;
+                                float: right;
+                                position: absolute;
+                                top: -32px;
+                                width: 85px;
+                                height: 85px;"
+                                width="100px">
+							</div> 
+                            <div class="col-sm">
+
+                            </div>
+
+                            <div class="">
+                                <p><a (click)="FlipLogin()" style="display: none;" id="registration" class="customlink" >Forgot Password?</a></p>
+                            </div>
+                            </div>
+
+                            <div class="">
+                                <span style="color:red;font-size: 12px;" id="passwordmsg">{{passwordmsg}}</span>
+                            </div>
+
+                        </div>
+
+
+                        <div id="changepasswordDiv"  style="display: none;">
+                            <div class="col-md-12 row">
+
+                                <input type="password" name="password" id="newpassword" placeholder="New Password" (keyup)="KeyUpFun()"
+                                    class="mb-3 form-control inputval" [dataAutoFocus]="true" [(ngModel)]="loginCredentials.newpassword">
+                                    <span id="usernameerror" style="color: red; font-weight: bold; margin-top: 40px;"></span>
+							
+                                </div>
+
+                                <div class="">
+                                    <span style="color:red;font-size: 12px;" id="passwordmsg">{{passwordmsg}}</span>
+                                </div>
+                            <div class="col-md-12 row   ">
+							<div class="">
+								<button type="submit" (click)="Login()" class="btn-primary">Login</button>
+							</div> 
+                            <div class="col-sm">
+
+                            </div>
+
+                            <div class="">
+                                <p><a (click)="FlipLogin()" id="registration" class="customlink" >Forgot Password?</a></p>
+                            </div>
+                        </div>
+
+                        </div>
+
+						</form>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+
+
+        <!-- <div class="row main-content text-center" style="    background-color: #e2fff3;display: none;" id="backcard">
+			
+			<div class="col-xs-12 col-sm-12">
+				<div class="container-fluid">
+					<div class="" style="padding-left: 10px; margin-top: 10px; margin-bottom: -15px;">
+                        <h6>Sign up</h6></div>
+
+                        
+					<div class="row" style="margin-top: 30px">
+
+						<form control="" class="" style="width: 100%;">
+							<div class="row" >
+                                <div class="col-md-3">
+                                    <label>Vendor Name</label>
+    
+                                    <input type="text" name="loginid" id="loginid" placeholder="Vendor Name"
+                                        class="mb-3 form-control inputval" [dataAutoFocus]="true">
+                                    </div>
+
+                            <div class="col-md-3">
+                                <label>GST No</label>
+
+                                <input type="text" name="loginid" id="loginid" placeholder="GST No"
+                                    class="mb-3 form-control inputval" [dataAutoFocus]="true">
+                                </div>
+
+
+                                <div class="col-md-3">
+                                    <label>CIN No</label>
+                                  <input type="text" name="loginid" id="loginid" placeholder=" CIN No"
+                                      class="mb-3 form-control inputval" [dataAutoFocus]="true"> 
+                                  </div>
+
+                                  <div class="col-md-3">    
+                                    <label>Official No</label>
+                                  <input type="text" name="loginid" id="loginid" placeholder=" Official No"
+                                      class="mb-3 form-control inputval" [dataAutoFocus]="true">  
+                                  </div>
+                                   
+                                   
+                                  <div class="col-md-3">
+                                    <label>Email Id</label>
+                                  <input type="text" name="loginid" id="loginid" placeholder=" Email ID"
+                                      class="mb-3 form-control inputval" [dataAutoFocus]="true">  
+                                  </div>
+
+
+                                  <div class="col-md-3">
+                                    <label>Person Name</label>
+                                    <input type="text" name="loginid" id="loginid" placeholder=" Person Name"
+                                        class="mb-3 form-control inputval" [dataAutoFocus]="true">  
+                                    </div>
+
+                                    <div class="col-md-3">
+                                      <label>Contact No</label>
+                                      <input type="text" name="loginid" id="loginid" placeholder=" Contact No"
+                                          class="mb-3 form-control inputval " [dataAutoFocus]="true">  
+                                      </div>
+
+
+                                      <div class="col-md-3">
+                                        <label>Email Id</label>
+                                        <input type="text" name="loginid" id="loginid" placeholder=" Person Email"
+                                            class="mb-3 form-control inputval" [dataAutoFocus]="true">  
+                                        </div>
+
+                                        <div class="col-md-3">
+                                          <label>Select State</label>
+
+                                          <select class="mb-3 form-control inputval">
+                                            <option value="">Select State</option>
+                                            <option value="1">Mah</option>
+                                            <option value="2">Raj</option>
+                                            <option value="3">Guj</option>
+                                            <option value="4">Up</option>
+                                          </select>
+                    
+                                            </div>
+
+
+                                            <div class="col-md-3">
+
+                                              <label>Select City</label>
+
+                                              <select class="mb-3 form-control inputval">
+                                                <option value="">Select City</option>
+                                                <option value="1">Mah</option>
+                                                <option value="2">Raj</option>
+                                                <option value="3">Guj</option>
+                                                <option value="4">Up</option>
+                                              </select>
+                        
+                                                </div>
+
+
+                                                <div class="col-md-3">
+                                                  <label>Address</label>
+                                                  <textarea type="text" name="loginid" id="loginid" placeholder="Enter Address"
+                                                      class="mb-3 form-control inputval" [dataAutoFocus]="true"></textarea>
+                                                  </div>  
+                                                  
+                                                  
+
+                                                  <div class="col-md-3">
+                                                    <label>Pincode</label>
+                                                    <input type="text" name="loginid" id="loginid" placeholder="Enter Pincode"
+                                                        class="mb-3 form-control inputval" [dataAutoFocus]="true">  
+                                                    </div>  
+
+                                                    <div class="col-md-3">
+                                                        <label>Login Name</label>
+                                                        <input type="text" name="loginid" id="loginid" placeholder="Enter Login Name"
+                                                            class="mb-3 form-control inputval" [dataAutoFocus]="true">  
+                                                        </div>
+
+                                                        <div class="col-md-3">
+                                                          <label>Password</label>
+                                                          <input type="password" name="loginid" id="loginid" placeholder="Create Password"
+                                                              class="mb-3 form-control inputval" [dataAutoFocus]="true">  
+                                                          </div>
+
+
+                                                          <div class="col-md-3">
+                                                            <label>Confirm Password</label>
+                                                            <input type="password" name="loginid" id="loginid" placeholder="Confirm Passsword"
+                                                                class="mb-3 form-control inputval" [dataAutoFocus]="true">  
+                                                            </div>
+
+                                                            <div class="col-md-3">
+                                                                <label>Model Name</label>
+                                                                <input type="text" name="loginid" id="loginid" placeholder="Model Name"
+                                                                    class="mb-3 form-control inputval" [dataAutoFocus]="true">  
+                                                                </div>
+    
+                                                                <div class="col-md-3">
+                                                                  <label>Model Code</label>
+                                                                  <input type="text" name="loginid" id="loginid" placeholder="Model Code"
+                                                                      class="mb-3 form-control inputval" [dataAutoFocus]="true">  
+                                                                  </div>
+    
+    
+                                                                  <div class="col-md-3">
+                                                                    <label>Upload COP</label>
+                                                                    <input type="file" name="loginid" id="loginid" style="height:34px;"
+                                                                        class="mb-3 form-control inputval" [dataAutoFocus]="true">  
+                                                                    </div>
+
+                                                                    <div class="col-md-3">
+                                                                      <label>Upload TAC</label>
+                                                                      <input type="file" name="loginid" id="loginid" style="height:34px;"
+                                                                          class="mb-3 form-control inputval" [dataAutoFocus]="true">  
+                                                                      </div>
+
+
+                                                                      <div class="col-md-3">
+                                                                        <label>Protocol</label>
+                                                                        <input type="file" name="loginid" id="loginid" style="height:34px;"
+                                                                            class="mb-3 form-control inputval" [dataAutoFocus]="true">  
+                                                                        </div>
+
+                            </div>
+                            <div class="">
+								<button type="submit" (click)="checklogin()" class="btn-primary">Submit&nbsp;&nbsp;<i class="fa fa-arrow-right"></i></button>
+							</div> 
+
+						</form>
+
+					</div>
+				</div>
+                <div><p>Already have an account? <a (click)="FlipRegistration()" id="login" class="customlink" >Sign In</a></p></div>
+			</div>
+            
+		</div> -->
+
+
+
+        
+		<div class="row main-content text-center" style="background-color: #b3ffb3;height: 100%;z-index: 1;display: none;" id="backcard">
+			<div class="col-md-4 text-center">
+				<span class="company__logo"><h2><img src="assets/images/ap-govt-logo.png" alt="vts_logo"
+                    style="height: 210px; width: -14pc; padding: 25px" class="logo-icon mt-1">
+				</h2></span>
+			</div>
+			<div class="col-md-8 col-xs-12 col-sm-12 login_form" style="background-color: #e2fff3;">
+				<div class="container-fluid" style="max-width:90%;">
+					<div class="" style="margin-top: 10px;">
+						<h6>Sign up</h6>
+					</div>
+					<div class="row" style="margin-top: 30px;">
+						<form control="" class="form-group" style="width: 100%;">
+							<!-- <div class="row col-md-12" >
+								<input type="text" name="username" style="margin-left: -7px" id="username" class="form__input" placeholder="Username">
+								<span id="usernameerror" style="color: red; font-weight: bold; margin-top: 40px;"></span>
+							</div> -->
+                            <div id="">
+                            <div class="row col-md-12" id="vendorDiv">
+
+                                <input type="text" name="vendorname" id="vendorname" placeholder="Vendor Name"
+                                    class="mb-3 form-control inputval col-sm-6" [dataAutoFocus]="true"  [(ngModel)]="loginCredentials.vendorname"
+                                    (keyup)="KeyUpFun()" autofocus autocomplete="OFF"> 
+                                    <span id="usernameerror" style="color: red; font-weight: bold; margin-top: 40px;"></span>
+							
+
+                                    <input type="text" name="contactpersonname" id="contactpersonname" placeholder="Contact Person Name"
+                                    class="mb-3 form-control inputval col-sm-6" [dataAutoFocus]="true"  [(ngModel)]="loginCredentials.contactpersonname"
+                                    (keyup)="KeyUpFun()" autofocus autocomplete="OFF"> 
+                                    <span id="usernameerror" style="color: red; font-weight: bold; margin-top: 40px;"></span>
+							
+                                </div> 
+
+                                <div class="row col-md-12" id="sendOtpDiv">
+
+                                    <input type="text" name="contactno" id="contactno" placeholder="Contact No"
+                                    class="mb-3 form-control inputval col-sm-6 allownumericwithoutdecimal" [dataAutoFocus]="true"  [(ngModel)]="loginCredentials.contactno"
+                                    (keyup)="KeyUpFun()" autofocus autocomplete="OFF" maxlength="10">
+
+                                    <div class="col-md"></div>
+                                        <input type="button" name="sendotp" id="sendotp" 
+                                        class="mb-4 col-sm-4 btn-success" (click)="SendOtpFunction()" value="Get OTP"> 
+                                
+                                    </div> 
+
+                                    <div class="row col-md-12" id="resendOtpDiv" style="display: none;">
+
+                                        <input type="text" name="otp" id="otp" placeholder="Enter OTP" maxlength="6"
+                                        class="mb-3 form-control inputval col-sm-6 allownumericwithoutdecimal" [dataAutoFocus]="true"
+                                        (keyup)="KeyUpFun()" autofocus autocomplete="OFF"  [(ngModel)]="loginCredentials.otp"> 
+                                
+                                        <div class="col-md"></div>
+                                        
+                                            <input type="button" name="sendotp" id="resendotp" 
+                                            class="mb-4 col-sm-4 btn-link" style="font-size: 13px;background: none;border: none;"
+                                            (keyup)="KeyUpFun()" value="Resend OTP"> 
+                                    
+                                        </div> 
+
+
+                        <div class="col-md-12 row">
+
+                            <div class="" id="submitDiv" style="display: none;">
+                                <button type="submit"  (click)="SubmitRegFunction()" class="btn-primary">Submit</button>
+                            </div> 
+
+                            <div class="col-md"></div>
+
+                            <div class="">
+                                <button type="submit"  (click)="FlipRegistration()" class="btn-danger" title="Already have an account ?">Sign In</button>
+                        </div>
+                        <div class="">
+                            <span style="color:red;font-size: 12px;" id="passwordmsg">{{passwordmsg}}</span>
+                        </div>
+                        </div>
+
+                            <div class="col-md-10">
+                                <span style="color:red;font-size: 12px;" id="loginmsg">{{loginmsg}}</span>
+                            </div>
+
+							<!-- <div class="" style="display: none;">
+								<button type="submit"  (click)="NextFunction()" class="btn-primary">Next&nbsp;&nbsp;<i class="fa fa-arrow-right"></i></button>
+							</div> 
+
+                            <div class="" style="display: none;">
+                                <p>Don't have an account? <a (click)="FlipLogin()" id="registration" class="customlink" >Sign Up</a></p>
+                            </div> -->
+
+                        </div>
+
+
+
+
+						</form>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+
+
+
+	</div>
+
+    <br><br>
+    <footer class="footer footer-fluid">
+        <!-- <div class="container-fluid"> -->
+                <div class="row">
+                    <div class="col-12 col-md text-center text-md-left align-self-center" style="color: gray; padding: 6px 0px 6px 44px; font-size: 12px;">
+                        <i class="fa fa-copyright" aria-hidden="true"></i> All rights reserved by  <a href="#">APSAC </a>
+                    </div>
+                    <div class="col-12 col-md-auto text-center text-md-right">
+                        <ul class="nav justify-content-center justify-md-content-end">
+                            <li class="nav-item">                     
+            
+                                <!-- <a class="nav-link active" href="javascript:void(0)">Terms of use</a> -->
+                            </li>
+                            <li class="nav-item" style="display: none;">
+                                <a class="nav-link" href="javascript:void(0)">Privacy Policy</a>
+                            </li>
+                            <li class="nav-item" style="display: none;">
+                                <a class="nav-link" href="contactus.html">Contact us</a>
+                            </li>
+                            <li class="nav-item">
+                                <p style="color: white;font-size: 11px;padding-top: 7px; padding-right: 37px;color: gray;"> <span id='ct'></span></p>
+            
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            
+        <!-- </div> -->
+    </footer>
+	
+</body>
+<style>
+
+.main-content{
+	width: 50%;
+	border-radius: 20px;
+	box-shadow: 0 5px 5px rgba(0,0,0,.4);
+	margin: 5em auto;
+	display: flex;
+}
+.company__info{
+	background-color: #008080;
+	border-top-left-radius: 20px;
+	border-bottom-left-radius: 20px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	color: #fff;
+}
+.fa-android{
+	font-size:3em;
+}
+@media screen and (max-width: 640px) {
+	.main-content{width: 90%;}
+	.company__info{
+		display: none;
+	}
+	.login_form{
+		border-top-left-radius:20px;
+		border-bottom-left-radius:20px;
+	}
+}
+@media screen and (min-width: 642px) and (max-width:800px){
+	.main-content{width: 70%;}
+}
+.row > h2{
+	color:#008080;
+}
+.login_form{
+	background-color: #fff;
+	border-top-right-radius:20px;
+	border-bottom-right-radius:20px;
+	border-top:1px solid #ccc;
+	border-right:1px solid #ccc;
+}
+form{
+	padding: 0 2em;
+}
+.form__input{
+	width: 70%;
+	border:0px solid transparent;
+	border-radius: 0;
+	border-bottom: 1px solid #aaa;
+	padding: 1em .5em .5em;
+	/* padding-left: 2em;  */
+	outline:none;
+	margin:1.5em auto;
+	transition: all .5s ease;
+}
+.form__input:focus{
+	border-bottom-color: #008080;
+	box-shadow: 0 0 5px rgba(0,80,80,.4); 
+	border-radius: 4px;
+}
+.btn{
+	transition: all .5s ease;
+	width: 25%;
+	border-radius: 30px;
+	color:#008080;
+	font-weight: 600;
+	background-color: #fff;
+	border: 1px solid #008080;
+	margin-top: 1.5em;
+	margin-bottom: 1em;
+}
+.btn:hover, .btn:focus{
+	background-color: #008080;
+	color:#fff;
+}
+
+</style>

@@ -1,0 +1,452 @@
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true" data-backdrop="static">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <!-- <h5 class="modal-title" id="exampleModalLabel">Single Device Entry</h5> -->
+        <h4 class="text-left m-1" style="font-size: 19px;">Device
+          <span class="text-template-primary" style="color: #00ed54; font-size: 19px;">Master</span>
+        </h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="clearfunction();">
+          <span aria-hidden="true" style="color: white">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div id="container" style="padding-left: 65px;"> 
+            <div class="step-wizardentry" role="navigation">
+              <div class="progress">
+                <div class="progressbar empty"></div>
+                <div id="progentry" class="progressbar"></div>
+              </div>
+              <ul>
+                <li class="active">
+                  <button id="stepentry1">
+                    <div class="step">1</div>
+                    <div class="title">Basic Details</div>
+                  </button>
+                </li>
+                <li class="">
+                  <button id="stepentry2">
+                    <div class="step">2</div>
+                    <div class="title">Device Details</div>
+                  </button>
+                </li>
+                <li class="">
+                  <button id="stepentry3">
+                    <div class="step">3</div>
+                    <div class="title">Sim Details</div>
+                  </button>
+                </li>
+              </ul>
+
+              <div class="stepsection">
+                <span class="invalidmsg" id="msg_mainmessageentry"></span>
+                <div id="stepentry-14" class="stepsdiv text-center">
+
+                  <fieldset style="max-width: 1141px;">
+                    <legend class="text-uppercase" style=" color: rgb(173, 247, 150);">Basic Details</legend>
+                    <div class="form-group row">
+                      <div class="col-lg-4 col-md-4">
+                        <label class="indlabel">Vendor</label>
+                        <span class="mandatory">*</span>
+                        <ngx-select-dropdown tabindex="1" id="vendorentrydemo" [multiple]="false"
+                          [(ngModel)]="vendorText" (change)="DevicetypeListBind()" [config]="config"
+                          [options]="ListOfvendor"></ngx-select-dropdown>
+                        <span class="invalidmsg" id="msg_vendorName"></span>
+                      </div>
+
+                      <div class="col-lg-4 col-md-4" style="display: none;">
+                        <label class="indlabel">Vendor List Dummy</label>
+                        <span class="mandatory">*</span>
+                        <input type="text" class="form-control" id="vendordummy" [(ngModel)]="vendorlistdata">
+                      </div>
+
+                      <div class="col-lg-4 col-md-4">
+                        <label class="indlabel">Mode Of Delivery</label>
+                        <span class="mandatory">*</span>
+                        <ngx-select-dropdown tabindex="2" id="modeofdeliveryentryid" [multiple]="false"
+                          [(ngModel)]="modeofdeliveryText" [config]="config" [options]="ListOfModeofDelivery"
+                          (change)="modeofdeliveryy()"></ngx-select-dropdown>
+                        <span class="invalidmsg" id="msg_modeof"></span>
+
+                        <input type="text" class="form-control" style="display: none;" id="modeofdelidummy"
+                          [(ngModel)]="modofdeliverylistdatadummy">
+
+                      </div>
+
+                      <div class="col-lg-4 col-md-4" id="recdate">
+                        <label class="indlabel">Received Date</label>
+                        <input type="text" class="form-control datepicker" id="courierreceivedateid"
+                          [(ngModel)]="CourierReceivedate" tabindex="3">
+                        <span class="invalidmsg" id="msg_courierReceivedDate"></span>
+                      </div>
+
+
+                    </div>
+
+                    <div class="form-group row">
+
+                      <div class="col-lg-4 col-md-4" id=recbydiv>
+                        <label class="indlabel">Received By</label>&nbsp;
+                        <span class="mandatory">*</span>
+
+                        <input type="text" class="form-control" placeholder="Received By Name." tabindex="4"
+                          minlength="3" maxlength="50" [(ngModel)]="receivedbyText" #recby="ngModel"
+                          style=" font-size:12px" onkeypress="return onlyAlphabets(event);" ondrop="return false;"
+                          onpaste="return false;" id="receivedbynameentry">
+                        <div class="invalidmsg" *ngIf="recby.errors?.minlength">
+                          Received by must be at least minimum 3 characters & maximum 50 characters long.
+                        </div>
+                      </div>
+
+                      <div class="col-lg-4 col-md-4" id="permobno">
+                        <label class="indlabel">Mobile Number</label>
+                        <input type="text" name="mobileno" id="personmobilenumber" class="form-control"
+                          placeholder="Mobile Number" [(ngModel)]="personmobileNo" #permobilenoCtrl="ngModel"
+                          onkeypress="return isNumberKey(event)" required minlength="10" maxlength="13" tabindex="5">
+                        <span class="invalidmsg" *ngIf="permobilenoCtrl.errors?.minlength">
+                          Person Mobile Number should be between 10 to 13 digits
+                        </span>
+                      </div>
+
+                      <div class="col-lg-4 col-md-4" id="recfrm">
+                        <label class="indlabel">From</label>
+
+                        <input type="text" class="form-control" placeholder="Received From." tabindex="6" minlength="3"
+                          maxlength="50" [(ngModel)]="courierfromText" #courierfrom="ngModel" style=" font-size:12px"
+                          onkeypress="return onlyAlphabets(event);" ondrop="return false;" onpaste="return false;"
+                          id="receivedfromentry">
+                        <div class="invalidmsg" *ngIf="courierfrom.errors?.minlength">
+                          From location must be at least minimum 3 characters & maximum 50 characters long.
+                        </div>
+                      </div>
+                    </div>
+                  </fieldset>
+
+                  <div class="col-lg-12 col-md-12" id="courierinfodiv">
+                    <fieldset style="max-width: 1141px;">
+                      <legend class="text-uppercase" style=" color: rgb(173, 247, 150);">Courier Details</legend>
+                      <div class="form-group row">
+                        <div class="col-lg-4 col-md-4">
+                          <label class="indlabel">Courier Name</label>
+                          <input type="text" class="form-control" placeholder="Courier Name." tabindex="5" minlength="3"
+                            maxlength="50" [(ngModel)]="couriernameText" #coby="ngModel" style=" font-size:12px"
+                            onkeypress="return onlyAlphabets(event);" ondrop="return false;" onpaste="return false;"
+                            id="couriernameentry">
+                          <div class="invalidmsg" *ngIf="coby.errors?.minlength">
+                            Courier name must be at least minimum 3 characters & maximum 50 characters long.
+                          </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4">
+                          <label class="indlabel">From</label>
+                          <input type="text" class="form-control" placeholder="From." tabindex="6" minlength="3"
+                            maxlength="50" [(ngModel)]="courierfromText" #courierfrom="ngModel" style=" font-size:12px"
+                            onkeypress="return onlyAlphabets(event);" ondrop="return false;" onpaste="return false;"
+                            id="courierfromentry">
+                          <div class="invalidmsg" *ngIf="courierfrom.errors?.minlength">
+                            Courier From must be at least minimum 3 characters & maximum 50 characters long.
+                          </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-4">
+                          <label class="indlabel">Tracker ID</label>&nbsp;
+                          <input type="text" class="form-control" style=" font-size:12px" placeholder="Tracker ID."
+                            tabindex="7" minlength="6" maxlength="6" [(ngModel)]="trackeridText" id="trackeridentry"
+                            #trackerid="ngModel" onkeypress="return isNumberKey(event)">
+                          <div class="invalidmsg" *ngIf="trackerid.errors?.minlength">
+                            Tracker ID must be at least minimum 6 characters & maximum 6 characters long.
+                          </div>
+                        </div>
+                      </div>
+                    </fieldset>
+                  </div>
+                  <!--  <div class="form-group row">
+                    
+
+                    <div class="col-lg-6 col-md-6" id="date">
+                      <label class="indlabel"> Delevery Date</label>
+                      <input type="text" class="form-control datepicker" [(ngModel)]="ReceiptUpload" tabindex="2">
+                      <span class="invalidmsg" id="msg_shortcode"></span>
+                    </div>
+                  </div> -->
+                  <br><br><br>
+                  <span class="invalidmsg" id="msg_errorentry" style="position: relative;bottom:10px;"></span>
+                </div>
+                <div id="stepentry-15" class="stepsdiv" style="display: none;">
+                  <fieldset style="max-width: 1141px;" id="courierinfodiv">
+                    <legend class="text-uppercase" style=" color: rgb(173, 247, 150);">Device Details</legend>
+                    <div class="form-group row">
+                      <div class="col-lg-6 col-md-6">
+                        <label class="indlabel">Device Type</label>
+                        <span class="mandatory">*</span>
+
+                        <ngx-select-dropdown tabindex="8" id="devicetypeentry" [multiple]="false"
+                          [(ngModel)]="devicetypeText" (change)="DeviceModelList();devicestep1validation()"
+                          [config]="config" [options]="ListOfdevicetype"></ngx-select-dropdown>
+
+                        <span class="invalidmsg" id="msg_devicetype"></span>
+
+                        <input type="text" class="form-control" style="display: none;" id="devicetypeentrydummy"
+                          [(ngModel)]="devicetypelist">
+
+                      </div>
+
+                      <div class="col-lg-6 col-md-6">
+                        <label class="indlabel">Device Model</label>
+                        <span class="mandatory">*</span>
+
+                        <ngx-select-dropdown tabindex="9" id="modelentry" [multiple]="false" [(ngModel)]="modelText"
+                          (change)="step2validation()" [config]="config" [options]="ListOfmodel"></ngx-select-dropdown>
+
+                        <span class="invalidmsg" id="msg_vendorName"></span>
+
+                        <input type="text" class="form-control" style="display: none;" [(ngModel)]="modellist"
+                          id="modellistdummy">
+
+                      </div>
+                    </div>
+
+
+                    <div class="form-group row">
+
+                      <div class="col-lg-6 col-md-6">
+                        <label class="indlabel">IMEI No.</label>&nbsp;
+                        <span class="mandatory">*</span>
+                        <input type="text" class="form-control" style=" font-size:12px" placeholder="Enter IMEI No."
+                          tabindex="10" minlength="15" maxlength="15" [(ngModel)]="imeinoText" id="IMEINoentry"
+                          #imeino="ngModel" onkeypress="return isNumberKey(event)">
+                        <div class="invalidmsg" *ngIf="imeino.errors?.minlength">
+                          IMEI number must be 15 characters long.
+                        </div>
+                        <span class="invalidmsg" id="msg_pincode"></span>
+                      </div>
+
+                      <div class="col-lg-6 col-md-6">
+                        <label class="indlabel">Device Serial No.</label>&nbsp;
+                        <span class="mandatory">*</span>
+                        <input type="text" class="form-control" style=" font-size:12px" placeholder="Enter Serial  No."
+                          tabindex="11" minlength="8" maxlength="25" [(ngModel)]="deviceserialText"
+                          id="deviceserialentry" #serialno="ngModel" onkeypress="return isNumberKey(event)">
+                        <div class="invalidmsg" *ngIf="serialno.errors?.minlength">
+                          Serial number must be minimum length 8 characters & maximum 25 characters.
+                        </div>
+                        <span class="invalidmsg" id="msg_pincode"></span>
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <div class="col-lg-6 col-md-6 mt-3">
+                        <input type="checkbox" [checked]="true" id="checkboxdata" class="showscheckbox" tabindex="12"
+                          [(ngModel)]="theCheckbox" data-md-icheck
+                          (change)="toggleEditable($event)" />&nbsp;&nbsp;<label class="indlabel text-capitalize">Do you
+                          want to enter Sim Details</label>
+                      </div>
+                    </div>
+                  </fieldset>
+                  <span class="invalidmsg" id="msg_error_contactentry" style="position: absolute;bottom:10px;"></span>
+                </div>
+
+                <div id="stepentry-16" class="">
+                  <fieldset style="width: 741px;">
+                    <legend class="text-uppercase" style=" color: rgb(173, 247, 150);">Sim Details</legend>
+                    <div class="form-group row">
+                      <div id="basnet1" class="col-lg-3 col-md-3">
+                        <label class="indlabel">Network</label>&nbsp;
+                        <span class="mandatory">*</span>
+                        <ngx-select-dropdown tabindex="13" id="networkentry" [multiple]="false"
+                          [(ngModel)]="network1Obj" [config]="config" (change)="SimList1()" [options]="networklist$">
+                        </ngx-select-dropdown>
+                      </div>
+
+                      <div id="basmob1" class="col-lg-3 col-md-3">
+                        <label class="indlabel">Mobile No</label>
+                        <span class="mandatory">*</span>
+                        <ngx-select-dropdown tabindex="14" id="mobilenoentry" [multiple]="false"
+                          [(ngModel)]="mobile1obj" [config]="configmobile"
+                          (change)="mobile1Textentry = mobile1obj.param3; mobiledrpchange();" [options]="simlistArr1">
+                        </ngx-select-dropdown>
+
+                        <input type="text" class="form-control" id="mobile1objdummy" [(ngModel)]="mobile1objTextdummy"
+                          style=" display: none;">
+                      </div>
+
+                      <div class="col-lg-2 col-md-2" id="addnewbtnid">
+                        <button id="save" class="mb-2 btn btn-wizard btn-sm btnadd btn-secondary"
+                          (click)="pushSimEntries()" style="margin-top: 30px;" tabindex="15">
+                          <i class="material-icons">add</i>
+                        </button>
+                      </div>
+
+                      <div id="aismob1" class="col-lg-3 col-md-3" *ngIf="devicetypeName=='AIS-140'">
+                        <label class="indlabel">Mobile No</label>
+                        <span class="mandatory">*</span>
+                        <input type="text" class="form-control" style=" font-size:12px" placeholder="Mobile No1."
+                          tabindex="9" minlength="10" maxlength="13" [(ngModel)]="mobile1Textentry" #mobile1="ngModel"
+                          onkeypress="return isNumberKey(event)" id="mobile1identry">
+                        <div class="maxminwarn" *ngIf="mobile1.errors?.minlength">
+                          Mobile No.1 must be 10 to 13 characters long.
+                        </div>
+                      </div>
+
+                      <div id="aisnet2ent" class="col-lg-3 col-md-3">
+                        <label class="indlabel">Network 2</label>&nbsp;
+                        <span class="mandatory">*</span>
+                        <ngx-select-dropdown tabindex="11" id="network2entry" [multiple]="false"
+                          [(ngModel)]="network2Obj" [config]="config" (change)="SimList2()" [options]="networklist$">
+                        </ngx-select-dropdown>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+
+                      <div id="basicsimno" class="col-lg-5 col-md-5">
+                        <label class="indlabel">SIM No</label>&nbsp;
+                        <span class="mandatory">*</span>
+                        <input type="text" class="form-control" style=" font-size:12px" placeholder="SIM No."
+                          tabindex="14" minlength="19" maxlength="21" [(ngModel)]="SIMNoTextentry" #ICCIDNo="ngModel"
+                          onkeypress="avoidSplChars(event)" id="basicsimnoentry">
+                        <div class="maxminwarn" *ngIf="ICCIDNo.errors?.minlength">
+                          SIM No must be 19 to 21 characters long.
+                        </div>
+                      </div>
+
+                      <div class="col-lg-4 col-md-4" id="basicmobnoinput">
+                        <label class="indlabel">Mobile Number</label>
+                        <input type="text" name="mobileno" id="personmobilenumber" class="form-control"
+                          placeholder="Mobile Number" [(ngModel)]="personmobileNo" #permobilenoCtrl="ngModel"
+                          onkeypress="return isNumberKey(event)" required minlength="10" maxlength="13" tabindex="3">
+                        <span class="invalidmsg" *ngIf="permobilenoCtrl.errors?.minlength">
+                          Person Mobile Number should be between 10 to 13 digits
+                        </span>
+                      </div>
+
+
+                    </div>
+
+                    <div class="form-group row">
+                      <div id="aismob2ent" class="col-lg-3 col-md-3" style="display: block;">
+                        <label class="indlabel">Mobile No 2</label>&nbsp;
+                        <span class="mandatory">*</span>
+                        <input type="text" class="form-control" placeholder="Mobile No2." tabindex="11" minlength="10"
+                          maxlength="13" [(ngModel)]="mobile2Textentry" #mobile2="ngModel"
+                          onkeypress="return isNumberKey(event)" id="mobile2identry">
+                        <div class="maxminwarn" *ngIf="mobile2.errors?.minlength">
+                          Mobile No.2 must be 10 or 13 characters long.
+                        </div>
+                      </div>
+
+                      <div id="aisiccent" class="col-lg-3 col-md-3">
+                        <label class="indlabel">ICCID No</label>&nbsp;
+                        <span class="mandatory">*</span>
+                        <input type="text" class="form-control" style=" font-size:12px" placeholder="ICCID No."
+                          tabindex="13" minlength="19" maxlength="21" [(ngModel)]="ICCIDNoTextentry"
+                          #ICCIDNoctrl="ngModel" onkeypress="avoidSplChars(event)" id="iccidnoidentry">
+                        <div class="maxminwarn" *ngIf="ICCIDNoctrl.errors?.minlength">
+                          ICCIDNo must be 19 to 21 characters long.
+                        </div>
+
+                      </div>
+
+                    </div>
+                  </fieldset>
+                  <span class="invalidmsg" id="msg_error_simdetailsentry"
+                    style="position: absolute;bottom:10px;"></span>
+                </div>
+                <div id="stepentry-17" class="">
+                  <h1>THIS iS 4th step</h1>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Modal footer -->
+
+      <div class="modal-footer" id="modelfooter">
+
+        <div class="actionBar">
+          <button id="couriersaveentry" class="mb-2 btn btn-sm btn-success buttonFinish"
+            (click)="courierdevicesavebtn()">
+            <i class="material-icons">save</i>
+          </button>
+          <button id="receivedsaveentry" class="mb-2 btn btn-sm btn-success buttonFinish"
+            (click)="handtohanddevicesavebtn()">
+            <i class="material-icons">save</i>
+          </button>
+          <button id="nextentry" class="mb-2 btn btn-sm btn-primary buttonNext">
+            <i class="material-icons">arrow_forward</i>
+          </button>
+
+          <button id="preventry" class="mb-2 btn btn-sm btn-primary buttonPrevious">
+            <i class="material-icons">arrow_back</i>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="notifymodel">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-contentno">
+
+      <!-- Modal Header -->
+      <div class="modal-header" style="background-color: 	rgb(133, 195, 197);">
+        <h4 class="modal-title text-center" style="color: rgb(0, 0, 0)">Error</h4>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body" style="background-color: white;">
+        {{datafromrespo}}
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer" style="background-color: 	rgb(255, 255, 255); margin-right: 0px;">
+        <button class="btn btn-success" data-dismiss="modal"><span class="material-icons">
+            highlight_off
+          </span></button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="modal fade " id="SuccessModalEntry" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+  aria-hidden="true">
+  <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+    <div class="modal-content box-shadow">
+      <div class="card border-0">
+        <div class="card-header py-1 pl-3 m-0" style="background-color: green;">
+          <p style="font-size:17px; font-weight:bold"> Success </p>
+        </div>
+        <div class="card-body bg-white text-dark">
+          <p> {{datafromrespo}}</p>
+          <div class="text-right">
+            <button class="btn btn-sm btn-success" (click)="closemodal()" data-dismiss="modal">ok</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade " id="ErrorModalEntry" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+  aria-hidden="true">
+  <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+    <div class="modal-content box-shadow">
+      <div class="card  border-0">
+        <div class="card-header  py-1 pl-3 m-0" style="background-color: red;">
+          <p style="font-size:17px; font-weight:bold"> Error </p>
+        </div>
+        <div class="card-body bg-white text-dark">
+          <p> {{datafromrespo}}</p>
+          <div class="text-right">
+            <button class="btn btn-sm btn-success" data-dismiss="modal">ok</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

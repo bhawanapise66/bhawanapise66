@@ -1,0 +1,278 @@
+<!--
+Developer 	: Aditya Londhe
+Date      	: 29-04-2021
+Description : Transection Log Details
+Modified By:  
+Update date : 
+-->
+<div class="content shadow-sm">
+  <!-- Main container starts -->
+  <div class="container-fluid main-container" id="main-container">
+    <div class="row">
+      <div class="col-12 col-md-12 col-lg-12 col-xl-12 mx-auto align-self-center">
+        <div class="card shadow-sm border-0 mb-4">
+          <div class="card-header" style="padding-top: 0; padding-bottom: 0">
+
+           
+            <h4 class="text-left m-1" style="font-size: 15px;">Transaction 
+              <span class="text-template-primary" style="color: #00ed54">Log</span>
+             
+            </h4>
+           
+          </div>
+          <div class="container-fluid">
+          <div class="col-lg-12 col-md-12">
+            <div class="form-group row">
+
+              
+
+                <div class="col-lg-2 col-md-2">
+                  <label class="indlabel">Filter By</label>
+                  <span class="mandatory">*</span>
+                 
+                  <ngx-select-dropdown tabindex="8" id="supplytypeentry" [multiple]="false" [(ngModel)]="filter_by"  
+                  [config]="config2" [options]="options" (change)="filterbchangey()" ></ngx-select-dropdown>
+                  <span class="invalidmsg" id="msg_vendorName"></span>
+  
+                </div>
+                <div class="col-lg-3 col-md-3" style="display: none;">
+                    <label class="indlabel">Dummy Device Type</label>
+                    <span class="mandatory">*</span>
+                    <input type="text" class="form-control" placeholder="Enter Device type" tabindex="1" required minlength="3" maxlength="50"
+                      id="devicetypedummy" onpaste="return false;" [(ngModel)]="supplyidreturn" ondrop="return false;">
+                  </div>
+
+                  <div class="col-lg-3 col-md-3" id="custname" style="display: none;">
+                    <label class="indlabel">Customer Name</label>
+                    <span class="mandatory">*</span>
+        
+                    <ngx-select-dropdown tabindex="0" (change)="customerchangeValue()" [multiple]="false"
+                      [(ngModel)]="customerObj" [config]="config" [options]="ListOfCustomer" style="font-size: 12px;">
+                    </ngx-select-dropdown>
+        
+        
+                    <span class="invalidmsg" id="msg_devicetype"></span>
+                  </div>
+
+                  <div id="basnet1" class="col-lg-3 col-md-3" style="display: none;">
+                    <label class="indlabel">Network</label>
+                    <span class="mandatory">*</span>
+                   
+                    <ngx-select-dropdown tabindex="0" id="Network1idupdate" [multiple]="false" [(ngModel)]="selectnetwork1_Text" (change)="networkchangeValue()"
+                    [config]="config" [options]="network1list" ></ngx-select-dropdown>  
+                  
+                     
+                   
+                    <span class="invalidmsg" id="msg_vendorName"></span>
+                  </div>
+
+                  <div class="col-lg-3 col-md-3" id="vendor" style="display: none;">
+                    <label class="indlabel">Vendor</label>
+                    <span class="mandatory">*</span>
+                    <ngx-select-dropdown tabindex="0" id="vendorId" [multiple]="false" [(ngModel)]="vendorObj"
+                      [config]="config" [options]="vendorList" (change)="vendorchangeValue()">
+                    </ngx-select-dropdown>
+
+                  </div>
+
+                  <div class="col-lg-3 col-md-3" id="device" style="display: none;">
+                   
+                    <label class="indlabel">Device List</label>
+                    <span class="mandatory">*</span>
+                   
+                    <ngx-select-dropdown tabindex="0" id="devicelist" [multiple]="false" (change)="devicechangeValue()" [(ngModel)]="devicelistText"
+                    [config]="config" [options]="ListOfDevicelist" ></ngx-select-dropdown>
+                   
+
+                    <span class="invalidmsg" id="msg_vendorName"></span>
+                  </div>
+
+                  <div class="col-lg-3 col-md-3" id="devicetype" style="display: none;">
+                    <label class="indlabel">Device Type</label>
+                    <span class="mandatory">*</span>
+                   
+                    <ngx-select-dropdown tabindex="8" id="supplytypeentry" [multiple]="false" [(ngModel)]="dev_type"  
+                    [config]="config" [options]="ListOfDevicetype" (change)="devicetypechangevalue()" ></ngx-select-dropdown>
+                    <span class="invalidmsg" id="msg_vendorName"></span>
+    
+                  </div>
+                  <div class="col-lg-3 col-md-3" id="vehicle" style="display: none;">
+                    <label class="indlabel">Vehicle List</label>
+                    <span class="mandatory">*</span>
+                   
+                    <ngx-select-dropdown tabindex="8" id="vehiclelist" [multiple]="false" [(ngModel)]="vehicle_list"  
+                    [config]="config" [options]="vehicleList" (change)="vehiclechangevalue()" ></ngx-select-dropdown>
+                    <span class="invalidmsg" id="msg_vendorName"></span>
+    
+                  </div>
+
+                  <button type="button" class="btn btn-sm btn-primaryyel ml-2" style="margin-right: 15px; background-color: #f6c53b; font-size: 12px; margin-top: 30px;" (click)="searchfilter()">
+                  Search 
+                  <i style="color: black; margin-top: -4px;" class="fa fa-search"></i>
+  
+                </button>
+
+                </div>
+                </div> 
+                </div> 
+
+          <div class="card-body" style="padding: 5px;">
+            <div class="row justify-content-center">
+              <div class="col-md-12 mx-auto">
+                <div class="row">
+                  <div class="col-lg-12 col-md-12">
+                    <!-- <button type="button" class="btn btn-primary float-left" data-toggle="modal" >
+                        ADD NEW
+                      </button> -->
+                   
+                  </div>
+                </div>
+
+                <div class="container-fluid main-container" id="main-container">
+                 
+                   
+                  
+
+             <!--    ---------------        Table Header Staret=------------------------    -->
+           
+             <div class="row  mx-1">
+              <div class="col-12 col-sm-12 col-md text-md-left align-self-center pr-0">
+                <ul class="nav  justify-sm-content-center  justify-content-left">
+                  <li class="nav-item ">
+                    <div class="input-group" style="max-width: 250px;">
+                      <input type="text" placeholder="Search" class="form-control searchicon " id="searchData" [(ngModel)]="filter" aria-label="Amount (to the nearest dollar)">
+                      <div class="input-group-append">
+                        <button class="btn  apendbtn" (click)="searchdata()">
+                          <i style="color: #00ed54; margin-top: -15px;" class="fa fa-search"></i>
+                        </button>
+                      </div>
+                    </div>
+                  </li>
+                  <li class="nav-item mx-3">
+                    <i class="fa fa-refresh fa-2x fa-spin-hover" style="font-size: 17px;
+                    padding-top: 4px;color: #00fff3;" (click)="Refreshfunction()"></i>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="col-12 col-sm-12 col-md-auto text-right text-md-end pl-0">
+                <ul class="nav justify-content-center justify-lg-content-end  justify-sm-content-center">
+                  <li class="nav-item mx-2">
+                    <img style="cursor: pointer; height: 20px; margin-top: 3px;" (click)="createPDF()"
+                      ngbTooltip="PDF" src="assets/images/PDFicon.png">
+                  </li>
+                  <li class="nav-item mx-2">
+                    <img style="cursor: pointer;" (click)="exportToExcel()" ngbTooltip="Excel"
+                      src="assets/images/excellogo.png">
+                  </li>
+                  <li class="nav-item mx-3">
+                    <span style="display: inline;font-size:12px;font-weight :bold;">Show Rows : </span> <select class="form-control p-1"
+                    style="width: 44px;display: inline;" data-live-search="true" tabindex="1" id="selectrow1" (change)="SelectRows()" aria-hidden="true"
+                    [(ngModel)]="itemsPerPage">
+                      <option value="5">5</option>
+                      <!-- <option value="5">5</option> -->
+                      <option value="10" selected>10</option>
+                      <option value="20">20</option>
+                      <option value="50">50</option>
+                    </select>
+                  </li>
+                  <li class="nav-item pt-1">
+                    <span style="font-size:12px;font-weight: bold;">Total Records : {{viewcountdata}} of {{count}}</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+         <!-- ---------------------  Table header end  ------------------------------ --> 
+                 
+                  
+                  <div id="PDFTable" class="card-body table-responsive" #epltable>
+                    <table class="table table-hover table-striped">
+                      <thead >
+                        <tr role="row">
+                          <th><span (click)="sort('rowNumber')">#</span> 
+                            <!-- <span class="material-icons">
+                            import_export
+                            </span>  -->
+                          </th>
+                          <th ><span (click)="sort('param13')"></span> Device Type</th>
+                          <!-- <th class="all sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 86px;" aria-label="Order ID: activate to sort column descending" aria-sort="ascending">Order ID</th> -->
+                          <th><span (click)="sort('param4')"></span>  Device IMEI</th>
+                          <!-- <th (click)="sort('rowNumber')">CIN No</th> -->
+                          <th><span (click)="sort('param5')"></span>Device Serial No.</th>
+                          <th><span (click)="sort('param6')"></span>Sim No. / ICCID No.</th>
+                          <th><span (click)="sort('param7')"></span>Mobile 1 / Mobile 2</th>
+                          <th><span (click)="sort('param9')"></span>Network1 / Network 2</th>
+                          <th><span (click)="sort('param19')"></span>Vehicle No.</th>
+                          <th><span (click)="sort('param20')"></span>Vehicle Chassis No</th>
+                          <th><span (click)="sort('param22')"></span>Vehicle Type</th>
+                          <th><span (click)="sort('param27')"></span>Customer Name</th>
+                          <th><span (click)="sort('param28')"></span>Customer MobileNo.</th>
+                          <th><span (click)="sort('param30')"></span>Device Entry Date</th>
+                          <th><span (click)="sort('param31')"></span>Sim Assign Date</th>
+                          <th><span (click)="sort('param21')"></span>Installation Date</th>
+                          <th><span (click)="sort('param17')"></span>Vehicle Assign Date</th>
+                          <th><span (click)="sort('param32')"></span>Renewal Date</th>
+                          <th><span (click)="sort('param15')"></span>Status</th>
+
+                        </tr>
+                      </thead>
+                      <tbody id = "grid"> 
+                        <tr *ngFor="let com of TranlogDetails$ | filter:filter | orderBy: key : reverse | paginate : {itemsPerPage:itemsPerPage,currentPage:pageNo,totalItems:count} ;" class="trheight">
+                          <td>{{com.rowNumber}}</td>    <!-- -->
+                          <td>{{com.param13}}</td>    <!-- Device Type-->
+                          <!-- <td>{{com.param13}}</td> -->
+                          <td>{{com.param4}}</td>    <!-- Device IMEI -->
+                          <td>{{com.param5}}</td>    <!--Device Serial No. -->
+                          <td>{{com.param6}}</td>     <!-- Sim No. / ICCID No. -->
+                          <td>{{com.param7}} / {{com.param8}}</td>  <!-- Mobile 1 / Mobile 2 -->
+                          <td>{{com.param9}}</td>     <!-- Network1 / Network 2-->
+                          <td>{{com.param19}}</td>    <!-- Vehicle No-->
+                          <td>{{com.param20}}</td>     <!-- chassis no -->
+                          <td>{{com.param22}}</td>   <!-- Vehicle Type-->
+                          <td>{{com.param27}}</td>    <!-- customer name -->
+                          <td>{{com.param28}}</td>    <!-- cuatomer mobile no-->
+                          <td>{{com.param30}}</td>     <!-- Device Entry Date-->
+                          <td>{{com.param31}}</td>     <!-- Sim Assign Date -->
+                          <td>{{com.param21}}</td>     <!-- Installation Date -->
+                          <td>{{com.param17}}</td>     <!-- Vehicle Assign Date -->
+                          <td>{{com.param32}}</td>     <!-- Renewal Date-->
+                          <td>{{com.param15}}</td>   <!-- status-->
+
+                          <!-- <td [ngStyle]="{'background-color':com.altColor}" class="viewbtncss">
+                            <span class="iconhover" data-toggle="modal" data-target="#myModalwizard" (click)="setdata(com)">
+                              <i class="material-icons" style="color: #161e43">visibility</i>
+                            </span>
+                          </td> -->
+                        </tr>
+                           
+
+
+                      </tbody>
+                      <tfoot id= "foot" class="box-footer clearfix">
+                          <tr>
+                              <td colspan="18">
+                                <pagination-controls  style=" float: right;" (pageChange)="pageChanged($event)" ></pagination-controls>                                               
+                              </td>
+                          </tr>
+                      </tfoot>
+                      
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+ 

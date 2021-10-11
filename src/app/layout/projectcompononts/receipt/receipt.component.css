@@ -1,0 +1,16 @@
+*{color: black;}
+.card{background-color: white;}
+.tlabel{width: 20%;height: 50px;font-weight: bold;}
+table{width: 100%;}
+.form-control{background:white;border: none;border-bottom: 1px solid black;}
+.form-control:hover{border: none;border-bottom: 3px solid black;}
+.form-control:focus{        outline: none;    border: none;border-bottom: 3px solid black;}
+.form-control-sm{background:white;border: none;border-bottom: 1px solid black;}
+.form-control-sm:hover{border: none;border-bottom: 3px solid black;}
+.form-control-sm:focus{        outline: none;  border: none;border-bottom: 3px solid black;}
+#heading{position: absolute;font-weight: bold;display: inline-flex;top: 51px;left: 200px;}
+hr{border: 1px solid gray;}
+#contact{font-weight: bold;text-align: center;margin: 0;}
+#nameinput{background:white;border: none;border-bottom: 1px solid black;}
+#nameinput:hover{border: none;border-bottom: 3px solid black;}
+#nameinput:focus{border: 3px solid gray;}

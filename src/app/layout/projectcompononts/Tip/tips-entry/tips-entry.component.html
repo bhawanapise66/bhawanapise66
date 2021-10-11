@@ -1,0 +1,369 @@
+<!-- developer :dhammadeeep
+date : 13-10-2020
+description: role management master -->
+
+<div class="content shadow-sm">
+  <!-- main content starts -->
+
+  <div class="container-fluid main-container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card shadow-sm mb-3">
+          <div class="card-header p-0">
+            <h4 class="text-left m-1 ml-2 fs15">Tips
+              <span class="text-template-primary" style="color: #00ed54">Entry</span>
+              <button type="button" class="btn btn-sm btn-primaryyel ml-2 float-right" style="margin-right: 89px; "
+                data-toggle="modal" data-target="#exampleModal" id="addnew">
+                ADD NEW
+                <i class="material-icons md-18">navigate_next</i>
+
+              </button>
+            </h4>
+          </div>
+          <div class="card-body">
+            <div class="row justify-content-center">
+              <div class="col-md-12">
+                <!-- <button type="button" class="btn btn-sm btn-outline-template " data-toggle="modal" style="width: 100px;"
+                  data-target="#exampleModal">
+                  ADD NEW
+                  <i class="material-icons md-18">navigate_next</i>
+                </button> -->
+              </div>
+            </div>
+
+            <div class="container-fluid main-container" id="main-container">
+              <!--    ---------------        Table Header Staret=------------------------    -->
+              <div class="row mb-3">
+                <div class="col-12 col-sm-12 col-md text-md-left align-self-center pr-0">
+                  <ul class="nav  justify-sm-content-center  justify-content-left">
+                    <li class="nav-item ">
+                      <div class="input-group" style="max-width: 250px;">
+                        <input type="text" placeholder="Search" id="searchData" class="form-control searchicon"
+                          id="searchData" [(ngModel)]="filter" aria-label="Amount (to the nearest dollar)">
+                        <div class="input-group-append">
+                          <button class="btn  apendbtn" (click)="searchdata()" [disabled]="filter==''">
+                            <i style="color: #00ed54; margin-top: -15px;" class="fa fa-search"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </li>
+
+                    <li class="nav-item mx-3">
+                      <i class="fa fa-refresh fa-2x fa-spin-hover" style="font-size: 17px;
+                      padding-top: 4px;color: #00fff3;" (click)="Refreshfunction()"></i>
+                    </li>
+
+                    <li class="nav-item mx-3">
+                      <div style="width: 200px;">
+                        <ngx-select-dropdown tabindex="0" id="pageforselection" [multiple]="false" [(ngModel)]="tipObj"
+                          [config]="config" [options]="pageList" (change)="getSelectedTip()" style="font-size: 12px;">
+                        </ngx-select-dropdown>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+
+                <div class="col-12 col-sm-12 col-md-auto text-right text-md-end pl-0">
+                  <ul class="nav justify-content-center justify-lg-content-end  justify-sm-content-center">
+                    <li class="nav-item mx-2">
+                      <img style="cursor: pointer; height: 20px; margin-top: 3px;" (click)="createPDF()"
+                        ngbTooltip="PDF" src="assets/images/PDFicon.png">
+                    </li>
+                    <li class="nav-item mx-2">
+                      <img style="cursor: pointer;" (click)="createExcel()" ngbTooltip="Excel"
+                        src="assets/images/excellogo.png">
+                    </li>
+                    <li class="nav-item mx-3">
+                      <span style="display: inline;">Show Rows : </span> <select class="form-control p-1"
+                        [(ngModel)]="itemsPerPage" style="width: 44px;display: inline;" (change)="changeItemsPerPage()">
+                        <option>5</option>
+                        <option>10</option>
+                        <option>20</option>
+                        <option>50</option>
+                      </select>
+                    </li>
+                    <li class="nav-item pt-1">
+                      <span>Total Records : {{viewcount}} of {{totalcount}}</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <!-- ---------------------  Table header end  ------------------------------ -->
+
+
+              <hr>
+              <div class="table-responsive text-center">
+                <table class="table table-hover table-striped">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Page Name</th>
+                      <th>Tips </th>
+                      <th>Record Date</th>
+                      <th *ngIf="keybooleana1">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="grid" title="When Click On Header Columns then show Asc to Desc / Desc to Asc records.">
+                    <tr
+                      *ngFor="let item of tipdetailsgrid | filter:filter | paginate : {itemsPerPage:itemsPerPage,currentPage:pageNumber,totalItems:totalcount} ;"
+                      class="trheight">
+                      <td>{{item.rowNumber}}</td>
+                      <td>{{item.param9}} </td>
+                      <td>{{item.param3}}</td>
+                      <td>{{item.param4}} </td>
+                      <td *ngIf="keybooleana2"><span class="iconhover text-warning" data-toggle="modal"
+                          data-target="#exampleModal" placement="bottom" ngbTooltip="edit Entry"
+                          (click)="EditEntry(item)" id="edit1"><i class="material-icons">edit</i>
+                        </span>&nbsp;&nbsp;
+                        <span class="material-icons text-danger" style="cursor:pointer" placement="bottom"
+                          ngbTooltip="Delete Entry" id="deletebtn" data-toggle="modal"
+                          (click)="openModal(modeldelete,item.param1)" data-target="#modeldelete,item.param1">
+                          delete
+                        </span>
+
+                        <!-- Delete Model-->
+                        <ng-template #modeldelete let-modal style="width: min-content;">
+                          <div class="modal fade" id="modeldelete">
+                            <div class="modal-dialog modal-sm modal-dialog-centered">
+                              <div class="modal-content">
+
+                                <!-- Modal Header -->
+                                <div class="modal-header" style="background-color: 	#FF7F50;">
+                                  <h4 class="modal-title text-center" style="color: white">Are You
+                                    Sure?
+                                  </h4>
+                                  <button type="button" class="close" data-dismiss="modal"
+                                    (click)="modal.dismiss()">&times;</button>
+                                </div>
+
+                                <!-- Modal body -->
+                                <div class="modal-body">
+                                  <div class="form-group row">
+                                    <div class="col-lg-12 col-md-12">
+                                      <label class="indlabel">Remark</label>&nbsp;
+                                      <span class="indlabelstar">*</span>
+                                      <textarea class="form-control" rows="2" style=" font-size:12px"
+                                        placeholder="Enter Remark" tabindex="1" minlength="10"
+                                        [(ngModel)]="tipEntry.remarks" #regaddress="ngModel"></textarea>
+                                      <div class="maxminwarn" *ngIf="regaddress.errors?.minlength">
+                                        Remark must be at least of minimum 10 characters long.
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <p>Do You want to Delete !!&hellip;</p>
+                                </div>
+
+                                <!-- Modal footer -->
+                                <div class="modal-footer text-center">
+                                  <button type="submit" class="btndel btn-primary mr-3" tabindex="18"
+                                    data-dismiss="modal" (click)="modal.dismiss()">
+                                    No
+                                  </button>
+                                  <button tabindex="19" class="btndel btn-danger" data-dismiss="modal"
+                                    (click)="modal.dismiss();deleteTip(item.param1);">
+                                    Yes
+                                  </button>
+                                </div>
+
+                              </div>
+                            </div>
+                          </div>
+                        </ng-template>
+                        <!-- Delete Model -->
+
+
+
+                      </td>
+                    </tr>
+                  </tbody>
+                  <tfoot id="foot" class="box-footer clearfix">
+                    <tr>
+                      <td colspan="12">
+                        <pagination-controls style=" float: right;" (pageChange)="pageChanged($event)">
+                        </pagination-controls>
+                      </td>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="exampleModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+  aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document" style="width: 35rem;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 *ngIf="!toEdit" class="text-left m-1" style="font-size: 15px;">Tips
+          <span class="text-template-primary" style="color: #00ed54">Entry</span>
+        </h4>
+        <h4 *ngIf="toEdit" class="text-left m-1" style="font-size: 15px;">Tips
+          <span class="text-template-primary" style="color: #00ed54">Update</span>
+        </h4>
+
+        <!-- <h5 *ngIf="!toEdit" class="modal-title" id="exampleModalLabel">&nbsp;Tips Entry</h5>
+        <h5 *ngIf="toEdit" class="modal-title" id="exampleModalLabel">&nbsp;Tips Update</h5> -->
+
+        <div style="float:right; margin-left: 59%;">
+
+          <button type="button" class=" btn btn-sm btn-primary float-right ml-2" id="backdetailsbtn" ngbTooltip="Back"
+            style="display: none;">
+
+            <i class="material-icons md-18">arrow_back</i>
+          </button>
+        </div>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="refreshForm()">
+          <span aria-hidden="true" style="color: white">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div id="container">
+            <div id="singleEntry">
+              <div class="step-wizardentry" role="navigation">
+
+                <div class="stepsection">
+                  <span class="invalidmsg"></span>
+                  <div id="stepentry-14" class="stepsdiv">
+                    <div class="form-group row">
+                      <div class="col-lg-6 col-md-6">
+                        <label class="indlabel">Select Page</label>
+                        <span class="mandatory">*</span>
+
+                        <ngx-select-dropdown *ngIf="toEdit==true" tabindex="0" id="vehicle" style="font-size:14px"
+                          [multiple]="false" [(ngModel)]="pageObj" [config]="config" [options]="pageList"
+                          (change)="getePageIdforUpdate()">
+                        </ngx-select-dropdown>
+
+                        <ngx-select-dropdown *ngIf="toEdit==false" tabindex="0" id="vehicle" style="font-size:11px"
+                          [multiple]="false" [(ngModel)]="pageName" [config]="config" [options]="pageList"
+                          (change)="getPageId();">
+                        </ngx-select-dropdown>
+
+                      </div>
+
+                      <div class="col-lg-6 col-md-6">
+                        <label class="indlabel">Tip</label>
+                        <span class="mandatory">*</span><br>
+                        <textarea name="tip" id="tip" class="form-control" [(ngModel)]="tipEntry.tip"
+                          (keyup)="isTipEmpty = false"></textarea>
+
+
+                        <button class="btn btn-primary" style="margin-top: 5px; padding-top: 3px;float: right;"
+                          [disabled]="tipEntry.tip==null || tipEntry.tip==''" (click)="pushTip()">
+                          <span class="material-icons"> add </span>
+                        </button>
+                      </div>
+
+
+                      <br>
+                      <div class="col-md-12 col-lg-12 text-white" style="max-height: 150px;overflow: scroll;">
+                        <small class="text-danger" id="pageEmpty"> </small>
+                        <br>
+
+                        <table class="table table-hover table-striped table-bordered">
+                          <tr>
+                            <th> # </th>
+                            <th> description </th>
+                          </tr>
+                          <tr *ngFor="let item of tips;let i=index">
+                            <td> <span *ngIf="toEdit==true">{{item.rowNumber}} </span> <span *ngIf="toEdit==false">
+                                {{i+1}}</span></td>
+                            <td>{{item.description}} </td>
+                          </tr>
+                        </table>
+
+
+                      </div>
+
+                    </div>
+                  </div><br>
+                  <span class="invalidmsg" *ngIf="isPageEmpty ==true"> Please select page </span>
+                  <span class="invalidmsg" *ngIf="isTipEmpty ==true"> Please enter tip </span>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <div class="row container">
+          <div class="col-md-7" style="margin-left: -15px;">
+            <textarea *ngIf="toEdit" class="form-control bg-white" rows="1" placeholder="Enter Remark" tabindex="21"
+              minlength="10" maxlength="40" id="remarkupdate" [(ngModel)]="remarkText" #remark="ngModel"
+              required></textarea>
+
+            <small class="text-danger" id="remarkmsg"></small>
+            <!-- <div class="invalidmsg" id="remarkmsg">
+              Remark must be 10 to 40 characters long.
+            </div> -->
+          </div>
+          <div class="col-md-5">
+            <div class="actionBar">
+              <button *ngIf="toEdit==false" id="saveentry" class="mb-2 btn btn-sm btn-success buttonFinish"
+                (click)="insertTip()" [disabled]="!tableEmpty"><i class="material-icons">save</i></button>
+              <button [disabled]="tips.length==0" *ngIf="toEdit==true" id="editentry"
+                class="mb-2 btn btn-sm btn-warning" style="float: right;" (click)="updateTips()"><span
+                  class="material-icons">
+                  edit
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+<div class="modal fade " id="insertSuccess" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+  aria-hidden="true">
+  <div class="modal-dialog modal-sm dialogModal" role="document">
+    <div class="modal-content box-shadow">
+      <div class="card text-center border-0">
+        <div class="card-header bg-success m-0 p-0">
+          <h5>Success</h5>
+        </div>
+        <div class="card-body bg-white">
+          {{errorMessage}}
+          <div class="text-right">
+            <button class="btn btn-sm btn-success" data-dismiss="modal">ok</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade " id="Error" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+  aria-hidden="true">
+  <div class="modal-dialog modal-sm dialogModal" role="document">
+    <div class="modal-content box-shadow">
+      <div class="card text-center border-0">
+        <div class="card-header bg-warning m-0 p-0">
+          <h5>Failed</h5>
+        </div>
+        <div class="card-body bg-white">
+          {{errorMessage}}
+          <div class="text-right pt-3">
+            <button class="btn btn-sm btn-success" data-dismiss="modal">ok</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

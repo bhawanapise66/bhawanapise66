@@ -1,0 +1,224 @@
+<app-sidebar (collapsedEvent)="receiveCollapsed($event)" class="sidebar" style="background-color: #fff;"></app-sidebar>
+
+<!-- wrapper starts -->
+<div id="capture" class="wrapper py-0" (click)="toggleSidebar()">
+  <div class="content shadow-sm">
+    <app-header class="header-fluid" id="header-container"></app-header>
+    <div class="container-fluid header-container">
+      <div class="row header">
+        <!-- <div class="col-12 col-md-12 col-lg-12 col-xl-12 "> -->
+          <!-- <app-header class="container-fluid " id="header-container"></app-header> -->
+        <!-- </div> -->
+        <!-- <div class="row submenu">
+          <app-subheader class="container-fluid" id="submenu-container"></app-subheader>
+        </div> -->
+      </div>
+
+      <!-- Main container starts -->
+      <div class="container-fluid main-container mt-3" id="main-container" v>
+        <div class="row vh-100 loader" id="mainloader">
+          <div class="container-fluid align-self-center text-center">
+            <div class="lds-roller" style="    margin-top: 15%;">
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+          </div>
+        </div>
+
+        <router-outlet></router-outlet>
+
+
+      </div>
+      <!-- Main container ends -->
+    </div>
+     <div class="col-md-3 col-lg-3 col-xl-3 form-popup" id="myForm">
+      <div class="col-md-12 col-lg-12 col-xl-12">
+      <span ngbTooltip="Click on Have An Issue." style=" font-size: 14px; text-align: center; padding-left: 29%; color: rgb(2, 22, 131); font-weight: bold;">Have An Issue!!!</span>
+
+      <button type="button" class="btn cancel" (click)="closeForm()" style=" height: 25px; width: 25px; padding-bottom: 17px;
+             margin-top: -52px;color: rgb(194, 7, 7);margin-left: 100%; font-weight: bold;">X</button>
+      </div>
+     
+      &nbsp;<button type="button" class="mb-2 shadow-sm mr-2 btn text-success" (click)="downloadimage();">
+        <i class="material-icons">file_download</i> Download</button>&nbsp;<button type="button" 
+        class="mb-2 shadow-sm mr-2 btn text-primary" (click)="MailSection();"><i class="material-icons">border_color</i> Write Your Query</button>
+      <textarea type="text" placeholder="Enter Reason here..." name="reason" rows="3" style=" width: 99%;" id="reason"
+        required></textarea>
+        <div style=" width:284px; float: left;">&nbsp;</div>
+        <div >
+          <button id="bsend" [(ngModel)]="btnsend" type="button" class="mb-2 shadow-sm mr-2 btn btn-success " 
+          (click)="sendemail()" style=" background-color: #1fc96E; padding: 1%; ">Send</button>         
+        </div>
+  
+        <img src={{capturedImage}} alt="" height="95" width="330" style=" margin-left: 0%;">
+      <br>
+    </div> 
+    <app-footer class="footer footer-fluid"></app-footer>
+  </div>
+</div>
+<!-- wrapper ends -->
+
+
+<app-tip-section> </app-tip-section>
+
+<div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+  data-backdrop="static" data-keyboard=false aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header pt-1 pb-0" style="background-color: #d0d341;">
+        <h4><b> Session Timeout</b></h4>
+      </div>
+      <div class="modal-body">
+        <p>Your session has been expired.System is idle for a long time .<br>
+          login again to continue session
+        </p>
+      </div>
+      <div class="modal-footer pt-1 pb-1" style="float: right; background-color: rgb(225, 225, 248);">
+        <button class=" btn btn-sm btn-danger" data-dismiss="modal" (click)="okay()"> ok</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+ 
+<div class="wrap-fixed-float wrap-fixed-top-right" (click)="openFormscr()" 
+style="    margin-top: 3px; display: none;
+margin-right: -15px;
+color: #fff;
+cursor: pointer;
+writing-mode: vertical-rl;
+text-orientation: upright;"  > 
+  Have An Issue
+</div>
+
+<!-- <div  style=" position: fixed;
+top: 29px;
+z-index: 10;
+right: 377px;
+color: #f81515; cursor: pointer;
+font-weight: bold;" (click)="openFormscr()" > 
+  Have an issue
+</div> -->
+
+  <!-- <div  style="   position: fixed; top: -50px; z-index: 10; right: 162px;"  > 
+    <ul class="redesSociais">
+      <li class="facebook"><a target="_blank" ngbTooltip="Download Screenshot" (click)="downloadimage()"><i class="material-icons" style="color:#64C803;">file_download</i></a></li> 
+      <li class="googleplus"><a target="_blank" ngbTooltip="Take a Screenshot" (click)="openForm()" data-toggle="modal" data-target="#myModal2"><i class="material-icons" style="color:#FFBF00;">add_a_photo</i></a></li>
+    </ul>
+    
+  </div> -->
+<!--  -->
+
+<div class="modal fade" id="exampleModalscr" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document" data-backdrop="static" data-keyboard="false">
+    <div class="modal-content">
+      <div class="modal-header" style=" background-color: rgb(2, 7, 68); height: 1%; text-decoration: none;">
+        <h5 class="modal-title" id="exampleModalLabel" style=" color:#fff; text-decoration: none; border-bottom: 1px solid #fff;">Have An Issue!!!</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" > <!-- (click)="clearfunction();" -->
+          <span aria-hidden="true" style="color: #fff">×</span>
+        </button>
+      </div>
+      <div class="modal-body"  >
+        <div class="container-fluid">
+          <div id="container">
+            &nbsp;&nbsp;&nbsp;<button type="button" class="mb-2 shadow-sm mr-2 btn text-success" (click)="downloadimage();"><i class="material-icons">file_download</i> Download</button>&nbsp;&nbsp;<button type="button" class="mb-2 shadow-sm mr-2 btn text-primary" (click)="MailSection();"><i class="material-icons">border_color</i> Write Your Query</button><br>
+            <textarea id ="reason" type="text" placeholder="Enter Reason here..." name="reason" rows="4" style=" width: 96%;
+            margin-left: 2%; " [(ngModel)]="txtreason"
+        required></textarea><br> 
+
+            <img src={{capturedImage}} alt="" height="470" width="860" style=" margin-left: -4%;">
+          </div>
+        </div>
+      </div><br>
+      <!-- Modal footer -->
+
+      
+          <button id="bsend" [(ngModel)]="btnsend" type="button" class="mb-2 shadow-sm mr-2 btn btn-success " (click)="sendemail()" style=" background-color: #1fc96E; ">Send</button>         
+      
+    </div>
+  </div>
+</div>
+
+<app-flast-alert></app-flast-alert>
+
+
+<style>
+  
+.form-popup {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  right: 15px;
+  border: 2px solid #6d48f1;
+  border-radius: 2%;
+  background-color: rgb(2 17 67);
+  z-index: 9;
+  /* width: 22%; */
+  background-color: #fff;
+}
+
+ 
+
+.btn:hover{
+  background-color: rgb(245, 245, 245);
+}
+
+.modal-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 0.4rem 0.5rem;
+    border-bottom: 1px solid #dee2e6;
+    border-top-left-radius: .3rem;
+    border-top-right-radius: .3rem;
+}
+</style>
+
+<!-- <style>
+  ul.redesSociais {
+  padding-left: 0;
+  width: 620px;
+  height: 100px;
+  position: relative;
+  left: 50%;
+  margin-top: 50px;
+  margin-left: -310px;
+  margin-bottom: 50px;
+  cursor: pointer;
+}
+
+ul.redesSociais li {
+  list-style-position: inside;
+  display: block;
+  position: absolute;
+  right: 50%;
+  transition: all 500ms;
+}
+ul.redesSociais li.facebook {
+  /* transform: scale(0.5); */
+  margin-right: -12px;
+    margin-top: 4%;
+  z-index:1;
+}
+ul.redesSociais li.googleplus {
+  /* transform: scale(0.5); */
+  margin-right: -12px;
+    margin-top: 4%;
+  z-index:1;
+}
+
+ul.redesSociais:hover li.facebook {
+  margin-right: 10px;
+}
+ul.redesSociais:hover li.googleplus {
+  margin-right: -30px;
+}
+
+
+</style> -->

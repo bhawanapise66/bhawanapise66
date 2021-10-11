@@ -1,0 +1,77 @@
+<!-- chat window open -->
+
+<div class="wrap-fixed-float wrap-fixed-top-right">
+  <button class="" id="tipBtn" (click)="openTip();" placement="left" ngbTooltip="TIPS"
+    style="background: orange;border-radius: 20px;">
+    <span class="material-icons" style="margin-top: 4px;background: greenyellow;border-radius: 20px;">
+      help_outline 
+    </span>
+  </button>
+  <div class="chat-window card shadow" id="tipWindow">
+    <div class="card-header pb-0">
+      <h5 class="d-inline-block fs15 mb-0 text-white"><b>TIPS</b></h5>
+      <button class="btn btn-sm p-0 float-right chat-close text-white">
+
+        <span class="material-icons text-white" (click)="removeClass();">
+          close
+        </span>
+        <!-- </span> -->
+      </button>
+    </div>
+    <div class="card-body chat-list scroll-y p-0" style="background-color: white;">
+      <div class="p-2">
+        <div class="row left-chat" *ngFor="let item of tipdetailsgrid">
+          <div class="col-auto">
+          </div>
+          <div class="col pl-0">
+            <div class="style">
+              <div class="card" [ngStyle]="{'background-color': item.altColor}">
+                <div class="card-body p-2">
+                  <div class="row">
+                    <div class="col text-dark">
+                      <p id="para">{{item.param3}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="row left-chat">
+          <div class="col-auto">
+          </div>
+          <div class="col pl-0">
+            <div class="">
+              <div class="card" style="background-color: #cddcf2;">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col text-dark">
+                      Mobile number should be 10 digit numeric value
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row left-chat">
+          <div class="col-auto">
+          </div>
+          <div class="col pl-0">
+            <div class="card">
+              <div class="card-body" style="background-color: #97baec;">
+                <div class="row">
+                  <div class="col text-dark">
+                    Email id format should be : example@gmail.com
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- chat window closed -->

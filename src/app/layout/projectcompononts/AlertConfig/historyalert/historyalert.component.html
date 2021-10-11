@@ -1,0 +1,193 @@
+<div class="card-body" style="padding: 0px;" id="histryblock" style="display:block;">
+  <div class="row justify-content-center">
+    <div class="col-md-12 mx-auto">
+      <div class="container-fluid main-container" id="main-container">
+        <!--    ---------------        Table Header Staret=------------------------    -->
+        <div class="form-group row">
+          <div class="col-lg-2 col-md-2">
+            <label class="indlabel">Customer Name</label>
+            <span class="mandatory">*</span>
+
+            <ngx-select-dropdown tabindex="0" [multiple]="false" id="historyCustomer"
+              [(ngModel)]="SelectedCustomerforHistory" [config]="config" [options]="customerListforHistory"
+              style="font-size: 12px;">
+            </ngx-select-dropdown>
+            <span class="invalidmsg" id="msg_historycustomerEmpty"></span>
+          </div>
+
+          <div class="col-lg-2 col-md-2">
+            <label class="indlabel">Alerts</label>
+            <span class="mandatory">*</span>
+
+            <select class="form-control" data-live-search="true" tabindex="1" id="alerttyp"
+              [(ngModel)]="alertRecieveType" aria-hidden="true" style=" font-size:12px">
+              <!-- <option selected>SMS</option> -->
+              <!-- <option>Notification</option> -->
+              <option>Email</option>
+            </select>
+
+            <span class="invalidmsg" id="msg_DataEmptyHistory"></span>
+
+          </div>
+
+          <div class="col-lg-2 col-md-2">
+            <label class="indlabel"> Email Address.</label>
+            <span class="mandatory">*</span>
+            <input type="email" class="form-control" tabindex="9" placeholder="Please Enter Email Address" minlength="5"
+              [(ngModel)]="emailid" #emailCtrl="ngModel" style=" font-size:12px" required email ondrop="return false;"
+              onpaste="return false;" id="emailad">
+            <!-- <span class="invalidmsg" id="msg_email"></span> -->
+            <span class="invalidmsg" id="emailValidation" *ngIf="emailCtrl.invalid && submitted">
+              Please Provide Proper Email Address</span>
+          </div>
+
+          <div class="col-lg-2 col-md-2" *ngIf="alertRecieveType == 'Notification'">
+            <label class="indlabel"> Notification Status</label>
+            <span class="mandatory">*</span>
+            <br>
+            <label for="on">On</label>&nbsp; &nbsp;
+            <input type="radio" id="on" name="notification" [(ngModel)]="notification" value="true">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <label for="off">Off</label>&nbsp;&nbsp;
+            <input type="radio" id="off" name="notification" value="false" [(ngModel)]="notification" checked="checked">
+          </div>
+
+          <div class="col-lg-1 col-md-1">
+            <button id="save" class="mb-2 btn btn-wizard btn-sm btnadd btn-secondary" (click)="pushEntries()"
+              style="margin-top: 30px;">
+              <i class="material-icons">add</i>
+            </button>
+          </div>
+
+          <div class="col-lg-2 col-md-2" style="display: block" id="emailadd">
+            <label class="indlabel"> Alert Schedule Time.</label>
+            <span class="mandatory">*</span>
+            <input class="timepicker form-control" type='text' id="scheduleTime" name='scheduletime' value="00:00" />
+          </div>
+
+          <!-- ---------------------  Table header end  ------------------------------ -->
+
+
+
+        </div>
+
+        <div class="row">
+          <div class="col-12 col-md-12 col-lg-8 col-xl-8 mb-4">
+            <div class="card border-1 shadow-sm overflow-hidden h-100">
+              <div class="card-header">Alert Types</div>
+              <div class="card-body ">
+                <table class="table datatable display responsive w-100">
+                  <thead>
+                    <tr>
+                      <th class="all">#</th>
+                      <th class="all">Alerts Name</th>
+                      <th class="all">Description</th>
+                      <th class="all"> Speed / Duration</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let item of historyAlertList">
+                      <td>
+                        <input type="checkbox" id="checkedforhistory{{item.rowNumber}}">
+                      </td>
+                      <td>{{item.param2}} </td>
+                      <td>{{item.param3}} </td>
+                      <td id="input{{item.rowNumber}}">
+                        <div *ngIf="item.param2=='Over Speed'">
+                          <input type="text" id="overspeedCount{{item.rowNumber}}" placeholder="overspeed"
+                            [(ngModel)]="overSpeedCount">
+                        </div>
+                        <div *ngIf="item.param2.includes('Stop') == true">
+                          <input type="text" id="stoppageCount{{item.rowNumber}}" placeholder="stoppage">
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <span class="invalidmsg" id="msg_AlertSelectHistory"></span>
+
+                <br>
+                <button class="btn btn-success btn-sm" style="margin-left: 5%" (click)="insertHistoryAlert()">
+                  Save</button>
+                <button type="reset" class="btn btn-secondary btn-sm" style="margin-left: 10px"> Reset</button>
+
+              </div>
+            </div>
+          </div>
+
+
+          <div class="col-12 col-md-6 col-lg-4 col-xl-4 mb-4">
+            <div class="card border-1 shadow-sm overflow-hidden h-100">
+
+              <div class="card-header">Email List</div>
+              <div class="card-body " style=" height:200px ;overflow:scroll">
+
+                <table class="table table-hover table-striped" style="text-align: center">
+                  <thead>
+                    <tr role="row">
+                      <th>Email</th>
+                      <th>Remove</th>
+                    </tr>
+                  </thead>
+                  <tbody id="grid">
+                    <tr *ngFor="let item of emailList" class="trheight" id="deleteid" class="my-0">
+                      <td>{{item}}</td>
+                      <td>
+                        <div class="col-auto pr-0 align-self-center">
+                          <button class="btn btn-sm text-danger" (click)="deleteEntries(item)"><i
+                              class="material-icons">delete</i></button>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<div class="modal fade " id="historyinsertSuccessModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
+  role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-sm dialogModal" role="document">
+    <div class="modal-content box-shadow">
+      <div class="card text-center border-0">
+        <div class="card-header bg-success m-0 p-0">
+          <h5>Success</h5>
+        </div>
+        <div class="card-body bg-white">
+          {{historyresponseMessage}}
+          <div class="text-right">
+            <button class="btn btn-sm btn-success" data-dismiss="modal">ok</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade " id="historyErrorModal " data-backdrop="static" data-keyboard="false" tabindex="-1"
+  role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-sm modal-dialog-centered dialogModal" role="document">
+    <div class="modal-content box-shadow">
+      <div class="card text-center border-0">
+        <div class="card-header bg-warning m-0 p-0">
+          <h5>Failed</h5>
+        </div>
+        <div class="card-body bg-white">
+          {{historyresponseMessage}}
+          <div class="text-right pt-3">
+            <button class="btn btn-sm btn-success" data-dismiss="modal">ok</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

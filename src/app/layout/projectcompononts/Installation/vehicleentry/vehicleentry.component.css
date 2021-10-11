@@ -1,0 +1,246 @@
+.modelcolor{
+    background-color: rgb(55, 55, 149);
+} 
+
+.modal-title {
+    font-weight: bold;
+    margin-bottom: 0;
+    line-height: 1.0;
+    color: #cfdfff;
+    font-size: 19px; 
+}
+
+.indsubhead {
+    color: #0aff6c;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.fa-spin-hover:hover {
+    animation: fa-spin 2s infinite linear;
+}
+@keyframes fa-spin{0%{transform:rotate(0deg);transform:rotate(0deg)}100%{transform:rotate(359deg);transform:rotate(359deg)}}
+@keyframes fa-spin{0%{transform:rotate(0deg);transform:rotate(0deg)}100%{transform:rotate(359deg);transform:rotate(359deg)}}
+
+.statustd{
+    text-transform: uppercase;
+}
+.iconhover{
+    
+    cursor: pointer !important;
+}
+
+
+.mandatory{
+    color: red;
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.btn {
+    height: 25px !important;
+}
+
+
+#container {
+    position: relative;
+    text-align: center;
+    max-width: 100%;
+    box-sizing: border-box;
+    margin: 0 auto;
+}
+
+.buttons {
+    position: absolute;
+    top: 180px;
+    text-align: center;
+    width: 100%;
+}
+
+.btn {
+    width: 50px;
+    height: 30px;
+}
+
+
+.invalidmsg{
+    color:red;
+    font-size: 10px;
+    font-weight: bold;
+}
+
+.form-group label {
+    font-size: 10px;
+    color: black;
+    font-weight: bold;
+}
+
+.StepTitle{
+    line-height: 2.5;
+    color: #00ffff;
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.btn-primary.disabled, .btn-primary:disabled{
+    color: #fff;
+    background-color: #f3ec18;
+    border-color: #f3ec18;
+}
+
+.buttonDisabled {
+    color: #F8F8F8 !important;
+    background-color: #72ccda !important;
+    border: 1px solid #CCCCCC !important;
+    cursor: text;
+}
+
+.actionBar
+ {
+    display: block;
+    position: relative;
+    clear: both;
+    margin: 0px 0 0 0;
+    padding: 0;
+    overflow: auto;
+    z-index: 88;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    left: 0;
+}
+
+.material-icons {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+    
+    #container {
+        position: relative;
+        text-align: center;
+        max-width: 100%;
+        box-sizing: border-box;
+        margin: 0 auto;
+    }
+
+    .StepTitle{
+        line-height: 2.5;
+        color: #00ffff;
+        font-weight: bold;
+        font-size: 13px;
+    }
+    
+    .buttonDisabled {
+        color: #F8F8F8 !important;
+        background-color: #72ccda !important;
+        border: 1px solid #CCCCCC !important;
+        cursor: text;
+    }
+    
+    .actionBar
+     {
+        display: block;
+        position: relative;
+        clear: both;
+        margin: 0px 0 0 0;
+        padding: 0;
+        overflow: auto;
+        z-index: 88;
+        border-radius: 5px;
+        -moz-border-radius: 5px;
+        left: 0;
+    }
+
+    .material-icons {
+        font-weight: bold;
+        font-size: 18px;
+    }
+    
+    .material-icons {
+        font-weight: bold;
+        font-size: 18px;
+    }
+    
+    .caplable{
+        text-transform: uppercase;   
+        color: rgb(172, 186, 252) !important;
+    }
+
+    .maxminwarn{
+        color: #ff5578;
+        font-weight: bold;
+    }
+
+    .viewheading{
+        color: rgb(8 94 120) !important;
+        font-weight: bold !important;
+    }
+
+    @media only screen and (max-width: 992px )and ( min-width: 768px)  {
+        .modal-content{ margin-left: -127px;}
+    }
+ 
+/* table styles */
+.table thead {
+    text-transform: uppercase;
+    font-weight: bold !important;
+    background-color: #228393; ;
+  }
+
+  .table-striped tbody .trheight:nth-of-type(odd) {
+    background-color: #fff;
+  }
+
+  .table-striped tbody .trheight:nth-of-type(even) {
+    background-color: rgb(135 179 146 / 50%);
+  }
+
+  .apendbtn{
+    background-color: #339b49;
+    border-color: #339b49;
+    cursor: pointer;  
+  }
+
+  td{
+    color: #1d789b;
+    vertical-align: middle;
+    font-size: 11px;
+    padding: 0.50rem 0.2rem;
+  }
+
+  .trheight{
+  height: 5px;
+}
+tr{
+  height: 10px;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+th{
+  text-transform: uppercase;
+  font-weight: bold !important;
+  padding: 0.50rem 0.8rem;
+  font-size: 10px;
+  color: #fff;
+  border: 0 none; 
+}
+
+.form-control, .custom-select, .easy-autocomplete input {
+  background-color: #fff;
+  border: 1px solid rgb(0 0 0 / 16%); 
+  
+  color: #05145a;
+  font-size: 10px;
+}
+/* 
+.ngx-dropdown-list-container ng-star-inserted{
+    height: 200px !important;
+}
+
+.available-items{
+    top: 30px !important;
+}
+
+.ng-star-inserted {
+    width: 100% !important;
+} */

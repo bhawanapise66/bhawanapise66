@@ -1,0 +1,231 @@
+
+<div class="content shadow-sm">
+
+  <div class="container-fluid main-container" id="main-container">
+    <div class="row">
+      <div class="col-12 col-md-12 col-lg-12 col-xl-12 mx-auto align-self-center">
+        <div class="card shadow-sm border-0 mb-4">
+         
+          <div class="card-body" style="padding: 5px;">
+            <div class="row justify-content-center">
+              <div class="col-md-12 mx-auto">
+                <div class="row">
+                  <div class="col-lg-12 col-md-12">
+                  </div>
+                </div>
+
+
+                <div class="container-fluid">
+                  <div class="col-lg-12 col-md-12">
+                    <div class="form-group row">
+
+                      <div class="col-lg-3 col-md-3" *ngIf="show" id="divisionlist">
+                        <label class="indlabel">Customer</label>
+                        <span class="mandatory">*</span>
+
+                        <ngx-select-dropdown tabindex="0" id="customerentry" [multiple]="false"
+                          [(ngModel)]="CustomerentryText" [config]="config" [options]="ListOfCustomer"
+                          (change)="selectCus();SelectUserListData()"></ngx-select-dropdown>
+
+                        <span class="invalidmsg" id="msg_vendorName2"></span>
+                      </div>
+                      <div class="col-lg-3 col-md-3" id="subdivisionlist">
+                        <label class="indlabel">Employee</label>
+                        <span class="mandatory">*</span>
+
+                        <ngx-select-dropdown tabindex="0" id="roleuserentry" [multiple]="false"
+                          [(ngModel)]="RolewiseUserentryText" [config]="config" [options]="ListOfUserData"
+                          (change)="SetRole();SelectVehiclelist();changeSelection()"></ngx-select-dropdown>
+
+                        <span class="invalidmsg" id="msg_vendorName1"></span>
+                      </div>
+
+                      <br>
+                      <span class="invalidmsg" id="msg_errorentry"></span>
+
+
+                    </div>
+                  </div>
+
+
+
+
+                  <div class="col-lg-12 col-md-12">
+                    <div class="form-group row">
+
+                      <div class="col-lg-12 col-md-12" *ngIf="roleid != '18'" id="divisionlist">
+                        <div style="display:flex;">
+                          <div>Vehicles <span class="mandatory">*</span></div>
+                          <div>
+                            <div class="input-group">
+
+                              <input type="text" placeholder="Search" id="searchDataDeviceID" [(ngModel)]="filter"
+                                class="form-control searchicon" aria-label="Amount (to the nearest dollar)" required maxlength="30">
+                              <div class="input-group-append">
+                                <button class="btn  apendbtn" (click)="searchdataDeviceid()">
+                                  <i style="color: #00ed54; margin-top: -15px;" class="fa fa-search"></i>
+                                </button>
+                              </div>
+                            </div>
+
+                          </div>
+                         <div style="margin-left: 15px;"> <i class="fa fa-refresh fa-2x fa-spin-hover" style="font-size: 17px;
+                          padding-top: 4px;color: #00fff3;" (click)="Refreshfunction()"></i></div>
+
+                          <div style="margin-left: 37px;"> 
+                            <button type="button" id="assignbutton"
+                              class="btn btn-sm btn-primary ml-1 float-right" style=" width: 78px;" disabled
+                              (click)="VehicleMapping()">
+                              Assign
+                              <i class="material-icons md-18">cloud_upload</i>
+
+                            </button>
+                          </div>
+
+
+                        </div>
+                      </div>
+
+
+                    </div>
+                  </div>
+
+
+                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div>
+
+                      <!-- <ul class="checkbox-items deviceno ullist" id="myList">
+                        <li *ngFor="let item of ListOfVehicle | filter:filter">
+                          <input type="checkbox" name="" id="{{'abc' + item.rowNumber}}" [checked]="item.isChecked == 'true'"
+                            (change)="changeSelection()" >{{item.param2}}
+                        </li>
+                      </ul> -->
+                      <div class="checkbox-items deviceno ullist" id="hidedeviceno" style="margin-top: 0px;margin-left:-14px" *ngIf="tableshow">
+                        <div class="tableFixHead">
+                          <div id="GridTable" class="card-body table-responsive">
+                            <table class="table table-hover table-striped">
+                              <thead>
+                                <tr role="row">
+                                  <th><input type="checkbox" [(ngModel)]="isMasterSel" name="list_name" value="h1"
+                                    (change)="checkUncheckAllnew()" id="list_id" /></th>
+                                  
+                                  <th>Vehicle No.</th>
+                                  <th>Vehicle Id</th>
+                                </tr>
+                              </thead>
+                              <tbody id="checktable">
+                                <tr
+                                  *ngFor="let pol of ListOfVehicle| filter:filter ">
+  
+                                  <td style=" padding: 0.35rem 0.5rem;">
+                                    <input type="checkbox"  name="list_name" value="{{pol.param1}}" id="{{'abc' + pol.rowNumber}}" [checked]="pol.isChecked == 'true'" (change)="checkUnchecknew()">
+                                  </td>
+                                  <td style=" padding: 0.35rem 0.5rem;">{{pol.param2}}</td>
+                                  <td style=" padding: 0.35rem 0.5rem;">{{pol.param3}}</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+
+                      <span class="invalidmsg" id="msg_errorentryid"></span>
+                    </div>
+  </div>
+</div>
+</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="modeldelete" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-sm modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header" style="background-color: 	red;">
+        <h4 class="modal-title text-center" style="color: yellow">Are You Sure?</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body" style="background-color: #f0e8e9">
+
+        <div class="form-group row">
+
+
+          <div class="col-lg-12 col-md-12">
+            <label style="color: black">Remark</label>&nbsp;
+            <span class="indlabelstar">*</span>
+            <textarea class="form-control" rows="2" style=" font-size:12px" placeholder="Enter Remark" tabindex="1"
+              minlength="10" maxlength="40" [(ngModel)]="deleteText" #regaddress="ngModel" id="vendelremark"></textarea>
+
+          </div>
+
+        </div>
+        <span class="invalidmsg" id="msg_error_delete">{{successMessageUpdate}}</span>
+        <p style="    background-color: yellow;
+          /* padding-right: 20px; */
+          margin-right: 89px;
+          color: red; display: none;">Do You want to Delete !!&hellip;</p>
+      </div>
+
+
+      <!-- Modal footer -->
+      <div class="modal-footer text-center" style="background-color: #cfbaa8">
+        <button type="submit" class="btndel btn-primary mr-3" data-toggle="modal" data-dismiss="modal" tabindex="18">
+          No
+        </button>
+        <button type="reset" tabindex="19" class="btndel btn-danger " data-toggle="modal" data-dismiss="modal">
+          Yes
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <h1>Checklist</h1>
+<div class="row">
+
+  <div class="col-md-4">
+    <h4>List of Hobbies</h4>
+
+    <ul class="checkbox-items" id="myList">
+      <li *ngFor="let item of checkboxesDataList">
+        <input type="checkbox" name="" id="" [(ngModel)]="item.isChecked" (change)="changeSelection()">{{item.label}}
+      </li>
+    </ul>
+  </div>
+
+  
+
+</div> -->

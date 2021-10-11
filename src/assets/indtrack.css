@@ -1,0 +1,35 @@
+.indsubhead{
+    color:rgb(168, 182, 202); font-size: 16px; font-weight: bold;
+}
+
+.indnote{
+    color : rgb(151, 151, 151); font-size: 12px; font-weight: bold;
+}
+
+.indnotewarning{
+    color : rgb(238, 247, 105); font-size: 12px; font-weight: bold;
+}
+
+.indstar{
+    color :#f00635; font-size: 20px; font-weight: bold;
+}
+
+.indlabel{
+    font-size:13px; color: black; 
+}
+
+.indlabelstar{
+    color :#f00635; font-size: 17px; font-weight: bold;
+}
+
+.maxminwarn{
+    color:#F85778; font-size: 12px;
+}
+
+
+.receipt_watermar{
+    background-image: url(../assets/images/indlogo.png);
+    background-size: 46%;
+    background-repeat: no-repeat;
+    background-position: center;
+}

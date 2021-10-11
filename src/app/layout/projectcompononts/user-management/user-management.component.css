@@ -1,0 +1,373 @@
+
+td{
+    color: #cfdefc;
+    vertical-align: middle;
+    font-size: 11px;
+    padding: 0.50rem 0.2rem;
+}
+
+tr{
+    height: 10px;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+th{
+   
+    text-transform: uppercase;
+    font-weight: bold !important;
+    padding: 0.50rem 0.8rem;
+    font-size: 10px;
+    color: #fff;
+    border: 0 none;
+    
+}
+thead{
+    text-transform: uppercase;
+    font-weight: bold !important;
+    background: #051873;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgb(114 150 222 / 50%);
+}
+
+
+.inputNumber{
+    width: 50px;
+}
+
+
+ 
+
+.indsubhead {
+    color: #0aff6c;
+    font-size: 16px;
+    font-weight: bold;
+}
+.trheight{
+    height: 5px;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgb(114 150 222 / 50%);
+}
+.fa-spin-hover:hover {
+    animation: fa-spin 2s infinite linear;
+}
+@-webkit-keyframes fa-spin{0%{-webkit-transform:rotate(0deg);transform:rotate(0deg)}100%{-webkit-transform:rotate(359deg);transform:rotate(359deg)}}
+@keyframes fa-spin{0%{-webkit-transform:rotate(0deg);transform:rotate(0deg)}100%{-webkit-transform:rotate(359deg);transform:rotate(359deg)}}
+
+.statustd{
+    text-transform: uppercase;
+}
+.iconhover{
+    
+    cursor: pointer !important;
+}
+
+
+/* ---------------------------------------------------------------------------------------- */
+
+
+.btn {
+    height: 25px !important;
+}
+.btndel{
+    margin-bottom: 4px; 
+}
+
+@media only screen and (max-width: 1200px) {
+    .step-wizard li {
+      width: 24%;
+    }
+  }
+  
+  @media only screen and (max-width: 375px) {
+    .step-wizard li {
+      width: 22%;
+    }
+  }
+
+
+#container {
+    position: relative;
+    text-align: center;
+    max-width: 100%;
+    box-sizing: border-box;
+    margin: 0 auto;
+}
+
+.buttons {
+    position: absolute;
+    top: 180px;
+    text-align: center;
+    width: 100%;
+}
+
+
+
+
+.form-control, .custom-select, .easy-autocomplete input {
+    background-color: #c3d5f9;
+    border: 1px solid rgba(0,0,0,0.05);
+    
+    color: #05145a;
+    font-size: 10px;
+}
+ 
+
+.material-icons {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.caplable{
+    text-transform: uppercase;   
+    color: rgb(172, 186, 252) !important;
+}
+.maxminwarn{
+    color: #ff5578;
+    font-weight: bold;
+}
+.viewheading{
+    color: #00ffff;
+    font-weight: bold !important;
+}
+ 
+
+/* .hidestep {
+    display: none;
+}
+
+.showstep {
+    display: block;
+} */
+
+ 
+output{
+    font-size: smaller;
+    color: black;
+}
+
+ 
+
+ .indsubhead {
+    color: #0aff6c;
+    font-size: 16px;
+    font-weight: bold;
+}
+.trheight{
+    height: 5px;
+}
+
+.fa-spin-hover:hover {
+    animation: fa-spin 2s infinite linear;
+}
+@-webkit-keyframes fa-spin{0%{-webkit-transform:rotate(0deg);transform:rotate(0deg)}100%{-webkit-transform:rotate(359deg);transform:rotate(359deg)}}
+@keyframes fa-spin{0%{-webkit-transform:rotate(0deg);transform:rotate(0deg)}100%{-webkit-transform:rotate(359deg);transform:rotate(359deg)}}
+
+.statustd{
+    text-transform: uppercase;
+}
+.iconhover{  
+    cursor: pointer !important;
+}
+
+
+#vehicletablehead > th{
+    background-color: #5d79ff;
+}
+
+#vehicletabledata > td{
+   background-color: #aad9f8;
+   color: black;
+}
+
+.whiteBg {
+   background:rgba(128, 121, 231, 0.8)
+}
+
+/* copied css */
+
+
+.indlabel {
+    font-size: 11px;
+    font-weight: bold;
+    color: white;
+    font-weight: bold !important;
+    text-transform: uppercase;  
+}
+
+
+
+.indsubhead {
+    color: #0aff6c;
+    font-size: 16px;
+    font-weight: bold;
+}
+.trheight{
+    height: 5px;
+}
+tr{
+    height: 10px;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+th{
+   
+    text-transform: uppercase;
+    font-weight: bold !important;
+    padding: 0.50rem 0.8rem;
+    font-size: 10px;
+    color: #fff;
+    border: 0 none;
+    
+}
+thead{
+    text-transform: uppercase;
+    font-weight: bold !important;
+    background: #051873;
+}
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgb(114 150 222 / 50%);
+}
+.fa-spin-hover:hover {
+    animation: fa-spin 2s infinite linear;
+    cursor: pointer !important;
+}
+.fa-2x {
+    font-size: 1.7em;
+}
+@-webkit-keyframes fa-spin{0%{-webkit-transform:rotate(0deg);transform:rotate(0deg)}100%{-webkit-transform:rotate(359deg);transform:rotate(359deg)}}
+@keyframes fa-spin{0%{-webkit-transform:rotate(0deg);transform:rotate(0deg)}100%{-webkit-transform:rotate(359deg);transform:rotate(359deg)}}
+
+.statustd{
+    text-transform: uppercase;
+}
+.iconhover{
+    
+    cursor: pointer !important;
+}
+td{
+    color: #cfdefc;
+    vertical-align: middle;
+    font-size: 11px;
+    padding: 0.50rem 0.2rem;
+}
+
+
+/* ---------------------------------------------------------------------------------------- */
+
+.mandatory{
+    color: red;
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.btn {
+    height: 25px !important;
+}
+searchbtn{
+    height: 30px !important;
+}
+.btndel{
+    margin-bottom: 4px; 
+}
+
+@media only screen and (max-width: 1200px) {
+    .step-wizard li {
+      width: 24%;
+    }
+  }
+  
+  @media only screen and (max-width: 375px) {
+    .step-wizard li {
+      width: 22%;
+    }
+  }
+  
+
+.form-control, .custom-select, .easy-autocomplete input {
+     background-color: #c3d5f9;
+    border: 1px solid rgba(0,0,0,0.05); 
+    
+    color: #05145a;
+    font-size: 10px;
+}
+ 
+
+.material-icons {
+    font-weight: bold;
+    font-size: 18px;
+}
+ 
+.detailsfont{
+    font-size: 11px;
+}
+.btn-primaryyel{
+    color: #212529;
+    background-color: #f6c53b;
+    border-color: #000000;
+}
+
+
+
+body{
+    background: #f2f2f2;
+    font-family: 'Open Sans', sans-serif;
+  }
+  
+
+
+  /* Table Header css start  */
+
+  thead{
+    text-transform: uppercase;
+    font-weight: bold !important;
+    background: #051873;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgb(114 150 222 / 50%);
+}
+
+.table tbody tr td {
+    color: #cbddff;
+    vertical-align: middle;
+    padding: 0.3rem 0.5rem;
+}
+table{
+    font-size: 11px;
+}
+  /* Table header css end  */
+  .validation{
+    font-weight: bold;
+    font-size: smaller;
+}   
+/* css added by dhammadeep */
+
+#details{
+    display: block;;
+   max-height: 500px;
+    overflow-y: scroll;
+
+}
+
+.dialogModal{
+    position: absolute;
+     /* float: left;   */
+     left: 45%;  
+     top: 35%; 
+     right: 45%;  
+     width: 300px; 
+     transform: translate(-50%, -50%);
+     animation-duration: 0.5s;
+}
+@keyframes fadein {
+   from {height:0;width:0}
+   to {      width: 300px;     }
+ }
+ menulist{
+     max-height: 500px;;
+     overflow-y: scroll;
+ }

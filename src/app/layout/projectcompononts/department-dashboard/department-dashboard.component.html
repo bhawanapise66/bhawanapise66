@@ -1,0 +1,562 @@
+<style>
+  .ol-unselectable,
+  .ol-viewport {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    border-radius: 11px !important;
+  }
+</style>
+
+<div [@routerTransition]>
+
+  <!-- device status and battery status    -->
+  <!-- <div class="headerDiv"> -->
+  <div class="row container-fluid">
+    <div class="col-md-6">
+      <fieldset>
+        <legend>Device Status</legend>
+
+        <div class="row">
+          <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+            <p style="background-color: #222f;color:white;padding: 5px;text-align: center;font-size: 12px;">Total Count
+              : {{totaldeptCount}}</p>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+            <p style="background-color:#65d45e99;padding: 5px;text-align: center;font-size: 12px;" (click)="DivisionsTotalVehiclesfilter('All','Working')">Working :
+              {{totalworkingcount}}</p>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+            <p style="background-color:#d05656bd;;padding: 5px;text-align: center;font-size: 12px;" (click)="DivisionsTotalVehiclesfilter('All','Not Working')">Non Working :
+              {{totalnonworking}}</p>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+            <p style="background-color:#d4e06dbd;padding: 5px;text-align: center;font-size: 12px;">Maintenance :
+              {{totalmaintainance}}</p>
+          </div>
+
+        </div>
+      </fieldset>
+
+    </div>
+    <div class="col-md-6">
+      <fieldset>
+        <legend>Battery Status</legend>
+
+        <div class="row">
+          <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+            <div style="background-color: #222f;color:white;padding: 5px;text-align: center;font-size: 12px;" (click)="DivisionsTotalVehiclesfilterbyBattery('All','nopower')">
+              <img src="assets/mapimages/batteryicon/nopowerbattery.png" class="statusicon">
+              <span> No Power : {{nodeptbattery}}</span>
+            </div>
+
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+            <div style="background-color: #65d45e99;;padding: 5px;text-align: center;font-size: 12px;"  (click)="DivisionsTotalVehiclesfilterbyBattery('All','low')">
+              <img src="assets/mapimages/batteryicon/lowbattery.png" class="statusicon">
+              <span>Low : {{lowdeptbattery}}</span>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+            <div style="background-color: #d05656bd;;padding: 5px;text-align: center;font-size: 12px;" (click)="DivisionsTotalVehiclesfilterbyBattery('All','medium')">
+              <img src="assets/mapimages/batteryicon/mediumbattery.png" class="statusicon">
+              <span>Medium : {{meddeptbattery}}</span>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+            <div style="background-color: #d4e06dbd;padding: 5px;text-align: center;font-size: 12px;"  (click)="DivisionsTotalVehiclesfilterbyBattery('All','high')">
+              <img src="assets/mapimages/batteryicon/highbattery.png" class="statusicon">
+              <span>High : {{highdeptbattery}}</span>
+            </div>
+          </div>
+
+        </div>
+      </fieldset>
+
+    </div>
+  </div>
+
+
+  <!-- </div> -->
+  <!-- device status and battery status    -->
+
+
+  <!-- fliper work -->
+  <div class="row" style=" margin-top: 0%; ">
+    <div class="mainContainer">
+      <div style="display:flex;">
+        <div id="vehiclesummary" style="width:95%">
+          <table class="summarytable" id="summarytable" style="display:none">
+            <tr>
+              <td class="summarylabel">
+                Last Updated At
+              </td>
+              <td>
+                {{deviceData.param32}}
+              </td>
+              <td class="summarylabel">
+                Status
+              </td>
+              <td>
+                {{deviceData.param31}}
+              </td>
+              <td class="summarylabel">
+                Gps Status
+              </td>
+              <td>
+                {{deviceData.param39}}
+              </td>
+              <td class="summarylabel">
+                Speed
+              </td>
+              <td>{{deviceData.param37}}</td>
+              <td class="summarylabel">
+                Battery Status
+              </td>
+              <td>{{deviceData.param49}}</td>
+              <td class="summarylabel">
+                Section
+              </td>
+              <td>{{deviceData.param59}}</td>
+            </tr>
+
+          </table>
+        </div>
+
+        <div class="menusection" style="width:5%">
+
+          <ul>
+            <li (click)="ActiveDetails('mapview')" id="mapview" style="display:none"><img
+                src="assets/mapimages/mapstyleicon/mapswitch.png" title="Map View"></li>
+            <li (click)="ActiveDetails('gridview')" id="gridview"><img
+                src="assets/mapimages/mapstyleicon/gridswitch.png" title="Grid View"></li>
+          </ul>
+
+        </div>
+      </div>
+
+
+
+
+      <div class="innercontainer" id="innercontainer">
+        <!--front div  -->
+        <div class="frontmap" id="frontmap" style="z-index: 1;">
+
+
+
+
+          <!-- ================== Graph Slider ============= -->
+          <div class=""
+            style="position: relative;      z-index: 5;   left: -370px; padding: 4px;   width: 348px;  transition-duration: 3s;"
+            id="graphSlider">
+            <div style="    display: flex;     width: 360px;">
+
+
+              <div class="col-md-12 col-lg-12 col-xl-12"
+                style=" float:left;             width: 298px;    padding: 7px;   background-color: #1c224e; ">
+
+                <div style="display:flex">
+                  <div style="       color: white; font-size: 10px;
+             font-weight: bold;"> Device No.</div>
+
+                  <div class="form-control" style="      margin-top: -10px; width: 205px; font-size: 12px;">
+                    <ngx-select-dropdown tabindex="0" id="customer" [multiple]="false" [(ngModel)]="deviceData"
+                      id="deviceselect" [config]="config" [options]="allvehicleData" (change)="GetVehicleFocus()">
+                    </ngx-select-dropdown>
+
+                  </div>
+                  <div>
+                    <div class="livevbutton" (click)="PlotLivetrail(deviceData.param11)">Live</div>
+
+                  </div>
+
+
+
+
+
+
+                  <!-- <select class="searchable">
+             <option value="">Select DeviceNo</option>
+             <option *ngFor="let item of allvehicleData" value="{{item.param12}}">{{item.param12}}</option>
+           </select> -->
+                </div>
+
+                <div style="  display: flex; position: absolute; width: 380px;" id="historybutton">
+                  <div style="padding: 10px;color: white;">
+                    <input type="checkbox" (click)="HistoryCheck(vehicleid)" id="historycheckbox"> <span
+                      style="    font-size: 10px;font-weight: bold;margin-left: 6px;">History Track</span>
+                    <!-- <img style="width: 38px;" src="assets/mapimages/mapstyleicon/historyicon.png"
+                      (click)="PlotBoth(vehicleid)" ngbTooltip="Plot History"> -->
+                  </div>
+
+                  <div style="text-align: left;" style="padding: 10px;color: white;">
+                    <input type="checkbox" (click)="Switchrailpoi()" id="railpoiswitcher" checked> <span
+                      style="    font-size: 10px;font-weight: bold;margin-left: 6px;">Poi</span>
+                  </div>
+                </div>
+
+                <div style="     margin-top: 57px; width: 380px;">
+
+
+                  <table class="customTable"
+                    style=" margin-top: 40px; font-size: 10px; color: white; font-weight: bold;">
+                    <tr>
+                      <td>From Date</td>
+                      <td>
+                        <div class="col-md-12" id="single">
+
+                          <input id="fromDate" type="text" class="form-control  datepicker" style="  background-color: white;
+                       color: black;  height: 27px;  
+                       font-size: 12px; width: 96px;" placeholder="">
+                        </div>
+                      </td>
+
+                      <td>From Time</td>
+                      <td>
+
+                        <input class="form-control timepicker1" style="background-color: white;
+                       color: black; height: 27px;  font-size: 12px; width: 96px;" id="fromTime" />
+
+                      </td>
+
+                    </tr>
+
+
+                    <tr>
+                      <td>To Date</td>
+                      <td>
+                        <div cl ass="col-md-12" style="    margin-left: 15px;" id="single">
+
+                          <input id="toDate" type="text" class="form-control  datepicker" style="background-color: white;
+                       color: black;  font-size: 12px;  height: 27px;
+                          width: 96px;" placeholder="">
+                        </div>
+                      </td>
+
+                      <td>To Time</td>
+                      <td>
+                        <input class="form-control timepicker2" style=" background-color: white;
+                       color: black;height: 27px;  font-size: 12px;   width: 96px;" id="toTime" />
+
+                      </td>
+
+                    </tr>
+
+                  </table>
+                </div>
+
+                <div style="width:100%">
+                  <div class="historybtn" (click)="PlotHistorytrail(deviceData.param11)">
+                    History
+                  </div>
+
+                </div>
+
+              </div>
+
+              <div (click)="GraphSlider()" (mouseover)="SliderMouseover()" class="trackingbutton">Tracking</div>
+            </div>
+          </div>
+
+
+
+          <div style="      margin-top: -189px;">
+            <div id="map"></div>
+
+            <!-- <div style="position: absolute;z-index: 1;color:black ; right: 27%;  top: 10px;  background: white; border-radius: 50%;">
+                       <div><img src="assets/mapimages/mapstyleicon/fullscreenicon.png" style="width:34px;cursor: pointer;" class="effect8" (click)="OpenFullScreen()"></div>
+                     
+                     </div>  -->
+            <div id="popup" class="ol-popup">
+              <a id="popup-closer" class="ol-popup-closer"></a>
+              <div id="popup-content"></div>
+            </div>
+          </div>
+
+
+
+
+          <div style="position: absolute;z-index: 1;      left: 400px;top: 2px;">
+            <div style="     display: none;
+            color: black;
+            width: 299px;
+            background: #1c224e;
+            height: 37px; " id="historyoption">
+
+
+              <div style="margin-left: 5px;margin-top: 6px;">
+
+                <div>
+
+
+                  <img style="    width: 26px;border-radius: 50%;border: 1px solid"
+                    src="assets/mapimages/mapstyleicon/reloadicon.png" (click)="RestartAnimation()"
+                    ngbTooltip="Restart History">
+                </div>
+
+              </div>
+
+              <div style="margin-left: 5px;margin-top: 6px;">
+
+                <div>
+
+
+                  <img style="    width: 27px;" src="assets/mapimages/mapstyleicon/starticon.png"
+                    (click)="ResumeAnimation()" ngbTooltip="Resume History">
+                </div>
+
+              </div>
+
+
+              <div style="margin-left: 5px;margin-top: 6px;">
+                <div>
+                  <img style="    width: 27px;" src="assets/mapimages/mapstyleicon/pauseicon.png"
+                    (click)="PauseHistory()" ngbTooltip="Pause History">
+                </div>
+              </div>
+
+              <div style="margin-left: 5px;margin-top: 6px;">
+                <div>
+                  <img style="    width: 35px;
+                  margin-top: -4px;" src="assets/mapimages/mapstyleicon/stopicon.png" (click)="StopHistory()"
+                    ngbTooltip="Stop Animation">
+                </div>
+              </div>
+
+              <div style="margin-left: 5px;margin-top: 6px;">
+                <div style="display: flex;">
+                  <input type="range" min="1" max="10" [(ngModel)]="historytrackspeed" (change)="ChangeHistoryspeed()">
+                  <span style="color: white;font-size: 15px;margin-left: 5px;">{{historytrackspeed}}</span>
+                </div>
+              </div>
+
+
+
+            </div>
+
+          </div>
+
+
+
+
+
+
+
+
+          <!-- ===============================end Filter Start map============================= -->
+
+
+
+          <div class="switcherContainer" style="    color: black;
+    margin-top: -545px;
+    right: 100px;
+    position: absolute;">
+            <div data-toggle="collapse" (click)="OpenCollapse()" id="collapseButton" ngbTooltip="Switch Map">
+              <span class="dot" style="    height: 35px; width: 36px; background-color: white;">
+                <img src="assets/mapimages/mapstyleicon/mapswitchericonnew.png"
+                  style="width: 35px;   margin-top: -2px;   margin-left: -1px;">
+                <!-- <h6><i class='fa fa-layer-group' style="font-size: 14px; color: black;"></i></h6> -->
+              </span>
+
+            </div>
+
+
+            <div class="collapse" id="collapseExample" style="    background-color: #1e295c; padding: 7px;width: 234px;  
+                margin-top: -27%;  margin-left: -6%;">
+
+              <div><span (click)="CloseCollapse()" class="customCircle">&times;</span></div>
+              <div class="cardheader">Map Types</div>
+
+              <div>
+                <div class="iconDiv" id="switch3" style="    margin-left: -46px;">
+                  <img src="assets/mapimages/mapstyleicon/osm.JPG" (click)="MapSwitch('3')" class="mapicons">
+                  <h6 class="imagelabel">OSM</h6>
+
+                </div>
+                <!-- <div class="iconDiv"  id="0">
+                            <img src="assets/mapimages/mapstyleicon/bingmap.JPG" class="mapicons"  (click)="MapSwitch('0')">
+                            <h6 class="imagelabel">Bing</h6>
+            
+                          </div> -->
+                <div class="iconDiv activeSwitchOption effect8" id="switch1">
+                  <img src="assets/mapimages/mapstyleicon/binghybrid.JPG" class="mapicons " (click)="MapSwitch('1')">
+                  <h6 class="imagelabel">Satellite</h6>
+
+                </div>
+                <div class="iconDiv" id="switch2">
+                  <img src="assets/mapimages/mapstyleicon/tomtom.JPG" class="mapicons" (click)="MapSwitch('2')">
+                  <h6 class="imagelabel" id="">Tom Tom</h6>
+                </div>
+                <div class="iconDiv" id="switch4">
+                  <img src="assets/mapimages/mapstyleicon/india.JPG" class="mapicons" (click)="MapSwitch('4')">
+                  <h6 class="imagelabel">Indtrack</h6>
+                </div>
+
+              </div>
+
+
+
+
+              <!-- map Detailss   ======  -->
+              <div class="cardheader">Map Data</div>
+
+              <div>
+                <!-- <div class="iconDiv activeSwitchOption effect8" id="polygonSwitch">
+                              <img src="assets/mapimages/mapstyleicon/polygonDataicon.jpg" class="mapicons" (click)="SwitchPolygon()" style="width: 29px;">
+                              <h6 class="imagelabel">Polygon</h6>
+            
+                            </div>
+                            <div class="iconDiv activeSwitchOption effect8" id="routeSwitch" style="    margin-left: 5px;">
+                            <img src="assets/mapimages/mapstyleicon/routeDataicon.JPG" class="mapicons "  style="  width: 29px;   height: 29px;" (click)="SwitcherRoute()">
+                            <h6 class="imagelabel">Route</h6>
+            
+                          </div> -->
+
+                <div class="iconDiv activeSwitchOption effect8" id="routeSwitch" style="    margin-left: 5px;">
+                  <img src="assets/mapimages/mapstyleicon/routeDataicon.JPG" class="mapicons "
+                    style="  width: 29px;   height: 29px;" (click)="SwitchRoute()">
+                  <h6 class="imagelabel">Route</h6>
+
+                </div>
+                <div class="iconDiv activeSwitchOption effect8" id="poiSwitch" style="    margin-left: 5px;">
+                  <img src="assets/mapimages/mapstyleicon/poiDataicon2.JPG" class="mapicons "
+                    style="       width: 29px; height: 29px;" (click)="SwitchPoi()">
+                  <h6 class="imagelabel">POI</h6>
+
+                </div>
+
+              </div>
+
+              <!-- <div class="cardheader">Create Data</div> -->
+              <!-- <div >
+                          <div class="iconDiv" id="polygonCreate"  title="Create Polygon">
+                          <img src="assets/mapimages/mapstyleicon/polygonDataicon.jpg" class="mapicons" (click)="CreatePolygon()" style="width: 29px;">
+                          <h6 class="imagelabel">Polygon</h6>
+            
+                        </div>
+                        <div class="iconDiv" id="routeCreate" style="    margin-left: 5px;" title="Create Route">
+                        <img src="assets/mapimages/mapstyleicon/routeDataicon.JPG" class="mapicons "  style="  width: 29px;   height: 29px;" (click)="CreateRoute()">
+                        <h6 class="imagelabel">Route</h6>
+            
+                      </div>
+                        <div class="iconDiv" id="poiCreate" style="    margin-left: 5px;" title="Create POI">
+                          <img src="assets/mapimages/mapstyleicon/poiDataicon2.JPG" class="mapicons " style="       width: 29px; height: 29px;" (click)="CreatePoi()" >
+                          <h6 class="imagelabel">POI</h6>
+            
+                        </div>
+            
+                        <div style="margin-top: 5px;"><span style="    font-size: 11px;
+                          color: #15e81c;
+                          font-weight: bold; margin-left: 9px;"></span></div>
+                      
+                    </div> -->
+
+            </div>
+
+          </div>
+
+         
+        </div>
+        <!-- back div -->
+        <div class="gridfront">
+
+          <div id="gridContainer" style="width:100%;   background-color: #f3f2e2; display:block">
+
+
+            <div style="display:flex">
+              <div>
+                <table class="table" style="    margin-left: 5px;  margin-top: 6px;">
+                  <tr>
+                    <td><input type="text" id="searchbydata" class="form-control" placeholder="Search"
+                        style=" color: black;   width: 148px; height: 26px;   font-size: 13px;   background-color: azure;"
+                        (keyup)="SearchFilterTable()"></td>
+
+                    <td>Sub-Division</td>
+
+                    <td>
+                      <div style="       margin-top: 0px; width: 163px;   font-size: 12px;">
+                        <ngx-select-dropdown tabindex="0" [multiple]="false" [(ngModel)]="subdivselect"
+                          id="subdivisionselect" [config]="configsection" [options]="subdivisionlist"
+                          (change)="GetDepartmentWiseCount(subdivselect.param1)">
+                        </ngx-select-dropdown>
+
+                      </div>
+
+
+                    </td>
+
+                    <td>Department</td>
+
+                    <td>
+
+
+                      <div style="       margin-top: 0px; width: 163px;   font-size: 12px;">
+                        <ngx-select-dropdown tabindex="0" [multiple]="false" [(ngModel)]="sectionselect"
+                          id="sectionselect" [config]="configsection" [options]="sectioncount"
+                          (change)="SelectSectionFilter(sectionselect.param2)">
+                        </ngx-select-dropdown>
+
+                      </div>
+
+
+                    </td>
+
+                  </tr>
+                </table>
+              </div>
+
+              <div class="exportoptions" style="    width: 100%;">
+                <ul>
+                  <li><img style="float: right; cursor: pointer;    height: 17px; margin-top: 3px;" ngbTooltip="PDF"
+                      (click)="distanceTravelledReportPDFDownload()" src="assets/images/PDFicon.png"></li>
+
+                  <li> <img style="cursor: pointer;height: 20px;" ngbTooltip="Excel" src="assets/images/excellogo.png"
+                      (click)="exportToExcel()"></li>
+
+                  <li> <span>{{filterVehicles.length}}</span> / <span>{{filterVehicles.length}}</span></li>
+
+                </ul>
+
+
+
+              </div>
+
+              <div>
+
+              </div>
+
+            </div>
+            <div></div>
+            <div style="color: transparent;  overflow: auto;     height: 465px;" id="tablediv" #epltable> </div>
+
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+
+  </div>
+
+
+  <!-- ==================== End Graph Slider======================= -->
+
+
+
+
+  <!-- <div class="menusection">
+          <div>
+            <ul>
+              <li  id="grid" (click)="Scrolltogrid()"> <i class="fa fa-table "></i></li>
+              <li (click)="CentralFilter('mapsection')" id="mapsection" class="activeOption"><i class="fa fa-map-marker"></i></li>
+              <li (click)="CentralFilter('split')" id="split"> <i class="fa fa-columns  "></i> </li>
+
+
+            </ul>
+          </div>
+          </div> -->

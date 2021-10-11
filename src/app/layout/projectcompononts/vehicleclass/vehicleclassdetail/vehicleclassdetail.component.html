@@ -1,0 +1,399 @@
+<!--
+Developer 	: Aditya Londhe
+Date      	: 18-09-2020
+Description : Vendor Master Module
+Modified By:  
+Update date : 
+-->
+<div class="content shadow-sm">
+  <!-- Main container starts -->
+  <div class="container-fluid main-container" id="main-container">
+    <div class="row">
+      <div class="col-12 col-md-12 col-lg-12 col-xl-12 mx-auto align-self-center">
+        <div class="card shadow-sm border-0 mb-4">
+          <div class="card-header" style="padding-top: 0; padding-bottom: 0">
+
+            <!-- <img src="../assets/img/logoicon.svg" alt="" class="w-50px mt-4"> -->
+            <h4 class="text-left m-1" style="font-size: 15px;">Vehicle
+              <span class="text-template-primary" style="color: #00ed54">Class</span>
+              <button type="button" class="btn btn-sm btn-primaryyel ml-2 float-right" style="margin-right: 89px;"
+                data-toggle="modal" data-target="#exampleModal" id="addnewclass">
+                ADD NEW
+                <i class="material-icons md-18">navigate_next</i>
+
+              </button>
+            </h4>
+
+          </div>
+          <div class="card-body" style="padding: 5px;">
+            <div class="row justify-content-center">
+              <div class="col-md-12 mx-auto">
+                <div class="row">
+                  <div class="col-lg-12 col-md-12">
+                  </div>
+                </div>
+
+                <div class="container-fluid main-container" id="main-container">
+
+                  <!--    ---------------        Table Header Start=------------------------    -->
+                  <div class="col-md-12 table-header">
+                    <div class="row  mx-1">
+                      <div class="col-12 col-sm-12 col-md text-md-left align-self-center pr-0">
+                        <ul class="nav  justify-sm-content-center  justify-content-left">
+                          <li class="nav-item ">
+                            <div class="input-group" style="max-width: 250px;">
+                              <input 
+                              type="text" 
+                              placeholder="Search" 
+                              id="searchData" 
+                              class="form-control searchicon"
+                              [(ngModel)]="filter" 
+                              aria-label="Amount (to the nearest dollar)">
+                              <div class="input-group-append">
+                                <button class="btn  apendbtn" (click)="searchdata()" [disabled]="filter==''">
+                                  <i style="color: #00ed54; margin-top: -15px;" class="fa fa-search"></i>
+                                </button>
+                              </div>
+                            </div>
+                          </li>
+                          <li class="nav-item mx-3">
+                            <i class="fa fa-refresh fa-2x fa-spin-hover"
+                              style="font-size: 17px;padding-top: 4px;color: green;" (click)="Refreshfunction()"></i>
+                          </li>
+                        </ul>
+                      </div>
+
+                      <div class="col-12 col-sm-12 col-md-auto text-right text-md-end pl-0">
+                        <ul class="nav justify-content-center justify-lg-content-end  justify-sm-content-center">
+                          <li class="nav-item mx-2">
+                            <img style="cursor: pointer; height: 20px; margin-top: 3px;" (click)="createPDF()"
+                              ngbTooltip="PDF" src="assets/images/PDFicon.png">
+                          </li>
+                          <li class="nav-item mx-2">
+                            <img style="cursor: pointer;" (click)="createExcel()" ngbTooltip="Excel"
+                              src="assets/images/excellogo.png">
+                          </li>
+                          <li class="nav-item mx-3">
+                            <span style="display: inline;font-size:12px;font-weight :bold;">Show Rows : </span> <select
+                              class="form-control p-1" style="width: 44px;display: inline;" data-live-search="true"
+                              tabindex="1" id="selectrow9" (change)="SelectRows()" aria-hidden="true"
+                              [(ngModel)]="itemsPerPage">
+                              <option value="5">5</option>
+                              <option value="10" selected>10</option>
+                              <option value="20">20</option>
+                              <option value="50">50</option>
+                            </select>
+                          </li>
+                          <li class="nav-item pt-1">
+                            <span style="font-size:12px;font-weight: bold;">Total Records : {{viewcount}} of
+                              {{count}}</span>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <!-- ---------------------  Table header end  ------------------------------ -->
+
+
+                  <div id="PDFTable" class="card-body table-responsive">
+                    <table class="table table-hover table-striped">
+                      <thead>
+                        <tr role="row">
+                          <th (click)="sort('rowNumber')"># </th>
+                          <th><span (click)="sort('param2')">Vehicle Class Name</span></th>
+                          <th><span (click)="sort('param5')">Description / Remarks</span></th>
+                          <th><span (click)="sort('param3')">Creation Date</span></th>
+                          <th style="background-color: #99c049; width: 30px;">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody id="grid">
+                        <tr
+                          *ngFor="let com of VehicleClassDetails$ | orderBy: key : reverse | paginate : {itemsPerPage:itemsPerPage,currentPage:pageNumber,totalItems:count} ;"
+                          class="trheight">
+                          <td>{{com.rowNumber}}</td>
+                          <td>{{com.param2}}</td>
+                          <td>{{com.param5}}</td>
+                          <td>{{com.param3 | date: "dd-MM-yyyy hh:mm:ss"}}</td>
+                          <td [ngStyle]="{'background-color':com.altColor}" class="viewbtncss">
+                            <span class="iconhover" data-toggle="modal" data-target="#myModalwizard"
+                              (click)="setdata(com)">
+                              <i class="material-icons" style="color: #161e43; padding-left: 9px;">visibility</i>
+                            </span>
+                          </td>
+                        </tr>
+
+
+                      </tbody>
+                      <tfoot id="foot" class="box-footer clearfix">
+                        <tr>
+                          <td colspan="12">
+                            <pagination-controls style=" float: right;" (pageChange)="ClasspageChanged($event)">
+                            </pagination-controls>
+                          </td>
+                        </tr>
+                      </tfoot>
+                    </table>
+
+                  </div>
+
+                  <!--Hidden table-->
+                  <div id="PDFTable1" class="card-body table-responsive" #epltable style="display: none;" #epltable>
+                    <!-- <img src="https://track.indtrack.com/indtrack/assets/images/indgps.png" height="50px" width="140px"
+                    style="position: absolute;top: 0;" />
+
+                  <h5 style="text-align: center; margin-top: 28px;">VEHICLE CLASS REPORT</h5> -->
+
+                    <table class="table table-hover table-striped">
+                      <thead>
+                        <tr role="row">
+                          <th (click)="sort('param2')"># </th>
+                          <th><span (click)="sort('param2')">Vehicle Class Name</span></th>
+                          <!-- <th class="all sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 86px;" aria-label="Order ID: activate to sort column descending" aria-sort="ascending">Order ID</th> -->
+                          <th><span (click)="sort('param5')">Description</span></th>
+                          <th><span (click)="sort('param3')">Creation Date</span></th>
+
+
+
+                        </tr>
+                      </thead>
+                      <tbody id="grid">
+                        <tr *ngFor="let com of VehicleClassDetails$ ">
+
+                          <td>{{com.rowNumber}}</td>
+                          <td>{{com.param2}}</td>
+                          <td>{{com.param5}}</td>
+                          <td>{{com.param3}}</td>
+                        </tr>
+
+
+                      </tbody>
+                      <tfoot id="foot" class="box-footer clearfix">
+                        <tr>
+
+                        </tr>
+                      </tfoot>
+                    </table>
+                    <!-- <hr>
+                    <p>Date : <span>{{datereport | date:'dd-MM-yyyy'}}</span></p>
+                    <h5 style="text-align: center;">This is system generated report.</h5> -->
+                  </div>
+                  <!--Hidden table -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- --------------------  view & Edit Modal start------------------------>
+
+<div class="modal fade " id="myModalwizard" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-lg" style="width: 35rem;">
+    <div class="modal-content ">
+
+      <!-- Modal Header -->
+      <div class="modal-header modelcolor">
+        <h4 class="text-left m-1" id="vmd" style="font-size: 15px;">Vehicle
+          <span class="text-template-primary" style="color: #00ed54">Class Details</span>
+        </h4>
+        <h4 class="text-left m-1" id="uvmd" style="font-size: 15px;display: none;">Vehicle
+          <span class="text-template-primary" style="color: #00ed54">Class Update</span>
+        </h4>
+        <!-- <h5 class="modal-title" id="vmd" style="display: block;">Vehicle Class Details</h5>
+        <h5 class="modal-title" id="uvmd" style="display: none;">Update Vehicle Class</h5> -->
+        <div style="position: absolute;right: 40px; ">
+          <button type="button" class=" btn btn-sm btn-secondary float-right ml-2 bg-warning" style="display: block;"
+            id="editbtn" ngbTooltip="Edit" (click)="editpageform()">
+
+            <i class="material-icons md-18">edit</i>
+          </button>
+          <button type="button" class=" btn btn-sm btn-danger float-right ml-2" id="deletebtn" ngbTooltip="Delete"
+            data-toggle="modal" data-target="#modeldelete">
+
+            <i class="material-icons md-18">delete</i>
+          </button>
+          <button type="button" class=" btn btn-sm btn-primary float-right ml-2" id="backdetailsbtn" ngbTooltip="Back"
+            style="display: none;" (click)="backdetailsbtn()">
+
+            <i class="material-icons md-18">arrow_back</i>
+          </button>
+        </div>
+        <button type="button" style="color: white" class="close" data-dismiss="modal"
+          (click)="clear();">&times;</button>
+      </div>
+
+
+      <!-- Modal body -->
+      <div class="modal-body" style="background-color: #fff; padding: 0px;">
+        <!-- <div class="container"> -->
+        <div class="">
+          <div id="container" style="display: none;">
+            <div class="step-wizard" role="navigation">
+
+              <!--  KJ -->
+              <div class="stepsection" style="width: 100%;">
+                <div id="step-14" class="stepsdiv">
+                 <div class="form-group row">
+                    <div class="col-lg-6 col-md-6">
+                      <label class="indlabel"> Vehicle Class Name</label>
+                      <span class="mandatory">*</span>
+                      <input type="text" class="form-control" placeholder="Enter Class Name." tabindex="0" minlength="3"
+                        maxlength="50" [(ngModel)]="vehicleclass_name" #regclassname="ngModel" style=" font-size:12px"
+                        required ondrop="return false;" onpaste="return false;" id="regclassname"
+                        onkeypress="avoidSplChars(event)">
+                      <div class="invalidmsg" *ngIf="regclassname.errors?.minlength">
+                        Class name must be 3 to 50 characters long.
+                      </div>
+                      <span class="invalidmsg" id="msg_classid"></span>
+                    </div>
+
+                    <div class="col-lg-6 col-md-6">
+                      <label class="indlabel"> Description</label>
+                      <span class="mandatory">*</span>
+                      <textarea type="text" class="form-control" placeholder="Enter Description." tabindex="1"
+                        minlength="10" [(ngModel)]="descriptionclassText" #regdescriptionname="ngModel"
+                        style=" font-size:12px" required ondrop="return false;" onpaste="return false;"
+                        id="regdescriptionname"></textarea>
+                      <div class="invalidmsg" *ngIf="regdescriptionname.errors?.minlength">
+                        Description must be at least of 10 characters long.
+                      </div>
+                      <span class="invalidmsg" id="msg_remarkid"></span>
+                    </div>
+                  </div>
+                  <span class="invalidmsg" id="msg_vehicleclass" style="position: absolute;bottom:10px;"></span>
+                </div>
+              </div>
+
+
+              <!--  KJ-->
+
+            </div>
+          </div>
+        </div>
+        <!-- --------------------------------------------- View Section ------------------------------------------- -->
+        <div class="container">
+          <div id="classdtls" class="row" style="background-color: #fff; border: 1px ridge black;">
+            <div class="col-12 col-md-12 col-lg-12">
+
+              <div class="row" style="background-color: rgb(198 201 202);">
+                <div class="col-12 col-md-12 col-lg-12">
+                  <div class="viewheading">Basic Details</div>
+                </div>
+              </div><br>
+
+              <div class="row">
+                <div class="col-12 col-md-12 col-lg-12">
+                  <!-- <div class="col-4 col-md-4 col-lg-4" style=" float: left;"> -->
+                  <span class="caplable">Class Name:</span>&nbsp;<span class="viewlable">{{vehicleclass_name}}</span>
+                  <!-- </div> -->
+                </div>
+                <div class="col-12 col-md-12 col-lg-12">
+
+                  <!-- <div class="col-4 col-md-4 col-lg-4" style=" float: left;"> -->
+                  <span class="caplable">Description:</span>&nbsp;<span
+                    class="viewlable">{{descriptionclassText}}</span>
+                  <!-- </div> -->
+
+                </div>
+              </div>
+
+
+
+              <br>
+
+ 
+            </div>
+            <!-- --------------------- View Section End ------------------------------ -->
+
+          </div>
+        </div>
+        <!-- <div class="row">
+            <button id="revbtn" ngbTooltip="Back" class="mb-2 btn btn-wizard btn-sm btn-primary " (click)="revback()" style="display: none;">
+                <i class="material-icons" >arrow_back</i>
+              </button>  &nbsp; &nbsp;
+            <button id="nextviewbtn" ngbTooltip="Next" class="mb-2 btn btn-wizard btn-sm btn-primary "(click)="viewnext()" style="display: block;">
+                <i class="material-icons">arrow_forward</i>
+              </button> 
+               <button id="next2viewbtn" ngbTooltip="Next" class="mb-2 btn btn-wizard btn-sm btn-primary"(click)="viewnext2()" style="display: none;">
+                  <i class="material-icons">arrow_forward</i>
+                </button>
+                 <button id="rev2btn" ngbTooltip="Back" class="mb-2 btn btn-wizard btn-sm btn-primary " (click)="revback2()" style="display: none;">
+                    <i class="material-icons" >arrow_back</i>
+                  </button>  
+              </div> -->
+        <!-- </div> -->
+        <!-- --------------------- View Section End ------------------------------ -->
+
+      </div>
+
+
+      <!-- Modal footer -->
+      <div class="modal-footer" style="display: none;" id="modelfooter">
+        <div>
+          <div class="row">
+            <div class="col-md-9 pl-4">
+              <textarea class="form-control bg-white" rows="1" style="margin-left: -1px;" placeholder="Enter Remark"
+                tabindex="21" minlength="10" id="remarkupdateclass" [(ngModel)]="remarkclassText" #remark="ngModel"
+                required></textarea>
+              <div class="invalidmsg" *ngIf="remark.errors?.minlength">
+                Remark must be 10 characters long.
+              </div>
+
+              <span class="invalidmsg" id="msg_errorremark" style="margin-left: 1px;"></span>
+            </div>
+            <div class="col-md-3">
+              <div class="actionBar">
+                <button id="save" class="mb-2 btn btn-wizard btn-sm btn-success buttonFinish float-right"
+                  (click)="editvehicleclass()">
+                  <i class="material-icons">save</i>
+                </button>
+
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ------------------- view & Edit model close ------------------------ -->
+<!-- ------------------ Delete Model Start ------------------------>
+<!-- Delete Model-->
+<div class="modal fade" id="modeldelete" role="dialog">
+  <div class="modal-dialog modal-sm modal-dialog-centered">
+    <div class="modal-content">
+      <div class="btn-warning modal-header p-1">
+        <h6 class="modal-title" style="color: black;font-size: 15px;padding-left: 9px;padding-top: 4px;"><b>Confirm
+            Delete</b></h6>
+
+        <button type="button" class="close" data-dismiss="modal" (click)="closemodal();">&times;</button>
+      </div>
+      <div class="modal-body" style="background-color: #f0e8e9;">
+        <textarea class="form-control" id="classdelremark" [(ngModel)]="deleteText9" style="font-size: 11px;"
+          placeholder="Enter Remark"></textarea>
+        <small id="delete" class="text-danger"></small>
+      </div>
+      <div class="modal-footer p-2" style="background-color: #cfbaa8;height: 44px;">
+        <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal"
+          (click)="closemodal();">Close</button>
+        <button type="button" class="btn btn-sm btn-danger" (click)="ClassDeletefunction()">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Delete Model -->
+<!-- Delete Model-->
+
+
+<!-- ------------------- onclick yes btn model End ----------------------- -->
+
+<app-vehicleclassentry (showDetails)="ClassDetail()"></app-vehicleclassentry>

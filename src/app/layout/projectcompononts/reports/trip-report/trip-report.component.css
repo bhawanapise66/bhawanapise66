@@ -1,0 +1,102 @@
+body {
+    background-color: white;min-height: 80vh
+}
+.indlabel {
+    font-size: 10px;
+    color: darkblue;
+    font-weight: bold !important;
+    text-transform: uppercase;  
+}
+.validation{
+    font-weight: bold;
+    font-size: smaller;
+}
+
+fieldset {
+    border: 2px double rgb(7, 2, 2) !important;
+    padding: 0 1.4em 1.4em 1.4em !important;
+    margin: 0 0 1.5em 0 !important;
+    -webkit-box-shadow:  0px 0px 0px 0px #000;
+            box-shadow:  0px 0px 0px 0px #000;
+}
+
+legend {
+    font-size: 1.2em !important;
+    font-weight: bold !important;
+    text-align: left !important;
+    width:auto;
+    padding:0 10px;
+    border-bottom:none;
+}
+
+.form-control, .custom-select, .easy-autocomplete input {
+    background-color: #e2e2e2;
+   border: 1px solid rgba(0,0,0,0.05); 
+   color: #05145a;
+   font-size: 10px;
+}
+
+.card {
+    background-color: white;
+    border: 2px solid darkblue  ;
+    color: black;
+}
+.trheight{
+    height: 5px;
+}
+
+.table tbody tr td {
+    /* color: #cbddff; */
+    vertical-align: middle;
+    padding: 0.3rem 0.5rem; 
+} 
+
+.table >thead >tr >  th{
+    text-transform: uppercase;
+    font-weight: bold !important;
+    padding: 0.50rem 0.8rem;
+    font-size: 10px;
+    border: 0 none;
+    background-color: aliceblue;
+    color: #05145a;
+
+
+}
+
+tbody  > tr > td{
+    /* color: #cfdefc; */
+    vertical-align: middle;
+    font-size: 12px;
+    padding: 0.50rem 0.2rem;
+    color: black;
+
+}
+
+.table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
+    background-color: rgb(255, 255, 255);
+ } 
+ .table-striped > tbody > tr:nth-child(2n) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
+    background-color: #f6f7ff;
+ } 
+
+ .apendbtn{
+    background-color: #33469b;
+    border-color: #33469b;
+    cursor: pointer;
+    height: 29px;
+}
+
+.dialogModal{
+    position: absolute;
+     /* float: left;   */
+     left: 45%;  
+     top: 35%; 
+     right: 45%;  
+     width: 300px; 
+     transform: translate(-50%, -50%);
+     animation-duration: 0.5s;
+}
+@keyframes fadein {
+   from {height:0;width:0}
+   to {width: 300px;}
+ }

@@ -1,0 +1,441 @@
+<body>
+
+  <div class="container-fluid mt-3" id="inputform">
+    <fieldset>
+      <legend class="text-dark text-uppercase"> E Permit Report</legend>
+
+      <div class="row justify-content-center">
+        <div class="col-xl-2 col-lg-3 col-md-6 col-sm-6 "
+          *ngIf="isCustomer==false">
+          <div class="form-group">
+            <label class="indlabel">Customer :</label>
+            <ng-select [items]="customerList" [multiple]="false" bindLabel="param2" style="background-color: lightgray;"
+              placeholder="Select Custmer" [closeOnSelect]="true" bindValue="param1" [(ngModel)]="customerId"
+              (change)="GetVehicleListAfterCustomer();">
+            </ng-select>
+            <span class="text-danger validation"
+              *ngIf="(customerId==null || customerId =='') && submitted && !isCustomer">
+              Select Customer</span>
+          </div>
+        </div>
+
+       
+       
+        
+        <div class="col-xl-3 col-lg-3 col-sm-6">
+          <div class="form-group">
+            <label class="indlabel">Device : </label>
+            <ng-select [items]="deviceList" [multiple]="true" bindLabel="param2" groupBy="param7"
+              [selectableGroup]="true" placeholder="Select Device" [selectableGroupAsModel]="false"
+              [closeOnSelect]="false" bindValue="param3" [(ngModel)]="deviceIdArr">
+              <ng-template ng-optgroup-tmp let-item="item" let-item$="item$" let-index="index">
+                <input id="item-{{index}}" type="checkbox" [ngModel]="item$.selected" /> Select All
+              </ng-template>
+            </ng-select>
+
+            <span class="text-danger validation" *ngIf="(this.deviceIdArr.length == 0) && submitted">
+              Select Device</span>
+          </div>
+        </div>
+
+        <div class="col-xl-3 col-lg-6 col-sm-6">
+          <div class="form-group">
+            <label class="indlabel">Select date :</label>
+            <div id="daterangeadminux2" class="form-control pr-0">
+              <span id="daterange"></span> <i
+                class="material-icons avatar avatar-26 text-template-primary cal-icon float-right">event</i>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-2 col">
+          <div class="form-group">
+
+            <label class="indlabel">from time :</label>
+            <input class="timepicker form-control" type='text' id="fromTime" name='fromtime'
+              placeholder="Select From Time" value="00:00" />
+            <span class="text-danger validation" *ngIf="(fromTime==null || fromTime =='') && submitted"> Please Select
+              From Time</span>
+          </div>
+        </div>
+
+        <div class="col-lg-2 col">
+          <div class="form-group">
+            <label class="indlabel">to time :</label>
+            <input class="timepicker form-control" type='text' id="toTime" name='totime' placeholder="Select To Time"
+              value="23:59" />
+            <span class="text-danger validation" *ngIf="(toTime==null || toTime =='') && submitted"> Please Select To
+              Time</span>
+          </div>
+        </div>
+
+
+
+      </div>
+      <div class="text-right pt-1 pb-0">
+        <button type="submit" class="btn btn-sm btn-success mr-1" (click)="onSubmit()">Submit</button>
+        <button type="reset" class="btn btn-sm btn-secondary">Reset </button>
+      </div>
+
+    </fieldset>
+  </div>
+
+  <div class="container-fluid" id="outputform" style="display: none;">
+    <h6 class="text-dark text-center mt-3 text-uppercase"> <b>E-Permit Report</b></h6>
+    <span style="float:left;position:relative;top:30;cursor: pointer;" (click)="gotoBack();"> <img
+        src="assets/images/Back-Button.png" width="30" height="30" style="margin-top: -65px;"></span>
+    <br>
+
+
+    <div class="card mt-2 mb-2">
+      <div class="card-header text-bold">
+        <b> Details</b><span style="float: right;"><b> Current Time :</b> {{d | date:'dd-MMM-yyyy hh:mm'}}</span>
+      </div>
+      <div class="card-body">
+
+        <!--    ---------------        Table Header Staret=------------------------    -->
+
+        <div class="row mb-3">
+          <div class="col-12 col-sm-12 col-md text-md-left align-self-center pr-0">
+            <ul class="nav  justify-sm-content-center  justify-content-left">
+              <li class="nav-item ">
+                <div class="input-group" style="max-width: 250px;">
+                  <input type="text" placeholder="Search" id="searchData" class="form-control searchicon"
+                    id="searchData" [(ngModel)]="filter" aria-label="Amount (to the nearest dollar)">
+                  <div class="input-group-append">
+                    <button class="btn  apendbtn" (click)="searchdata()"  [disabled]="filter==''">
+                      <i style="color: #00ed54; margin-top: -15px;" class="fa fa-search"></i>
+                    </button>
+                  </div>
+                </div>
+              </li>
+              <li class="nav-item mx-3">
+                <i class="fa fa-refresh fa-2x fa-spin-hover" style="font-size: 17px;
+                padding-top: 4px;color: #00fff3;" (click)="Refreshfunction()"></i>
+              </li>
+            </ul>
+          </div>
+
+          <div class="col-12 col-sm-12 col-md-auto text-right text-md-end pl-0">
+            <ul class="nav justify-content-center justify-lg-content-end  justify-sm-content-center">
+              <li class="nav-item mx-2">
+                <img style="cursor: pointer; height: 20px; margin-top: 3px;"
+                  (click)="distanceTravelledReportPDFDownload()" ngbTooltip="PDF" src="assets/images/PDFicon.png">
+              </li>
+              <li class="nav-item mx-2">
+                <img style="cursor: pointer;" (click)="exportToExcel()" ngbTooltip="Excel"
+                  src="assets/images/excellogo.png">
+              </li>
+              <li class="nav-item mx-3">
+                <span style="display: inline;">Show Rows : </span> <select class="form-control p-1"
+                  (change)="changeItemsPerPage()" [(ngModel)]="itemsPerPage" style="width: 44px;display: inline;">
+                  <option>5</option>
+                  <option>10</option>
+                  <option>20</option>
+                  <option>50</option>
+                </select>
+              </li>
+              <li class="nav-item ">
+                <span>Total Records : {{viewcount}} of {{totalcount}}</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+
+        <!-- ---------------------  Table header end  ------------------------------ -->
+
+
+        <div class="table-responsive">
+          <table class="table table-striped text-center">
+            <thead style="font-weight: bold;color: rgb(105, 28, 28);">
+              <tr>
+                <th>#</th>
+                <th (click)="sort('param9')">Vehicle No.</th>
+                <th (click)="sort('param7')" style="min-width: 170px;">Extend time </th>
+                <th (click)="sort('param3')">Name</th>
+                <th (click)="sort('param4')">Mobile No.</th>
+                <th (click)="sort('param5')">remark</th>
+                <th (click)="sort('param8')">Verified Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- <tr class="trheight" *ngFor="let item of reportList"> -->
+              <tr
+                *ngFor="let item of responseGridArray | filter:filter |  orderBy: key : reverse | paginate : {itemsPerPage:itemsPerPage,currentPage:pageNumber,totalItems:totalcount} "
+                class="trheight">
+
+                <td>{{item.rowNumber}}</td> <!--  #  -->
+                <td>{{item.param9}}</td> <!--  Vehicle no. -->
+                <td>{{item.param7}}</td> <!--  extend time  -->
+                <td>{{item.param3}}</td> <!-- name  -->
+                <td>{{item.param4}}</td> <!-- mobilr number -->
+                <td>{{item.param5}}</td> <!-- remark  -->
+                <td>{{item.param8}}</td> <!-- mobilize track -->
+              </tr>
+            </tbody>
+            <tfoot id="foot" class="box-footer clearfix">
+              <tr>
+                <td colspan="12">
+                  <pagination-controls style=" float: right;color: black;" (pageChange)="pageChange($event)">
+                  </pagination-controls>
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+          <div class="float-right mt-3">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!--Dummy Table of Excel -->
+  <div style=" display: none;">
+    <div class="row" id="distanceTravelledPDF" style=" height : 480px; overflow-y: hidden; " #epltable>
+      <img src="https://track.indtrack.com/indtrack/assets/images/indgps.png" style="position: absolute;">
+      <br><br>
+      <h5 style="font-weight: bold;text-align :center;margin-top:0px;">E-PERMIT REPORT</h5>
+
+      <table style="width: 100%;border:none">
+        <tr>
+          <th style="text-align: right;border:none" *ngIf="!isCustomer"> Customer <span style="float: right;">:</span>
+          </th>
+          <td style="text-align: left;border:none" *ngIf="!isCustomer">{{customerName}} </td>
+          <th style="text-align: right;border:none">Device <span style="float: right;">:</span></th>
+          <td style="text-align: left;border:none">{{deviceName}} </td>
+          <th style="text-align: right;border:none">Start Time <span style="float: right;">:</span></th>
+          <td style="text-align: left;border:none">{{fromDate |date:'dd-MMM-yyyy'}} {{fromTime}} </td>
+          <th style="text-align: right;border:none">End Time <span style="float: right;">:</span></th>
+          <td style="text-align: left;border:none">{{toDate |date:'dd-MMM-yyyy'}} {{toTime}} </td>
+        </tr>
+      </table>
+
+
+      <br>
+      <table class="table table-hover table-striped">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Vehicle No.</th>
+            <th style="min-width: 170px;">Extend time </th>
+            <th>Name</th>
+            <th>Mobile No.</th>
+            <th>remark</th>
+            <!-- <th>Mobilize track</th> -->
+            <th>Verified Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="let item of responseGridArrayForPdf | filter:filter | paginate : {itemsPerPage:itemsPerPage,currentPage:pageNumber,totalItems:totalcount} "
+            class="trheight">
+            <td>{{item.rowNumber}}</td> <!--  #  -->
+            <td>{{item.param9}}</td> <!--  Vehicle no. -->
+            <td>{{item.param7}}</td> <!--  extend time  -->
+            <td>{{item.param3}}</td> <!-- name  -->
+            <td>{{item.param4}}</td> <!-- mobilr number -->
+            <td>{{item.param5}}</td> <!-- remark  -->
+            <td>{{item.param8}}</td> <!-- mobilize track -->
+          </tr>
+        </tbody>
+      </table>
+      <br>
+      <footer>
+        <span> Date : {{d | date:'dd-MMM-yyyy hh:mm'}}</span>
+        <p style="text-align: center;"><b>This is system generated report</b></p>
+      </footer>
+    </div>
+  </div>
+  <!--Dummy Table of Excel -->
+
+
+
+  <!-- <error modal -->
+
+    <div class="modal fade " id="ErrorModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+    aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+      <div class="modal-content box-shadow">
+        <div class="card  border-0">
+          <div class="card-header  py-1 pl-3 m-0" style="background-color: red;">
+            <p style="font-size:17px; font-weight:bold"> Error </p>
+          </div>
+          <div class="card-body bg-white text-dark">
+            <p> {{errorMessage}}</p>
+            <div class="text-right">
+              <button class="btn btn-sm btn-success" data-dismiss="modal">ok</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- error modal -->
+  <!--
+
+
+Developer: Tafseer Khan
+Date: 04:12:2020;
+Description : Map Modal 
+
+    -->
+
+
+    <div class="modal" id="maptrack">
+      <div class="modal-dialog">
+        <div class="modal-content"
+          style="  border: 2px solid #aad3df; margin-left: -25%;    margin-left: -49%; width: 210%;">
+  
+          <!-- Modal Header -->
+          <div style="    z-index: 1;">
+            <div class="modalClose" data-dismiss="modal"> <span class="dot">
+                <h6>&times;</h6>
+              </span></div>
+  
+          </div>
+  
+          <!-- Modal body -->
+          <div class="modal-body" style="width: 102.5%; padding-bottom:0.5% !important;   padding: 2%;">
+  
+  
+            <div class="switcherContainer"
+              style="     z-index: 1;left: 936px;    color: black;      position: absolute; margin-right: 4%;">
+              <!--         
+                     <div class="options" style="     background-color: aliceblue;  height: 171px;   font-size: 11px;  color: black;">
+                             <ul style="list-style: none;margin-left: -39px;">
+                                 <li class="switcherLi shadow"><input type="radio" name="mapStyle" id="binglayer" (click)="MapSwitch('0')"><span>Bing Map</span></li>
+                                 <li class="switcherLi shadow"><input type="radio" name="mapStyle" id="binghyblayer"  (click)="MapSwitch('1')"><span>Bing Hybrid Map</span></li>
+                                 <li class="switcherLi shadow"><input type="radio" name="mapStyle" id="tomlayer"  (click)="MapSwitch('2')"><span>Tom Tom Map</span></li>
+                                 <li class="switcherLi shadow"><input type="radio" name="mapStyle" id="osmlayer" (click)="MapSwitch('3')" checked><span>OSM Map</span></li>
+                                 <li class="switcherLi shadow"><input type="radio" name="mapStyle" id="indialayer" (click)="MapSwitch('4')"><span>India Map</span></li>
+             
+                             </ul>
+             
+                     </div>
+             
+             
+                     <div class="switchbutton" style="    color: black;    padding: 4px;">
+                         Switch Map Style
+                     </div>  -->
+  
+  
+              <div data-toggle="collapse" (click)="OpenCollapse()" id="collapseButton">
+                <span class="dot" style="    height: 35px; width: 36px; background-color: white;">
+                  <img src="assets/mapimages/mapstyleicon/mapswitchericonnew.png"
+                    style="width: 35px;   margin-top: -2px;   margin-left: -1px;">
+                  <!-- <h6><i class='fa fa-layer-group' style="font-size: 14px; color: black;"></i></h6> -->
+                </span>
+              </div>
+  
+  
+  
+              <div class="collapse" id="mapswitcher" style="    background-color: #1e295c; padding: 7px;width: 234px;  
+                         margin-top: -63px; margin-left: -217px;">
+  
+                <div><span (click)="CloseCollapse()" class="customCircle">&times;</span></div>
+                <div class="cardheader">Map Types</div>
+  
+                <div>
+                  <div class="iconDiv activeSwitchOption effect8" id="switch3">
+                    <img src="assets/mapimages/mapstyleicon/osm.JPG" (click)="MapSwitch('3')" class="mapicons">
+                    <h6 class="imagelabel">OSM</h6>
+  
+                  </div>
+                  <!-- <div class="iconDiv"  id="0">
+                                 <img src="assets/mapimages/mapstyleicon/bingmap.JPG" class="mapicons"  (click)="MapSwitch('0')">
+                                 <h6 class="imagelabel">Bing</h6>
+                 
+                               </div> -->
+                  <div class="iconDiv" id="switch1">
+                    <img src="assets/mapimages/mapstyleicon/binghybrid.JPG" class="mapicons" (click)="MapSwitch('1')">
+                    <h6 class="imagelabel">Satellite</h6>
+  
+                  </div>
+                  <div class="iconDiv" id="switch2">
+                    <img src="assets/mapimages/mapstyleicon/tomtom.JPG" class="mapicons" (click)="MapSwitch('2')">
+                    <h6 class="imagelabel" id="">Tom Tom</h6>
+                  </div>
+                  <div class="iconDiv" id="switch4">
+                    <img src="assets/mapimages/mapstyleicon/india.JPG" class="mapicons" (click)="MapSwitch('4')">
+                    <h6 class="imagelabel">Indtrack</h6>
+                  </div>
+  
+                </div>
+  
+  
+  
+  
+                <!-- map Detailss   ======  -->
+                <!-- <div class="cardheader">Map Data</div> -->
+  
+                <!-- <div >
+                                   <div class="iconDiv activeSwitchOption effect8" id="polygonSwitch">
+                                   <img src="assets/mapimages/mapstyleicon/polygonDataicon.jpg" class="mapicons" (click)="SwitchPolygon()" style="width: 29px;">
+                                   <h6 class="imagelabel">Polygon</h6>
+                 
+                                  
+             
+                               <div class="iconDiv activeSwitchOption effect8" id="routeSwitch" style="    margin-left: 5px;">
+                                 <img src="assets/mapimages/mapstyleicon/routeDataicon.JPG" class="mapicons "  style="  width: 29px;   height: 29px;" (click)="SwitcherRoute()">
+                                 <h6 class="imagelabel">Route</h6>
+                 
+                               </div>
+                                 <div class="iconDiv activeSwitchOption effect8" id="poiSwitch" style="    margin-left: 5px;">
+                                   <img src="assets/mapimages/mapstyleicon/poiDataicon2.JPG" class="mapicons " style="       width: 29px; height: 29px;" (click)="SwitchPoi()" >
+                                   <h6 class="imagelabel">POI</h6>
+                 
+                                 </div>
+                               
+                             </div>          
+                            
+                          <div class="cardheader">Create Data</div> 
+                           <div >
+                               <div class="iconDiv" id="polygonCreate"  title="Create Polygon">
+                               <img src="assets/mapimages/mapstyleicon/polygonDataicon.jpg" class="mapicons" (click)="CreatePolygon()" style="width: 29px;">
+                               <h6 class="imagelabel">Polygon</h6>
+                 
+                             </div>
+                             <div class="iconDiv" id="routeCreate" style="    margin-left: 5px;" title="Create Route">
+                             <img src="assets/mapimages/mapstyleicon/routeDataicon.JPG" class="mapicons "  style="  width: 29px;   height: 29px;" (click)="CreateRoute()">
+                             <h6 class="imagelabel">Route</h6>
+                 
+                           </div>
+                             <div class="iconDiv" id="poiCreate" style="    margin-left: 5px;" title="Create POI">
+                               <img src="assets/mapimages/mapstyleicon/poiDataicon2.JPG" class="mapicons " style="       width: 29px; height: 29px;" (click)="CreatePoi()" >
+                               <h6 class="imagelabel">POI</h6>
+                 
+                             </div>
+                 
+                             <div style="margin-top: 5px;"><span style="    font-size: 11px;
+                               color: #15e81c;
+                               font-weight: bold; margin-left: 9px;">{{creationstatus}}</span></div>
+                           
+                         </div> -->
+              </div>
+  
+            </div>
+  
+  
+  
+            <div id="map" class="map" style="width:100%; margin-top: -30px;margin-left: -12px;"></div>
+  
+            <div id="popup" class="ol-popup">
+              <a id="popup-closer" class="ol-popup-closer"></a>
+              <div id="popup-content"></div>
+            </div>
+  
+  
+          </div>
+  
+  
+  
+        </div>
+      </div>
+    </div>
+  
+
+
+</body>

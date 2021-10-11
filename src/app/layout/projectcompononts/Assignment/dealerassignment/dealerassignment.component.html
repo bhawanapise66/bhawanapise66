@@ -1,0 +1,156 @@
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Device Assign</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true" style="color: white">×</span>
+              </button>
+          </div>
+          <div class="modal-body">
+            <div class="container-fluid">
+            <div  id="container">
+              <div class="step-wizardentry" role="navigation">
+                <div class="progress" style="display: none;">
+                  <div class="progressbar empty" style="display: none;"></div>
+                  <div id="progentry" class="progressbar" style="display: none;"></div>
+                </div>
+                <ul style="display: none;">
+                  <li class="active">
+                    <button id="stepentry1">
+                      <div class="step">1</div>
+                      <div class="title">Basic Details</div>
+                    </button>
+                  </li>
+                  <!-- <li class="">
+                    <button id="stepentry2">
+                      <div class="step">2</div>
+                      <div class="title">Contact Details</div>
+                    </button>
+                  </li> -->
+                  <li class="">
+                    <button id="stepentry3">
+                      <div class="step">2</div>
+                      <div class="title">Contact Details</div>
+                    </button>
+                  </li>
+                  <!-- <li class="">
+                    <button id="stepentry4">
+                      <div class="step">4</div>
+                      <div class="title">Successful</div>
+                    </button>
+                  </li> -->
+                </ul>
+          
+                <div class="stepsection" >
+                  <span class="invalidmsg" id="msg_mainmessageentry"></span>
+                  <div id="step-14" class="stepsdiv">
+                      <!-- <span class="StepTitle">Step 1: Basic Details</span> -->
+<!--  Developer : Aditya Londhe 
+      Description : Changes of dropdown (multiselect) searchable dropdown added
+    
+      Date : 11-12-2020
+    -->
+                      <div class="form-group row">
+                        <div class="col-lg-3 col-md-3">
+                          <!-- <label class="indlabel">Dealer Name</label>
+                          <span class="mandatory">*</span>
+                          <select class="form-control" id="distrbutornameentry" data-live-search="true" [(ngModel)]="distibutorText" tabindex="8" placeholder="Select Distributor." aria-hidden="true" style=" font-size:12px">
+                            <option *ngFor = "let list of ListOfDealer$" value={{list.param1}} >{{list.param2}}</option>
+                           
+                          </select>
+                          <span class="invalidmsg" id="msg_vendorName"></span> -->
+                        
+                            <label class="indlabel">Dealer Name</label>
+                            <span class="mandatory">*</span>
+                           
+                            <ngx-select-dropdown tabindex="0" id="distrbutornameentry" [multiple]="false" [(ngModel)]="DealerText"
+                            [config]="config" [options]="ListOfDealer"  ></ngx-select-dropdown>
+
+                          
+                      
+                        </div>
+                        <div class="col-lg-3 col-md-3">
+                          <!-- <label class="indlabel">Device Type</label>
+                          <span class="mandatory">*</span>
+                          <select class="form-control" id="devicetype" data-live-search="true" [(ngModel)]="devicetypeText" tabindex="8" placeholder="Select Distributor." aria-hidden="true" style=" font-size:12px">
+                            <option *ngFor = "let list of ListOfDevicetype$" value={{list.param1}} >{{list.param2}}</option>
+                           
+                          </select> -->
+                        
+                          <label class="indlabel">Device Type</label>
+                          <span class="mandatory">*</span>
+                         
+                          <ngx-select-dropdown tabindex="0" id="devicetype" [multiple]="false" [(ngModel)]="devicetypeText"
+                          [config]="config" [options]="ListOfDevicetype" (change)="Devicelist()" ></ngx-select-dropdown>
+
+                       
+                         
+                        </div>
+                       
+                        <div class="col-lg-3 col-md-3">
+                          <!-- <label class="indlabel">Device list</label>
+                          <span class="mandatory">*</span>
+                          <select class="form-control" id="devicelist" data-live-search="true" [(ngModel)]="devicelistText" tabindex="8" placeholder="Select Distributor." aria-hidden="true" style=" font-size:12px">
+                            <option *ngFor = "let list of ListOfDevicelist$" value={{list.param1}} >{{list.param2}}</option>
+                           
+                          </select> -->
+                          <label class="indlabel">Device List</label>
+                          <span class="mandatory">*</span>
+                         
+                          <ngx-select-dropdown tabindex="0" id="devicelist" [multiple]="false" [(ngModel)]="devicelistText"
+                          [config]="config" [options]="ListOfDevicelist" ></ngx-select-dropdown>
+                         
+  
+                          <span class="invalidmsg" id="msg_vendorName"></span>
+                        </div>
+
+                        <div class="col-lg-3 col-md-3">
+                          <label class="indlabel">Count</label>
+                          <span class="mandatory">*</span>
+                          <input type="number" class="form-control" placeholder="Select Count" tabindex="1" required minlength="1" maxlength="4"
+                            id="noofdeviceentry" onpaste="return false;" [(ngModel)]="noOfdeviceentryText" #noofdevice="ngModel" onkeypress="return isNumberKey(event)"
+                            ondrop="return false;">
+                          <div class="invalidmsg" *ngIf="noofdevice.errors?.minlength">
+                            Vendor name must be at least minimum 3 characters & maximum 30 characters long.
+                          </div>
+                          <span class="invalidmsg" id="msg_vendorName"></span>
+                        </div>
+                       
+  
+                      </div>
+                        <br><br>
+                      <span class="invalidmsg" id="msg_errorentry"></span>
+                    </div>
+                 
+                  
+                 
+              <!-- <div class="actionBar">
+                <button  id="saveentry" class="mb-2 btn btn-sm btn-success buttonFinish"  (click)="vensavebtn()"><i class="material-icons">save</i></button>
+                <button  id="nextentry" class="mb-2 btn btn-sm btn-primary buttonNext"><i class="material-icons">arrow_forward</i></button>
+                
+                <button  id="preventry" class="mb-2 btn btn-sm btn-primary buttonPrevious" onclick="validateAllSteps(4,4)"><i class="material-icons">arrow_back</i></button>
+                </div> -->
+          
+              </div>
+            </div>  
+          </div>
+          </div>
+          </div>
+           <!-- Modal footer -->
+
+       <div class="modal-footer" id="modelfooter">
+
+          <div class="actionBar">
+              <button id="save" class="mb-2 btn btn-wizard btn-sm btn-success buttonFinish" (click)="vensavebtn()" style="display: none;">
+                  <i class="material-icons">save</i>
+                </button>
+                <button id="next" class="mb-2 btn btn-wizard btn-sm btn-success buttonNext"  (click)="vensavebtn()">
+                  <i class="material-icons">save</i>
+                </button>
+            </div>
+    </div> 
+        
+      </div>
+  </div>
+</div>

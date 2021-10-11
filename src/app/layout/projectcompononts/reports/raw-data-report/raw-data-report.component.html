@@ -1,0 +1,286 @@
+<body style="min-height: 35rem; background-color: white;">
+
+  <div class="container-fluid mt-3" id="inputform">
+    <fieldset>
+      <legend class="text-dark text-uppercase">Raw Data Report</legend>
+      <div class="row">
+        <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-xs-6">
+          <div class="form-group">
+            <label class="indlabel">Vendor :</label>
+            <!-- <ngx-select-dropdown tabindex="0" style="font-size:11px" [multiple]="false" [(ngModel)]="vendorObj"
+              [config]="config" [options]="vendorListArray" (change)="getVendor()">
+            </ngx-select-dropdown> -->
+
+            <ng-select [items]="vendorListArray" [multiple]="false" bindLabel="param2"
+              style="background-color: lightgray;" placeholder="Select Vendor" [closeOnSelect]="true" bindValue="param1"
+              [(ngModel)]="vendorId" (change)="getDeviceTypeList();">
+            </ng-select>
+            <span class="text-danger validation" *ngIf="(vendorObj==null || vendorObj =='') && submitted">
+              Select Device</span>
+          </div>
+        </div>
+
+        <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-xs-6">
+          <div class="form-group">
+            <label class="indlabel">Device Type :</label>
+            <!-- <ngx-select-dropdown tabindex="0" id="customer" style="font-size:11px" [multiple]="false"
+              [(ngModel)]="deviceTypeObj" [config]="config" [options]="deviceTypeArray" (change)="getDeviceList();">
+            </ngx-select-dropdown> -->
+
+
+            <ng-select [items]="deviceTypeArray" [multiple]="false" bindLabel="param2"
+              style="background-color: lightgray;" placeholder="Select Device Type" [closeOnSelect]="true"
+              bindValue="param1" [(ngModel)]="deviceTypeId" (change)="getDeviceList();">
+            </ng-select>
+
+            <span class="text-danger validation" *ngIf="(deviceTypeObj==null || deviceTypeObj =='') && submitted">
+              Select Device type</span>
+
+          </div>
+        </div>
+
+        <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-xs-6">
+          <div class="form-group">
+            <label class="indlabel">Device :</label>
+            <!-- <ngx-select-dropdown tabindex="0" id="customer" style="font-size:11px" [multiple]="false"
+              [(ngModel)]="deviceObj" [config]="config" [options]="deviceListArray" (change)="getDevice();">
+            </ngx-select-dropdown> -->
+
+
+            <ng-select [items]="deviceListArray" [multiple]="false" bindLabel="param2"
+              style="background-color: lightgray;" placeholder="Select Device" [closeOnSelect]="true" bindValue="param1"
+              [(ngModel)]="deviceId">
+            </ng-select>
+
+            <span class="text-danger validation" *ngIf="(deviceObj==null || deviceObj =='') && submitted">
+              Select Device type</span>
+          </div>
+        </div>
+
+        <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-xs-6">
+          <div class="form-group">
+            <label class="indlabel">Date :</label>
+            <input id="dateinput" type="text" class="form-control datepicker" placeholder="">
+          </div>
+        </div>
+
+        <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-xs-6">
+          <div class="form-group">
+            <label class="indlabel ">From time</label> :
+            <input class="timepicker form-control" type='text' id="fromTime" name='fromtime'
+              placeholder="Enter From Time" value="00:00" />
+            <small class="text-danger validation" *ngIf="(fromTime==null || fromTime =='') && submitted">
+              Please Select From Time</small>
+          </div>
+        </div>
+
+        <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-xs-6">
+          <div class="form-group" style="text-align: left;">
+            <label class="indlabel text-left">to time</label> :
+            <input class="timepicker form-control" type='text' id="toTime" name='toTime' placeholder="Enter To Time"
+              value="23:59" />
+            <small class="text-danger validation" *ngIf="(toTime==null || toTime =='') && submitted">
+              Please Select To Time</small>
+          </div>
+        </div>
+      </div>
+
+      <div style="float: right;" class="mb-2">
+        <button class="btn btn-success btn-sm mr-3" (click)="onSubmit()" style="display: inline-block;">Submit</button>
+        <button class="btn btn-secondary btn-sm" style="display: inline-block;">Reset</button>
+      </div>
+    </fieldset>
+  </div>
+
+  <div class="container-fluid" id="outputform" style="display: none;">
+
+    <h6 class="text-dark text-center mt-3"> <b>Raw Data Report</b></h6>
+    <span style="float:left;position:relative;top:30;cursor: pointer;" (click)="gotoBack();"> <img
+        src="assets/images/Back-Button.png" width="30" height="30" style="margin-top: -65px;"></span>
+    <br>
+
+    <div class="card mt-3">
+      <div class="card-header">
+        <div class="row">
+
+          <div class="col-sm-4 col-lg-2">
+            <b>Vendor :</b> {{vendorName}}
+          </div>
+          <div class="col-sm-4 col-lg-2">
+            <b>Device Type :</b> {{deviceTypeName}}
+          </div>
+          <div class="col-sm-4 col-lg-2">
+            <b>Device :</b> {{deviceName}}
+          </div>
+          <div class="col-sm-4 col-lg-2">
+            <b>Date :</b> {{date | date:'dd-MMM-yyyy'}}
+          </div>
+          <div class="col-sm-4 col-lg-2">
+            <b>From Time :</b> {{fromTime}}
+          </div>
+          <div class="col-sm-4 col-lg-2">
+            <b>To Time :</b> {{toTime}}
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+
+    <div class="card mt-3">
+      <div class="card-header text-bold">
+        Report
+      </div>
+      <div class="card-body">
+
+        <!--    ---------------        Table Header Staret=------------------------    -->
+
+
+        <div class="row mb-3">
+          <div class="col-12 col-sm-12 col-md text-md-left align-self-center pr-0">
+            <ul class="nav  justify-sm-content-center  justify-content-left">
+              <li class="nav-item ">
+                <div class="input-group" style="max-width: 250px;">
+                  <input type="text" placeholder="Search" id="searchData" class="form-control searchicon"
+                    id="searchData" [(ngModel)]="filter" aria-label="Amount (to the nearest dollar)">
+                  <div class="input-group-append">
+                    <button class="btn  apendbtn" (click)="searchdata()" [disabled]="filter==''">
+                      <i style="color: #00ed54; margin-top: -15px;" class="fa fa-search"></i>
+                    </button>
+                  </div>
+                </div>
+              </li>
+              <li class="nav-item mx-3">
+                <i class="fa fa-refresh fa-2x fa-spin-hover" style="font-size: 17px;
+                padding-top: 4px;color: #00fff3;" (click)="Refreshfunction()"></i>
+              </li>
+            </ul>
+          </div>
+
+          <div class="col-12 col-sm-12 col-md-auto text-right text-md-end pl-0">
+            <ul class="nav justify-content-center justify-lg-content-end  justify-sm-content-center">
+              <li class="nav-item mx-2">
+                <img style="cursor: pointer; height: 20px; margin-top: 3px;" ngbTooltip="PDF" (click)="createPDF()"
+                  src="assets/images/PDFicon.png">
+              </li>
+              <li class="nav-item mx-2">
+                <img style="cursor: pointer;" (click)="exportToExcel()" ngbTooltip="Excel"
+                  src="assets/images/excellogo.png">
+              </li>
+              <li class="nav-item mx-3">
+                <span style="display: inline;">Show Rows : </span> <select class="form-control p-1"
+                  (change)="getRawDataReport()" [(ngModel)]="itemsPerPage" style="width: 44px;display: inline;">
+                  <option>5</option>
+                  <option>10</option>
+                  <option>20</option>
+                  <option>50</option>
+                </select>
+              </li>
+              <li class="nav-item ">
+                <span>Total Records : {{viewcountintable}} of {{totalcount}}</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- ---------------------  Table header end  ------------------------------ -->
+
+
+
+        <div class="table-responsive">
+          <table class="table table-striped text-center">
+            <thead style="font-weight: bold;color: rgb(105, 28, 28);">
+              <tr>
+                <th>#</th>
+                <th (click)="sort('param2')">recievedatetime</th>
+                <th (click)="sort('param3')">data message</th>
+                <th (click)="sort('param5')">port number</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                *ngFor="let item of reportResponseList | filter:filter |  orderBy: key : reverse | paginate : {itemsPerPage:viewcountintable,currentPage:pageNumber,totalItems:totalcount} "
+                class="trheight">
+
+                <td class="text-dark">{{item.rowNumber}} </td>
+                <td class="text-dark">{{item.param2}}&nbsp;&nbsp;&nbsp; {{item.time}} </td>
+                <td class="text-dark">{{item.param3}} </td>
+                <td class="text-dark">{{item.param5}} </td>
+
+                <!-- <td class="text-warning"> <span class="material-icons"> location_on </span> </td> -->
+              </tr>
+            </tbody>
+            <tfoot id="foot" class="box-footer clearfix">
+              <tr>
+                <td colspan="12">
+                  <pagination-controls style=" float: right;color: black;" (pageChange)="reportPageChange($event)">
+                  </pagination-controls>
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+          <div class="float-right mt-3">
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</body>
+
+
+<!--Dummy Table of Excel -->
+<div style=" display: none;">
+  <div class="row" id="rawDataReportPDF" style=" height : 480px; overflow-y: hidden; " #epltable>
+    <img src="https://track.indtrack.com/indtrack/assets/images/indgps.png" style="position: absolute;">
+    <br><br>
+    <h5 style="font-weight: bold;text-align :center;margin-top:0px;">RAW DATA REPORT</h5>
+    <table class="table table-hover table-striped">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>recievedatetime</th>
+          <th>data message</th>
+          <th>port number</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of reportResponseListForPDF " class="trheight">
+
+          <td class="text-dark">{{item.rowNumber}} </td>
+          <td class="text-dark">{{item.param2}}</td>
+          <td class="text-dark">{{item.param3}} </td>
+          <td class="text-dark">{{item.param5}} </td>
+
+          <!-- <td class="text-warning"> <span class="material-icons"> location_on </span> </td> -->
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<!-- table for exc3el ends -->
+
+
+
+<!-- <error modal -->
+
+<div class="modal fade " id="RawErrorModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+  aria-hidden="true">
+  <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+    <div class="modal-content box-shadow">
+      <div class="card  border-0">
+        <div class="card-header  py-1 pl-3 m-0" style="background-color: red;">
+          <p style="font-size:17px; font-weight:bold"> Error </p>
+        </div>
+        <div class="card-body bg-white text-dark">
+          <p> {{errorMessage}}</p>
+          <div class="text-right">
+            <button class="btn btn-sm btn-success" data-dismiss="modal">ok</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- error modal -->

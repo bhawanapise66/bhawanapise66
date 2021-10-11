@@ -1,0 +1,406 @@
+<!--
+Developer 	: dhammadeep 
+Date      	: 12-10-2020
+Description : login creation master
+Modified By:  
+Update date : 
+-->
+<div class="content shadow-sm">
+  <!-- Main container starts -->
+  <div class="container-fluid main-container" id="main-container">
+    <div class="row">
+      <div class="col-12 col-md-12 col-lg-12 col-xl-12 mx-auto align-self-center">
+        <div class="card shadow-sm border-0 mb-4">
+          <div class="card-header" style="padding-top: 0; padding-bottom: 0">
+            <!-- <img src="../assets/img/logoicon.svg" alt="" class="w-50px mt-4"> -->
+            <h4 class="text-left m-1">Login
+              <span class="text-template-primary" style="color: #00ed54">Creation</span>
+              <button type="button" class="btn btn-sm btn-primaryyel ml-2 float-right"
+                style="margin-right: 89px; width: 100px;" data-toggle="modal" data-target="#exampleModal">
+                ADD NEW
+                <i class="material-icons md-18">navigate_next</i>
+
+              </button>
+            </h4>
+          </div>
+          <div class="card-body">
+            <div class="row justify-content-center">
+              <div class="col-md-12 mx-auto">
+                <div class="row">
+                  <div class="col-lg-12 col-md-12">
+                    <!-- <button type="button" class="btn btn-sm btn-outline-template ml-2" data-toggle="modal"
+                      data-target="#exampleModal" style="width: 100px;">
+                      ADD NEW
+                      <i class="material-icons md-18">navigate_next</i>
+                    </button> -->
+                  </div>
+                </div>
+                <div class="container-fluid main-container" id="main-container">
+                  <!--    ---------------        Table Header Staret=------------------------    -->
+                  <div class="col-md-12">
+                    <div class="row">
+
+
+
+                      <div class="col-md-2">
+
+                        <!-- <div class="search">
+                         <input type="text" class="searchTerm" placeholder="Search here">
+                         <button type="submit" class="searchButton">
+                           <i class="fa fa-search"></i>
+                        </button>
+                      </div> -->
+                        <div class="input-group">
+
+                          <input type="text" placeholder="Search" class="form-control searchicon "
+                            aria-label="Amount (to the nearest dollar)">
+                          <div class="input-group-append">
+                            <button class="btn  apendbtn"><i style="color: #00ed54; margin-top: -15px;"
+                                class="fa fa-search"></i> </button>
+                          </div>
+                        </div>
+
+                      </div>
+                      <div class="col-md-2">
+                        <i class="fa fa-refresh fa-2x fa-spin-hover" style="font-size: 17px;
+                  padding-top: 4px;
+                  color: #00fff3;"></i>
+                      </div>
+
+                      <div class="col-md-2">
+
+                      </div>
+                      <div class="col-md-2">
+                        <!-- <i class="fa fa-file-pdf-o" style="font-size:26.5px;color:rgb(250, 77, 77)"></i>&nbsp; -->
+                        <!-- &nbsp; <button type="submit" class="btn btn-sm" style="background-color:white; float: right;"><img src="assets/images/pdflogo.png"></button> &nbsp; 
+               &nbsp; <i  class="fa fa-file-excel-o"  aria-hidden="true" style="font-size:26.5px; float: right; padding-right: 10px;  color:rgb(109, 255, 109) "></i> &nbsp; -->
+                      </div>
+                      <!-- <i class="fa fa-refresh fa-2x fa-spin-hover" style="padding-top: 2px;"></i>   -->
+
+                      <div class="col-md-4">
+                        <div class="row">
+                          <div class="col-md-3">
+                            <!-- <i class="fa fa-file-pdf-o" style="font-size:26.5px;color:rgb(250, 77, 77)"></i>&nbsp; -->
+                            <img style="float: right; cursor: pointer; height: 20px; margin-top: 3px;" ngbTooltip="PDF"
+                              src="assets/images/PDFicon.png">
+                            <img style="cursor: pointer;" ngbTooltip="Excel" src="assets/images/excellogo.png">
+                          </div>
+                          <!-- <div class="col-md-3" >
+
+              <span style="padding-top: 0px; font-size: 12px;
+              font-weight: bold; float: right;">Show Rows: </span> </div> -->
+                          <span style="padding-top: 0px; font-size: 12px;
+              font-weight: bold; float: right;">Show Rows: </span>
+                          <div class="col-md-1">
+                            <div style="padding-top: 2px; width: 45px;">
+                              <select class="form-control" data-live-search="true" tabindex="1" id="selectrow"
+                                aria-hidden="true" style=" font-size:12px">
+                                <option value="5" selected>5</option>
+                                <option value="5">5</option>
+                                <option value="10">10</option>
+                                <option value="20">20</option>
+                                <option value="50">50</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="col-md-5" style="text-align: right; font-size: 12px;
+              font-weight: bold;">
+
+                            <span> Total Records&nbsp;&nbsp;:&nbsp;&nbsp;5&nbsp;/&nbsp;10 </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- ---------------------  Table header end  ------------------------------ -->
+                  <div class="card-body table-responsive text-center">
+                    <table class="table table-hover table-striped">
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>Role Name</th>
+                          <th>Description</th>
+                          <th>Read</th>
+                          <th>Write</th>
+                          <th>Create Date</th>
+                          <th>Update Date</th>
+                          <th>Action</th>
+                        </tr>
+                      </thead>
+                      <tbody id="grid"
+                        title="When Click On Header Columns then show Asc to Desc / Desc to Asc records.">
+                        <!-- <tr class="trheight" *ngFor="let item of roleDetails"> -->
+                        <tr
+                          *ngFor="let item of roleDetails | filter:filter | paginate : {itemsPerPage:pagePerItems,currentPage:pageNumber,totalItems:totalCount} ;"
+                          class="trheight">
+
+                          <td>{{item.rowNumber}}</td>
+                          <td>{{item.param2}}</td>
+                          <td>{{item.param3}}</td>
+                          <td>{{item.param4}}</td>
+                          <td>{{item.param5}}</td>
+                          <td>{{item.param6 | date:"dd/MM/yyyy"}}</td>
+                          <td>{{item.param7 | date:"dd/MM/yyyy"}}</td>
+                          <td><span class="iconhover text-warning" data-toggle="modal" data-target="#exampleModal"
+                              placement="bottom" ngbTooltip="edit Entry" (click)="EditEntry(item)"><i
+                                class="material-icons">edit</i>
+                            </span>&nbsp;&nbsp;
+                            <span class="material-icons text-danger" style="cursor:pointer" placement="bottom"
+                              ngbTooltip="Delete Entry" id="deletebtn" data-toggle="modal"
+                              (click)="openModal(modeldelete,item.param1)" data-target="#modeldelete,item.param1">
+                              delete
+                            </span>
+
+                          </td>
+                        </tr>
+                      </tbody>
+                      <tfoot id="foot" class="box-footer clearfix">
+                        <tr>
+                          <td colspan="12">
+                            <pagination-controls style=" float: right;" (pageChange)="pageChanged($event)">
+                            </pagination-controls>
+                          </td>
+                        </tr>
+                      </tfoot>
+                    </table>
+
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- --------------------  view & Edit Modal start------------------------>
+
+
+<!-- ------------------- view & Edit model close ------------------------ -->
+
+<!-- ------------------ Delete Model Start ------------------------>
+
+<!-- Delete Model-->
+<div class="modal fade" id="modeldelete">
+  <div class="modal-dialog modal-sm modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header" style="background-color: 	#FF7F50;">
+        <h4 class="modal-title text-center" style="color: white">Are You Sure?</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+
+        <div class="form-group row">
+
+
+          <div class="col-lg-12 col-md-12">
+            <label class="indlabel">Remark</label>&nbsp;
+            <span class="indlabelstar">*</span>
+            <textarea class="form-control" rows="2" style=" font-size:12px" placeholder="Enter Remark" tabindex="1"
+              minlength="10" maxlength="40" [(ngModel)]="regAddress" #regaddress="ngModel"></textarea>
+            <div class="maxminwarn" *ngIf="regaddress.errors?.minlength">
+              Remark must be at least minimum 10 characters & maximum 40 characters long.
+            </div>
+          </div>
+        </div>
+        <p>Do You want to Delete !!&hellip;</p>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer text-center">
+        <button type="submit" class="btndel btn-primary mr-3" tabindex="18">
+          No
+        </button>
+        <button type="reset" tabindex="19" class="btndel btn-danger ">
+          Yes
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!-- Delete Model -->
+
+<!-- ------------------- Delete model End ----------------------- -->
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Login Creation</h5>
+        <div style="float:right; margin-left: 59%;">
+
+          <button type="button" class=" btn btn-sm btn-primary float-right ml-2" id="backdetailsbtn" ngbTooltip="Back"
+            style="display: none;">
+
+            <i class="material-icons md-18">arrow_back</i>
+          </button>
+        </div>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" style="color: white">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div id="container">
+            <div id="singleEntry">
+              <div class="step-wizardentry" role="navigation">
+                <div class="progress">
+                  <div class="progressbar empty"></div>
+                  <div id="progentry" class="progressbar"></div>
+                </div>
+                <ul>
+                  <li class="active">
+                    <button id="stepentry1">
+                      <div class="step">1</div>
+                      <div class="title">User Details</div>
+                    </button>
+                  </li>
+                  <li class="">
+                    <button id="stepentry2">
+                      <div class="step">2</div>
+                      <div class="title">login Details</div>
+                    </button>
+                  </li>
+                  <!-- <li class="">
+                      <button id="stepentry3">
+                        <div class="step">3</div>
+                        <div class="title">Sim Details</div>
+                      </button>
+                    </li> -->
+                  <li class="" style="display: none;">
+                    <button id="stepentry4">
+                      <div class="step">4</div>
+                      <div class="title">Successful</div>
+                    </button>
+                  </li>
+                </ul>
+
+                <div class="stepsection">
+                  <span class="invalidmsg"></span>
+                  <div id="stepentry-14" class="stepsdiv">
+                    <span class="StepTitle">Step 1: User Details</span>
+                    <div class="form-group row">
+                      <div class="col-lg-4 col-md-4">
+                        <label class="indlabel">Select Role</label>
+                        <span class="mandatory">*</span>
+                        <select class="form-control" [(ngModel)]="logincreation.roleId" id="logintregisterrole"
+                          (change)="RoleWiseUserList()">
+                          <option *ngFor="let item of roleLists" value="{{item.param1}}">{{item.param2}} </option>
+                        </select>
+                        <span class="invalidmsg" id="roleValidation"></span>
+                      </div>
+                      <div class="col-lg-4 col-md-4">
+                        <label class="indlabel">Select User Registered</label>
+                        <span class="mandatory">*</span>
+                        <select class="form-control" [(ngModel)]="logincreation.roleWiseUser" id="loginregisteruser">
+                          <option value=""></option>
+                          <option *ngFor="let item of roleWiseUserList">{{item.param2}}</option>
+                        </select>
+                        <span class="invalidmsg" id="userValidation"></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div id="stepentry-15" class="stepsdiv" style="display: none;">
+                    <span class="StepTitle">Step 2: Login Details</span>
+                    <div class="form-group row">
+                      <div class="col-lg-4 col-md-4">
+                        <label class="indlabel"> Enter Username </label>
+                        <span class="mandatory">*</span>
+                        <input type="text" name="username" placeholder="enter username" class="form-control"
+                          [(ngModel)]="logincreation.username" id="textusername">
+                        <span class="invalidmsg" id="usernameinvaild" *ngIf="usernamevalid"></span>
+                      </div>
+                      <div class="col-lg-4 col-md-4">
+                        <label class="indlabel">Password</label>
+                        <span class="mandatory">*</span>
+                        <input type="password" name="password" placeholder="enter password" class="form-control"
+                          [(ngModel)]="logincreation.password" id="textpassword">
+                        <span class="invalidmsg" id="passwordinvalid" *ngIf="passwordValid"></span>
+                      </div>
+                      <div class="col-lg-4 col-md-4">
+                        <label class="indlabel">Confirm Password</label>
+                        <span class="mandatory">*</span>
+                        <input type="text" name="cPassword" placeholder="confirm password" class="form-control"
+                          [(ngModel)]="logincreation.cpassword" id="textcpassword">
+                        <span class="invalidmsg" id="cpasswordinvalid" *ngIf="cpasswordValid"></span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer" id="modelfooter">
+
+        <div class="actionBar">
+          <button id="saveentry" class="mb-2 btn btn-sm btn-success buttonFinish" (click)="CreateLogin()">
+            <i class="material-icons">save</i>
+          </button>
+          <button id="nextentry" class="mb-2 btn btn-sm btn-primary buttonNext">
+            <i class="material-icons">arrow_forward</i>
+          </button>
+
+          <button id="preventry" class="mb-2 btn btn-sm btn-primary buttonPrevious" onclick="validateAllSteps(4,4)">
+            <i class="material-icons">arrow_back</i>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+<!-- show response  -->
+
+<div class="modal fade " id="insertSuccessModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
+  role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-sm dialogModal" role="document">
+    <div class="modal-content box-shadow">
+      <div class="card text-center border-0">
+        <div class="card-header bg-success m-0 p-0">
+          <h5>Success</h5>
+        </div>
+        <div class="card-body bg-white">
+          {{errorMessage}}
+          <div class="text-right">
+            <button class="btn btn-sm btn-success" data-dismiss="modal">ok</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade " id="ErrorModal " data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+  aria-hidden="true">
+  <div class="modal-dialog modal-sm dialogModal" role="document">
+    <div class="modal-content box-shadow">
+      <div class="card text-center border-0">
+        <div class="card-header bg-warning m-0 p-0">
+          <h5>Failed</h5>
+        </div>
+        <div class="card-body bg-white">
+          {{errorMessage}}
+          <div class="text-right pt-3">
+            <button class="btn btn-sm btn-success" data-dismiss="modal">ok</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

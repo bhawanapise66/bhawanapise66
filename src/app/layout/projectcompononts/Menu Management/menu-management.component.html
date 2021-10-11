@@ -1,0 +1,40 @@
+<div class="container-fluid" [@routerTransition]>
+
+  <div class="row">
+    <div class="col-lg-6 my-3" *ngIf="isAdmin">
+      <div class="card" id="management" style="height: 800px;">
+        <div class="card-header">
+          <p style="font-size: 1rem; font-weight: bold;color: white;">Menu Management</p>
+        </div>
+        <div class="card-body">
+          <app-menu-entry></app-menu-entry>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-6 my-3" *ngIf="isAdmin">
+      <div class="card" id="assignment" style="height: 800px;">
+        <div class="card-header">
+          <p style="font-size: 1rem; font-weight: bold;color: white;">Assignments</p>
+        </div>
+        <div class="card-body">
+          <app-menu-assignment></app-menu-assignment>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-12" *ngIf="!isAdmin">
+      <div class="card" id="assignment" style="height: 1000px;">
+        <div class="card-header">
+          <p style="font-size: 1rem; font-weight: bold;">Assignments</p>
+        </div>
+        <div class="card-body">
+          <app-menu-assignment></app-menu-assignment>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+</div>

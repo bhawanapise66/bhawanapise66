@@ -1,0 +1,131 @@
+<div class="modal fade" id="exampleModal1" tabindex="-1" data-backdrop="static" data-keyboard="false" role="dialog"
+  aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document" style="width: 35rem;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <!-- <h5 class="modal-title" id="exampleModalLabel">&nbsp;Page Entry</h5> -->
+        <h4 class="text-left m-1" style="font-size: 15px; ;">Page
+          <span class="text-template-primary" style="color: #00ed54">Entry</span>
+        </h4>
+        <div style="float:right; margin-left: 59%;">
+
+          <button type="button" class=" btn btn-sm btn-primary float-right ml-2" id="backdetailsbtn" ngbTooltip="Back"
+            style="display: none;">
+
+            <i class="material-icons md-18">arrow_back</i>
+          </button>
+        </div>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="refreshForm();">
+          <span aria-hidden="true" style="color: white">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <!-- <div id="container"> -->
+          <div id="singleEntry">
+            <div class="step-wizardentry" role="navigation">
+              <div class="stepsection">
+                <span class="invalidmsg"></span>
+                <div id="stepentry-14" class="stepsdiv">
+                  <!-- <span class="StepTitle">Page Details</span> -->
+                  <div class="form-group row">
+                    <div class="col-lg-6 col-md-6">
+                      <label class="indlabel">Page Name</label>
+                      <span class="mandatory">*</span>
+                      <input type="text" id="pname" name="pageName" class="form-control" [(ngModel)]="pEntry.pageName"
+                        onkeypress="return onlyAlphabets(event); " (keyup)="isPageNameEmpty=false"
+                        placeholder="Enter Page Name" maxlength="25">
+
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                      <label class="indlabel">Page Url</label>
+                      <span class="mandatory">*</span>
+                      <input type="text" id="purl" name="pageUrl" class="form-control" [(ngModel)]="pEntry.pageUrl"
+                        (keyup)="urlValidator(pEntry.pageUrl);isPageUrlEmpty = false" placeholder="Enter Page Url"
+                        maxlength="25">
+
+                    </div>
+                  </div>
+                  <div class="form-group row">
+
+                    <div class="col-lg-6 col-md-6">
+                      <label class="indlabel">Page Description</label>
+                      <span class="mandatory">*</span><br>
+                      <textarea name="description" id="pdesc" class="form-control" [(ngModel)]="pEntry.pageDescription"
+                        (keyup)="isPageDescEmpty = false" placeholder="Enter Page Description"></textarea>
+                    </div>
+                    <!-- <span class="invalidmsg ml-5 mt-3" style="float: right;" *ngIf="isRoleManagementFormValid"> Please
+                      enter the above fields</span> -->
+                  </div>
+
+
+                </div>
+                <div class="mb-0 " style="position: absolute; bottom: 10px;">
+                  <span class="invalidmsg" *ngIf="isPageNameEmpty ==true"> Please enter page name </span>
+                  <span class="invalidmsg" *ngIf="isPageUrlEmpty==true"> Please enter page url</span>
+                  <span class="invalidmsg" *ngIf="isPageDescEmpty==true"> Please enter page description</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- </div> -->
+        </div>
+      </div>
+
+      <div class="modal-footer" id="modelfooter">
+        <div class="container-fluid">
+          <div class="actionBar">
+            <button *ngIf="!toEdit" id="saveentry" class="mb-2 btn btn-sm btn-success buttonFinish"
+              (click)="insertPageEntry()"><i class="material-icons">save</i></button>
+            <button *ngIf="toEdit" id="editentry" class="mb-2 btn btn-sm btn-warning"><span (click)="updatePageEntry()"
+                class="material-icons"> edit </span></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- popup message alerts  -->
+
+
+
+<div class="modal fade " id="insertPageSuccessModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
+  role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+    <div class="modal-content box-shadow">
+      <div class="card border-0">
+        <div class="card-header  py-1 pl-3 m-0" style="background-color: green;">
+          <p style="font-size:17px; font-weight:bold"> Success </p>
+        </div>
+        <div class="card-body bg-white text-dark">
+          <p> {{errorMessage}}</p>
+          <div class="text-right">
+            <button class="btn btn-sm btn-success" data-dismiss="modal">ok</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade " id="insertpageErrorModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
+  role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+    <div class="modal-content box-shadow">
+      <div class="card border-0">
+        <div class="card-header  py-1 pl-3 m-0" style="background-color: red;">
+          <p style="font-size:17px; font-weight:bold"> Error </p>
+        </div>
+        <div class="card-body bg-white text-dark">
+          <p> {{errorMessage}}</p>
+          <div class="text-right">
+            <button class="btn btn-sm btn-success" data-dismiss="modal">ok</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

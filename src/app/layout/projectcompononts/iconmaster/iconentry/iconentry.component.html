@@ -1,0 +1,238 @@
+<!--
+Developer 	: Aditya Londhe 
+Date      	: 15-7-2021
+Description : icon entry master
+Modified By :  
+Update date : 
+-->
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Vehicle Icon Entry</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="clear();">
+          <span aria-hidden="true" style="color: white">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div id="container">
+            <div class="step-wizardentry" role="navigation">
+              <div class="progress" style="display: none;">
+                <div class="progressbar empty" style="display: none;"></div>
+                <div id="progentry" class="progressbar" style="display: none;"></div>
+              </div>
+              <ul style="display: none;">
+                <li class="active">
+                  <button id="stepentry1">
+                    <div class="step">1</div>
+                    <div class="title">Basic Details</div>
+                  </button>
+                </li>
+                <!-- <li class="">
+                    <button id="stepentry2">
+                      <div class="step">2</div>
+                      <div class="title">Contact Details</div>
+                    </button>
+                  </li> -->
+                <!-- <li class="">
+                  <button id="stepentry3">
+                    <div class="step">2</div>
+                    <div class="title">Contact Details</div>
+                  </button>
+                </li> -->
+                <!-- <li class="">
+                    <button id="stepentry4">
+                      <div class="step">4</div>
+                      <div class="title">Successful</div>
+                    </button>
+                  </li> -->
+              </ul>
+
+              <div class="stepsection">
+                <span class="invalidmsg" id="msg_mainmessageentry"></span>
+                <div id="step-14" class="stepsdiv">
+                  <!-- <span class="StepTitle">Step 1: Basic Details</span> -->
+
+                  <div class="form-group row">
+                    <div class="col-lg-6 col-md-6">
+                      <label class="indlabel">Icon Name </label>
+                      <span class="mandatory">*</span>
+                      <input type="text" class="form-control" placeholder="Enter Vehicle Icon name" tabindex="5" required minlength="3" maxlength="40"
+                        [(ngModel)]="IconentryText" #Icon="ngModel" id="iconnameentry" style="font-size: 12px;">
+                      <div class="invalidmsg" *ngIf="Icon.errors?.minlength">
+                        Vehicle icon Name must be at least minimum 3 characters & maximum 20 characters long.
+                      </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                      <label class="indlabel"> Icon Description </label>
+                      <span class="mandatory">*</span>
+                      <textarea class="form-control" rows="2" style=" font-size:12px" placeholder="Enter Icon Description" tabindex="12" minlength="5"
+                        maxlength="90" [(ngModel)]="IcondescriptionText" #icondesc="ngModel" id="icondescentry"></textarea>
+                      <div class="invalidmsg" *ngIf="icondesc.errors?.minlength">
+                     Icon Description must be at least minimum 5 characters & maximum 70 characters long.
+                      </div>
+                    </div>
+
+
+                  </div>
+                  <div class="form-group">
+                    <div class="row">
+                    <div class="col-lg-6 col-md-6">
+                      <label class="indlabel">Running </label>
+                      <span class="mandatory">*</span>
+
+                      <!-- <input type='file' id="imgInp" /><br><br> -->
+                      <!-- <div *ngIf="currentFileUpload" class="progress">
+                      <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" attr.aria-valuenow="{{progress.percentage}}"
+                        aria-valuemin="0" aria-valuemax="100" [ngStyle]="{width:progress.percentage+'%'}">
+                        {{progress.percentage}}%</div>
+                    </div> -->
+
+                      <label class="btn btn-default indlabel">
+                        <input type="file" id="imgInp" (change)="selectFile($event)">
+                      </label><br><br>
+                      <img id="defaultimg" style="display: block" src="assets/img/default_img.png" style="width: 50px; height: 50px; margin-left: 65px;"/>
+                      <img id="blah" src="#" alt="your image" style="height:70px; width:140px; display: none;"/> <br><br>
+                      <!-- <button class="btn btn-success" [disabled]="!selectedFiles" (click)="upload()"><span class="material-icons">
+                      publish
+                      </span></button> -->
+
+                      <!-- <button type="button" class="btn btn-success "><span>Upload</span></button> -->
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                      <label class="indlabel">Stop </label>
+                      <span class="mandatory">*</span>
+                      <!-- <label class="indlabel">Address Proof</label>
+                          <span class="mandatory">*</span>
+                          <input type='file' id="imgInp2" /><br><br>
+                          <img id="blah2" src="#" alt="your image" style="height:70px; width:140px;" /><br> -->
+                      <!-- <button type="button" class="btn btn-success "><span>Upload</span></button> -->
+                      <label class="btn btn-default indlabel">
+                        <input type="file" id="imgInp2" (change)="selectFile2($event)">
+                      </label><br><br>
+                      <img id="defaultimg2" style="display: block" src="assets/img/default_img.png" style="width: 50px; height: 50px; margin-left: 65px;"/>
+
+                      <img id="blah2" src="#" alt="your image" style="height:70px; width:140px; display: none;" /> <br><br>
+                      <!-- <button class="btn btn-success" [disabled]="!selectedFiles2" (click)="upload2()"><span class="material-icons">
+                            publish
+                            </span></button> -->
+                    </div>
+                    </div>
+                    <div class="row">
+                    <div class="col-lg-6 col-md-6">
+                      <label class="indlabel">Idle </label>
+                      <span class="mandatory">*</span>
+                      <!-- <label class="indlabel">Choose RC</label>
+                          <span class="mandatory">*</span>
+                          <input type='file' id="imgInp3" /><br><br>
+                          <img id="blah3" src="#" alt="your image" style="height:70px; width:140px;" /><br> -->
+                      <!-- <button type="button" class="btn btn-success "><span>Upload</span></button> -->
+                      <label class="btn btn-default indlabel">
+                        <input type="file" id="imgInp3" (change)="selectFile3($event)">
+                      </label><br><br>
+                      <img id="defaultimg3" style="display: block" src="assets/img/default_img.png" style="width: 50px; height: 50px; margin-left: 65px;"/>
+
+                      <img id="blah3" src="#" alt="your image" style="height:70px; width:140px; display:none;" /> <br><br>
+
+                    </div>
+
+                    <div class="col-lg-6 col-md-6">
+                      <label class="indlabel">Non Polling </label>
+                      <span class="mandatory">*</span>
+                      <!-- <label class="indlabel">Choose RC</label>
+                          <span class="mandatory">*</span>
+                          <input type='file' id="imgInp3" /><br><br>
+                          <img id="blah3" src="#" alt="your image" style="height:70px; width:140px;" /><br> -->
+                      <!-- <button type="button" class="btn btn-success "><span>Upload</span></button> -->
+                      <label class="btn btn-default indlabel">
+                        <input type="file" id="imgInp4" (change)="selectFile4($event)">
+                      </label><br><br>
+                      <img id="defaultimg4" style="display: block" src="assets/img/default_img.png" style="width: 50px; height: 50px; margin-left: 65px;"/>
+
+                      <img id="blah4" src="#" alt="your image" style="height:70px; width:140px; display:none;" /> <br><br>
+
+                    </div>
+                    </div>
+
+                  </div>
+
+                  <br>
+                  <br>
+                  <span class="invalidmsg" id="msg_errordivision"></span>
+                </div>
+
+
+
+                <!-- <div class="actionBar">
+                <button  id="saveentry" class="mb-2 btn btn-sm btn-success buttonFinish"  (click)="vensavebtn()"><i class="material-icons">save</i></button>
+                <button  id="nextentry" class="mb-2 btn btn-sm btn-primary buttonNext"><i class="material-icons">arrow_forward</i></button>
+                
+                <button  id="preventry" class="mb-2 btn btn-sm btn-primary buttonPrevious" onclick="validateAllSteps(4,4)"><i class="material-icons">arrow_back</i></button>
+                </div> -->
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Modal footer -->
+
+      <div class="modal-footer" id="modelfooter">
+
+        <div class="actionBar">
+           <button id="save" class="mb-2 btn btn-wizard btn-sm btn-success buttonFinish" (click)="InsertVehicleIcon();"
+            style="display: none;">
+            <i class="material-icons">save</i>
+          </button> 
+          <button id="next" class="mb-2 btn btn-wizard btn-sm btn-success buttonNext" (click)="InsertVehicleIcon();">
+            <i class="material-icons">save</i>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+<div class="modal fade " id="successmodelentry" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+aria-hidden="true">
+<div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+  <div class="modal-content box-shadow">
+    <div class="card border-0">
+      <div class="card-header  py-1 pl-3 m-0" style="background-color: green;">
+        <p style="font-size:17px; font-weight:bold"> Success </p>
+      </div>
+      <div class="card-body bg-white text-dark">
+       <p> {{datafromrespo}}</p>
+        <div class="text-right">
+          <button class="btn btn-sm btn-success" data-dismiss="modal">ok</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="modal fade " id="notifymodelentry" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+aria-hidden="true">
+<div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+  <div class="modal-content box-shadow">
+    <div class="card border-0">
+      <div class="card-header  py-1 pl-3 m-0" style="background-color: red;">
+        <p style="font-size:17px; font-weight:bold"> Error </p>
+      </div>
+      <div class="card-body bg-white text-dark">
+       <p> {{datafromrespo}}</p>
+        <div class="text-right">
+          <button class="btn btn-sm btn-success" data-dismiss="modal">ok</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

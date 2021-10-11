@@ -1,0 +1,84 @@
+<!-- Logo sidebar -->
+<a (click)="getRoute()" class="logo flex-column" style="background-color: cornsilk;">
+    <img src="assets/images/ap-govt-logo.png" style="width: 20px; height: 20px;"  alt="" class="logo-icon mt-1" id="minilogo">
+    <img src="assets/images/ap-govt-logo.png" style="width: 65px; height: 65px; margin-left: 70px; display: none;" alt="" 
+        class="logo-icon mt-1" id="mainlogo" >
+</a>
+
+<ul class="nav flex-column">
+    <li class="nav-item dropdown" *ngFor="let menu of allMainMenus">
+        <a class="nav-link dropdown-toggle" href="javascript:void(0)" (click)="addExpandClass(menu.param5)">
+            <i class="material-icons icon" [ngStyle]="{'background-color': menu.altColor}"
+                style=" color: rgb(72 123 239);">{{menu.param9}}</i>
+            <span style="color: rgb(13, 5, 128);text-transform: capitalize;">{{menu.param2}}</span>
+            <i class="material-icons arrow">expand_more</i>
+        </a>
+        <div class="nav flex-column" *ngFor="let item of allAssignedMenus" [class.d-block]="showMenu == menu.param5"
+            ngbTooltip="{{item.param3}}" placement="bottom">
+            <div class="nav-item" *ngIf="menu.param1==item.param7" [routerLink]="[item.param4]">
+                <a class="nav-link">
+                    <i class="material-icons icon" style="display: inline;">{{menu.param9}}</i>
+                    <span style="color: #260295;"
+                        style="display: inline;text-transform: capitalize;">{{item.param2}}</span>
+                </a>
+            </div>
+        </div>
+    </li>
+</ul>  
+
+<!-- <ul class="nav flex-column">
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="javascript:void(0)" (click)="addExpandClass('dashboard')">
+            <i class="material-icons icon"  style=" color: rgb(72 123 239);">dashboard</i>
+            <span style="color: rgb(13, 5, 128);text-transform: capitalize;">Dashboard</span>
+            <i class="material-icons arrow">expand_more</i>
+        </a>
+        <div class="nav flex-column" [class.d-block]="showMenu == 'dashboard'"
+            ngbTooltip="" placement="bottom">
+            <div class="nav-item">
+                <a class="nav-link" [routerLink]="['/apsacdashboard']">
+                    <i class="material-icons icon" style="display: inline;">dashboard</i>
+                    <span style="color: #260295;"
+                        style="display: inline;text-transform: capitalize;">Admin Dashboard</span>
+                </a>
+            </div>
+        </div>
+    </li>
+    <li class="nav-item dropdown"> 
+        <a class="nav-link dropdown-toggle" href="javascript:void(0)" (click)="addExpandClass('master')">
+            <i class="material-icons icon"  style=" color: rgb(72 123 239);">dashboard</i>
+            <span style="color: rgb(13, 5, 128);text-transform: capitalize;">Masters</span>
+            <i class="material-icons arrow">expand_more</i>
+        </a>
+        <div class="nav flex-column" [class.d-block]="showMenu == 'master'"
+            ngbTooltip="" placement="bottom">
+            <div class="nav-item" [routerLink]="['/roledetail']">
+                <a class="nav-link">
+                    <i class="material-icons icon" style="display: inline;">dashboard</i>
+                    <span style="color: #260295;" style="display: inline;text-transform: capitalize;">Role</span>
+                </a>
+            </div>
+            <div class="nav-item" [routerLink]="['/vehicleclass']">
+                <a class="nav-link">
+                    <i class="material-icons icon" style="display: inline;">dashboard</i>
+                    <span style="color: #260295;"
+                        style="display: inline;text-transform: capitalize;">Vehicle Class</span>
+                </a>
+            </div>
+            <div class="nav-item" [routerLink]="['/vehiclemake']">
+                <a class="nav-link">
+                    <i class="material-icons icon" style="display: inline;">dashboard</i>
+                    <span style="color: #260295;"
+                        style="display: inline;text-transform: capitalize;">Vehicle Make</span>
+                </a>
+            </div>
+            <div class="nav-item" [routerLink]="['/vehiclemodel']">
+                <a class="nav-link">
+                    <i class="material-icons icon" style="display: inline;">dashboard</i>
+                    <span style="color: #260295;"
+                        style="display: inline;text-transform: capitalize;">Vehicle Model</span>
+                </a>
+            </div>
+        </div>
+    </li>
+</ul>  -->

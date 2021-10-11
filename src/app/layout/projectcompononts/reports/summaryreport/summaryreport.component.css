@@ -1,0 +1,179 @@
+body {
+    background-color: white;min-height: 35rem;
+}
+.card {
+    background-color: white;
+    /* border: 2px solid darkblue  ; */
+    margin-top: 30px;
+    margin-bottom: 30px;
+    color: black;
+}
+.indlabel {
+    font-size: 10px;
+    color: darkblue;
+    font-weight: bold !important;
+    text-transform: uppercase;  
+}
+
+ form .form-control, .custom-select, .easy-autocomplete input {
+    background-color: #e2e2e2;
+   border: 1px solid rgba(0,0,0,0.05); 
+   color: #05145a;
+   font-size: 10px;
+   min-width: 105px;
+
+}
+
+.summery{
+    display: inline-block;
+    width: 100%;
+    height: 50px;
+    border: 2px solid darkblue;
+    margin: 5px;
+    text-align: center;
+}
+tr{
+    height: 10px;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+th{
+    text-transform: uppercase;
+    font-weight: bold !important;
+    padding: 0.50rem 0.8rem;
+    font-size: 10px;
+    border: 0 none;
+    background-color: rgb(227 227 227);
+}
+
+.table thead tr th{
+    color: #05145a;
+}
+
+.trheight{
+    height: 5px;
+}
+
+.table tbody tr td {
+    /* color: #cbddff; */
+    vertical-align: middle;
+    padding: 0.3rem 0.5rem; 
+} 
+table{
+    font-size: 11px;
+}
+
+
+tbody  > tr > td{
+    /* color: #cfdefc; */
+    vertical-align: middle;
+    font-size: 12px;
+    padding: 0.50rem 0.2rem;
+}
+
+.table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
+    background-color: rgb(255, 255, 255);
+ } 
+ .table-striped > tbody > tr:nth-child(2n) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
+    background-color: #f6f7ff;
+ } 
+ .fa-spin-hover:hover {
+    animation: fa-spin 2s infinite linear;
+}
+@-webkit-keyframes fa-spin{0%{-webkit-transform:rotate(0deg);transform:rotate(0deg)}100%{-webkit-transform:rotate(359deg);transform:rotate(359deg)}}
+@keyframes fa-spin{0%{-webkit-transform:rotate(0deg);transform:rotate(0deg)}100%{-webkit-transform:rotate(359deg);transform:rotate(359deg)}}
+
+.searchicon{
+    color: white;
+    height: 26px;
+    font-weight: bold;
+    background-color: #a8c5ff;;
+}
+.apendbtn{
+    background-color: #33469b;
+    border-color: #33469b;
+    cursor: pointer;
+    height: 26px;
+
+}
+
+tbody > tr> td{
+    color: black;
+}
+
+
+.validation{
+    font-weight: bold;
+    font-size: smaller;
+}
+/* copied css */
+
+
+
+fieldset {
+    border: 2px groove rgb(7, 2, 2) !important;
+    padding: 0 1.4em 1.4em 1.4em !important;
+    margin: 0 0 1.5em 0 !important;
+    -webkit-box-shadow:  0px 0px 0px 0px #000;
+            box-shadow:  0px 0px 0px 0px #000;
+}
+
+legend {
+    font-size: 1.2em !important;
+    font-weight: bold !important;
+    text-align: left !important;
+    width:auto;
+    padding:0 10px;
+    border-bottom:none;
+    }
+
+    .form-control{
+        background-color: rgb(230, 230, 230);
+        font-size: 12px;
+        color: black;
+    }
+
+.workingbaground{
+    background-color: rgb(55, 172, 1);
+}
+
+.nonworkingbagreound{
+    background-color: rgb(189, 3, 3);
+}
+
+.totalbagreound{
+    background-color: rgb(189, 3, 3);
+}
+
+.distancebagreound{
+    background-color: rgb(189, 3, 3);
+}
+
+.statusicon{
+
+    width: 19px;
+    height: 10px;
+    margin-top: -8px;
+  }
+  
+
+  .class9{
+    display: inline-block;
+    text-align: center;;
+    border: 2px solid rgb(188 188 192);
+
+    border-radius: 3px;
+    margin: 6px;
+    margin-top: 0%;
+    margin-bottom: 0%;
+    background-color: white;
+    text-transform: capitalize;
+}
+
+.lbldateheader{
+    font-size: 14px;
+}
+
+.division{
+    background-color: #b6c2db; height: 25px; font-size: 11px;
+}

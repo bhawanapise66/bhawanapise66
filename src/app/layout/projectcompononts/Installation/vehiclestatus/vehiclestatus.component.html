@@ -1,0 +1,344 @@
+<!--
+Developer 	: Aditya Londhe
+Date      	: 18-09-2020
+Description : Vendor Master Module
+Modified By:  
+Update date : 
+-->
+<div class="content shadow-sm">
+  <!-- Main container starts -->
+  <div class="container-fluid main-container" id="main-container">
+    <div class="row">
+      <div class="col-12 col-md-12 col-lg-12 col-xl-12 mx-auto align-self-center">
+        <div class="card shadow-sm border-0 mb-4">
+          <div class="card-header" style="padding-top: 0; padding-bottom: 0">
+
+            <!-- <img src="../assets/img/logoicon.svg" alt="" class="w-50px mt-4"> -->
+            <!-- <h4 class="text-left m-1" style="font-size: 19px;">Vendor
+              <span class="text-template-primary" style="color: #00ed54; font-size: 19px;">Master</span>
+              <button type="button" class="btn btn-sm btn-primaryyel ml-2 float-right" style="margin-right: 89px;" data-toggle="modal" data-target="#exampleModal" >
+                ADD NEW 
+                <i class="material-icons md-18">navigate_next</i>  
+               
+              </button>
+            </h4> -->
+            <h4 class="text-left m-1" style="font-size: 15px;">Vehicle
+              <span class="text-template-primary" style="color: #00ed54">Status</span>
+              <!-- <button type="button" class="btn btn-sm btn-primaryyel ml-2 float-right" style="margin-right: 15px; background-color: #f6c53b; font-size: 12px;"
+                data-toggle="modal" data-target="#exampleModal">
+                ADD NEW
+                <i class="material-icons md-18">navigate_next</i>
+
+              </button> -->
+            </h4>
+
+          </div>
+          <div class="card-body" style="padding: 5px;">
+            <div class="row justify-content-center">
+              <div class="col-md-12 mx-auto">
+                <div class="row">
+                  <div class="col-lg-12 col-md-12">
+                    <!-- <button type="button" class="btn btn-primary float-left" data-toggle="modal" >
+                        ADD NEW
+                      </button> -->
+
+                  </div>
+                </div>
+
+                <div class="container-fluid main-container" id="main-container">
+
+
+
+
+                  <!--    ---------------        Table Header Staret=------------------------    -->
+                  <div class="col-md-12">
+                    <div class="row">
+                      <div class="col-md-1" style="text-align: right;">
+                        <label style="text-align: right;">IMEI No</label>
+                      </div>
+                      <div class="col-md-2">
+                        <div class="input-group">
+
+                          <input type="text" placeholder="Search IMEI / Vehicle No" class="form-control searchicon " id="searchData">
+                          <div class="input-group-append">
+                            <button class="btn  apendbtn" (click)="searchdataIMEI()">
+                              <i style="color: #00ed54; margin-top: -15px;" class="fa fa-search"></i>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div><br>
+
+                  <div class="col-lg-12 col-md-12 container">
+                      <div class="card shadow-sm border-0 mb-4">
+                          <div class="card-header" style="padding-top: 0; padding-bottom: 0; background-color: #e1c7c7">
+                              <h4 class="text-left m-1" style="font-size: 15px;color: black; font-weight: bold;">Vehicle Details
+                                <!-- <span class="text-template-primary" style="color: #00ed54">Status</span>    -->
+                              </h4>
+                            </div>
+                            <div class="card-body" style="padding: 5px; background-color: #7ca8b6">
+
+                                <div class="row justify-content-center">
+                                    <div class="col-lg-3 col-md-3">
+                                        <label style="font-weight: bold">Customer Name</label>: <label style="font-weight: bold;color: black">{{customarname}}</label>
+                                      </div>
+                                      <div class="col-lg-3 col-md-3">
+                                        <label style="font-weight: bold">Mobile No</label>: <label style="font-weight: bold;color: black">{{customarmobile}}</label>
+                                      </div>
+                                      <div class="col-lg-3 col-md-3">
+                                        <label style="font-weight: bold">Email Id</label>: <label style="font-weight: bold;color: black">{{customaremail}}</label>
+                                      </div>
+                                     
+                                  </div>
+                                  <div class="row justify-content-center">
+                                      
+                                        <div class="col-lg-3 col-md-3">
+                                          <label style="font-weight: bold">Device IMEI</label>: <label style="font-weight: bold;color: black">{{deviceimeino}}</label>
+                                        </div>
+                                        <div class="col-lg-3 col-md-3">
+                                          <label style="font-weight: bold">Device ICCID</label>: <label style="font-weight: bold;color: black">{{deviceiccidno}}</label>
+                                        </div>
+                                        <div class="col-lg-3 col-md-3">
+                                          <label style="font-weight: bold">Device Unique</label>: <label style="font-weight: bold;color: black">{{deviceuniqueno}}</label>
+                                        </div>
+                                    </div>
+
+                                <div class="row justify-content-center">
+                                    <div class="col-lg-3 col-md-3">
+                                        <label style="font-weight: bold">Vehicle No</label>: <label style="font-weight: bold;color: black">{{vehicleno}}</label>
+                                      </div>
+                                      <div class="col-lg-3 col-md-3">
+                                        <label style="font-weight: bold">Chassis No</label>: <label style="font-weight: bold;color: black">{{chassisno}}</label>
+                                      </div>
+                                      <div class="col-lg-3 col-md-3">
+                                        <label style="font-weight: bold">Engine No</label>: <label style="font-weight: bold;color: black">{{engineno}}</label>
+                                      </div>
+                                   
+                                     
+                                  </div>
+                                  <div class="row justify-content-center">
+                                      
+                                        <div class="col-lg-3 col-md-3">
+                                          <label style="font-weight: bold">Vehicle Reg Date</label>: <label style="font-weight: bold;color: black">{{vehicleregno}}</label>
+                                        </div>
+                                        <div class="col-lg-3 col-md-3">
+                                          <label style="font-weight: bold">Vehicle Type</label>: <label style="font-weight: bold;color: black">{{vehicletype}}</label>
+                                        </div>
+                                        <div class="col-lg-3 col-md-3">
+                                            <label style="font-weight: bold">Activated</label>: <label style="font-weight: bold;color: black">{{activated}}</label>
+                                          </div>
+                                       
+                                    </div>
+
+                                  <div class="row justify-content-center">
+                                    <div class="col-lg-3 col-md-3">
+                                        <label style="font-weight: bold">Vehicle Make</label>: <label style="font-weight: bold;color: black">{{make}}</label>
+                                      </div>
+                                      <div class="col-lg-3 col-md-3">
+                                        <label style="font-weight: bold">Vehicle Model</label>: <label style="font-weight: bold;color: black">{{model}}</label>
+                                      </div>
+                                      <div class="col-lg-3 col-md-3">
+                                        <label style="font-weight: bold">RTO Name</label>: <label style="font-weight: bold;color: black">{{rtoname}}</label>
+                                      </div>
+                                     
+                                  </div>
+
+                                  <div class="row justify-content-center">
+                                      
+                                        <!-- <div class="col-lg-3 col-md-3">
+                                          <label style="font-weight: bold">Vehicle Reg No</label>: <label style="font-weight: bold;color: black"></label>
+                                        </div> -->
+                                        <div class="col-lg-3 col-md-3">
+                                            <label style="font-weight: bold">Device Type</label>: <label style="font-weight: bold;color: black">{{devicetype}}</label>
+                                      </div>
+                                        <div class="col-lg-3 col-md-3">
+                                            <label style="font-weight: bold">Installed date</label>: <label style="font-weight: bold;color: black">{{installdate}}</label>
+                                          </div>
+                                          <div class="col-lg-3 col-md-3">
+                                            <label style="font-weight: bold">Polling Status</label>: <label style="font-weight: bold;color: black">{{poolingstatus}}</label>
+                                          </div>
+                                    </div>
+
+                                  <div class="row justify-content-center">
+                                   
+                                      <div class="col-lg-3 col-md-3">
+                                          <label style="font-weight: bold">Activation Date</label>: <label style="font-weight: bold;color: black">{{activationdate}}</label>
+                                        </div>
+                                        <div class="col-lg-3 col-md-3">
+                                            <label style="font-weight: bold">Validity </label>: <label style="font-weight: bold;color: black">{{validity}}</label>
+                                          </div>
+                                          <div class="col-lg-3 col-md-3">
+                                              <label style="font-weight: bold">Payment Type</label>: <label style="font-weight: bold;color: black">{{paymenttype}}</label>
+                                          
+                                        </div>
+                                  </div>
+                                  <!-- <div class="row justify-content-center">
+                                    
+                                        <div class="col-lg-3 col-md-3">
+                                            <label style="font-weight: bold">Activation Date</label>: <label style="font-weight: bold;color: black"></label>
+                                          </div>
+                                          <div class="col-lg-3 col-md-3">
+                                              <label style="font-weight: bold">Validity </label>: <label style="font-weight: bold;color: black"></label>
+                                            </div>
+                                           
+                                    </div> -->
+                                  </div>
+                        </div>
+                    <!-- <div class="row container card" style="color: black;font-weight: bold">
+                      <label style="font-size: 20px">Vehicle Details</label>
+                    </div>
+                    <div class="row">
+                      <div class="col-lg-2 col-md-2">
+                        <label style="font-weight: bold">aaa</label>: <label style="font-weight: bold;color: black">pdskdk</label>
+                      </div>
+                      <div class="col-lg-2 col-md-2">
+                        pppppp
+                      </div>
+                      <div class="col-lg-2 col-md-2">
+                        eeeeee
+                      </div>
+                      <div class="col-lg-2 col-md-2">
+                        eeeefffff
+                      </div>
+                      <div class="col-lg-2 col-md-2">
+                        ggggggg
+                      </div>
+                      <div class="col-lg-2 col-md-2">
+                        jjkkkkkk
+                      </div>
+                    </div> -->
+                  </div>
+
+                  <!-- ---------------------  Table header end  ------------------------------ -->
+
+
+                  <div class="card-body table-responsive">
+                    <table class="table table-hover table-striped">
+                      <thead>
+                        <tr role="row">
+                          <th>
+                            <span >#</span>
+                            <!-- <span class="material-icons">
+                            import_export
+                            </span>  -->
+                          </th>
+                          <th>
+                            <span (click)="sort('param4')" > IMEI No</span>
+                          </th>
+                          <!-- <th class="all sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 86px;" aria-label="Order ID: activate to sort column descending" aria-sort="ascending">Order ID</th> -->
+                          <th>
+                            <span  (click)="sort('param7')"> Mobile No</span>
+                          </th>
+                          <!-- <th (click)="sort('rowNumber')">CIN No</th> -->
+                          <th>
+                            <span  (click)="sort('param9')"> Network Name</span>
+                          </th>
+                          <th>
+                            <span (click)="sort('param17')" > Assign Date.</span>
+                          </th>
+                          <th>
+                            <span (click)="sort('param18')"> Unassign Date</span>
+                          </th>
+                        
+
+                          <!-- <th style="background-color: #99c049;">Action</th> -->
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let data of TranslogDetails$ ">
+                          <td>1</td>
+                          <td>{{data.param4}}</td>
+                          <!-- <td>{{com.param13}}</td> -->
+                          <td>{{data.param7}} <br> {{data.param8}}</td>
+                          <td>{{data.param9}} <br> {{data.param10}}</td>
+                          <td>{{data.param17}}</td>
+                          <td>{{data.param18}}</td>
+                         
+                          <!-- <td [ngStyle]="{'background-color':com.altColor}" class="viewbtncss">
+                            <span class="iconhover" data-toggle="modal" data-target="#myModalwizard" (click)="setdata(com)">
+                              <i class="material-icons" style="color: #161e43">visibility</i>
+                            </span>
+                          </td> -->
+                        </tr>
+
+
+
+                      </tbody>
+                      <!-- <tfoot id="foot" class="box-footer clearfix">
+                        <tr>
+                          <td colspan="12">
+                            <pagination-controls style=" float: right;" (pageChange)="VendorMasterpageChanged($event)"></pagination-controls>
+                          </td>
+                        </tr>
+                      </tfoot> -->
+
+                    </table>
+
+                  </div>
+
+
+                  <div id="PDFTable" class="card-body table-responsive" #epltable>
+                      <table class="table table-hover table-striped">
+                        <thead>
+                          <tr role="row">
+                            <th>
+                              <span >#</span>
+                            
+                            </th>
+                            <th>
+                              <span > Install/Renewal</span>
+                            </th>
+                            <th>
+                              <span  >Payment Amt</span>
+                            </th>
+                            <th>
+                              <span >Payment Date</span>
+                            </th>
+                          
+                          
+  
+                           
+                          </tr>
+                        </thead>
+                        <tbody id="grid">
+                          <tr *ngFor="let com of VendorDetails$ | filter:filter | orderBy: key : reverse | paginate : {itemsPerPage:pagecount,currentPage:p,totalItems:count} ;"
+                            class="trheight">
+                            <td>{{com.rowNumber}}</td>
+                            <td>{{com.param3}}</td>
+                            <td>{{com.param13}}</td>
+                            <td>{{com.param10}}</td>
+                            <td>{{com.param17}}</td>
+                            <td>{{com.param8}}</td>
+                            <td>{{com.param7}}</td>
+                            <td>{{com.param6}}</td>
+  
+                          </tr>
+  
+  
+  
+                        </tbody>
+                        <!-- <tfoot id="foot" class="box-footer clearfix">
+                          <tr>
+                            <td colspan="12">
+                              <pagination-controls style=" float: right;" (pageChange)="VendorMasterpageChanged($event)"></pagination-controls>
+                            </td>
+                          </tr>
+                        </tfoot> -->
+  
+                      </table>
+  
+                    </div> 
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+

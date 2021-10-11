@@ -1,0 +1,397 @@
+<body style="background-color: white;min-height: 80vh">
+
+  <div class="container-fluid mt-3" id="inputform">
+    <fieldset style="max-width: 1086px;">
+      <legend class="text-dark text-uppercase">Compliance Status Report</legend>
+
+      <div class="row">
+        <div class="col pr-0" *ngIf="!isCustomer">
+          <div class="form-group">
+            <label class="indlabel">Customer :</label>
+            <ngx-select-dropdown tabindex="0" id="customer" style="font-size:11px" [multiple]="false"
+              [(ngModel)]="customerObj" [config]="config" [options]="customerListArray"
+              (change)="GetVehicleListAfterCustomer()">
+            </ngx-select-dropdown>
+
+
+            <span class="text-danger validation"
+              *ngIf="(customerObj==null || customerObj =='') && submitted && !isCustomer">
+              Select Customer</span>
+          </div>
+        </div>
+        <div class="col  pr-0">
+          <div class="form-group">
+            <label class="indlabel">Device : </label>
+            <ngx-select-dropdown tabindex="0" id="vehicle" style="font-size:11px" [multiple]="false"
+              [(ngModel)]="deviceObj" [config]="config" [options]="vehicleList" (change)="checkvehicle()">
+            </ngx-select-dropdown>
+
+            <span class="text-danger validation" *ngIf="(deviceObj==null || deviceObj =='') && submitted">
+              Select Device</span>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label class="indlabel">Select date :</label>
+            <div id="daterangeadminux2" class="form-control pr-0">
+              <span id="daterange"></span> <i
+                class="material-icons avatar avatar-26 text-template-primary cal-icon float-right">event</i>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-2 pl-0">
+          <div class="form-group">
+            <label class="indlabel">from time :</label>
+            <input class="timepicker form-control" type='text' id="fromTime" name='fromtime'
+              placeholder="Select From Time" value="00:00" />
+            <span class="text-danger validation" *ngIf="(fromTime==null || fromTime =='') && submitted"> Please Select
+              From Time</span>
+          </div>
+        </div>
+        <div class="col-md-2 pl-0">
+          <div class="form-group">
+            <label class="indlabel">to time :</label>
+            <input class="timepicker form-control" type='text' id="toTime" name='totime' placeholder="Select To Time"
+              value="23:59" />
+            <span class="text-danger validation" *ngIf="(toTime==null || toTime =='') && submitted"> Please Select To
+              Time</span>
+          </div>
+        </div>
+
+      </div>
+      <div class="text-right pt-1 pb-0">
+        <button type="submit" class="btn btn-sm btn-success mr-1" (click)="onSubmit()">Submit</button>
+        <button type="reset" class="btn btn-sm btn-secondary">Reset </button>
+      </div>
+
+    </fieldset>
+  </div>
+
+  <div class="container-fluid" id="outputform" style="display: none;">
+    <h6 class="text-dark text-center mt-3"> <b>compliance status Report</b></h6>
+    <span style="float:left;position:relative;top:30;cursor: pointer;" (click)="gotoBack();"> <img
+        src="assets/images/Back-Button.png" width="30" height="30" style="margin-top: -65px;"></span>
+    <br>
+
+
+    <div class="card">
+      <div class="card-header text-bold">
+        <div class="row">
+          <div class="col"> <b>Summary</b> </div>
+          <div class="col" *ngIf="!isCustomer"> <b>Customer :</b> {{customerName}} </div>
+          <div class="col"> <b>Device :</b> {{deviceName}} </div>
+          <div class="col"> <b>Start Date : </b>{{fromDate |date:'dd-MMM-yyyy'}} {{fromTime}} </div>
+          <div class="col"> <b>End Date : </b>{{toDate |date:'dd-MMM-yyyy'}} {{toTime}} </div>
+        </div>
+
+
+      </div>
+      <!-- <div class="card-body" style="background-color: rgb(255, 250, 245);">
+        <div class="row">
+
+          <div class="class9 col mx-4"> <b>total distance</b> <br> <span> 1423</span> </div>
+          <div class="class9 col mx-4"> <b>total Idle </b> <br><span> 1423</span></div>
+          <div class="class9 col mx-4"> <b>total stoppage </b> <br> <span> 1423</span></div>
+          <div class="class9 col mx-3"> <b>total working </b> <br> <span> 1423</span></div>
+          <div class="class9 col mx-3"> <b>total odometer distance</b> <br> <span> 1423</span></div>
+        </div>
+      </div> -->
+
+
+    </div>
+
+
+    <div class="card mt-2 mb-2">
+      <div class="card-header text-bold">
+        <b> Details</b><span style="float: right;"><b> Current Time :</b> {{d | date:'dd-MMM-yyyy hh:mm'}}</span>
+      </div>
+      <div class="card-body">
+
+        <!--    ---------------        Table Header Staret=------------------------    -->
+
+
+        <div class="row mb-3">
+          <div class="col-12 col-sm-12 col-md text-md-left align-self-center pr-0">
+            <ul class="nav  justify-sm-content-center  justify-content-left">
+              <li class="nav-item ">
+                <div class="input-group" style="max-width: 250px;">
+                  <input type="text" placeholder="Search" id="searchData" class="form-control searchicon"
+                    id="searchData" [(ngModel)]="filter" aria-label="Amount (to the nearest dollar)">
+                  <div class="input-group-append">
+                    <button class="btn  apendbtn" (click)="searchdata()"  [disabled]="filter==''">
+                      <i style="color: #00ed54; margin-top: -15px;" class="fa fa-search"></i>
+                    </button>
+                  </div>
+                </div>
+              </li>
+              <li class="nav-item mx-3">
+                <i class="fa fa-refresh fa-2x fa-spin-hover" style="font-size: 17px;
+                padding-top: 4px;color: #00fff3;" (click)="Refreshfunction()"></i>
+              </li>
+            </ul>
+          </div>
+
+          <div class="col-12 col-sm-12 col-md-auto text-right text-md-end pl-0">
+            <ul class="nav justify-content-center justify-lg-content-end  justify-sm-content-center">
+              <li class="nav-item mx-2">
+                <img style="cursor: pointer; height: 20px; margin-top: 3px;"
+                  (click)="distanceTravelledReportPDFDownload()" ngbTooltip="PDF" src="assets/images/PDFicon.png">
+              </li>
+              <li class="nav-item mx-2">
+                <img style="cursor: pointer;" (click)="exportToExcel()" ngbTooltip="Excel"
+                  src="assets/images/excellogo.png">
+              </li>
+              <li class="nav-item mx-3">
+                <span style="display: inline;">Show Rows : </span> <select class="form-control p-1"
+                  (change)="GetDistanceReport()" [(ngModel)]="itemsPerPage" style="width: 44px;display: inline;">
+                  <option>5</option>
+                  <option>10</option>
+                  <option>20</option>
+                  <option>50</option>
+                </select>
+              </li>
+              <li class="nav-item ">
+                <span>Total Records : {{viewcount}} of {{totalcount}}</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- ---------------------  Table header end  ------------------------------ -->
+
+
+        <div class="card-body table-responsive">
+          <table class="table table-striped text-center">
+            <thead style="font-weight: bold;color: rgb(105, 28, 28);">
+              <tr>
+                <th>#</th>
+                <th (click)="sort('param3')">Device no.</th>
+                <th (click)="sort('param4')">start Date</th>
+                <th (click)="sort('param5')">end Date</th>
+                <th> from Location</th>
+                <th> to Location</th>
+                <th (click)="sort('param22')">Duration</th>
+                <th (click)="sort('param6')">Distance</th>
+                <th (click)="sort('param14')">Odometer Distance</th>
+                <th (click)="sort('param17')">working time</th>
+                <th (click)="sort('param18')">idle time</th>
+                <th (click)="sort('param19')">stoppage time</th>
+                <th>Track</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- <tr class="trheight" *ngFor="let item of reportList"> -->
+              <tr
+                *ngFor="let item of responseGridArray | filter:filter |  orderBy: key : reverse | paginate : {itemsPerPage:itemsPerPage,currentPage:pageNumber,totalItems:totalcount} "
+                class="trheight">
+
+                <td>{{item.rowNumber}}</td> <!-- <th>#</th> -->
+                <td>{{item.param3}}</td> <!-- <th>Vehicle no.</th> -->
+                <td>{{item.param4}}</td> <!-- <th>start Date</th> -->
+                <td>{{item.param5}}</td> <!-- <th>end Date</th> -->
+                <td>
+
+                  <div id="frombeforeapi{{item.rowNumber}}">
+                    <button class="btn btn-sm btn-link" (click)="viewfromlocation(item)"><small> View
+                        Location</small></button>
+                  </div>
+                  <div id="fromafterapi{{item.rowNumber}}" style="color: rgb(0, 0, 0);">
+                    {{fromlocationAddress[item.rowNumber]}}
+                  </div>
+                </td>
+                <!-- <th> from Location</th> -->
+                <td>
+                  <div id="tobeforeapi{{item.rowNumber}}">
+                    <button class="btn btn-sm btn-link" (click)="viewtolocation(item)"><small> View
+                        Location</small></button>
+                  </div>
+                  <div id="toafterapi{{item.rowNumber}}" style="color: rgb(0, 0, 0);">
+                    {{tolocationAddress[item.rowNumber]}}
+                  </div>
+                </td>
+                <!-- <th> to Location</th> -->
+                <td>{{item.param22}}</td> <!-- <th>Duration</th> -->
+                <td>{{item.param6}}</td> <!-- <th>Distance</th> -->
+                <td>{{item.param14}}</td> <!-- <th>Odometer Distance</th> -->
+                <td>{{item.param17}}</td> <!-- <th>working time</th> -->
+                <td>{{item.param18}}</td> <!-- <th>idle time</th> -->
+                <td>{{item.param19}}</td> <!-- <th>stoppage time</th> -->
+                <td class="text-warning"> <span class="material-icons" (click)="Openmap(item)"> location_on </span>
+                </td>
+              </tr>
+            </tbody>
+            <tfoot id="foot" class="box-footer clearfix">
+              <tr>
+                <td colspan="12">
+                  <pagination-controls style=" float: right;color: black;" (pageChange)="pageChange($event)">
+                  </pagination-controls>
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+          <div class="float-right mt-3">
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+  <div class="modal" id="maptrack">
+    <div class="modal-dialog">
+      <div class="modal-content"
+        style="  border: 2px solid #aad3df; margin-left: -25%;    margin-left: -49%; width: 210%;">
+
+        <!-- Modal Header -->
+        <div style="    z-index: 1;">
+          <div class="modalClose" data-dismiss="modal"> <span class="dot">
+              <h6>&times;</h6>
+            </span></div>
+
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body" style="width: 102.5%; padding-bottom:0.5% !important;   padding: 2%;">
+
+
+          <div class="switcherContainer"
+            style="     z-index: 1;left: 936px;    color: black;      position: absolute; margin-right: 4%;">
+            <!--         
+                   <div class="options" style="     background-color: aliceblue;  height: 171px;   font-size: 11px;  color: black;">
+                           <ul style="list-style: none;margin-left: -39px;">
+                               <li class="switcherLi shadow"><input type="radio" name="mapStyle" id="binglayer" (click)="MapSwitch('0')"><span>Bing Map</span></li>
+                               <li class="switcherLi shadow"><input type="radio" name="mapStyle" id="binghyblayer"  (click)="MapSwitch('1')"><span>Bing Hybrid Map</span></li>
+                               <li class="switcherLi shadow"><input type="radio" name="mapStyle" id="tomlayer"  (click)="MapSwitch('2')"><span>Tom Tom Map</span></li>
+                               <li class="switcherLi shadow"><input type="radio" name="mapStyle" id="osmlayer" (click)="MapSwitch('3')" checked><span>OSM Map</span></li>
+                               <li class="switcherLi shadow"><input type="radio" name="mapStyle" id="indialayer" (click)="MapSwitch('4')"><span>India Map</span></li>
+           
+                           </ul>
+           
+                   </div>
+           
+           
+                   <div class="switchbutton" style="    color: black;    padding: 4px;">
+                       Switch Map Style
+                   </div>  -->
+
+
+            <div data-toggle="collapse" (click)="OpenCollapse()" id="collapseButton">
+              <span class="dot" style="    height: 35px; width: 36px; background-color: white;">
+                <img src="assets/mapimages/mapstyleicon/mapswitchericonnew.png"
+                  style="width: 35px;   margin-top: -2px;   margin-left: -1px;">
+                <!-- <h6><i class='fa fa-layer-group' style="font-size: 14px; color: black;"></i></h6> -->
+              </span>
+            </div>
+
+
+
+            <div class="collapse" id="mapswitcher" style="    background-color: #1e295c; padding: 7px;width: 234px;  
+                       margin-top: -63px; margin-left: -217px;">
+
+              <div><span (click)="CloseCollapse()" class="customCircle">&times;</span></div>
+              <div class="cardheader">Map Types</div>
+
+              <div>
+                <div class="iconDiv activeSwitchOption effect8" id="switch3">
+                  <img src="assets/mapimages/mapstyleicon/osm.JPG" (click)="MapSwitch('3')" class="mapicons">
+                  <h6 class="imagelabel">OSM</h6>
+
+                </div>
+                <!-- <div class="iconDiv"  id="0">
+                               <img src="assets/mapimages/mapstyleicon/bingmap.JPG" class="mapicons"  (click)="MapSwitch('0')">
+                               <h6 class="imagelabel">Bing</h6>
+               
+                             </div> -->
+                <div class="iconDiv" id="switch1">
+                  <img src="assets/mapimages/mapstyleicon/binghybrid.JPG" class="mapicons" (click)="MapSwitch('1')">
+                  <h6 class="imagelabel">Satellite</h6>
+
+                </div>
+                <div class="iconDiv" id="switch2">
+                  <img src="assets/mapimages/mapstyleicon/tomtom.JPG" class="mapicons" (click)="MapSwitch('2')">
+                  <h6 class="imagelabel" id="">Tom Tom</h6>
+                </div>
+                <div class="iconDiv" id="switch4">
+                  <img src="assets/mapimages/mapstyleicon/india.JPG" class="mapicons" (click)="MapSwitch('4')">
+                  <h6 class="imagelabel">Indtrack</h6>
+                </div>
+
+              </div>
+
+
+
+
+              <!-- map Detailss   ======  -->
+              <!-- <div class="cardheader">Map Data</div> -->
+
+              <!-- <div >
+                                 <div class="iconDiv activeSwitchOption effect8" id="polygonSwitch">
+                                 <img src="assets/mapimages/mapstyleicon/polygonDataicon.jpg" class="mapicons" (click)="SwitchPolygon()" style="width: 29px;">
+                                 <h6 class="imagelabel">Polygon</h6>
+               
+                                
+           
+                             <div class="iconDiv activeSwitchOption effect8" id="routeSwitch" style="    margin-left: 5px;">
+                               <img src="assets/mapimages/mapstyleicon/routeDataicon.JPG" class="mapicons "  style="  width: 29px;   height: 29px;" (click)="SwitcherRoute()">
+                               <h6 class="imagelabel">Route</h6>
+               
+                             </div>
+                               <div class="iconDiv activeSwitchOption effect8" id="poiSwitch" style="    margin-left: 5px;">
+                                 <img src="assets/mapimages/mapstyleicon/poiDataicon2.JPG" class="mapicons " style="       width: 29px; height: 29px;" (click)="SwitchPoi()" >
+                                 <h6 class="imagelabel">POI</h6>
+               
+                               </div>
+                             
+                           </div>          
+                          
+                        <div class="cardheader">Create Data</div> 
+                         <div >
+                             <div class="iconDiv" id="polygonCreate"  title="Create Polygon">
+                             <img src="assets/mapimages/mapstyleicon/polygonDataicon.jpg" class="mapicons" (click)="CreatePolygon()" style="width: 29px;">
+                             <h6 class="imagelabel">Polygon</h6>
+               
+                           </div>
+                           <div class="iconDiv" id="routeCreate" style="    margin-left: 5px;" title="Create Route">
+                           <img src="assets/mapimages/mapstyleicon/routeDataicon.JPG" class="mapicons "  style="  width: 29px;   height: 29px;" (click)="CreateRoute()">
+                           <h6 class="imagelabel">Route</h6>
+               
+                         </div>
+                           <div class="iconDiv" id="poiCreate" style="    margin-left: 5px;" title="Create POI">
+                             <img src="assets/mapimages/mapstyleicon/poiDataicon2.JPG" class="mapicons " style="       width: 29px; height: 29px;" (click)="CreatePoi()" >
+                             <h6 class="imagelabel">POI</h6>
+               
+                           </div>
+               
+                           <div style="margin-top: 5px;"><span style="    font-size: 11px;
+                             color: #15e81c;
+                             font-weight: bold; margin-left: 9px;">{{creationstatus}}</span></div>
+                         
+                       </div> -->
+            </div>
+
+          </div>
+
+
+
+          <div id="map" class="map" style="width:100%; margin-top: -30px;margin-left: -12px;"></div>
+
+          <div id="popup" class="ol-popup">
+            <a id="popup-closer" class="ol-popup-closer"></a>
+            <div id="popup-content"></div>
+          </div>
+
+
+        </div>
+
+
+
+      </div>
+    </div>
+  </div>
+
+
+</body>

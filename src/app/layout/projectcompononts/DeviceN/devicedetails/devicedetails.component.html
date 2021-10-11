@@ -1,0 +1,877 @@
+<div class="content shadow-sm">
+  <!-- Main container starts -->
+  <div class="" id="main-container">
+    <div class="">
+      <div class="align-self-center">
+        <div class="card shadow-sm border-0 mb-4">
+          <div class="card-header" style="padding-top: 0; padding-bottom: 0;">
+
+            <h4 class="text-left m-1" style="font-size: 19px;">Device
+              <span class="text-template-primary" style="color: #00ed54; font-size: 19px;">Master</span>
+              <button type="button" class="btn btn-sm ml-2 float-right"
+              style="margin-right: 15px; background-color: #31b145;;" (click)="bulkentryClick()">
+              Bulk Entry
+              <i class="material-icons md-18">navigate_next</i>
+            </button>
+              <button type="button" class="btn btn-sm btn-primaryyel ml-2 float-right" 
+                data-toggle="modal" data-target="#exampleModal" style="margin-right: 15px; background-color: #f6c53b; font-size: 12px;">
+                ADD NEW
+                <i class="material-icons md-18">navigate_next</i>
+
+              </button>
+              <!-- <button type="button" class="btn btn-sm ml-2 float-right"
+                style="margin-right: 0px; background-color: #00ed54;;" (click)="bulkentryClick()">
+                Bulk Entry
+                <i class="material-icons md-18">navigate_next</i>
+              </button> -->
+            </h4>
+
+          </div>
+          <div class="card-body" style="padding: 5px;">
+            <div class="row justify-content-center">
+              <div class="col-md-12 mx-auto">
+                <div class="row">
+                  <div class="col-lg-12 col-md-12">
+                  </div>
+                </div>
+
+                <div class="" id="main-container">
+
+                  <!--    ---------------        Table Header Staret=------------------------    -->
+                  <div class="col-md-12 px-0">
+                  <div class="row  mx-1">
+                    <div class="col-12 col-sm-12 col-md text-md-left align-self-center pr-0">
+                      <ul class="nav  justify-sm-content-center  justify-content-left">
+                        <li class="nav-item ">
+                          <div class="input-group" style="max-width: 250px;">
+                            <input type="text" placeholder="Search" id="searchData" class="form-control searchicon"
+                              id="searchData" [(ngModel)]="filter" aria-label="Amount (to the nearest dollar)">
+                            <div class="input-group-append">
+                              <button class="btn  apendbtn" (click)="searchdata()">
+                                <i style="color: #00ed54; margin-top: -15px;" class="fa fa-search"></i>
+                              </button>
+                            </div>
+                          </div>
+                        </li>
+                        <li class="nav-item mx-3">
+                          <i class="fa fa-refresh fa-2x fa-spin-hover" style="font-size: 17px;
+                    padding-top: 4px;color: green;" (click)="Refreshfunction()"></i>
+                        </li>
+                      </ul>
+                    </div>
+
+                    <div class="col-12 col-sm-12 col-md-auto text-right text-md-end pl-0">
+                      <ul class="nav justify-content-center justify-lg-content-end  justify-sm-content-center">
+                        <li class="nav-item mx-2">
+                          <img style="cursor: pointer; height: 20px; margin-top: 3px;" (click)="exportToPDF()"
+                            ngbTooltip="PDF" src="assets/images/PDFicon.png">
+                        </li>
+                        <li class="nav-item mx-2">
+                          <img style="cursor: pointer;" (click)="exportToExcel()" ngbTooltip="Excel"
+                            src="assets/images/excellogo.png">
+                        </li>
+                        <li class="nav-item mx-3">
+                          <span style="display: inline;font-size:12px;font-weight :bold;">Show Rows : </span> <select
+                            class="form-control p-1" style="width: 44px;display: inline;" data-live-search="true"
+                            tabindex="1" [(ngModel)]="itemsPerPage" (change)="changeItemsPerPage()" aria-hidden="true">
+                            <option value="5">5</option>
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="50">50</option>
+                          </select>
+                        </li>
+                        <li class="nav-item pt-1">
+                          <span style="font-size:12px;font-weight: bold;">Total Records : {{viewcount}} of
+                            {{totalcount}}</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                  <!-- ---------------------  Table header end  ------------------------------ -->
+
+
+                  <div id="PDFTable" class="card-body table-responsive" #epltable>
+                    <table class="table table-hover table-striped">
+                      <thead>
+                        <tr role="row">
+                          <th><span (click)="sort('rowNumber')">#</span></th>
+                          <th style=" display: none;"><span (click)="sort('param1')"> DeviceID</span></th>
+                          <th style=" display: none;"><span (click)="sort('param2')"> DeviceMakeID</span></th>
+                          <th style=" display: none;"><span (click)="sort('param3')"> DeviceModelID</span></th>
+                          <th style=" display: none;"><span (click)="sort('param58')"> SimID</span></th>
+                          <th style=" display: none;"><span (click)="sort('param71')"> Person Name</span></th>
+                          <th style=" display: none;"><span (click)="sort('param72')"> Person Mobile</span></th>
+                          
+                          <!-- <th><span (click)="sort('param52')"> Device Type </span></th> -->
+                          <th><span (click)="sort('param11')"> Vendor</span></th>
+                        
+                          <th><span (click)="sort('param4')"> IMEI No.</span></th>
+                          
+                          <th><span (click)="sort('param7')"> Mobile No.</span></th>
+                          <th><span (click)="sort('param40')">Vehicle No.</span></th>
+                          <th><span (click)="sort('param9')"> Network </span></th>
+                          <th><span (click)="sort('param44')"></span>Device Status</th>
+                          <th><span (click)="sort('param41')"></span>Polling Status</th>
+
+                          <th  rowspan="2" style="background-color: #2d3be8; color:  #14ffff;padding: 5px 10px 15px 10px;">Action</th>
+                        </tr>
+                        <tr role="row">
+                          <th ><span (click)="sort('rowNumber')"></span></th>
+                          <th  style=" display: none;"><span (click)="sort('param1')"> DeviceID</span></th>
+                          <th  style=" display: none;"><span (click)="sort('param2')"> DeviceMakeID</span></th>
+                          <th  style=" display: none;"><span (click)="sort('param3')"> DeviceModelID</span></th>
+                          <th  style=" display: none;"><span (click)="sort('param58')"> SimID</span></th>
+                          <th  style=" display: none;"><span (click)="sort('param71')"> Person Name</span></th>
+                          <th  style=" display: none;"><span (click)="sort('param72')"> Person Mobile</span></th>
+                          
+                          <th ><span (click)="sort('param14')"> Model</span></th>
+                        
+                          <th ><span (click)="sort('param5')"> Device Serial No </span></th>
+                          
+                          <th ><span (click)="sort('param6')">ICCID /SIM No</span></th>
+                          <th ><span (click)="sort('param40')"></span></th>
+                          <th ><span (click)="sort('param9')"> </span></th>
+                          <th ><span (click)="sort('param44')"></span></th>
+                          <th ><span (click)="sort('param41')"></span></th>
+
+                        </tr>
+                        
+                      </thead>
+                      <tbody id="grid">
+                        <tr
+                          *ngFor="let dev of DeviceDetails$ | orderBy: key : reverse | paginate : {itemsPerPage:itemsPerPage,currentPage:pageNumber,totalItems:totalcount} ;"
+                          class="trheight">
+                          <td>{{dev.rowNumber}}</td>
+                          <td style=" display: none;">{{dev.param1}}</td>
+                          <td style=" display: none;">{{dev.param2}}</td>
+                          <td style=" display: none;">{{dev.param3}}</td>
+                          <td style=" display: none;">{{dev.param58}}</td>
+
+                          <td style=" display: none;">{{dev.param71}}</td>
+                          <td style=" display: none;">{{dev.param72}}</td>
+                          
+
+                           <!-- <td><span >{{dev.param52}}</span></td> -->
+                          <td><span >{{dev.param11}}</span><br><span style="color: #ad0404;">{{dev.param14}}</span></td>
+                          
+                          <td><span >{{dev.param4}}</span><br><span>{{dev.param5}}</span></td>
+                          
+                          <td><span >{{dev.param7}}</span><br><span>{{dev.param6}}</span></td>
+                          <td><span >{{dev.param40}}</span></td>
+                          <td><span >{{dev.param9}}</span></td>
+
+                          <td *ngIf="dev.param29=='Installed'"><span style="color:green">{{dev.param29}}</span></td> 
+                          <td *ngIf="dev.param29=='Not Installed'"><span style="color:red">{{dev.param29}}</span></td>
+
+                          <td *ngIf="dev.param41=='Never Connected'"><span style="color:red">{{dev.param41}}</span></td> 
+                          <td *ngIf="dev.param41=='Not Connected'"><span style="color:orange">{{dev.param41}}</span></td> 
+                          <td *ngIf="dev.param41=='Connected'"><span style="color:green">{{dev.param41}}</span></td> 
+
+                          <td [ngStyle]="{'background-color':dev.rowNumber%2==0 ? 'rgb(138 179 222)' : ' rgb(183 212 243)'}" class="viewbtncss">
+                            <span class="iconhover" data-toggle="modal" data-target="#myModalwizard"
+                              (click)="setdata(dev)">
+                              <i class="material-icons" style="color: #161e43">visibility</i>
+                            </span>
+                          </td>
+                        </tr>
+
+                      </tbody>
+                      <tfoot id="foot" class="box-footer clearfix">
+                        <tr>
+                          <td colspan="12">
+                            <pagination-controls style=" float: right;" (pageChange)="PageChange($event)">
+                            </pagination-controls>
+                          </td>
+                        </tr>
+                      </tfoot>
+
+                    </table>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- --------------------  view & Edit Modal start------------------------>
+
+<div class="modal fade " id="myModalwizard" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-lg ">
+    <div class="modal-content ">
+
+      <!-- Modal Header -->
+      <div class="modal-header modelcolor">
+        <h5 class="modal-title" id="vmd" style="display: block;">Device Master Details</h5>
+        <h5 class="modal-title" id="uvmd" style="display: none;">Update Device Master</h5>
+        <div style="float:right; margin-left: 59%;">
+          <button type="button" class=" btn btn-sm btn-secondary float-right ml-2 bg-warning" style="display: block;"
+            id="editbtn" ngbTooltip="Edit" (click)="editpageform()">
+
+            <i class="material-icons md-18">edit</i>
+          </button>
+          <button type="button" class=" btn btn-sm btn-danger float-right ml-2" id="deletebtn" ngbTooltip="Delete"
+            data-toggle="modal" data-target="#modeldelete">
+
+            <i class="material-icons md-18">delete</i>
+          </button>
+          <button type="button" class=" btn btn-sm btn-primary float-right ml-2" id="backdetailsbtn" ngbTooltip="Back"
+            style="display: none;" (click)="backdetailsbtn()">
+
+            <i class="material-icons md-18">arrow_back</i>
+          </button>
+        </div>
+        <button type="button" style="color: white" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+
+      <!-- Modal body -->
+      <div class="modal-body " >
+        <div class="container">
+          <div class="container-fluid">
+            <div id="container" style="display: none;">
+              <div class="step-wizard" role="navigation">
+                <div class="progress">
+                  <div class="progressbar empty"></div>
+                  <div id="prog" class="progressbar"></div>
+                </div>
+                <ul>
+                  <li class="active">
+                    <button id="step1">
+                      <div class="step">1</div>
+                      <div class="title">Basic Details</div>
+                    </button>
+                  </li>
+                  <li class="">
+                    <button id="step2">
+                      <div class="step">2</div>
+                      <div class="title">Device Details</div>
+                    </button>
+                  </li>
+                  <li class="">
+                    <button id="step3">
+                      <div class="step">3</div>
+                      <div class="title">Sim Details</div>
+                    </button>
+                  </li>
+                 
+                </ul>
+
+                <div class="stepsection">
+                  <span class="invalidmsg" id="msg_mainmessage"></span>
+                  <div id="step-14" class="stepsdiv">
+                    <fieldset style="max-width: 1141px;">
+                      <legend class="text-uppercase" style = " color: rgb(173, 247, 150);" >Basic Details</legend>
+                    <div class="form-group row">
+                      <div class="col-lg-4 col-md-4">
+                        <label class="indlabel">Vendor</label>
+                        <span class="mandatory">*</span>
+
+                        <ngx-select-dropdown tabindex="1" id="vendor" [multiple]="false" [(ngModel)]="vendor_Text"
+                          (change)="DevicetypeList();" [config]="config" [options]="ListOfvendor">
+                        </ngx-select-dropdown>
+
+                        <input type="text" style="display: none;" id="vendorentryupdate" [(ngModel)]="vendorreturn">
+                        <span class="invalidmsg" id="msg_vendorName"></span>
+                      </div>
+                      
+                      <div class="col-lg-4 col-md-4">
+                        <label class="indlabel">Mode Of Delivery</label>
+                        <span class="mandatory">*</span>
+
+                        <ngx-select-dropdown tabindex="2" id="modeofdelivery" [multiple]="false"
+                          [(ngModel)]="upmodeofdelivery_Text" (change)="uupdatemodeofvalidation()" [config]="config"
+                          [options]="ListOfModeofDelivery"></ngx-select-dropdown>
+
+                        <input type="text" style="display: none;" id="modeofdeliveryupdate"
+                          [(ngModel)]="modeofdeliverylistdataupdate">
+
+                        <span class="invalidmsg" id="msg_vendorName"></span>
+                      </div>
+
+                      <div class="col-lg-4 col-md-4" id="uprecdate">
+
+                        <label class="indlabel">Date</label>
+                        <input type="text" class="form-control datepicker" [(ngModel)]="installationdate" tabindex="2">
+
+                        <span class="invalidmsg" id="msg_shortcode"></span>
+                      </div>
+
+                    </div>
+
+                    <div class="form-group row">
+
+                      <div class="col-lg-4 col-md-4" id = uprecbydiv>
+                        <label class="indlabel">Received By</label>&nbsp;
+                        <input type="text" class="form-control" placeholder="Received By Name." tabindex="4" minlength="3" maxlength="50" 
+                        [(ngModel)]="upreceivedbyText" #uprecby="ngModel" style=" font-size:12px" onkeypress="return onlyAlphabets(event);"
+                        ondrop="return false;" onpaste="return false;" id="upreceivedbynameentry">
+                        <div class="invalidmsg" *ngIf="uprecby.errors?.minlength">
+                          Received by must be at least minimum 3 characters & maximum 50 characters long.
+                        </div>
+                      </div>
+  
+                      <div class="col-lg-4 col-md-4" id = "uppermobno">
+                        <label class="indlabel">Mobile Number</label>                        
+                        <input type="text" name="mobileno" id="uppersonmobilenumber" class="form-control" placeholder="Mobile Number"
+                          [(ngModel)]="uppersonmobileNo" #uppermobilenoCtrl="ngModel" onkeypress="return isNumberKey(event)" required minlength="10"
+                          maxlength="13" tabindex="5" >
+                          <span class="invalidmsg" *ngIf="uppermobilenoCtrl.errors?.minlength">
+                            Person Mobile Number should be between 10 to 13 digits
+                          </span>
+                      </div>
+  
+                      <div class="col-lg-4 col-md-4" id = "uprecfrm">
+                        <label class="indlabel">From</label>
+  
+                        <input type="text" class="form-control" placeholder="Received From." tabindex="6" minlength="3" maxlength="50" 
+                        [(ngModel)]="uprecfromText" #upcourierfrom="ngModel" style=" font-size:12px" onkeypress="return onlyAlphabets(event);"
+                        ondrop="return false;" onpaste="return false;" id="upreceivedfromentry">
+                        <div class="invalidmsg" *ngIf="upcourierfrom.errors?.minlength">
+                          From location must be at least minimum 3 characters & maximum 50 characters long.
+                        </div>
+                      </div>
+                    </div>
+                    </fieldset>
+
+                    <fieldset style="max-width: 1141px;" id = "upcourierinfodiv">
+                      <legend class="text-uppercase" style = " color: rgb(173, 247, 150);" >Courier Details</legend>
+                    <div class="form-group row">
+                      <div class="col-lg-4 col-md-4">
+                        <label class="indlabel">Courier Name</label>
+                        <input type="text" class="form-control" placeholder="Courier Name." tabindex="5" minlength="3" maxlength="50" 
+                        [(ngModel)]="upcouriernameText" #upcoby="ngModel" style=" font-size:12px" onkeypress="return onlyAlphabets(event);"
+                        ondrop="return false;" onpaste="return false;" id="upcouriernameentry">
+                        <div class="invalidmsg" *ngIf="upcoby.errors?.minlength">
+                          Courier name must be at least minimum 3 characters & maximum 50 characters long.
+                        </div>
+                      </div>
+                      <div class="col-lg-4 col-md-4">
+                        <label class="indlabel">From</label>
+                        <input type="text" class="form-control" placeholder="From." tabindex="6" minlength="3" maxlength="50" 
+                        [(ngModel)]="upcourierfromText" #upcourierfrom="ngModel" style=" font-size:12px" onkeypress="return onlyAlphabets(event);"
+                        ondrop="return false;" onpaste="return false;" id="upcourierfromentry">
+                        <div class="invalidmsg" *ngIf="upcourierfrom.errors?.minlength">
+                          Courier From must be at least minimum 3 characters & maximum 50 characters long.
+                        </div>
+                      </div>
+                      
+                      <div class="col-lg-4 col-md-4">
+                        <label class="indlabel">Tracker ID</label>&nbsp;
+                        <input type="text" class="form-control" style=" font-size:12px" placeholder="Tracker ID." tabindex="7" minlength="6"
+                          maxlength="6" [(ngModel)]="uptrackeridText" id="uptrackeridentry" #uptrackerid="ngModel" onkeypress="return isNumberKey(event)">
+                        <div class="invalidmsg" *ngIf="uptrackerid.errors?.minlength">
+                          Tracker ID must be at least minimum 6 characters & maximum 6 characters long.
+                        </div>
+                      </div>
+                    </div>
+                    </fieldset>
+                    <span class="invalidmsg" id="msg_error" style="position: absolute;bottom:10px;"></span>
+                  </div>
+                  <div id="step-15" class="stepsdiv" style="display: none;">
+                    <fieldset style="max-width: 1141px;" >
+                      <legend class="text-uppercase" style = " color: rgb(173, 247, 150);" >Device Details</legend>
+                    <div class="form-group row">
+                      <div class="col-lg-4 col-md-4">
+                        <label class="indlabel">Device Type</label>
+                        <span class="mandatory">*</span>
+                        <ngx-select-dropdown tabindex="5" id="devicetypeupdate" [multiple]="false"
+                          [(ngModel)]="devicetype_Text" (change)="devicestep1validation();" [config]="config"
+                          [options]="ListOfdevicetype"></ngx-select-dropdown>
+
+                        <input type="text" style="display: none;" id="devicetypeupdatedummy"
+                          [(ngModel)]="devicetypereturn">
+                        <span class="invalidmsg" id="msg_vendorName"></span>
+                      </div>
+
+                      <div class="col-lg-4 col-md-4">
+                        <label class="indlabel">Device Model</label>
+                        <span class="mandatory">*</span>
+
+                        <ngx-select-dropdown tabindex="4" id="model" [multiple]="false" [(ngModel)]="model_Text"
+                          (change)="step2validation()" [config]="config" [options]="ListOfmodel">
+                        </ngx-select-dropdown>
+
+                        <input type="text" style="display: none;" [(ngModel)]="modelreturn" id="modellistupd">
+                        <span class="invalidmsg" id="msg_vendorName"></span>
+                      </div>
+
+                      <div class="col-lg-4 col-md-4">
+                        <label class="indlabel">IMEI No.</label>&nbsp;
+                        <span class="mandatory">*</span>
+                        <input type="text" class="form-control" style=" font-size:12px" placeholder="Enter IMEI No."
+                          tabindex="6" minlength="15" maxlength="15" [(ngModel)]="imeino_Text" id="IMEINoupdate"
+                          #imeino="ngModel" onkeypress="return isNumberKey(event)">
+                        <div class="invalidmsg" *ngIf="imeino.errors?.minlength">
+                          IMEI number must be 15 characters long.
+                        </div>
+                        <span class="invalidmsg" id="msg_pincode"></span>
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+
+                      <div class="col-lg-4 col-md-4">
+                        <label class="indlabel">Device Serial No.</label>&nbsp;
+                        <span class="mandatory">*</span>
+                        <input type="text" class="form-control" style=" font-size:12px" placeholder="Enter Serial  No."
+                          tabindex="7 " minlength="8" maxlength="25" [(ngModel)]="deviceserial_Text"
+                          id="deviceserialupdate" #serialno="ngModel" onkeypress="return isNumberKey(event)">
+                        <div class="invalidmsg" *ngIf="serialno.errors?.minlength">
+                          Serial number must be at least minimum 8 characters & maximum 25 characters long.
+                        </div>
+                        <span class="invalidmsg" id="msg_pincode"></span>
+                      </div>
+
+                      <div class="col-lg-4 col-md-4">
+                        <br><br>
+                        <input type="checkbox" [checked]="true" id="checkboxdataupdate" class="showscheckbox"
+                          [(ngModel)]="uptheCheckbox" (change)="toggleEditable($event)" />&nbsp;&nbsp;<label class="indlabel" tabindex="8">Do
+                          you want to enter Sim Details</label>
+
+                      </div>
+
+                    </div>
+                    </fieldset>
+                    <span class="invalidmsg" id="msg_error_contact" style="position: absolute;bottom:10px;"></span>
+                  </div>
+                  <div id="step-16" class="stepsdiv">
+                    <fieldset style="width: 741px;" >
+                      <legend class="text-uppercase" style = " color: rgb(173, 247, 150);" >Sim Details</legend>
+                    <div class="form-group row">
+
+                      <div id="basnet1update" class="col-lg-3 col-md-3">
+                        <label class="indlabel">Network1</label>
+                        <span class="mandatory">*</span>
+
+                        <ngx-select-dropdown tabindex="10" [multiple]="false" [(ngModel)]="selectnetwork1_Text"
+                          (change)="selectnet1()" [config]="config" [options]="network1list"></ngx-select-dropdown>
+
+                        <input type="text" style="display: none;" id="Network1idupdate" [(ngModel)]="networkreturn">
+
+                        <span class="invalidmsg" id="msg_vendorName"></span>
+                      </div>
+
+                      <div id="basmob1" class="col-lg-3 col-md-3"  >
+                        <label class="indlabel">Mobile No</label>
+                        <span class="mandatory">*</span>
+                        <ngx-select-dropdown tabindex="14" id="upmobilenoentry" [multiple]="false"
+                        [(ngModel)]="upmobile1obj" [config]="configmobile" (change)="upmobile1Textentry = upmobile1obj.param1;"
+                        [options]="upsimlistArr1"></ngx-select-dropdown>
+  
+                        <input type="text" class="form-control" id="upmobile1objdummy"  [(ngModel)]="upmobile1objTextdummy" style=" display: none;" >
+                      </div>
+
+                      <div class="col-lg-1 col-md-1" id="addnewbtnid">
+                        <button id="save" class="mb-2 btn btn-wizard btn-sm btnadd btn-secondary"
+                          (click)="pushSimEntries()" style="margin-top: 30px;" tabindex="15">
+                          <i class="material-icons">add</i>
+                        </button>
+                      </div>
+
+                      <div id="basmob1update" class="col-lg-3 col-md-3">
+                        <label class="indlabel">Mobile No</label>&nbsp;
+                        <span class="mandatory">*</span>
+                        <input type="text" class="form-control" style=" font-size:12px" placeholder="Mobile No1."
+                          tabindex="9" minlength="10" maxlength="13" [(ngModel)]="mobile1_Text" #mobile1="ngModel"
+                          onkeypress="return isNumberKey(event)" id="mobile1idupdate">
+                        <div class="maxminwarn" *ngIf="mobile1.errors?.minlength">
+                          Mobile No.1 must be at least minimum 10 characters & maximum 13 characters long.
+                        </div>
+
+                      </div>
+
+                    </div>
+                    <div class="form-group row">
+
+                      <div id="aisnet2update" class="col-lg-6 col-md-6">
+                        <label class="indlabel">Network2</label>
+                        <span class="mandatory">*</span>
+
+                        <ngx-select-dropdown tabindex="12" [multiple]="false" [(ngModel)]="selectnetwork2_Text"
+                          (change)="selectnet2()" [config]="config" [options]="network2list"></ngx-select-dropdown>
+
+                        <input type="text" style="display: none;" id="Network2idupdate" [(ngModel)]="network2return">
+
+                        <span class="invalidmsg" id="msg_vendorName"></span>
+                      </div>    
+
+                      <div id="aismob2update" class="col-lg-6 col-md-6">
+                        <label class="indlabel">Mobile No2</label>&nbsp;
+                        <span class="mandatory">*</span>
+                        <input type="text" class="form-control" placeholder="Mobile No2." tabindex="11" minlength="10"
+                          maxlength="13" [(ngModel)]="mobile2_Text" #mobile2="ngModel"
+                          onkeypress="return isNumberKey(event)" id="mobile2idupdate">
+                        <div class="maxminwarn" *ngIf="mobile2.errors?.minlength">
+                          Mobile No.2 must be at least minimum 10 characters & maximum 13 characters long.
+                        </div>
+
+                      </div>
+                    </div>
+                    <div class="form-group row">
+
+                      <div id="aisiccupdate" class="col-lg-6 col-md-6" *ngIf="devicetype_Text=='AIS-140'">
+                        <label class="indlabel">ICCID No</label>&nbsp;
+                        <span class="mandatory">*</span>
+                        <input type="text" class="form-control" style=" font-size:12px" placeholder="ICCID No."
+                          tabindex="13" minlength="19" maxlength="21" [(ngModel)]="ICCIDNo_Text" #ICCIDNo="ngModel"
+                          onkeypress="avoidSplChars(event)" id="iccidnoidupdate">
+                        <div class="maxminwarn" *ngIf="ICCIDNo.errors?.minlength">
+                          ICCIDNo must be at least minimum 19 characters & maximum 21 characters long.
+                        </div>
+
+                      </div>
+                      <div id="basicsimnoupdate" class="col-lg-6 col-md-6" *ngIf="devicetype_Text!='AIS-140'">
+                        <label class="indlabel">SIM No</label>&nbsp;
+                        
+                        <input type="text" class="form-control" style=" font-size:12px" placeholder="SIM No."
+                          tabindex="14" minlength="19" maxlength="21" [(ngModel)]="SIMNoTextupdate" #ICCIDNo="ngModel"
+                          onkeypress="avoidSplChars(event)" id="basicsimnoupdate">
+                        <div class="maxminwarn" *ngIf="ICCIDNo.errors?.minlength">
+                          SIM No must be at least minimum 19 characters & maximum 21 characters long.
+                        </div>
+
+                      </div>
+
+                    </div>
+                    </fieldset>
+                    <span class="invalidmsg" id="msg_error_simdetails" style="position: absolute;bottom:10px;"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- --------------------------------------------- View Section ------------------------------------------- -->
+          <div class="">
+            <div id="vendordtls" class="row" style="background-color: #0e2145; border: 1px ridge #02108d;">
+              <div class="col-12 col-md-12 col-lg-12">
+
+                <div class="row" style="background-color: rgb(198 201 202);">
+                  <div class="col-12 col-md-12 col-lg-12">
+                    <div class="viewheading">Basic Details</div>
+                  </div>
+                </div><br>
+
+                <div class="row">
+                  <div class="col-6 col-md-6 col-lg-6" style=" float: left;">
+                    <span class="caplable">Vendor:</span>&nbsp;<span class="viewlable">{{vendor_Text}}</span>
+                  </div>
+                  <div class="col-6 col-md-6 col-lg-6" style=" float: left;">
+                    <span class="caplable">Mode Of Delivery:</span>&nbsp;<span
+                      class="viewlable">{{upmodeofdelivery_Text}}</span>
+                  </div>
+                  <div class="col-6 col-md-6 col-lg-6" style=" float: left;">
+                    <span class="caplable">Received Date:</span>&nbsp;<span class="viewlable">{{installationdate}}</span>
+                  </div>
+                  <div class="col-6 col-md-6 col-lg-6" style=" float: left;">
+                    <span class="caplable">Received By:</span>&nbsp;<span class="viewlable">{{upreceivedbyText}}</span>
+                  </div>
+                  <div class="col-6 col-md-6 col-lg-6" style=" float: left;">
+                    <span class="caplable">Mobile No.:</span>&nbsp;<span
+                      class="viewlable">{{uppersonmobileNo}}</span>
+                  </div>
+                  <div class="col-6 col-md-6 col-lg-6" style=" float: left;">
+                    <span class="caplable">Received From:</span>&nbsp;<span class="viewlable"></span>
+                  </div>
+                </div><br>
+
+                <div class="row" style="background-color: rgb(198 201 202);">
+                  <div class="col-12 col-md-12 col-lg-12">
+                    <div class="viewheading">Courier Details</div>
+                  </div>
+                </div>
+                <br>
+
+                <div class="row">
+                  <div class="col-12 col-md-12 col-lg-12">
+                    <div class="col-6 col-md-6 col-lg-6" style=" float: left;">
+                      <span class="caplable">Courier Name:</span>&nbsp;
+                      <span class="viewlable">{{upcouriernameText}}</span>
+                    </div>
+                    <div class="col-6 col-md-6 col-lg-6" style=" float: left;">
+                      <span class="caplable">From:</span>&nbsp;
+                      <span class="viewlable">{{upcourierfromText}}</span>
+                    </div> 
+                    <div class="col-6 col-md-6 col-lg-6" style=" float: left;">
+                      <span class="caplable">Tracker ID:</span>&nbsp;
+                      <span class="viewlable">{{uptrackeridText}}</span>
+                    </div>                  
+
+                  </div>
+                </div><br>
+
+                <div class="row" style="background-color: rgb(198 201 202);">
+                  <div class="col-12 col-md-12 col-lg-12">
+                    <div class="viewheading">Device Details</div>
+                  </div>
+                </div><br>
+
+                <div class="row">
+                  
+
+                  <div class="col-4 col-md-4 col-lg-4" style=" float: left;">
+                    <span class="caplable">Device Type:</span>&nbsp;<span class="viewlable">{{devicetype_Text}}</span>
+                  </div>
+                  <div class="col-4 col-md-4 col-lg-4" style=" float: left;">
+                    <span class="caplable">Device Model.:</span>&nbsp;<span class="viewlable">{{model_Text}}</span>
+                  </div>
+                  <div class="col-4 col-md-4 col-lg-4" style=" float: left;">
+                    <span class="caplable">IMEI No.:</span>&nbsp;<span class="viewlable">{{imeino_Text}}</span>
+                  </div>
+                  <div class="col-8 col-md-8 col-lg-8" style=" float: left;">
+                    <span class="caplable">Device Sr No:</span>&nbsp;<span
+                      class="viewlable">{{deviceserial_Text}}</span>
+                  </div>
+                </div>
+                <br>
+
+                <div class="row" style="background-color: rgb(198 201 202);">
+                  <div class="col-12 col-md-12 col-lg-12">
+                    <div class="viewheading">Sim Details</div>
+                  </div>
+                </div><br>
+
+                <div class="row">
+                  <div class="col-6 col-md-6 col-lg-6" style=" float: left;">
+                    <span class="caplable">Network Name :</span>&nbsp;<span
+                      class="viewlable">{{selectnetwork1_Text}}</span>
+                  </div>
+
+                  <div class="col-6 col-md-6 col-lg-6" style=" float: left;">
+                    <span class="caplable">Mobile No 1:</span>&nbsp;<span class="viewlable">{{mobile1_Text}}</span>
+                  </div>
+
+                  <div class="col-6 col-md-6 col-lg-6" id="networktwo" style=" float: left;">
+                    <span class="caplable">Network Name:</span>&nbsp;<span
+                      class="viewlable">{{selectnetwork2_Text}}</span>
+                  </div>
+
+                  <div class="col-6 col-md-6 col-lg-6" id="mobiletwo" style=" float: left;">
+                    <span class="caplable">Mobile No 2:</span>&nbsp;<span class="viewlable">{{mobile2_Text}}</span>
+                  </div>
+                </div>
+                <div class="row">
+
+                  <div class="col-6 col-md-6 col-lg-6" id="iccidno" style=" float: left;">
+                    <span class="caplable">ICCID No.:</span>&nbsp;<span class="viewlable">{{ICCIDNo_Text}}</span>
+                  </div>
+                  <div class="col-6 col-md-6 col-lg-6" id="simno" style=" float: left;">
+                    <span class="caplable">Sim No.:</span>&nbsp;<span class="viewlable">{{ICCIDNo_Text}}</span>
+                  </div>
+
+                </div>
+
+                <br>
+
+              </div>
+              <!-- --------------------- View Section End ------------------------------ -->
+
+            </div>
+          </div>
+
+        </div>
+        <!-- --------------------- View Section End ------------------------------ -->
+
+      </div><br><br>
+
+
+      <!-- Modal footer -->
+
+      <div class="modal-footer" style="display: none; position: relative; top: -25px;" id="modelfooter">
+        <div class="container mx-5 row">
+          <div class="col-md-7" style="background-color: gray;">
+<p style="margin-bottom: 0px;">Remark<span class="text-danger">*</span></p>            <textarea type="text" class="form-control bg-white" rows="1" style=" font-size:12px;" placeholder=" Enter Remark"
+              required tabindex="15" minlength="10" id="remarkupdate" [(ngModel)]="Remarkupdate"
+              [ngClass]="{'is-invalid': rem.invalid }" onkeypress="avoidSplChars(event)" id="remarkupdate"
+              #rem="ngModel"></textarea>
+            <div class="invalidmsg" style="margin-left: 16px;" *ngIf="rem.invalid">
+              Remark must be 10 to 40 characters long.
+            </div>
+                 </div>
+          <div class="col-md-4">
+            <div class="actionBar" style="margin-right: 5px;">
+              <button id="upcouriersaveentry" class="mb-2 btn btn-wizard btn-sm btn-success buttonFinish" (click)="courierupdatedevice()">
+                <i class="material-icons">save</i>
+              </button>
+              <button id="upreceivedsaveentry" class="mb-2 btn btn-wizard btn-sm btn-success buttonFinish" (click)="updatedevice()">
+                <i class="material-icons">save</i>
+              </button>
+              <button id="next" class="mb-2 btn btn-wizard btn-sm btn-primary buttonNext">
+                <i class="material-icons">arrow_forward</i>
+              </button>
+              <button id="prev" class="mb-2 btn btn-wizard btn-sm btn-primary buttonPrevious">
+                <i class="material-icons">arrow_back</i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ------------------- view & Edit model close ------------------------ -->
+
+<!-- ------------------ Delete Model Start ------------------------>
+
+<!-- Delete Model-->
+<div class="modal fade" id="modeldelete" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-sm modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header" style="background-color: 	red;">
+        <h4 class="modal-title text-center" style="color: yellow">Are You Sure?</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body" style="background-color: #f0e8e9">
+
+        <div class="form-group row">
+
+
+          <div class="col-lg-12 col-md-12">
+            <label style="color: black">Remark</label>&nbsp;
+            <span class="indlabelstar">*</span>
+            <textarea class="form-control" rows="2" style=" font-size:12px" placeholder="Enter Remark" tabindex="1"
+              minlength="10" maxlength="150" [(ngModel)]="deleteText" #regaddress="ngModel"
+              id="vendelremark"></textarea>
+
+          </div>
+
+        </div>
+        <span class="invalidmsg" id="msg_error_delete">{{successMessageUpdate}}</span>
+        <p style="    background-color: yellow;
+          /* padding-right: 20px; */
+          margin-right: 89px;
+          color: red; display: none;">Do You want to Delete !!&hellip;</p>
+      </div>
+
+
+      <!-- Modal footer -->
+      <div class="modal-footer text-center" style="background-color: #cfbaa8">
+        <button type="submit" class="btndel btn-primary mr-3" data-toggle="modal" data-dismiss="modal" tabindex="18">
+          No
+        </button>
+        <button type="reset" tabindex="19" class="btndel btn-danger " data-toggle="modal" (click)="deleteDevice()">
+          Yes
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!-- Delete Model -->
+
+<!-- ------------------- Delete model End ----------------------- -->
+
+<!-- ------------------- onclick no btn model  ----------------------- -->
+<!-- The Modal -->
+<div class="modal fade" id="Noclickmodel">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-contentno">
+
+      <!-- Modal Header -->
+      <div class="modal-header" style="background-color: 	rgb(133, 195, 197);">
+        <h4 class="modal-title text-center" style="color: rgb(0, 0, 0)">Error</h4>
+        <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body" style="background-color: white;">
+        Your Data is Not delete..
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer" style="background-color: 	rgb(255, 255, 255);">
+        <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal"><span class="material-icons">
+            highlight_off
+          </span></button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ------------------- onclick no btn model End ----------------------- -->
+<!-- ------------------- onclick Yes btn model ----------------------- -->
+
+<div class="modal fade" id="Yesclickmodel">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-contentno">
+
+      <!-- Modal Header -->
+      <div class="modal-header" style="background-color: 	rgb(133, 195, 197);">
+        <h4 class="modal-title text-center" style="color: rgb(0, 0, 0)">Successfully</h4>
+        <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body" style="background-color: white;">
+        Your Data is delete..
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer" style="background-color: 	rgb(255, 255, 255);">
+        <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal"><span class="material-icons">
+            highlight_off
+          </span></button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ------------------- onclick yes btn model End ----------------------- -->
+
+ 
+ 
+<div class="modal fade " id="SuccessModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+  aria-hidden="true">
+  <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+    <div class="modal-content box-shadow">
+      <div class="card border-0">
+        <div class="card-header py-1 pl-3 m-0" style="background-color: green;">
+          <p style="font-size:17px; font-weight:bold"> Success </p>
+        </div>
+        <div class="card-body bg-white text-dark">
+          <p> {{datafromrespo}}</p>
+          <div class="text-right">
+            <button class="btn btn-sm btn-success" (click)="closemodal()" data-dismiss="modal">ok</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade " id="ErrorModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+  aria-hidden="true">
+  <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+    <div class="modal-content box-shadow">
+      <div class="card  border-0">
+        <div class="card-header  py-1 pl-3 m-0" style="background-color: red;">
+          <p style="font-size:17px; font-weight:bold"> Error </p>
+        </div>
+        <div class="card-body bg-white text-dark">
+          <p> {{datafromrespo}}</p>
+          <div class="text-right">
+            <button class="btn btn-sm btn-success" data-dismiss="modal">ok</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-devicesingleentry></app-devicesingleentry>

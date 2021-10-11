@@ -1,0 +1,321 @@
+<!--
+Developer 	: Dhammadeep Dahiwale
+Date      	:12-22-2020
+Description : Tips Master Entry
+Modified By :  
+Update date : 
+-->
+
+
+
+<div class="modal fade" id="exampleModal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Department Entry</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closemodal();">
+          <span aria-hidden="true" style="color: white">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div id="container">
+            <div class="step-wizardentry" role="navigation">
+              <div class="progress" style="display: none;">
+                <div class="progressbar empty" style="display: none;"></div>
+                <div id="progentry" class="progressbar" style="display: none;"></div>
+              </div>
+              <ul style="display: none;">
+                <li class="active">
+                  <button id="stepentry1">
+                    <div class="step">1</div>
+                    <div class="title">Basic Details</div>
+                  </button>
+                </li>
+                <!-- <li class="">
+                    <button id="stepentry2">
+                      <div class="step">2</div>
+                      <div class="title">Contact Details</div>
+                    </button>
+                  </li> -->
+                <li class="">
+                  <button id="stepentry3">
+                    <div class="step">2</div>
+                    <div class="title">Contact Details</div>
+                  </button>
+                </li>
+                <!-- <li class="">
+                    <button id="stepentry4">
+                      <div class="step">4</div>
+                      <div class="title">Successful</div>
+                    </button>
+                  </li> -->
+              </ul>
+
+              <div class="stepsection">
+                <span class="invalidmsg" id="msg_mainmessageentry"></span>
+                <div id="step-14" class="stepsdiv">
+                  <!-- <span class="StepTitle">Step 1: Basic Details</span> -->
+
+                  <div class="form-group row">
+                    <div class="col-lg-4 col-md-4" id="deptcustentry">
+                      <label class="indlabel">Select Customer</label>
+                       <span class="mandatory">*</span> 
+                   
+                       <ngx-select-dropdown tabindex="0" id="custdept" [multiple]="false" [(ngModel)]="customerentry"
+                      [config]="config" #customerCtrl="ngModel" [options]="customerListArray" (change)="SelectcustomerData()" ></ngx-select-dropdown>
+              
+                    </div>
+                    <div class="col-lg-4 col-md-4" style="display: none;">
+                      <label class="indlabel">customer </label>
+                      <span class="mandatory">*</span>
+                      <input type="text" class="form-control" placeholder="Enter customer" tabindex="5" required minlength="4" maxlength="20"
+                        [(ngModel)]="customerentryid" #Division="ngModel" id="customerentryid1dept" >
+                      <div class="invalidmsg" *ngIf="Division.errors?.minlength">
+                        Customer Name must be at least minimum 5 characters & maximum 100 characters long.
+                      </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-4">
+                      <label class="indlabel">select Division </label>
+                      <span class="mandatory">*</span>
+                      <ngx-select-dropdown tabindex="0" id="divisionId" [multiple]="false" [(ngModel)]="divisionObj"
+                        [config]="config" [options]="divisionList" (change)="SubDivisionList()"></ngx-select-dropdown>
+                    </div>
+
+                    <div class="col-lg-4 col-md-4">
+                      <label class="indlabel">select sub Division </label>
+                      <span class="mandatory">*</span>
+                      <ngx-select-dropdown tabindex="0" id="subDivisionId" [multiple]="false" [(ngModel)]="subDivisionObj"
+                        [config]="config" [options]="subDivisionList" (change)="getsubDivisionId()">
+                      </ngx-select-dropdown>
+                    </div>
+                  </div>
+
+
+
+                  <div class="row form-group">
+                    <div class="col-lg-4 col-md-4">
+                      <label class="indlabel">Enter Department</label>
+                      <!-- <span class="mandatory">*</span> -->
+                      <input type="text" name="department" class="form-control" placeholder="Enter Department name." [(ngModel)]="departmentName" required
+                        minlength="4" id="departmentname" #deptCtrl="ngModel">
+                      <div class="invalidmsg" *ngIf="deptCtrl.errors?.minlength">
+                        Department name should be at least 4 letters </div>
+                    </div>
+
+                    <div class="col-lg-6 col-md-6">
+                      <label class="indlabel"> Department Description </label>
+                      <span class="mandatory">*</span>
+                      <textarea class="form-control" rows="2" style=" font-size:12px" placeholder="Enter Description."
+                        tabindex="2" minlength="5" maxlength="200-" [(ngModel)]="departmentDesc" #deptDescCtrl="ngModel"
+                        id="descriptionentry"></textarea>
+                      <div class="invalidmsg" *ngIf="deptDescCtrl.errors?.minlength">
+                        description length should be at least 5 letters.
+                      </div>
+                    </div>
+  </div>
+ 
+                  <br>
+                  <br>
+                  <span class="invalidmsg" id="customerError"></span>
+                  <span class="invalidmsg" id="divisionError"></span>
+                  <span class="invalidmsg" id="subDivisionError"></span>
+                  <span class="invalidmsg" id="departmentError"></span>
+                  <span class="invalidmsg" id="departmentDescError"></span>
+
+                </div>
+
+
+
+                <!-- <div class="actionBar">
+                <button  id="saveentry" class="mb-2 btn btn-sm btn-success buttonFinish"  (click)="vensavebtn()"><i class="material-icons">save</i></button>
+                <button  id="nextentry" class="mb-2 btn btn-sm btn-primary buttonNext"><i class="material-icons">arrow_forward</i></button>
+                
+                <button  id="preventry" class="mb-2 btn btn-sm btn-primary buttonPrevious" onclick="validateAllSteps(4,4)"><i class="material-icons">arrow_back</i></button>
+                </div> -->
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Modal footer -->
+
+      <div class="modal-footer" id="modelfooter">
+
+        <div class="actionBar">
+          <button id="save" class="mb-2 btn btn-wizard btn-sm btn-success buttonFinish" (click)="insertDepartment();"
+            style="display: none;">
+            <i class="material-icons">save</i>
+          </button>
+          <button id="next" class="mb-2 btn btn-wizard btn-sm btn-success buttonNext" (click)="insertDepartment();">
+            <i class="material-icons">save</i>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="Noclickmodel">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-contentno">
+
+      <!-- Modal Header -->
+      <div class="modal-header" style="background-color: 	rgb(255, 255, 255);">
+        <h4 class="modal-title text-center" style="color: rgb(0, 0, 0)">Your Data is not Delete</h4>
+        <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+      </div>
+
+      <!-- Modal body -->
+      <!-- <div class="modal-body">
+          Your Data is Not delete..
+        </div> -->
+
+      <!-- Modal footer -->
+      <div class="modal-footer" style="background-color: 	rgb(255, 255, 255);">
+        <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">
+          <span class="material-icons">
+            highlight_off
+          </span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ------------------- onclick no btn model End ----------------------- -->
+<!-- ------------------- onclick Yes btn model ----------------------- -->
+
+<div class="modal fade" id="Yesclickmodel">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-contentno">
+
+      <!-- Modal Header -->
+      <div class="modal-header" style="background-color: 	rgb(255, 255, 255);">
+        <h4 class="modal-title text-center" style="color: rgb(0, 0, 0)">Data Deleted Successfully</h4>
+        <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+      </div>
+
+      <!-- Modal body -->
+      <!-- <div class="modal-body">
+          Your Data is Not delete..
+        </div> -->
+
+      <!-- Modal footer -->
+      <div class="modal-footer" style="background-color: 	rgb(255, 255, 255);">
+        <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">
+          <span class="material-icons">
+            highlight_off
+          </span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="notifymodel">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-contentno">
+
+      <!-- Modal Header -->
+      <div class="modal-header" style="background-color: 	rgb(133, 195, 197);">
+        <h4 class="modal-title text-center" style="color: rgb(0, 0, 0)">Error</h4>
+        <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body" style="background-color: white;">
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer" style="background-color: 	rgb(255, 255, 255); margin-right: 0px;">
+        <!-- <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal"><span class="material-icons">
+            highlight_off
+            </span></button> -->
+        <button class="btn btn-success p-0 m-0" data-dismiss="modal">
+          <!-- <span class="material-icons">
+            highlight_off
+          </span> -->
+          ok
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="successmodel">
+  <div class="modal-dialog modal-sm ">
+
+    <div class="modal-contentno" style="border: 2px solid black;">
+
+      <!-- Modal Header -->
+      <div class="modal-header" style="background-color:#17b82c">
+        <h4 class="modal-title text-white">Success</h4>
+        <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body" style="background-color: antiquewhite;">
+        {{errorMessage}}
+        <div class="text-right">
+          <button class="btn btn-sm btn-success" data-dismiss="modal" style="width: 37px;"> ok
+          </button>
+        </div>
+
+
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer m-0 pt-0 pb-0 bg-secondary">
+        <button class="btn btn-success pt-0" data-dismiss="modal"> ok </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="modal fade " id="updateSuccessModal1" data-backdrop="static" data-keyboard="false" tabindex="-1"
+  role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-sm dialogModal" role="document">
+    <div class="modal-content box-shadow">
+      <div class="card text-center border-0">
+        <div class="card-header bg-success m-0 p-0">
+          <h5>Success</h5>
+        </div>
+        <div class="card-body bg-white">
+          {{errorMessage}}
+          <div class="text-right">
+            <button class="btn btn-sm btn-success" data-dismiss="modal" (click)="closemodal();">ok</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade " id="ErrorModal1" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+  aria-hidden="true">
+  <div class="modal-dialog modal-sm dialogModal" role="document">
+    <div class="modal-content box-shadow">
+      <div class="card text-center border-0">
+        <div class="card-header bg-warning m-0 p-0">
+          <h5>Failed</h5>
+        </div>
+        <div class="card-body bg-white">
+          {{errorMessage}}
+          <div class="text-right pt-3">
+            <button class="btn btn-sm btn-success" data-dismiss="modal" (click)="closemodal();">ok</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

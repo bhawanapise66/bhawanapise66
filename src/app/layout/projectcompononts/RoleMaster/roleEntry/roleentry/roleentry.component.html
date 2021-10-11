@@ -1,0 +1,143 @@
+<!--
+Developer 	:Kajal Kartar
+Date      	:3-2-2021
+Description : Role Master Entry
+Modified By :  
+Update date : 
+-->
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="text-left m-1" style="font-size: 15px;">Role
+          <span class="text-template-primary" style="color: #00ed54">Entry</span>
+        </h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)=" clear();">
+          <span aria-hidden="true" style="color: white">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div id="container">
+            <div class="step-wizardentry" role="navigation">
+              <div class="progress" style="display: none;">
+                <div class="progressbar empty" style="display: none;"></div>
+                <div id="progentry" class="progressbar" style="display: none;"></div>
+              </div>
+              <ul style="display: none;">
+                <!-- <li class="active">
+                  <button id="stepentry1">
+                    <div class="step">1</div>
+                    <div class="title">Basic Details</div>
+                  </button>
+                </li> -->
+                <!-- <li class="">
+                    <button id="stepentry2">
+                      <div class="step">2</div>
+                      <div class="title">Contact Details</div>
+                    </button>
+                  </li> -->
+                <!-- <li class="">
+                  <button id="stepentry3">
+                    <div class="step">2</div>
+                    <div class="title">Contact Details</div>
+                  </button>
+                </li> -->
+                <!-- <li class="">
+                    <button id="stepentry4">
+                      <div class="step">4</div>
+                      <div class="title">Successful</div>
+                    </button>
+                  </li> -->
+              </ul>
+              <div class="stepsection">
+                <span class="invalidmsg" id="msg_mainmessageentry"></span>
+                <div id="step-14" class="stepsdiv">
+                  <span class="StepTitle"> User Details</span>
+                  <div class="form-group row">
+                    <div class="col-lg-6 col-md-6">
+                      <label class="indlabel">Role Owner</label>
+                      <span class="mandatory">*</span>
+                      <ngx-select-dropdown tabindex="1" id="roleidselect" [multiple]="false"
+                      [(ngModel)]="roledetail" [config]="config" [options]="roleListArray1"
+                      (change)="AssignRoleList()"></ngx-select-dropdown>
+                    </div>
+
+                    <div class="col-lg-4 col-md-4" style="display: none;">
+                      <label class="indlabel">Dummy Owner Role</label>
+                      <span class="mandatory">*</span>
+                      <input type="text" class="form-control" placeholder="Enter Owner Role " required
+                        minlength="3" maxlength="30" id="dummyroleid1" tabindex="2" onpaste="return false;"
+                        [(ngModel)]="selectrolereturn1" #vendornm="ngModel"
+                        onkeypress="return onlyAlphabets(event);" ondrop="return false;">
+                    </div>
+
+                    <div class="col-lg-6 col-md-6">
+                      <label class="indlabel">Role Name</label>
+                      <span class="mandatory">*</span>
+                      <input type="text" name="roleName" class="form-control" [(ngModel)]="roleName1" tabindex="3" id="rolenametxt_id1" 
+                      placeholder="Enter Role Name" required minlength="2" maxlength="40" #roleNameCtrl="ngModel" onkeypress="return ((onlyAlphabets(event)) || (event.charCode == 32) || (event.charCode == 40)|| (event.charCode == 41));">
+                      <div class="invalidmsg" *ngIf="roleNameCtrl.errors?.minlength">
+                        Role Name must be at least of 2 characters long.
+                      </div>
+                    </div>
+                   
+                  </div>
+
+                  <div class="row form-group">
+                  
+                    <div class="col-lg-6 col-md-6">
+                      <label class="indlabel">Description </label>
+                      <span class="mandatory">*</span>
+                      <textarea class="form-control" rows="2" style=" font-size:12px" placeholder="Enter Description."
+                        tabindex="4" minlength="5"  name="descriptionname" [(ngModel)]="descriptionrole"
+                        #descriptionCtrl="ngModel" id="descriptionentry5"></textarea>
+                      <div class="invalidmsg" *ngIf="descriptionCtrl.errors?.minlength">
+                        Description must be at least minimum 5 characters long.
+                      </div>
+                  
+                    </div>
+
+                     <div class="col-lg-6 col-md-6">
+                      <label class="indlabel">Role Access</label>
+                      <span class="mandatory">*</span><br>
+                      <!-- <input type="checkbox" [(ngModel)]="readPrivilege1" tabindex="5">&nbsp;<span
+                      class="text-white"><b>read</b> = {{readPrivilege1}}</span><br><br>
+                      <input type="checkbox" value="write" [(ngModel)]="writePrivilege1" tabindex="6">&nbsp;<span
+                      class="text-white"><b>write</b> = {{writePrivilege1}}</span> -->
+                      <label class="container">Read
+                        <input type="checkbox" [(ngModel)]="readPrivilege1" tabindex="5" id="readid">&nbsp;
+                          <span class="checkmark"></span>
+                        </label>
+                        <label class="container">Write
+                          <input type="checkbox" [(ngModel)]="writePrivilege1" tabindex="6" id="writeid">&nbsp;
+                            <span class="checkmark"></span>
+                          </label>
+                    </div>
+                   
+                    </div>
+                    <br>
+                    <br>
+                    <span class="invalidmsg" id="msg_errorentry3"></span>
+                </div>
+              </div>
+            
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Modal footer -->
+
+      <div class="modal-footer" id="modelfooter">
+
+        <div class="actionBar">
+            <button  id="saveentry" class="mb-2 btn btn-sm btn-success buttonFinish" (click)="InsertRole()" ><i class="material-icons">save</i></button>
+                         </div>
+  </div> 
+
+    </div>
+  </div>
+</div>
+

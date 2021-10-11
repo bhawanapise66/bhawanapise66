@@ -1,0 +1,181 @@
+<div class="col-12 col-md-12 col-lg-12 col-xl-12">
+  <div class="row">
+    <div class="container-fluid" style=" background-image: linear-gradient( #fff2df,  #faf9f9); "> 
+        <div class="card-header border-0 bg-none">
+            <div class="row" style=" color: #fff2df; font-size: 14px; background-image: linear-gradient(#c03548, #fe2e4b);">
+                <div class="col-8"> <p class="fs15"><b>Current Day Counts</b>&nbsp;-&nbsp;<span style=" font-size: 21px;">25</span></p></div>  
+                <div class="col-4">
+                    <p class=" mb-2">&nbsp;</p>
+                </div>
+            </div>
+        </div>
+        <div class="card-deck" style=" height: 20%;">
+          <div class="card cardn" style=" background-image: linear-gradient(rgb(204 153 6), #683e00); " ngbTooltip="Click on this widget showing total Active login details."
+                data-toggle="modal" data-target="#ActiveLoginDetailsModal"  >
+            <div class="card-block">
+              <h5 class="card-title" style=" background-image: linear-gradient( #F0C100, #F0C100); color:#fff; font-family: Arial; font-size: 18px; font-weight: bold; ">Active&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="material-icons" style=" font-size: 2rem;" >people</i></h5>
+              <div class="text-center" style=" font-size: 2rem; background-image: linear-gradient(rgb(255 224 0), rgb(255 234 80)); "><strong class="animated-text" style=" color:#fff">44</strong></div>
+            </div>        
+          </div>
+          <div class="card cardn" style=" background-image: linear-gradient(rgb(3 128 7), #0bc609);" ngbTooltip="Click on this widget showing total Blocked login details."
+                data-toggle="modal" data-target="#BlockLoginDetailsModal" >
+            <div class="card-block">
+              <h5 class="card-title" style=" background-image: linear-gradient(rgb(36 172 2), rgb(36 172 2)); color:#fff; font-family: Arial; font-size: 18px; font-weight: bold;" >Blocked&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="material-icons" style=" font-size: 2rem;" >people</i></h5>
+              <div class="text-center" style=" font-size: 2rem; background-image: linear-gradient(rgb(121 255 87), rgb(166 255 143)); "><strong class="animated-text" style=" color:#fff">24</strong></div>      
+            </div>
+          </div>
+          <div class="card cardn" style=" background-image: linear-gradient(rgb(2 79 102), #003f64); " ngbTooltip="Click on this widget showing total Logout login details."
+                data-toggle="modal" data-target="#LogoutLoginDetailsModal" >
+            <div class="card-block">
+              <h5 class="card-title" style=" background-image: linear-gradient(rgb(0 65 75), rgb(0 95 110)); color:#fff; font-family: Arial; font-size: 18px; font-weight: bold; " >Logout&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="material-icons" style=" font-size: 2rem;" >people</i></h5>
+              <div class="text-center" style=" font-size: 2rem; background-image: linear-gradient(rgb(66 148 161), rgb(28 181 206)); "><strong class="animated-text" style=" color:#fff">24</strong></div> 
+            </div>
+          </div>
+          <div class="card cardn" style=" background-image: linear-gradient(rgb(95 3 51), rgb(126 0 66));" ngbTooltip="Click on this widget showing total Created login details.">
+            <div class="card-block">
+              <h5 class="card-title" style=" background-image: linear-gradient(rgb(194 0 100), rgb(151 0 77)); color:#fff; font-family: Arial; font-size: 18px; font-weight: bold;">Created&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="material-icons" style=" font-size: 2rem;" >people</i></h5>
+              <div class="text-center" style=" font-size: 2rem; background-image: linear-gradient(rgb(255 90 176), rgb(204 27 119));"><strong class="animated-text" style=" color:#fff">24</strong></div> 
+            </div>
+          </div>
+          
+        </div><br>
+      </div>
+        
+</div>
+
+<div class="row" style=" margin-top: 2%;  ">       
+    <div class="col-5 col-md-5 col-lg-5 col-xl-5" >
+      <div class="card border-0 shadow-sm mb-4" style=" background-image: linear-gradient( #fff2df,  #faf9f9);">
+        <div class="card-header border-0" style=" background-image: linear-gradient( #c03548, #fe2e4b);">
+            <div class="row">
+                <div class="col align-self-center">
+                    <p class="fs15">Monthly Created Logins</p>
+                </div>
+            </div>
+        </div>
+        <div class="card-body pt-2">
+            <div class="row">
+                <div class="col-auto text-center align-self-center" style=" width: 100%;">
+                    <div id="chart1" style=" height: 215px; font-size: 11px; 
+                      margin-left: -18px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <div class="col-7 col-md-7 col-lg-7 col-xl-7" >
+      <div class="card border-0 shadow-sm mb-4" style=" margin-left: 10px; background-image: linear-gradient( #fff2df,  #faf9f9); ">
+        <div class="card-header border-0" style=" background-image: linear-gradient(#c03548, #fe2e4b);">
+            <div class="row"> 
+                <div class="col align-self-center">
+                    <p class="fs15">Current Day Sessions</p>
+                </div>
+            </div>
+        </div>
+        <div class="card-body pt-2">
+            <div class="row">
+                <div class="col-auto text-center align-self-center" style=" width: 100%;">
+                    <div id="chart2"  style="height: 215px;  font-size: 11px;"></div>
+                </div>
+                
+  
+            </div>
+        </div>
+    </div>
+    </div>
+</div>        
+  
+   <div class="row">
+
+
+    <div class="card border-0 shadow-sm mb-4" style=" width: 99%; margin-left: 10px; background-image: linear-gradient( #fff2df,  #faf9f9); ">
+        <div class="card-header border-0" style=" background-image: linear-gradient(#c03548, #fe2e4b);" >
+            <div class="row">
+                <div class="col align-self-center">
+                    <p class="fs15">Current Day Sessions </p>
+                </div>                
+            </div>
+        </div>
+        <div class="card-body pt-2">
+            <div class="row">
+                <div class="col-auto text-center align-self-center">
+                    <div id="chart3" style=" width: 1154px;height: 260px;"></div></div>
+                
+  
+            </div>
+        </div>
+    </div>
+  
+   </div>
+  
+
+</div>
+
+
+<div class="modal fade" id="ActiveLoginDetailsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+          <div class="modal-header" style=" background-color: #010c2a; padding-top: 0%; padding-bottom: 0%; color: white; font-size: 15px; ">
+              <span class="modal-title" id="exampleModalLabel"><i class="material-icons md-18">speaker_notes</i>&nbsp;Active Login Details.</span> 
+                           
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true" style="color: #f5f6f8">×</span>
+              </button>
+          </div>
+          <div class="modal-body">
+            <div class="container-fluid">
+            <div  id="container">
+             
+          </div>
+          </div>
+          </div>
+        
+      </div>
+  </div>
+</div>
+
+<div class="modal fade" id="BlockLoginDetailsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+          <div class="modal-header" style=" background-color: #010c2a; padding-top: 0%; padding-bottom: 0%; color: white; font-size: 15px; ">
+              <span class="modal-title" id="exampleModalLabel"><i class="material-icons md-18">speaker_notes</i>&nbsp;Block Login Details.</span> 
+                           
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true" style="color: #f5f6f8">×</span>
+              </button>
+          </div>
+          <div class="modal-body">
+            <div class="container-fluid">
+            <div  id="container">
+             
+          </div>
+          </div>
+          </div>
+        
+      </div>
+  </div>
+</div>
+
+<div class="modal fade" id="LogoutLoginDetailsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+          <div class="modal-header" style=" background-color: #010c2a; padding-top: 0%; padding-bottom: 0%; color: white; font-size: 15px; ">
+              <span class="modal-title" id="exampleModalLabel"><i class="material-icons md-18">speaker_notes</i>&nbsp;Logout Login Details.</span> 
+                           
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true" style="color: #f5f6f8">×</span>
+              </button>
+          </div>
+          <div class="modal-body">
+            <div class="container-fluid">
+            <div  id="container">
+             
+          </div>
+          </div>
+          </div>
+        
+      </div>
+  </div>
+</div>
+

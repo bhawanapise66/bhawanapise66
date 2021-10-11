@@ -1,0 +1,48 @@
+<router-outlet></router-outlet>
+<div class="row vh-100 loader">
+    <div class="container-fluid align-self-center text-center">
+        <div class="lds-roller">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="notifymodel" data-toggle="modal" data-backdrop="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-contentno">
+
+            <!-- Modal Header -->
+            <div class="modal-header bg-warning" style="padding-top:0;padding-bottom:0">
+                <h4 class="modal-title text-center" style="color: rgb(0, 0, 0)">Session Expired</h4>
+                <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body" style="background-color: 	rgb(240, 202, 202);">
+                Your sssion has been expired. system is idle for a long time.<br>
+                Do you want to continue as same user
+                <br><br>
+                <button id="successbutton" class="btn btn-success">click</button>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer"
+                style="background-color:rgb(240, 202, 202); margin-right: 0px; padding-top:0;padding-bottom:0">
+                <!-- <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal"><span class="material-icons">
+              highlight_off
+              </span></button> -->
+                <input type="text">
+            </div>
+
+        </div>
+    </div>
+</div>
+

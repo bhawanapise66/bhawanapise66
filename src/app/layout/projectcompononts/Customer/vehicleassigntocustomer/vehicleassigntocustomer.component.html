@@ -1,0 +1,150 @@
+<div class="row">
+  <div class="col-12 col-md-12 col-lg-12 col-xl-12 mx-auto align-self-center">
+    <div class="card shadow-sm border-0 mb-4">
+      
+      <div class="card-body">
+        <div class="row justify-content-center">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mx-auto" >
+            <div class="row">
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                <div class="form-group row">
+                  <div class="col-xl-2 col-lg-3 col-md-3 col-sm-6" *ngIf="!isCustomer" style=" float:left;">
+                    <label class="indlabel">Customer</label>
+                    <span class="mandatory">*</span>
+                    <ngx-select-dropdown tabindex="0" id="customerentry2" [multiple]="false"
+                      [(ngModel)]="selectcustomerentry" [config]="config" [options]="ListOfCustomer"
+                      (change)="Vehiclelist();getCustomerId()" style="font-size:11px; text-transform: capitalize; ">
+                    </ngx-select-dropdown>
+
+                    <input type="text" id="customerdummyupdate" [(ngModel)]="selectcustomerreturn"
+                      style="text-transform: capitalize;display: none;">
+
+                    <small class="text-danger" id="err_customer"> </small>
+
+                  </div>
+
+                    <div class="card border-1 shadow-sm overflow-hidden h-100 col-md-10 col-lg-10 col-xl-10" id="devicetbl" style=" float:left;">
+
+                      <div class="card-header">Vehicle List</div>
+                      <div class="card-body " style=" height:343px ;overflow:scroll">
+                        <div class="input-group searchdevid">
+
+                          <input type="text" placeholder="Search" id="searchDataDeviceID" [(ngModel)]="filtersim"  class="form-control searchicon" 
+                              aria-label="Amount (to the nearest dollar)" style=" width: 30%;" >
+                        
+                        </div> 
+                        <!-- <ul class="checkbox-items deviceno" id="mysimList">
+                          <li *ngFor="let item1 of ListOfVehicle | filter:filtersim">
+                            <input type="checkbox" name="" id="" [(ngModel)]="item1.isSelecteddevicesummary" name="item1_name" 
+                            value="{{item1.param1}}" (change)="getcheckitemlistdevice()" checked>{{item1.param2}}
+                          </li>
+                        </ul> -->
+                        <div class="deviceno" id="mysimList" style="margin-top: 0px;margin-left:1px;width: 110%;">
+                          <div class="tableFixHead">
+                            <div id="GridTable" class="card-body table-responsive">
+                              <table class="table table-hover table-striped">
+                                <thead>
+                                  <tr role="row">
+                                    <th><input type="checkbox" name="list_name" value="h1"
+                                         id="checkedisMaster" (change)="checkUncheckAllnew()"/></th>
+
+                                    <th>Vehicle No.</th>
+                                    <th>Vehicle Id</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+
+                                  <tr *ngFor="let litem1 of ListOfVehicle | filter:filtersim">
+
+                                    <td style=" padding: 0.35rem 0.5rem;">
+                                      <input type="checkbox" value="{{litem1.param1}}" [checked]="litem1.isSelecteddevicesummary == true" [(ngModel)]="litem1.isSelecteddevicesummary" id="{{'abc' + litem1.rowNumber}}" (change)="changeSelection()" checked>
+                           
+
+                                    </td>
+                                   
+                                    <td style=" padding: 0.35rem 0.5rem;">{{litem1.param2}}</td>
+                                    <td style=" padding: 0.35rem 0.5rem;">{{litem1.param3}}</td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                        </div>
+                        <span class="invalidmsg" id="msg_AlertSelect"></span>
+                        
+                      </div>
+                    </div>
+                  
+                  <div class="col-lg-4 col-md-4">
+                   
+                    <div id="alertmsg">
+
+                    </div>
+                  </div>
+
+                </div>
+                <div class="form-group row">
+                  <div  class=" col-lg-10 col-sm-10 col-md-10 mt-4">&nbsp;</div>
+                  <div id="saveentry" class=" col-lg-1 col-sm-2 col-md-1 mt-4">
+                    <button tabindex="4" class="mb-2 btn btn-sm btn-success" (click)="ADDRecord()" id="assignbutton">
+                      Assign
+                    </button>
+                  </div>
+
+                </div>
+              </div>
+
+
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+      <!--  </div> -->
+    </div>
+  </div>
+</div>
+
+
+<!-- ------------------ Delete Model Start ------------------------>
+
+
+<!-- ------------------- Delete model End ----------------------- -->
+<div class="modal fade " id="SuccessModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+  aria-hidden="true">
+  <div class="modal-dialog modal-sm dialogModal modal-dialog-centered" role="document">
+    <div class="modal-content box-shadow">
+      <div class="card text-center border-0">
+        <div class="card-header bg-success m-0 p-0">
+          <h5>Success</h5>
+        </div>
+        <div class="card-body bg-white">
+          {{datafromrespo}}
+          <div class="text-right">
+            <button class="btn btn-sm btn-success" data-dismiss="modal" (click)="closemodal()">ok</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade " id="ErrorModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+  aria-hidden="true">
+  <div class="modal-dialog modal-sm dialogModal modal-dialog-centered" role="document">
+    <div class="modal-content box-shadow">
+      <div class="card text-center border-0">
+        <div class="card-header bg-warning m-0 p-0">
+          <h5>Failed</h5>
+        </div>
+        <div class="card-body bg-white">
+          {{datafromrespo}}
+          <div class="text-right pt-3">
+            <button class="btn btn-sm btn-success" data-dismiss="modal" (click)="closemodal()">ok</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

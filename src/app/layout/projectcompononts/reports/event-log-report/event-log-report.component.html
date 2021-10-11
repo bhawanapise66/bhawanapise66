@@ -1,0 +1,260 @@
+<body style="background-color: white;min-height: 80vh">
+
+  <div class="container-fluid mt-3" id="inputform">
+    <fieldset style="max-width: 1086px;">
+      <legend class="text-dark text-uppercase">Event Log Activity Report</legend>
+
+      <div class="row">
+        <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-xs-6">
+          <div class="form-group">
+            <label class="indlabel">Role :</label>
+            <ngx-select-dropdown tabindex="0" id="customer" style="font-size:11px" [multiple]="false"
+              [(ngModel)]="roleObj" [config]="config" [options]="roleLists" (change)="getRoleId()">
+            </ngx-select-dropdown>
+          </div>
+        </div>
+        <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6 col-xs-6">
+          <div class="form-group">
+            <label class="indlabel">User : </label>
+            <ngx-select-dropdown tabindex="0" id="vehicle" style="font-size:11px" [multiple]="false"
+              [(ngModel)]="userObj" [config]="config" [options]="ownersList" (change)="checkUser()">
+            </ngx-select-dropdown>
+
+            <!-- <span class="text-danger validation" *ngIf="(deviceObj==null || deviceObj =='') && submitted">
+              Select User</span> -->
+          </div>
+        </div>
+        <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6 col-xs-6">
+          <div class="form-group">
+            <label class="indlabel">Select date :</label>
+            <div id="daterangeadminux2" class="form-control pr-0">
+              <span id="daterange"></span> <i
+                class="material-icons avatar avatar-26 text-template-primary cal-icon float-right">event</i>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-4 col-sm-3 col-xs-6 col">
+          <div class="form-group">
+
+            <label class="indlabel">from time :</label>
+            <input class="timepicker form-control" type='text' id="fromTime" name='fromtime'
+              placeholder="Select From Time" value="00:00" />
+            <span class="text-danger validation" *ngIf="(fromTime==null || fromTime =='') && submitted"> Please Select
+              From Time</span>
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-4 col-sm-3 col-xs-6 col">
+          <div class="form-group">
+            <label class="indlabel">to time :</label>
+            <input class="timepicker form-control" type='text' id="toTime" name='totime' placeholder="Select To Time"
+              value="23:59" />
+            <span class="text-danger validation" *ngIf="(toTime==null || toTime =='') && submitted"> Please Select To
+              Time</span>
+          </div>
+        </div>
+
+      </div>
+      <div class="text-right pt-1 pb-0">
+        <button type="submit" class="btn btn-sm btn-success mr-1" (click)="onSubmit()">Submit</button>
+        <button type="reset" class="btn btn-sm btn-secondary">Reset </button>
+      </div>
+
+    </fieldset>
+  </div>
+
+
+  <div class="container-fluid" id="outputform" style="display: none;">
+    <h6 class="text-dark text-center mt-3"> <b>Event Log Activity Report</b></h6>
+    <span style="float:left;position:relative;top:30;cursor: pointer;" (click)="gotoBack();"> <img
+        src="assets/images/Back-Button.png" width="30" height="30" style="margin-top: -65px;"></span>
+    <br>
+    <div class="card">
+      <div class="card-header">
+        <div class="row">
+          <div class="col"> <b>Summary</b> </div>
+          <div class="col"> <b>Role :</b> {{roleName}} </div>
+          <div class="col"> <b>User :</b> {{ownersName}} </div>
+          <div class="col"> <b>Start Date : </b>{{fromDate |date:'dd-MMM-yyyy'}} {{fromTime}} </div>
+          <div class="col"> <b>End Date : </b>{{toDate |date:'dd-MMM-yyyy'}} {{toTime}} </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="card mb-4 mt-4">
+      <div class="card-header text-bold">
+        <b> Details</b><span style="float: right;"><b> Current Time :</b> {{d | date:'dd-MMM-yyyy hh:mm'}}</span>
+      </div>
+      <div class="card-body">
+
+        <!--    ---------------        Table Header Staret=------------------------    -->
+        <div class="row mb-3">
+          <div class="col-12 col-sm-12 col-md text-md-left align-self-center pr-0">
+            <ul class="nav  justify-sm-content-center  justify-content-left">
+              <li class="nav-item ">
+                <div class="input-group" style="max-width: 250px;">
+                  <input type="text" placeholder="Search" id="searchData" class="form-control searchicon" style="height: 25px;"
+                    [(ngModel)]="filter" aria-label="Amount (to the nearest dollar)">
+                  <div class="input-group-append">
+                    <button class="btn  apendbtn" (click)="searchdata()" [disabled]="filter==''">
+                      <i style="color: #00ed54; margin-top: -15px;" class="fa fa-search"></i>
+                    </button>
+                  </div>
+                </div>
+              </li>
+              <li class="nav-item mx-3">
+                <i class="fa fa-refresh fa-2x fa-spin-hover" style="font-size: 17px;
+                padding-top: 4px;color: #00fff3;" (click)="Refreshfunction()"></i>
+              </li>
+            </ul>
+          </div>
+
+          <div class="col-12 col-sm-12 col-md-auto text-right text-md-end pl-0">
+            <ul class="nav justify-content-center justify-lg-content-end  justify-sm-content-center">
+              <li class="nav-item mx-2">
+                <img style="cursor: pointer; height: 20px; margin-top: 3px;" (click)="loginreportPDFDownload()"
+                  ngbTooltip="PDF" src="assets/images/PDFicon.png">
+              </li>
+              <li class="nav-item mx-2">
+                <img style="cursor: pointer;" (click)="exportToExcel()" ngbTooltip="Excel"
+                  src="assets/images/excellogo.png">
+              </li>
+              <li class="nav-item mx-3">
+                <span style="display: inline;">Show Rows : </span> <select class="form-control p-1"
+                  (change)="changeItemsPerPage()" [(ngModel)]="itemsPerPage" style="width: 44px;display: inline;">
+                  <option>5</option>
+                  <option>10</option>
+                  <option>20</option>
+                  <option>50</option>
+                </select>
+              </li>
+              <li class="nav-item ">
+                <span>Total Records : {{viewcount}} of {{totalcount}}</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- ---------------------  Table header end  ------------------------------ -->
+
+
+        <div class="table-responsive">
+          <table class="table table-striped text-center">
+            <thead style="font-weight: bold; background-color: rgb(95, 78, 58);">
+              <tr>
+                <th>#</th>
+                <th (click)="sort('param11')"> Page Name </th>
+                <th (click)="sort('param4')"> Event Type </th>
+                <th (click)="sort('param8')"> Record Time </th>
+                <th (click)="sort('param13')"> Ip Address </th>
+                <th (click)="sort('param6')"> Response Data</th>
+              </tr>
+            </thead>
+            <tbody>
+
+              <tr
+                *ngFor="let item of EventLogDetail | filter:filter |  orderBy: key : reverse | paginate : {itemsPerPage:itemsPerPage,currentPage:pageNumber,totalItems:totalcount}"
+                class="trheight">
+                <td> {{item.rowNumber}}</td>
+                <td> {{item.param11}} </td>
+                <td> {{item.param4}} </td>
+                <td> {{item.param8}} </td>
+                <td> {{item.param13}} </td>
+                <td> {{item.param6}} </td>
+              </tr>
+            </tbody>
+            <tfoot id="foot" class="box-footer clearfix">
+              <tr>
+                <td colspan="10">
+                  <pagination-controls style=" float: right;color: black;" (pageChange)="pageChanged($event)">
+                  </pagination-controls>
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!--Dummy Table of Excel -->
+  <div style=" display: none;">
+
+    <div class="row" id="eventlogpdf" style=" height : 480px; overflow-y: hidden; " #epltable>
+
+      <img src="https://track.indtrack.com/indtrack/assets/images/indgps.png" style="position: absolute;">
+      <br><br>
+      <h5 style="font-weight: bold;text-align :center;margin-top:0px;">EVENT LOG ACTIVITY REPORT</h5>
+
+      <table style="width: 100%;border:none">
+        <tr>
+          <th style="text-align: right;border:none"> Role <span style="float: right;">:</span></th>
+          <td style="text-align: left;border:none">{{roleName}} </td>
+          <th style="text-align: right;border:none">User <span style="float: right;">:</span></th>
+          <td style="text-align: left;border:none">{{ownersName}} </td>
+          <th style="text-align: right;border:none">Start Time <span style="float: right;">:</span></th>
+          <td style="text-align: left;border:none">{{fromDate |date:'dd-MMM-yyyy'}} {{fromTime}} </td>
+          <th style="text-align: right;border:none">End Time <span style="float: right;">:</span></th>
+          <td style="text-align: left;border:none">{{toDate |date:'dd-MMM-yyyy'}} {{toTime}} </td>
+        </tr>
+      </table>
+      <br><br>
+      <table class="table table-hover table-striped">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th> Page Name </th>
+            <th> Event Type </th>
+            <th> Record Time </th>
+            <th> Ip Address </th>
+            <th> Response Data</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="let item of eventGridAll | filter:filter | paginate : {itemsPerPage:itemsPerPage,currentPage:pageNumber,totalItems:totalcount} "
+            class="trheight">
+            <td> {{item.rowNumber}}</td>
+            <td> {{item.param11}} </td>
+            <td> {{item.param4}} </td>
+            <td> {{item.param8}} </td>
+            <td> {{item.param13}} </td>
+            <td> {{item.param6}} </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <br><br>
+      <footer>
+        <span> Date : {{d | date:'dd-MMM-yyyy hh:mm'}}</span>
+        <p style="text-align: center;"><b>This is system generated report</b></p>
+      </footer>
+    </div>
+  </div>
+
+</body>
+
+
+<!-- <error modal -->
+
+  <div class="modal fade " id="ErrorModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+    aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+      <div class="modal-content box-shadow">
+        <div class="card  border-0">
+          <div class="card-header  py-1 pl-3 m-0" style="background-color: red;">
+            <p style="font-size:17px; font-weight:bold"> Error </p>
+          </div>
+          <div class="card-body bg-white text-dark">
+            <p> {{errorMessage}}</p>
+            <div class="text-right">
+              <button class="btn btn-sm btn-success" data-dismiss="modal">ok</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- error modal -->

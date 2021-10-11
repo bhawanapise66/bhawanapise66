@@ -1,0 +1,42 @@
+th{
+   
+    text-transform: uppercase;
+    font-weight: bold !important;
+    padding: 0.50rem 0.8rem;
+    font-size: 10px;
+    color: #fff;
+    border: 0 none;
+    
+}
+thead{
+     background: #051873;
+}
+ 
+td{
+    color: #cfdefc;
+    vertical-align: middle;
+    font-size: 11px;
+    padding: 0.50rem 0.2rem;
+}
+
+.form-control-sm{
+    height: 26px;
+    background-color: #abc5ff;
+    color:black
+}
+.apendbtn{
+    background-color: #33469b;
+    border-color: #33469b;
+    cursor: pointer;
+    height: 26px;
+}
+
+.fa-spin-hover:hover {
+    animation: fa-spin 2s infinite linear;
+    cursor: pointer !important;
+}
+.fa-2x {
+    font-size: 1.7em;
+}
+@-webkit-keyframes fa-spin{0%{-webkit-transform:rotate(0deg);transform:rotate(0deg)}100%{-webkit-transform:rotate(359deg);transform:rotate(359deg)}}
+@keyframes fa-spin{0%{-webkit-transform:rotate(0deg);transform:rotate(0deg)}100%{-webkit-transform:rotate(359deg);transform:rotate(359deg)}}

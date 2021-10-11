@@ -1,0 +1,195 @@
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Assign Sim</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="clearfunction();">
+          <span aria-hidden="true" style="color: white">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div id="container">
+            <div class="step-wizardentry" role="navigation">
+             <ul>
+                <li class="active">
+                  <button id="stepentry1">
+                    <div class="step">1</div>
+                    <div class="title">Basic Details</div>
+                  </button>
+                </li>
+              </ul>
+
+              <div class="stepsection">
+                <span class="invalidmsg" id="msg_mainmessageentry"></span>
+                <div id="stepentry-14" class="stepsdiv">
+                  <!-- <span class="StepTitle">Step 1: Basic Details</span> -->                  
+                  <div class="form-group row">
+                    <div class="col-lg-6 col-md-6">
+                      <label class="indlabel">Vendor</label>
+                      <span class="mandatory">*</span>
+                      <ngx-select-dropdown tabindex="1" id="vendorentrydemo" [multiple]="false" [(ngModel)]="vendorText"
+                        (change)="vendorbind();DevicetypelList()" [config]="config" [options]="ListOfvendor"></ngx-select-dropdown>
+                      <span class="invalidmsg" id="msg_vendorName"></span>
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                      <label class="indlabel">Device Type</label>
+                      <span class="mandatory">*</span>
+
+                      <ngx-select-dropdown tabindex="3" id="devicetypeentry" [multiple]="false"
+                        [(ngModel)]="devicetypeText" (change)="DeviceTypeList();DeviceModelList()" [config]="config"
+                        [options]="ListOfdevicetype"></ngx-select-dropdown>
+
+                      <span class="invalidmsg" id="msg_devicetype"></span>
+                    </div>
+
+                  <!-- </div>
+                  <div class="form-group row">                     -->
+                    <div class="col-lg-4 col-md-4" style="display: none;">
+                      <label class="indlabel">Vendor List Dummy</label>
+                      <span class="mandatory">*</span>
+                      <input type="text" class="form-control" id="vendordummy" [(ngModel)]="vendorlistdata" >
+                     
+                    </div>
+
+                    <div class="col-lg-4 col-md-4" style="display: none;">
+                      <label class="indlabel">Device Type Dummy</label>
+                      <span class="mandatory">*</span>
+                      <input type="text" class="form-control" id="devicetypeentrydummy" [(ngModel)]="devicetypelist" >                      
+                    </div>
+                   
+                  </div>
+
+                  <div class="form-group row">
+
+                    <div class="col-lg-6 col-md-6">
+                      <label class="indlabel">Device Model</label>
+                      <span class="mandatory">*</span>
+
+                      <ngx-select-dropdown tabindex="2" id="modelentry" [multiple]="false" [(ngModel)]="modelText"
+                        (change)="step2validation();DeviceSimList()" [config]="config" [options]="ListOfmodel"></ngx-select-dropdown>
+                      <span class="invalidmsg" id="msg_vendorName"></span>
+                    </div>
+                   
+                    <div class="col-lg-3 col-md-3" style="display: none;">
+                      <label class="indlabel">Model List Dummy</label>
+                      <span class="mandatory">*</span>
+                      <input type="text" class="form-control" [(ngModel)]="modellist" id="modellistdummy" >
+                     </div>
+                
+
+                    <div class="col-lg-6 col-md-6">
+                      <label class="indlabel">Device</label>
+                      <span class="mandatory">*</span>
+                      <ngx-select-dropdown tabindex="4" id="deviceentryid" [multiple]="false"
+                        [(ngModel)]="deviceText" [config]="config" [options]="ListOfDevice"
+                        (change)="devicebind()"></ngx-select-dropdown>
+                      <span class="invalidmsg" id="msg_device"></span>
+                    </div>
+
+                    <div class="col-lg-3 col-md-3" style="display: none;">
+                      <label class="indlabel">Device List Dummy</label>
+                      <span class="mandatory">*</span>
+                      <input type="text" class="form-control" [(ngModel)]="devicelist" id="deviceid_entry" >
+                     </div>
+                   
+                  </div>
+                  <div class="form-group row">
+                    <div class="col-lg-6 col-md-6">
+                      <label class="indlabel">Network</label>
+                      <span class="mandatory">*</span>
+                      <ngx-select-dropdown tabindex="4" id="networkentryid" [multiple]="false"
+                        [(ngModel)]="networkText" [config]="config" [options]="ListOfNetwork"
+                        (change)="networkbind();DeviceSimList()"></ngx-select-dropdown>
+                      <span class="invalidmsg" id="msg_network"></span>
+                    </div>
+
+                    <div class="col-lg-6 col-md-6">
+                      <label class="indlabel">Sim No.</label>
+                      <span class="mandatory">*</span>
+
+                      <ngx-select-dropdown tabindex="5" id="simnodrpentry" [multiple]="false"
+                        [(ngModel)]="simnodrpText" [config]="config"
+                        [options]="ListOfSim" (change)="simbind();"></ngx-select-dropdown>
+
+                      <span class="invalidmsg" id="msg_simnodrp"></span>
+                    </div>
+
+                    <div class="col-lg-3 col-md-3" style="display: none;">
+                      <label class="indlabel">Network Dummy</label>
+                      <span class="mandatory">*</span>
+                      <input type="text" class="form-control" [(ngModel)]="networkTextid" id="networkdummid" >
+                     </div>
+
+                    <div class="col-lg-3 col-md-3" style="display: none;">
+                      <label class="indlabel">Simno List Dummy</label>
+                      <span class="mandatory">*</span>
+                      <input type="text" class="form-control" [(ngModel)]="simnolist" id="simnoentrydummy" >
+                     </div>
+                  </div>
+
+                  <br>
+                  <br>
+                  <br>
+                  <span class="invalidmsg" id="errormsg"></span>
+                </div>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Modal footer -->
+
+      <div class="modal-footer" id="modelfooter">
+        
+        <div class="actionBar">
+          <button id="saveentry" class="mb-2 btn btn-sm btn-success buttonFinish" (click)="devicesavebtn()">
+            <i class="material-icons">save</i>
+          </button>
+        </div>
+       
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="modal fade " id="successmodelEntry" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+aria-hidden="true">
+<div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+  <div class="modal-content box-shadow">
+    <div class="card border-0">
+      <div class="card-header  py-1 pl-3 m-0" style="background-color: green;">
+        <p style="font-size:17px; font-weight:bold"> Success </p>
+      </div>
+      <div class="card-body bg-white text-dark">
+       <p> {{datafromrespo}}</p>
+        <div class="text-right">
+          <button class="btn btn-sm btn-success" data-dismiss="modal">ok</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="modal fade " id="ErrorModalEntry" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+aria-hidden="true">
+<div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+  <div class="modal-content box-shadow">
+    <div class="card border-0">
+      <div class="card-header  py-1 pl-3 m-0" style="background-color: red;">
+        <p style="font-size:17px; font-weight:bold"> Error </p>
+      </div>
+      <div class="card-body bg-white text-dark">
+       <p> {{datafromrespo}}</p>
+        <div class="text-right">
+          <button class="btn btn-sm btn-success" data-dismiss="modal">ok</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

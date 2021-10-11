@@ -1,0 +1,153 @@
+<div class="modal fade" id="exampleModal" data-backdrop="static" tabindex="-1" role="dialog"
+  aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document" style="width: 35rem;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="text-left m-1" style="font-size: 19px;">Login
+          <span class="text-template-primary" style="color: #00ed54; font-size: 19px;">Creation</span>
+         </h4> <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" style="color: white">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="">
+          <div id="container">
+            <div class="step-wizardentry" role="navigation">
+              <div class="progress">
+                <div class="progressbar empty"></div>
+                <div id="progentry" class="progressbar"></div>
+              </div>
+              <ul>
+                <li class="active" style="width: 45% !important;">
+                  <button id="stepentry1">
+                    <div class="step">1</div>
+                    <div class="title">Basic Details</div>
+                  </button>
+                </li>
+                <li class="" style="width: 45% !important;">
+                  <button id="stepentry2">
+                    <div class="step">2</div>
+                    <div class="title">Contact Details</div>
+                  </button>
+                </li>
+              </ul>
+
+              <div class="stepsection">
+                <span class="invalidmsg" id="msg_mainmessageentry"></span>
+                <div id="stepentry-14" class="stepsdiv">
+                  <div class="form-group row">
+                    <div class="col-lg-6 col-md-6">
+                      <label class="indlabel">Select Role</label>
+                      <span class="mandatory">*</span>
+
+                      <ngx-select-dropdown tabindex="0" id="roles" [multiple]="false" [(ngModel)]="roleObj"
+                        [config]="config" [options]="roleLists" (change)="RoleWiseUserList()">
+                      </ngx-select-dropdown>
+
+                      <input type="text" class="form-control" style="display: none;" id="roledummy"
+                        [(ngModel)]="selectrole">
+
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                      <label class="indlabel">Select User Registered</label>
+                      <span class="mandatory">*</span>
+
+                      <ngx-select-dropdown tabindex="1" id="owners" [multiple]="false" [(ngModel)]="ownersObj"
+                        [config]="config" [options]="ownersList" (change)="getOwnersId()">
+                      </ngx-select-dropdown>
+
+                      <input type="text" style="display: none;" id="userdummy" [(ngModel)]="selectowner">
+
+                    </div>
+
+                  </div>
+
+                  <span class="invalidmsg" id="msg_errorentry" style="position: absolute;bottom: 10px;"></span>
+                </div>
+
+                <div id="stepentry-15" class="stepsdiv">
+                  <div class="form-group row">
+                    <div class="col-lg-6 col-md-6mb-3">
+                      <label class="indlabel"> Enter Username </label>
+                      <span class="mandatory">*</span>
+                      <input type="text" name="username" placeholder="enter username" class="form-control"
+                        [(ngModel)]="loginName" id="textusername" required minlength="4" maxlength="20">
+                    </div>
+                    <div class="col-lg-6 col-md-6 mb-3">
+                      <label class="indlabel">Password</label>
+                      <span class="mandatory">*</span>
+                      <input type="password" name="password" placeholder="enter password" class="form-control"
+                        [(ngModel)]="password" id="textpassword" required minlength="4" maxlength="15">
+                    </div>
+                    <div class="col-lg-6 col-md-6 mb-3">
+                      <label class="indlabel">Confirm Password</label>
+                      <span class="mandatory">*</span>
+                      <input type="password" name="cPassword" placeholder="confirm password" class="form-control"
+                        [(ngModel)]="cPasssword" id="textcpassword" maxlength="15">
+                      <span class="invalidmsg" id="cpasswordinvalid" *ngIf="cpasswordValid"></span>
+                    </div>
+                  </div>
+                  <span class="invalidmsg" id="msg_error_contactentry" style="position: absolute;bottom: 10px;"></span>
+
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Modal footer -->
+
+      <div class="modal-footer" id="modelfooter">
+        <div class="">
+          <div class="actionBar">
+            <button id="saveentry" class="mb-2 btn btn-sm btn-success buttonFinish" (click)="InsertLogin()"><i
+                class="material-icons">save</i></button>
+            <button id="nextentry" class="mb-2 btn btn-sm btn-primary buttonNext"><i
+                class="material-icons">arrow_forward</i></button>
+            <button id="preventry" class="mb-2 btn btn-sm btn-primary buttonPrevious" onclick="validateAllSteps(4,4)"><i
+                class="material-icons">arrow_back</i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade " id="SuccessModalEntry" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+  aria-hidden="true">
+  <div class="modal-dialog modal-sm dialogModal" role="document">
+    <div class="modal-content box-shadow">
+      <div class="card text-center border-0">
+        <div class="card-header bg-success m-0 p-0">
+          <h5>Success</h5>
+        </div>
+        <div class="card-body bg-white">
+          {{datafromrespo}}
+          <div class="text-right">
+            <button class="btn btn-sm btn-success" data-dismiss="modal" (click)="closemodal()">ok</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade " id="ErrorModalEntry" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+  aria-hidden="true">
+  <div class="modal-dialog modal-sm dialogModal" role="document">
+    <div class="modal-content box-shadow">
+      <div class="card text-center border-0">
+        <div class="card-header bg-warning m-0 p-0">
+          <h5>Failed</h5>
+        </div>
+        <div class="card-body bg-white">
+          {{datafromrespo}}
+          <div class="text-right pt-3">
+            <button class="btn btn-sm btn-success" data-dismiss="modal">ok</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

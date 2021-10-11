@@ -1,0 +1,807 @@
+<style>
+  .ol-unselectable,
+  .ol-viewport {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    border-radius: 11px !important;
+  }
+</style>
+
+<div style="      color: black;  margin-top: -13px;">
+
+
+
+  <!-- New Working    -->
+
+  <div class="topdiv" style=" width: 103%;">
+    <div id="elem" style="    margin-left: -37px;">
+
+      <div class="slidediv shadow" *ngFor="let item of vendorwisecounts">
+        <div class="title"> {{item.company_name}}</div>
+
+        <div class="widcontainner">
+          <div class="widgets" style="  background-color: #33d8fd; ">
+            <div class="count">{{item.total_devices}}</div>
+            <div class="label" style="    background-color: #0d5f72;">Total</div>
+          </div>
+
+        </div>
+
+        <div class="widcontainner">
+
+          <div class="widgets" style=" background-color: #fcff2c;">
+            <div class="count">{{item.installed_devices}}</div>
+            <div class="label" style="    background-color: #6d6e00;">Installed</div>
+          </div>
+        </div>
+        <div class="widcontainner">
+
+          <div class="widgets" style="    background-color: #32e140;">
+            <div class="count">{{item.polling}}</div>
+            <div class="label" style="    background-color: #016609;">Polling</div>
+          </div>
+        </div>
+        <div class="widcontainner">
+
+          <div class="widgets" style="background-color: #ff00006e;">
+            <div class="count">{{item.nonpolling}}</div>
+            <div class="label" style="    background-color: #b70000;">Non Polling</div>
+          </div>
+        </div>
+        <div class="widcontainner">
+          <div class="widgets" style="    background-color: #f9cb8f;">
+            <div class="count">{{item.etp}}</div>
+            <div class="label" style="    background-color: #744302;">ETP</div>
+          </div>
+        </div>
+
+
+      </div>
+
+
+    </div>
+
+  </div>
+  <div class="headerDiv">
+
+    <div class="widget  shadow" style="   width: 135px;">
+      <div class="title">Total Vehicle</div>
+      <div class="widcontainner" style="display:block;    margin-top: 7px; ">
+        <!-- <div class="widgets" style="    margin-bottom: 4px;">
+          <div class="count">0</div>
+          <div class="label">Total</div>
+        </div> -->
+        <div class="totalwid">
+          <div style="display:flex;">
+            <div class="count" >{{othercounts.param1}}</div>
+            <div class="label " style="    background-color: #0d5f72;">Total</div>
+          </div>
+
+        </div>
+
+        <div class="totalwid">
+          <div style="display:flex;">
+            <div class="count"  >{{othercounts.param2}}</div>
+            <div class="label"  style="    background-color: #6d6e00;">Installed</div>
+          </div>
+
+        </div>
+
+
+        <div class="totalwid">
+          <div style="display:flex;">
+            <div class="count" >{{othercounts.param3}}</div>
+            <div class="label" style="    background-color: #016609;">Polling</div>
+          </div>
+
+        </div>
+
+        <div class="totalwid">
+          <div style="display:flex;">
+            <div class="count"  >{{othercounts.param4}}</div>
+            <div class="label" style="    background-color: #b70000;">Non Polling</div>
+          </div>
+
+        </div>
+
+
+        <div class="totalwid">
+          <div style="display:flex;">
+            <div class="count" >{{othercounts.param5}}</div>
+            <div class="label" style="  background-color: #744302;">ETP</div>
+          </div>
+
+        </div>
+
+
+        
+
+      </div>
+    </div>
+
+    <div class="widget shadow">
+      <div class="title">GPS Wise Vehicles</div>
+
+      <div id="gpschart" style="width:100%;   height: 175px;font-size: 12px;"></div>
+
+    </div>
+
+
+
+
+
+    <div class="widget shadow" style="  
+    width: 420px;
+ background-color: white;  margin-right: 15px;">
+      <div class="title">Districe Wise ETP</div>
+
+      <div id="etpchart" style="width:100%;     height: 175px;font-size: 12px;"></div>
+
+    </div>
+
+    <div class="widget shadow" style="  width: 420px; background-color: white;  margin-right: 15px;">
+      <div class="title">Bettary Status</div>
+
+
+      <div id="bettarystatuschart" style=" height: 160px; " class="charts"></div>
+    </div>
+
+
+    <!-- <div class="widgetsContainer">
+
+
+      <div class="widgetsHead">Main Power</div>
+      <div style="    display: inline-flex;    padding-top: 5px;width:100%;">
+        <div class="totalCard" tittle="Tatal Devices" (click)="DivisionsTotalVehicles('All')">
+          <div class="totalCount">
+            <h6 class="totalNumber">{{allwidgetsCount.total}}</h6>
+          </div>
+          <div class="totalLabel">Total</div>
+        </div>
+
+        <div>
+          <div id="mainpowerchart" class="charts"></div>
+
+        </div>
+      </div>
+
+
+    </div>
+
+
+    <div class="widgetsContainer">
+      <div class="widgetsHead">On Battery</div>
+      <div style="    display: inline-flex;    padding-top: 5px;width:100%;">
+        <div class="totalCard" tittle="Tatal Devices" (click)="DivisionsTotalVehicles('All')">
+          <div class="totalCount">
+            <h6 class="totalNumber">{{allwidgetsCount.total}}</h6>
+          </div>
+          <div class="totalLabel">Total</div>
+        </div>
+
+        <div>
+          <div id="onbettarychart" class="charts" style="    margin-top: -13px;"></div>
+
+        </div>
+      </div>
+
+
+    </div>
+
+
+    <div class="widgetsContainer">
+      <div class="widgetsHead">Bettary Disconnected</div>
+      <div style="    display: inline-flex;    padding-top: 5px;width:100%;">
+        <div class="totalCard" tittle="Tatal Devices" (click)="DivisionsTotalVehicles('All')">
+          <div class="totalCount">
+            <h6 class="totalNumber">{{allwidgetsCount.total}}</h6>
+          </div>
+          <div class="totalLabel">Total</div>
+        </div>
+
+        <div>
+          <div id="bettarydisconnectedchart" class="charts"></div>
+
+        </div>
+      </div>
+
+
+    </div> -->
+    <!-- <div class="widgetsContainer" *ngFor="let item of devisionData">
+      <div class="widgetsHead">{{item.param2}}</div>
+      <div style="    display: inline-flex;    padding-top: 5px;width:100%;">
+        <div class="totalCard" tittle="Tatal Devices" (click)="DivisionsTotalVehicles(item.param2)">
+          <div class="totalCount">
+            <h6 class="totalNumber">{{item.param3}}</h6>
+          </div>
+          <div class="totalLabel">Total</div>
+        </div>
+        <div class="centerCard">
+          <div style="  margin-top: -14%;     background-color: #65d45e99;"
+            (click)="DivisionsTotalVehiclesfilter(item.param2,'Working')">
+            <div class="scardCount">{{item.param4}}</div>
+            <div class="scardlabel">Working</div>
+          </div>
+
+          <div style="        background-color: #d05656bd;"
+            (click)="DivisionsTotalVehiclesfilter(item.param2,'Not Working')">
+            <div class="scardCount">{{item.param5}}</div>
+            <div class="scardlabel">Non Working</div>
+          </div>
+
+          <div style="    background-color: #d4e06dbd;"
+            (click)="DivisionsTotalVehiclesfilter(item.param2,'Non Working')">
+            <div class="scardCount">{{item.param19}}</div>
+            <div class="scardlabel">Maintenance</div>
+          </div>
+
+        </div>
+
+
+
+
+        <div class="statusDiv">
+          <div style="    width:100%;  text-align: center;  font-size: 9px; background-color: #3c4d96; color: white; ">
+            Battery Status</div>
+          <div class="statuswidgets">
+
+            <div style="    display: flex;" ngbTooltip="{{item.param10}} Devices of No Power"
+              (click)="DivisionsTotalVehiclesfilterbyBattery(item.param2,'nopower')">
+              <div class="barlabel">No Power</div>
+              <div><img src="assets/mapimages/batteryicon/nopowerbattery.png" class="statusicon"></div>
+              <div class="statusCount">{{BettaryStatus(item.param10,item.param3)}}</div>
+            </div>
+          </div>
+
+          <div class="statuswidgets">
+
+            <div style="    display: flex;" ngbTooltip="{{item.param9}} Devices of Low Battery"
+              (click)="DivisionsTotalVehiclesfilterbyBattery(item.param2,'low')">
+              <div class="barlabel">Low</div>
+
+              <div><img src="assets/mapimages/batteryicon/lowbattery.png" class="statusicon"></div>
+              <div class="statusCount">{{BettaryStatus(item.param9,item.param3)}}</div>
+            </div>
+          </div>
+
+          <div class="statuswidgets">
+
+            <div style="    display: flex;" ngbTooltip="{{item.param8}} Devices of Medium Battery"
+              (click)="DivisionsTotalVehiclesfilterbyBattery(item.param2,'medium')">
+              <div class="barlabel">Medium</div>
+              <div><img src="assets/mapimages/batteryicon/mediumbattery.png" class="statusicon"></div>
+
+
+              <div class="statusCount">{{BettaryStatus(item.param8,item.param3)}}</div>
+            </div>
+          </div>
+
+
+          <div class="statuswidgets">
+
+            <div style="    display: flex;" ngbTooltip="{{item.param7}} Devices of High Battery"
+              (click)="DivisionsTotalVehiclesfilterbyBattery(item.param2,'high')">
+              <div class="barlabel">High</div>
+              <div><img src="assets/mapimages/batteryicon/highbattery.png" class="statusicon"></div>
+
+
+              <div class="statusCount">{{BettaryStatus(item.param7,item.param3)}}</div>
+
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+
+    </div> -->
+
+  </div>
+
+  <!-- fliper work -->
+  <div class="row" style=" margin-top: 0%; ">
+    <div class="mainContainer" id="mainContainer">
+      <div style="display:flex;">
+
+
+        <div style="    width: 94%;">
+          <div style="display:flex;">
+            <div>
+              <div class="iconDiv activeSwitchOption effect8" id="switch3">
+                <img src="assets/mapimages/mapstyleicon/osm.JPG" ngbTooltip="OSM Map" (click)="MapSwitch('3')"
+                  class="mapicons">
+
+              </div>
+              <div class="iconDiv" id="switch0">
+                <img src="assets/mapimages/mapstyleicon/bingmap.JPG" ngbTooltip="Bing" class="mapicons"
+                  (click)="MapSwitch('0')">
+
+              </div>
+              <div class="iconDiv" id="switch1">
+                <img src="assets/mapimages/mapstyleicon/binghybrid.JPG" class="mapicons" ngbTooltip="Bing (Hybrid)"
+                  (click)="MapSwitch('1')">
+              </div>
+              <div class="iconDiv" id="switch2">
+                <img src="assets/mapimages/mapstyleicon/tomtom.JPG" class="mapicons" ngbTooltip="Tom Tom"
+                  (click)="MapSwitch('2')">
+              </div>
+              <div class="iconDiv" id="switch4">
+                <img src="assets/mapimages/mapstyleicon/india.JPG" class="mapicons" ngbTooltip="India"
+                  (click)="MapSwitch('4')">
+              </div>
+
+
+
+            </div>
+
+            <div>
+              <div class="headlegend">
+
+                <div class="inner">
+                  <div>
+                    <img src="assets/mapimages/markers/startpoint2.png" class="innerimg">
+                  </div>
+                  <div class="listlabel">Start Point</div>
+                </div>
+
+                <div class="inner">
+                  <div>
+                    <img src="assets/mapimages/markers/endpoint2.png" class="innerimg">
+                  </div>
+                  <div class="listlabel">Stop Point</div>
+                </div>
+
+                <div class="inner">
+                  <div>
+                    <img src="assets/mapimages/markers/idleicon.png" class="innerimg">
+                  </div>
+                  <div class="listlabel">Idle Point</div>
+                </div>
+
+
+                <div class="inner">
+                  <div>
+                    <img src="assets/mapimages/markers/mdlicon.png" class="innerimg">
+                  </div>
+                  <div class="listlabel">Mines</div>
+                </div>
+
+
+                <div class="inner">
+                  <div>
+                    <img src="assets/mapimages/vehiclesicon/truck/blue/icon-0.png" class="innerimg"
+                      style="height: 19px;">
+                  </div>
+                  <div class="listlabel">Vehicle type</div>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+
+
+        <div>
+          <div class="iconDiv  " id="gridview">
+            <img src="assets/mapimages/mapstyleicon/gid.png" ngbTooltip="Grid View" (click)="ActiveDetails('gridview')"
+              class="mapicons">
+
+          </div>
+
+          <div class="iconDiv  " id="mapview" style="display:none">
+            <img src="assets/mapimages/mapstyleicon/map.png" ngbTooltip="Map View" (click)="ActiveDetails('mapview')"
+              class="mapicons">
+
+          </div>
+
+          <div class="iconDiv  " id="">
+
+            <i class="fa fa-expand" (click)="Expenddiv()" style="    font-size: 19px;  text-align: center;"
+              ngbTooltip="Expend Screen"></i>
+            <!-- <img src="assets/mapimages/mapstyleicon/map.png" ngbTooltip="Map View" (click)="ActiveDetails('mapview')"
+                class="mapicons"> -->
+
+          </div>
+
+
+        </div>
+
+
+      </div>
+
+
+      <div class="innercontainer" id="innercontainer">
+        <!--front div  -->
+        <div class="frontmap" id="frontmap" style="z-index: 1;">
+
+
+
+
+          <!-- ================== Graph Slider ============= -->
+
+
+          <div>
+            <div class="historyoptiondiv" id="historytrackoption">
+              <ul>
+                <li><i class="fa fa-refresh" (click)="RestartAnimation()"></i></li>
+                <li><i class="fa fa-play" id="playbutton" (click)="ResumeAnimation()"></i></li>
+                <li><i class="fa fa-pause" id="pausebutton" (click)="PauseHistory()"></i></li>
+                <li><i class="fa fa-stop" (click)="PauseHistory()"></i></li>
+                <li>
+                  <div style="display: flex;background-color: #d07628;  padding-left: 14px;     padding-right: 14px;">
+                    <input type="range" min="1" max="10" [(ngModel)]="historytrackspeed"
+                      (change)="ChangeHistoryspeed()">
+                    <span style="color: white;font-size: 15px;margin-left: 5px;">{{historytrackspeed}}</span>
+                  </div>
+
+                </li>
+
+                <li class="exportrouteli" style="    width: 110px;">
+
+                  <a data-toggle="collapse" data-target="#exportrouteoption">Export To Route</a>
+
+                  <div id="exportrouteoption" class="collapse">
+                    <input type="text" class="form-control" placeholder="Enter Route Name"
+                      [(ngModel)]="exportroutename">
+                    <button class="btn btn-primary" style="    font-size: 11px;  margin-left: 5p;  margin-left: 6px;"
+                      (click)="Savehistoryroute()">Save</button>
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+
+            <div class="leftmenus" id="leftmenus">
+              <div style="    background-color: white;">
+                <div class="head">
+
+                  <div class="headlist">
+                    <div class="leftmenustitle">Roads</div>
+                    <div class="outerdiv">
+
+                      <div class="inner">
+                        <div>
+                          <input type="checkbox" id="13" (click)="Geoserverfilter(13)" checked>
+                        </div>
+                        <div class="listlabel">NH</div>
+                      </div>
+
+                      <div class="inner">
+                        <div>
+                          <input type="checkbox" id="12" (click)="Geoserverfilter(12)" checked>
+                        </div>
+                        <div class="listlabel">SH</div>
+                      </div>
+
+
+                      <div class="inner">
+                        <div>
+                          <input type="checkbox" id="11" (click)="Geoserverfilter(11)" checked>
+                        </div>
+                        <div class="listlabel">DH</div>
+                      </div>
+
+
+                      <div class="inner">
+                        <div>
+                          <input type="checkbox" id="10" (click)="Geoserverfilter(10)" checked>
+                        </div>
+                        <div class="listlabel">Major</div>
+                      </div>
+
+                      <div class="inner">
+                        <div>
+                          <input type="checkbox" id="9" (click)="Geoserverfilter(9)" checked>
+                        </div>
+                        <div class="listlabel">Minor</div>
+                      </div>
+
+                      <div class="inner">
+                        <div>
+                          <input type="checkbox" id="8" (click)="Geoserverfilter(8)" checked>
+                        </div>
+                        <div class="listlabel">Street</div>
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <div class="headlist">
+                    <div class="leftmenustitle">Boundaries</div>
+
+
+                    <div class="outerdiv">
+                      <div class="inner">
+                        <div>
+                          <input type="checkbox" id="5" (click)="Geoserverfilter(5)" checked>
+                        </div>
+                        <div class="listlabel">State Region</div>
+                      </div>
+
+
+
+                      <div class="inner">
+                        <div>
+                          <input type="checkbox">
+                        </div>
+                        <div class="listlabel">Admin</div>
+                      </div>
+
+                      <div class="inner">
+                        <div>
+                          <input type="checkbox" id="6" (click)="Geoserverfilter(6)" checked>
+                        </div>
+                        <div class="listlabel">District</div>
+                      </div>
+
+
+                      <div class="inner">
+                        <div>
+                          <input type="checkbox" id="7" (click)="Geoserverfilter(7)" checked>
+                        </div>
+                        <div class="listlabel">Sub-District</div>
+                      </div>
+
+
+                      <div class="inner">
+                        <div>
+                          <input type="checkbox">
+                        </div>
+                        <div class="listlabel">Village</div>
+                      </div>
+
+                    </div>
+
+
+                  </div>
+
+                  <!-- <div class="headlist">
+                    <div class="leftmenustitle">Legends</div>
+                    <div class="outerdiv">
+  
+                      <div class="inner">
+                        <div>
+                          <img src="assets/mapimages/markers/startpoint2.png" class="innerimg">
+                        </div>
+                        <div class="listlabel">Start Point</div>
+                      </div>
+  
+                      <div class="inner">
+                        <div>
+                          <img src="assets/mapimages/markers/startpoint2.png" class="innerimg">
+                        </div>
+                        <div class="listlabel">Stop Point</div>
+                      </div>
+  
+                      <div class="inner">
+                        <div>
+                          <img src="assets/mapimages/markers/idleicon.png" class="innerimg">
+                        </div>
+                        <div class="listlabel">Idle Point</div>
+                      </div>
+  
+  
+                      <div class="inner">
+                        <div>
+                          <img src="assets/mapimages/markers/minesicon.png" class="innerimg">
+                        </div>
+                        <div class="listlabel">Mines</div>
+                      </div>
+  
+  
+                      <div class="inner">
+                        <div>
+                          <img src="assets/mapimages/vehiclesicon/truck/blue/icon-0.png" class="innerimg">
+                        </div>
+                        <div class="listlabel">Vehicle type</div>
+                      </div>
+  
+                    </div>
+  
+  
+  
+                  </div> -->
+
+
+
+                </div>
+              </div>
+
+              <div style="    height: 30px; text-align: center;  width: 67px;">
+                <i class="fa fa-arrow-circle-left" id="slidearrow" style="    font-size: 19px;  color: blue;"
+                  (click)="SliderFunction()"></i>
+              </div>
+            </div>
+
+
+
+
+            <div id="map"></div>
+
+            <div id="popup" class="ol-popup">
+              <a id="popup-closer" class="ol-popup-closer"></a>
+              <div id="popup-content"></div>
+            </div>
+            <!-- <div style="position: absolute;z-index: 1;color:black ; right: 27%;  top: 10px;  background: white; border-radius: 50%;">
+                       <div><img src="assets/mapimages/mapstyleicon/fullscreenicon.png" style="width:34px;cursor: pointer;" class="effect8" (click)="OpenFullScreen()"></div>
+                     
+                     </div>  -->
+
+          </div>
+
+
+
+
+          <div style="position: absolute;z-index: 1;      left: 400px;top: 2px;">
+            <div style="     display: none;
+            color: black;
+            width: 299px;
+            background: #1c224e;
+            height: 37px; " id="historyoption">
+
+
+              <div style="margin-left: 5px;margin-top: 6px;">
+
+                <div>
+                  <i class="fa fa-refresh"></i>
+
+
+                  <!-- <img style="    width: 26px;border-radius: 50%;border: 1px solid"
+                    src="assets/mapimages/mapstyleicon/reloadicon.png" (click)="RestartAnimation()"
+                    ngbTooltip="Restart History"> -->
+                </div>
+
+              </div>
+
+              <div style="margin-left: 5px;margin-top: 6px;">
+
+                <div>
+                  <i class="fa fa-play"></i>
+
+
+                  <!-- <img style="    width: 27px;" src="assets/mapimages/mapstyleicon/starticon.png"
+                    (click)="ResumeAnimation()" ngbTooltip="Resume History"> -->
+                </div>
+
+              </div>
+
+
+              <div style="margin-left: 5px;margin-top: 6px;">
+                <div>
+
+                  <i class="fa fa-pause"></i>
+                  <!-- <img style="    width: 27px;" src="assets/mapimages/mapstyleicon/pauseicon.png"
+                    (click)="PauseHistory()" ngbTooltip="Pause History"> -->
+                </div>
+              </div>
+
+              <div style="margin-left: 5px;margin-top: 6px;">
+                <div>
+
+                  <i class="fa fa-stop"></i>
+                  <!-- <img style="    width: 35px;
+                  margin-top: -4px;" src="assets/mapimages/mapstyleicon/stopicon.png" (click)="StopHistory()"
+                    ngbTooltip="Stop Animation"> -->
+                </div>
+              </div>
+
+              <div style="margin-left: 5px;margin-top: 6px;">
+                <div style="display: flex;">
+                  <input type="range" min="1" max="10" [(ngModel)]="historytrackspeed" (change)="ChangeHistoryspeed()">
+                  <span style="color: white;font-size: 15px;margin-left: 5px;">{{historytrackspeed}}</span>
+                </div>
+              </div>
+
+
+
+            </div>
+
+          </div>
+
+
+
+
+
+
+
+
+          <!-- ===============================end Filter Start map============================= -->
+
+
+
+
+          <div
+            style="    position: absolute;  z-index: 1;    width: 180px;overflow: auto;      height: 370px;  top: 174px;">
+            <div style="width:100%;">
+
+              <div class="flip-card ">
+
+                <div class="flip-card-inner" id="tripgridContainer">
+                  <div class="flip-card-front">
+
+
+
+                  </div>
+
+
+
+
+
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+
+        </div>
+        <!-- back div -->
+        <div class="gridfront">
+
+          <div id="gridContainer" style="width:100%;   background-color: #f3f2e2; display:block">
+
+
+            <div style="display:flex">
+
+
+              <div class="exportoptions" style="    width: 100%;">
+                <ul>
+                  <li><img style="float: right; cursor: pointer;    height: 17px; margin-top: 3px;" ngbTooltip="PDF"
+                      (click)="distanceTravelledReportPDFDownload()" src="assets/images/PDFicon.png"></li>
+
+                  <li> <img style="cursor: pointer;height: 20px;" ngbTooltip="Excel" src="assets/images/excellogo.png"
+                      (click)="exportToExcel()"></li>
+
+                  <li> <span>{{filterVehicles.length}}</span> / <span>{{filterVehicles.length}}</span></li>
+
+                </ul>
+
+
+
+              </div>
+
+              <div>
+
+              </div>
+
+            </div>
+            <div></div>
+            <div style="color: transparent;  overflow: auto;     height: 465px;" id="tablediv" #epltable> </div>
+
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+
+  </div>
+
+
+
+  <!-- ==================== End Graph Slider======================= -->
+
+
+
+
+  <!-- <div class="menusection">
+          <div>
+            <ul>
+              <li  id="grid" (click)="Scrolltogrid()"> <i class="fa fa-table "></i></li>
+              <li (click)="CentralFilter('mapsection')" id="mapsection" class="activeOption"><i class="fa fa-map-marker"></i></li>
+              <li (click)="CentralFilter('split')" id="split"> <i class="fa fa-columns  "></i> </li>
+
+
+            </ul>
+          </div>
+          </div> -->

@@ -1,0 +1,190 @@
+<!--
+Developer 	: Dhammadeep Dahiwale
+Date      	:12-22-2020
+Description : Tips Master Entry
+Modified By :  
+Update date : 
+-->
+
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <form novalidate #deptForm="ngForm">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Company Department Entry</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="clearfunction();">
+            <span aria-hidden="true" style="color: white">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="container-fluid">
+            <div id="container">
+              <div class="step-wizardentry" role="navigation">
+
+                <div class="stepsection">
+                  <span class="invalidmsg" id="msg_mainmessageentry"></span>
+                  <div id="step-14" class="stepsdiv">
+
+                    <div class="form-group row">
+                      <div class="col-lg-5 col-md-5">
+                        <label class="indlabel">Department Name </label>
+                        <span class="mandatory">*</span>
+                        <input type="text" name="deptName" id="deptname"  placeholder="Enter Department Name " [(ngModel)]="deptform.deptName"
+                          class="form-control" (keyup)="isFormValid=true" #deptnameCtrl="ngModel"  required minlength="5">
+                          <span class="invalidmsg" *ngIf=" deptnameCtrl.invalid">
+                            <div *ngIf="deptnameCtrl.errors.minlength">
+                              Department Name  must be at least minimum 5 characters & maximum 30 characters long.
+                            </div>
+                          </span>
+                      </div>
+
+                      <div class="col-lg-5 col-md-5">
+                        <label class="indlabel">department code </label>
+                        <span class="mandatory">*</span>
+                        <input type="text" name="deptCode" id="deptcode" class="form-control" placeholder="Enter Department Code "
+                          [(ngModel)]="deptform.deptCode" (keyup)="isFormValid=true" #deptcodeCtrl="ngModel"  required minlength="5">
+                          <span class="invalidmsg" *ngIf=" deptcodeCtrl.invalid">
+                            <div *ngIf="deptcodeCtrl.errors.minlength">
+                              Department Code should be valid. </div>
+                          </span>
+                      </div>
+                    </div>
+
+                    <div class="row form-group">
+                      <div class="col-lg-5 col-md-5">
+                        <label class="indlabel">Enter Department Description</label>
+                        <span class="mandatory">*</span>
+                        <textarea type="text" name="department" class="form-control" [(ngModel)]="deptform.deptDesc"
+                          required minlength="5" id="deptdesc" #deptCtrl="ngModel" placeholder="Enter Department Description "
+                          (keyup)="isFormValid=true"></textarea>
+                        <span class="invalidmsg" *ngIf=" deptCtrl.invalid">
+                          <div *ngIf="deptCtrl.errors.minlength">
+                            Department description should be at least 5 letters </div>
+                        </span>
+                      </div>
+                    </div>
+
+                    <span class="invalidmsg" id="invalidMSG" *ngIf="!isFormValid">{{invalidMessage}}</span>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Modal footer -->
+
+        <div class="modal-footer" id="modelfooter">
+          <div class="actionBar">
+            <button id="next" class="mb-2 btn btn-wizard btn-sm btn-success buttonNext" (click)="checkValidation();"> <i
+                class="material-icons">save</i>
+            </button>
+          </div>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="notifymodelentry">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-contentno">
+
+      <!-- Modal Header -->
+      <div class="modal-header" style="background-color: 	rgb(245, 209, 92);">
+        <h4 class="modal-title text-center" style="color: rgb(0, 0, 0)">Error</h4>
+        <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body" style="background-color: white;">
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer" style="background-color: 	rgb(255, 255, 255); margin-right: 0px;">
+        <!-- <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal"><span class="material-icons">
+            highlight_off
+            </span></button> -->
+        <button class="btn btn-success" data-dismiss="modal">
+          ok
+          <!-- <span class="material-icons">
+            highlight_off
+          </span> -->
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="successmodelentry">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-contentno">
+
+      <!-- Modal Header -->
+      <div class="modal-header" style="background-color: 	rgb(124, 255, 146);">
+        <h4 class="modal-title text-center" style="color: rgb(0, 0, 0)">Success</h4>
+        <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body" style="background-color: white;">
+
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer" style="background-color: 	rgb(255, 255, 255); margin-right: 0px;">
+  
+        <button class="btn btn-success" data-dismiss="modal">
+          ok
+        
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="modal fade " id="insertSuccessModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
+  role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-sm dialogModal" role="document">
+    <div class="modal-content box-shadow">
+      <div class="card text-center border-0">
+        <div class="card-header bg-success m-0 p-0">
+          <h5>Success</h5>
+        </div>
+        <div class="card-body bg-white">
+          {{errorMessage}}
+          <div class="text-right">
+            <button class="btn btn-sm btn-success" data-dismiss="modal">ok</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade " id="ErrorModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+  aria-hidden="true">
+  <div class="modal-dialog modal-sm dialogModal" role="document">
+    <div class="modal-content box-shadow">
+      <div class="card text-center border-0">
+        <div class="card-header bg-warning m-0 p-0">
+          <h5>Failed</h5>
+        </div>
+        <div class="card-body bg-white">
+          {{errorMessage}}
+          <div class="text-right pt-3">
+            <button class="btn btn-sm btn-success"  data-dismiss="modal">ok</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

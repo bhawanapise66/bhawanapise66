@@ -1,0 +1,757 @@
+<style>
+  .ol-unselectable,.ol-viewport {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    border-radius: 11px !important;
+  }
+</style>
+
+<div [@routerTransition]>
+
+<div class="row" style=" margin-top: 0%;">
+<div class="col-12 col-md-12 col-lg-12 col-xl-12  mb-4">
+ <!--  <div class="row">
+  <div class="col-md-1 col-lg-1 col-xl-1" style=" float:left; " >
+     <div (click)="clickme()" style=" margin-top: -8%; color:white; " ngbTooltip="Screenshot Capture" ><i class="material-icons" style="color:white;">add_a_photo</i></div>
+  </div>
+  <div class="col-3 col-md-3 col-lg-3 col-xl-3" style=" float:left; ">
+    
+    <input  type="text" class="form-control" placeholder="Enter reason here...." minlength="3"
+      maxlength="50" [(ngModel)]="reasonTextbox" #reason="ngModel" style=" font-size:12px; margin-top: -2%; color: white; " required
+      id="Reasonentryid">
+    <div  style=" float:left; " class="invalidmsg" *ngIf="reason.errors?.minlength">
+       Reason required at least minimum 3 characters & maximum 50 characters long.
+    </div>
+    <span class="invalidmsg" id="msg_reason"></span>
+    <div id="btnsendemail" ngbTooltip="Send Email" style=" height: 64%; width: 20%; margin-left: 91%; margin-top: -8%;"
+    (click)="sendemail();" ><i class="material-icons">email</i>
+</div> 
+
+  </div> 
+</div> -->
+<!-- <div class="col-12 col-md-12 col-lg-12 col-xl-12" >
+  <div class="row" (click) = "showscreen()" >close</div>
+  <div id="screenshot" class="row"> -->
+ <!--  <img src={{capturedImage}} alt="" > -->
+  <!-- </div> 
+  
+</div> --> 
+  <!-- <div class="row">
+ 
+    <ul>
+      <li>Loaded html2canvas in <b>angular.json</b> "scripts" section</li>
+       <li>Then  <b>declare let html2canvas : any; </b> in app.component.ts</li>
+    </ul>
+    
+    <div id="capture" style="padding: 10px; background: orange">
+        <h4 style="color: #000; ">Hello world!</h4>
+          First name: <input type="text" name="fname"><br>
+      Last name: <input type="text" name="lname"><br>
+    </div>
+    
+    
+    <button (click)="clickme()">Capture thing in orange</button>
+    <h2>Captured Image</h2>
+<img src={{capturedImage}}>
+  </div> -->
+  
+  <!-- <div class="row">    #ffffffb5;-->
+    <div class="col-6 col-md-6 col-lg-6 col-xl-6  mb-4 list-group-item status-border border-warning" style=" float:left; background-color: #fff; height: 83%; ">
+      <div class="row ">
+    <div class="col-md-4 col-lg-4 col-xl-4" style=" float: left;">
+      <div class="box box-widget widget-user">
+        <div class="widget-user-header bg-green" style=" font-family: Arial;">
+          <div class="row">
+              <h5 style=" color: #fff;
+              margin-top: -4%;
+              margin-left: 3%;
+              font-size: 14px;">{{totaldevices}}</h5>
+          </div>
+          <div class="row">
+            <h6 style=" margin-left: 45%;
+            color: #fff;
+            margin-top: -6%;
+            font-size: 14px; ">Total Devices</h6>
+          </div>
+         
+        </div>     
+     
+        <div class="box-footer" >
+          <div class="row" style=" color: #283250; font-size: 12px; font-size: 12px; font-family: Arial;"> 
+            <div class="col-sm-6 border-right" ngbTooltip="Click on this widget showing total Replace devices detail."
+                  data-toggle="modal" data-target="#ReplaceDetailsModal" >
+              <div class="description-block">
+                <h5 class="description-header">{{totinstalleddev}}</h5>
+                <span class="description-text">INSTALLED</span>
+              </div>
+            </div>
+            <div class="col-sm-6" ngbTooltip="Click on this widget showing total Repair devices detail." 
+                  data-toggle="modal" data-target="#RepairDetailsModal">
+              <div class="description-block">
+                <h5 class="description-header">{{totstockdev}}</h5>
+                <span class="description-text">STOCK</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> 
+         
+    </div>
+
+      <div class="col-md-4 col-lg-4 col-xl-4" style=" float: left;">
+    <div class="box box-widget widget-user" data-toggle="modal" data-target="#AISDetailsModal">
+      <div class="widget-user-header bg-red" style="  font-family: Arial;">
+        <div class="row">
+           <h5 style=" color: #fff;
+           margin-top: -4%;
+           margin-left: 3%;
+           font-size: 14px;">{{totinstalleddev}}</h5>
+        </div>
+        <div class="row">
+           <h6 style="  font-size: 14px;
+           margin-left: 42%;
+           color: #fff;
+           margin-top: -6%; ">Installed Devices</h6>
+        </div>
+      </div>  
+     <!--  <div class="widget-user-image">
+        <div class="img-circle" style=" width: 43px; height: 43px; border: 3px solid #fff;
+        border-radius: 50%; background-color: #158d4b;">
+          <i class="material-icons" style=" font-size: 1.5rem; margin-left: 16%;margin-top: 13%;">drive_eta</i>
+        </div>
+      </div> -->
+      <div class="box-footer" >
+        <div class="row" style=" color: #b0057b; font-size: 12px; font-family: Arial;">
+          <div class="col-sm-6 border-right" ngbTooltip="Click on this widget showing total AIS-140 devices detail."
+                 >
+            <div class="description-block">
+              <h5 class="description-header">{{installedais140dev}}</h5>
+              <span class="description-text">AIS-140</span>
+            </div>
+          </div> 
+          <div class="col-sm-6 border-right" ngbTooltip="Click on this widget showing total Basic devices detail."
+                data-toggle="modal" data-target="#BasicDetailsModal" >
+            <div class="description-block">
+              <h5 class="description-header">{{installbasicdev}}</h5>
+              <span class="description-text">BASIC</span>
+            </div>
+          </div>
+         
+        </div>
+      </div>
+    </div>
+  </div>  
+    
+  <div class="col-md-4 col-lg-4 col-xl-4" style=" float: left;">
+    <div class="box box-widget widget-user">
+      <div class="widget-user-header bg-green" style=" font-family: Arial;">
+        <div class="row">
+          <h6 style=" margin-left: 28%;
+          color: #fff;
+          margin-top: -2%;
+          font-size: 14px; ">Payment Type</h6>
+        </div>
+       
+      </div>
+     <!--  <div class="widget-user-image">
+        <div class="img-circle" style=" width: 43px; height: 43px; border: 3px solid #fff;
+        border-radius: 50%; background-color: #fe2d2d; font-size: 12px;">
+          <i class="material-icons" style=" font-size: 1.5rem; margin-left: 16%;margin-top: 13%; ">build</i>
+        </div>
+      </div> -->
+      <div class="box-footer" >
+        <div class="row" style=" color: #283250; font-size: 12px; font-size: 12px; font-family: Arial;"> 
+          <div class="col-sm-4 border-right" ngbTooltip="Click on this widget showing total Replace devices detail."
+                data-toggle="modal" data-target="#ReplaceDetailsModal" >
+            <div class="description-block">
+              <h5 class="description-header">{{totPaymentTypecashcount}}</h5>
+              <span class="description-text">CASH</span>
+            </div>
+          </div>
+          <div class="col-sm-4" ngbTooltip="Click on this widget showing total Repair devices detail." 
+                data-toggle="modal" data-target="#RepairDetailsModal">
+            <div class="description-block">
+              <h5 class="description-header">{{paymenttypeonlinecount}}</h5>
+              <span class="description-text">ONLINE</span>
+            </div>
+          </div>
+          <div class="col-sm-4" ngbTooltip="Click on this widget showing total Repair devices detail." 
+                data-toggle="modal" data-target="#RepairDetailsModal">
+            <div class="description-block">
+              <h5 class="description-header">{{totpaymenttypecheckcount}}</h5>
+              <span class="description-text">CHECK</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</div>
+
+<div class="row" >
+  <div class="col-md-4 col-lg-4 col-xl-4" style=" float: left; margin-top: -5%;">     
+        <div class="serviceBox">
+          <div class="service-icon">
+            <span><!-- <i class="fa fa-globe"></i> -->{{totalcustomers}} </span>
+            <h3 class="title">Customers</h3>   
+          </div>
+                
+        </div>
+     
+   <!--  <div class="box box-widget widget-user">
+      <div class="widget-user-header bg-red" style="  font-family: Arial;">        
+        <div class="row">
+           <h6 style=" font-size: 14px;
+           margin-left: 24%;
+           color: #fff;
+           margin-top: -2%; ">Total Customers</h6>
+        </div>
+      </div>   
+      <div class="box-footer" >
+        <div class="row" style=" color: #283250; font-size: 12px; font-family: Arial;">
+          <div class="col-sm-4" ngbTooltip="Click on this widget showing total AIS-140 devices detail."
+                data-toggle="modal" data-target="#AISDetailsModal" >
+            
+              <h5 style=" margin-left: 190%; ">{{totalcustomers}}</h5>
+              
+          </div> 
+        </div>
+      </div>
+    </div> -->
+  </div>
+
+  <div class="col-md-4 col-lg-4 col-xl-4" style=" float: left; margin-top: -5%;">     
+        <div class="serviceBox red">
+          <div class="service-icon">
+            <span><!-- <i class="fa fa-rocket"></i> -->{{totmaintenancedev}}</span>
+            <h3 class="title">Maintenance</h3>
+          </div>
+          
+        </div>
+     
+ 
+    <!-- <div class="box box-widget widget-user">
+      <div class="widget-user-header bg-red" style="  font-family: Arial;">        
+        <div class="row">
+           <h6 style=" font-size: 14px;
+           margin-left: 19%;
+           color: #fff;
+           margin-top: -1%; ">Total Maintenance</h6>
+        </div>
+      </div>
+      <div class="box-footer" >
+        <div class="row" style=" color: #283250; font-size: 12px; font-family: Arial;">
+          <div class="col-sm-4" ngbTooltip="Click on this widget showing total AIS-140 devices detail."
+                data-toggle="modal" data-target="#AISDetailsModal" >
+            
+              <h5 style=" margin-left: 190%; ">{{totmaintenancedev}}</h5>
+              
+          </div> 
+        </div>
+      </div>
+    </div> -->
+  </div>
+
+  <div class="col-md-4 col-lg-4 col-xl-4" style=" float: left; margin-top: -5%;">      
+        <div class="serviceBox blue">
+          <div class="service-icon">
+            <span><!-- <i class="fa fa-mobile"></i> -->{{totcomplaintdev}}</span>
+            <h3 class="title">Complaints</h3>
+          </div>
+         
+        </div>
+       
+    <!-- <div class="box box-widget widget-user">
+      <div class="widget-user-header bg-green" style="  font-family: Arial;">        
+        <div class="row">
+           <h6 style=" font-size: 14px;
+           margin-left: 23%;
+           color: #fff;
+           margin-top: -1%; ">Total Complaints</h6>
+        </div>
+      </div>
+      <div class="box-footer" >
+        <div class="row" style=" color: #283250; font-size: 12px; font-family: Arial;">
+          <div class="col-sm-4" ngbTooltip="Click on this widget showing total AIS-140 devices detail."
+                data-toggle="modal" data-target="#AISDetailsModal" >
+            
+              <h5 style=" margin-left: 190%; ">{{totcomplaintdev}}</h5>
+              
+          </div> 
+        </div>
+      </div>
+    </div> -->
+  </div>
+</div>
+
+</div>
+
+<div class="col-6 col-md-6 col-lg-6 col-xl-6 mb-4" style=" float: left;">  
+  <div class="row">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 " style=" float: left;"> 
+      <div class="list-group-item status-border border-danger shadow-sm mb-4" style=" height: 126%!important; background-color: #fff; ">
+        <div class="card-body"  >            
+            <app-dealercustomergraph></app-dealercustomergraph>            
+        </div>
+  </div>
+   </div> 
+  </div>
+</div>
+<!-- </div> -->
+
+
+
+</div>
+
+<div class="col-12 col-md-12 col-lg-12 col-xl-12  mb-4">
+<!-- fliper work -->
+<div class="row" style=" margin-top: -5%; ">    
+  <div class="mainContainer" >
+       <div >
+          <div style=" background-color: white; height: 414px;  "> 
+                       
+                       
+            <div class="row" style=" width:100%" >
+            <div class="col-md-3">
+              <div class="input-group" style=" margin-left: 8%; ">                            
+                <input type="text" placeholder="Search" class="form-control searchicon " id="searchData" [(ngModel)]="filtersummary" 
+                    style=" background-color: #edeeef;" (change)="dataPDFexport();" >
+                <div class="input-group-append" style="margin-left: 0%; margin-top: 1%; height: 34px; background: lawngreen; " >
+                    <button class="btn  apendbtn" (click)="searchsummarydata()" ><i style="color: #016323; margin-top: -15px;" class="fa fa-search"></i> </button>
+                </div>
+            </div>
+              
+            </div>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-refresh fa-2x fa-spin-hover" style=" font-size: 19px; padding-top: 9px; color: #acb800;"
+            (click)="RefreshSummary()" ></i> 
+             
+            <div class="col" >
+            
+           </div>
+            
+            <div class="col-md-4" >
+                <div class="row">
+                  <div class="col-md-3" style=" float: right; margin-left: -12%; ">
+                    <img style="float: right; cursor: pointer; height: 20px; margin-top: 3px;" (click)="createPDF()" ngbTooltip="PDF" src="assets/images/PDFicon.png">
+                    <img style="cursor: pointer;"  (click)="exportToExcel()" ngbTooltip="Excel" src="assets/images/excellogo.png"> 
+              
+              
+                  </div>
+                    <div class="col-md-2" >
+              <span style="padding-top: 0px; font-size: 12px;
+              font-weight: bold; float: right;">Rows:&nbsp;</span> </div>
+              
+              <div class="col-md-2" >
+                <div style="padding-top: 2px; width: 45px; margin-left: -70%;">
+                  <div style="padding-top: 2px; width: 45px;">
+                    <select class="form-control p-0" data-live-search="true" tabindex="1" [(ngModel)]="selectRowsText" id="selectrow" (change)="RowsBindChanged()" aria-hidden="true"
+                        style=" font-size:12px;height: 25px; width: 45px; background-color: rgb(240, 240, 240); color: black;">
+                        
+                        <option value="5">5</option>
+                        <option value="10" selected>10</option>
+                        <option value="20">20</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option> 
+                  </select>
+                   
+                    
+                  </div>
+                </div>
+                <div class="col-md-5" style="text-align: right;
+                font-size: 12px;
+                margin-left: 47%;
+                font-weight: bold;
+                margin-top: -45%;">
+            
+              <span>Total&nbsp;Records&nbsp;:&nbsp;{{outorec}}&nbsp;/&nbsp;{{totrec}} </span>
+            </div>
+           
+          </div>
+          
+          </div>
+          </div> 
+            <div class="card-body table-responsive" style=" margin-top: -14px; height: 385px; width: 102%;
+                  margin-left: 2%; " >
+            <table class="table table-hover table-striped" style=" width: 100%; " >
+              <thead >
+                <tr >
+                <th (click)="sort('rowNumber')" >#</th>
+                <th (click)="sort('param12')" >Vehicle No</th>
+                <th (click)="sort('param32')">Polling Time</th>
+                <th (click)="sort('param4')">Speed</th>
+                <th (click)="sort('param3')">Ignition</th>
+                <th (click)="sort('param22')">Direction</th>
+                <th (click)="sort('param23')">GPS Status</th>
+                <th (click)="sort('param23')">Location</th>
+                <th (click)="sort('param39')">Alert</th>
+              </tr> 
+            </thead>
+            <tbody >   
+              <tr *ngFor="let pol of globalpagesummary$  | filter:filtersummary | orderBy: key : reverse | paginate: { itemsPerPage: pagecount, currentPage: p, totalItems: totrec} ;" >
+            
+                <td class="grdcontent">{{pol.rowNumber}}</td>
+                <td class="grdcontent">{{pol.param12}}</td>  
+                <td class="grdcontent">{{pol.param32}}</td>
+                <td class="grdcontent">{{pol.param37}}</td>
+                <td class="grdcontent">
+                    <div *ngIf="pol.param42=='ON'" style=" padding: 0.35rem 0.5rem; background-color: #aff381;; color: rgb(4 122 13); text-align: center; margin-left: -7%;">
+                      {{pol.param42}}
+                    </div>
+                    <div *ngIf="pol.param42=='OFF'" style=" padding: 0.35rem 0.5rem;background-color: rgb(241, 141, 137);color: rgb(91 7 4); text-align: center; margin-left: -7%;">
+                      {{pol.param42}}
+                    </div>
+                </td>
+                <!-- <td class="grdcontent">{{pol.param42}}</td> -->
+                <td class="grdcontent">{{pol.param46}}</td>
+                <td class="grdcontent">
+                  <div *ngIf="pol.param39=='Valid'" style=" padding: 0.35rem 0.5rem; background-color: #fcc491; color: rgb(106 64 1); text-align: center; margin-left: -7%;">
+                    {{pol.param39}}
+                  </div>
+                  <div *ngIf="pol.param39=='Invalid'" style=" padding: 0.35rem 0.5rem;background-color: rgb(1 150 209);color: rgb(106 64 1); text-align: center; margin-left: -7%;">
+                    {{pol.param39}}
+                  </div>
+                </td>              
+                <td class="grdcontent" style=" font-size: 11px; width:25%!important; text-align: center;">
+                  <div id = "view{{pol.rowNumber}}" title="Location Show Of Selected Record."            
+                  style=" cursor: pointer; font-size:10px;color:rgb(14, 4, 156); font-weight: bold;" (click)="showlocation(pol)" >Show Location</div>
+                  <div id = "locdiv{{pol.rowNumber}}" class="col-md-12" style=" text-align: center;" >
+                      {{locationarray[pol.rowNumber]}}    
+                  </div>
+                </td>
+                <td class="grdcontent" style=" text-align: center;" >{{pol.param45}}</td>
+              </tr>
+            </tbody>
+            <tfoot id= "foot" class="box-footer clearfix">
+              <tr>
+                  <td colspan="12">
+                    <pagination-controls  style=" float: right; color: #015d78;" (pageChange)="pageChanged($event)" ></pagination-controls>                                               
+                  </td>
+              </tr>
+          </tfoot>
+            </table>
+      
+             <!--Dummy Table of Excel -->
+             <div style=" display: none;">
+              <div class="row" id="PDFTable" style=" height : 480px; overflow-y: hidden; " #epltable>
+                <table id="dtBasicExample" class="table table-striped table-bordered table-responsive"
+                  width="100%"
+                  style="font-size: 11px; text-align: center; color:black; border-collapse:collapse; ">
+                  <thead>
+                    <tr >
+                      <!-- <th><input type="checkbox" [(ngModel)]="isMasterSelsummary" name="pol_name" value="h2" (change)="checkUncheckAll()"  /></th> -->
+                      <th (click)="sort('param12')" >Vehicle No</th>
+                      <th (click)="sort('param4')">Device No</th>
+                      <th (click)="sort('param3')">Imei No</th>
+                      <th (click)="sort('param22')">CustomerName</th>
+                      <th (click)="sort('param23')">Mobile No</th>
+                      <th (click)="sort('param32')">Polling Time</th>
+                      <th (click)="sort('param39')">Status</th>
+                    </tr> 
+                  </thead>
+                  <tbody id="grid">
+                    <tr *ngFor="let pol of globalPDF$" >
+                     <!--  <td style=" padding: 0.35rem 0.5rem;">
+                        <input type="checkbox" [(ngModel)]="pol.isSelectedsummary" name="pol_name" 
+                              value="{{pol.param11}}" (change)="isAllSelected()" checked></td> -->
+                      <td class="grdcontent">{{pol.param12}}</td>
+                      <td class="grdcontent">{{pol.param4}}</td>
+                      <td class="grdcontent">{{pol.param3}}</td>
+                      <td class="grdcontent">{{pol.param22}}</td>
+                      <td class="grdcontent">{{pol.param23}}</td>
+                      <td class="grdcontent">{{pol.param32}}</td>
+                      <td class="grdcontent">{{pol.param39}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          </div> 
+        <div>
+      
+        </div>
+      
+
+
+
+
+
+
+
+<!-- </div> -->
+
+
+
+
+
+
+       </div>
+</div>
+
+  </div>
+</div>
+</div>
+
+
+
+
+</div>
+
+</div>
+
+
+
+
+<div class="modal fade" id="AISDetailsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+          <div class="modal-header" style=" background-color: #010c2a; padding-top: 0%; padding-bottom: 0%; color: white; font-size: 15px; ">
+              <span class="modal-title" id="exampleModalLabel"><i class="material-icons md-18">speaker_notes</i>&nbsp;AIS-140 Devices Detail.</span> 
+                           
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true" style="color: #f5f6f8">×</span>
+              </button>
+          </div>
+          <div class="modal-body">
+            <div class="container-fluid">
+            <div  id="container">
+              <table class="table table-hover table-striped" style=" width: 100%; " >
+                <thead >
+                  <tr >
+                  <th (click)="sort('rowNumber')" >#</th>
+                  <th (click)="sort('param12')" >Vendor Name</th>
+                  <th (click)="sort('param32')">Device Type</th>
+                  <th (click)="sort('param4')">Total Devices</th>
+                  <th (click)="sort('param3')">Polling Count</th>
+                  <th (click)="sort('param22')">Non-Polling Count</th>
+                </tr> 
+              </thead>
+              <tbody >   
+                <tr *ngFor="let pol of globalpagesummary$  | filter:filtersummary | orderBy: key : reverse | paginate: { itemsPerPage: pagecount, currentPage: p, totalItems: totrec} ;" >
+              
+                  <td class="grdcontent">{{pol.rowNumber}}</td>
+                  <td class="grdcontent">{{pol.param12}}</td>  
+                  <td class="grdcontent">{{pol.param32}}</td>
+                  <td class="grdcontent">{{pol.param37}}</td>
+                  <td class="grdcontent">{{pol.param46}}</td>                  
+                  <td class="grdcontent" style=" text-align: center;" >{{pol.param45}}</td>
+                </tr>
+              </tbody>
+              <tfoot id= "foot" class="box-footer clearfix">
+                <tr>
+                    <td colspan="12">
+                      <pagination-controls  style=" float: right; color: #015d78;" (pageChange)="pageChanged($event)" ></pagination-controls>                                               
+                    </td>
+                </tr>
+            </tfoot>
+              </table>
+          </div>
+          </div>
+          </div>
+        
+      </div>
+  </div>
+</div>
+
+<div class="modal fade" id="BasicDetailsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+          <div class="modal-header" style=" background-color: #010c2a; padding-top: 0%; padding-bottom: 0%; color: white; font-size: 15px; ">
+              <span class="modal-title" id="exampleModalLabel"><i class="material-icons md-18">speaker_notes</i>&nbsp;BASIC Devices Detail.</span> 
+                           
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true" style="color: #f5f6f8">×</span>
+              </button>
+          </div>
+          <div class="modal-body">
+            <div class="container-fluid">
+            <div  id="container">
+             
+          </div>
+          </div>
+          </div>
+        
+      </div>
+  </div>
+</div>
+
+<div class="modal fade" id="StockDetailsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+          <div class="modal-header" style=" background-color: #010c2a; padding-top: 0%; padding-bottom: 0%; color: white; font-size: 15px; ">
+              <span class="modal-title" id="exampleModalLabel"><i class="material-icons md-18">speaker_notes</i>&nbsp;Stock Devices Detail.</span> 
+                           
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true" style="color: #f5f6f8">×</span>
+              </button>
+          </div>
+          <div class="modal-body">
+            <div class="container-fluid">
+            <div  id="container">
+             
+          </div>
+          </div>
+          </div>
+        
+      </div>
+  </div>
+</div>
+
+<div class="modal fade" id="ReplaceDetailsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+          <div class="modal-header" style=" background-color: #010c2a; padding-top: 0%; padding-bottom: 0%; color: white; font-size: 15px; ">
+              <span class="modal-title" id="exampleModalLabel"><i class="material-icons md-18">speaker_notes</i>&nbsp;Replace Devices Detail.</span> 
+                           
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true" style="color: #f5f6f8">×</span>
+              </button>
+          </div>
+          <div class="modal-body">
+            <div class="container-fluid">
+            <div  id="container">
+             
+          </div>
+          </div>
+          </div>
+        
+      </div>
+  </div>
+</div>
+
+<div class="modal fade" id="RepairDetailsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+          <div class="modal-header" style=" background-color: #010c2a; padding-top: 0%; padding-bottom: 0%; color: white; font-size: 15px; ">
+              <span class="modal-title" id="exampleModalLabel"><i class="material-icons md-18">speaker_notes</i>&nbsp;Repair Devices Detail.</span> 
+                           
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true" style="color: #f5f6f8">×</span>
+              </button>
+          </div>
+          <div class="modal-body">
+            <div class="container-fluid">
+            <div  id="container">
+             
+          </div>
+          </div>
+          </div>
+        
+      </div>
+  </div>
+</div>
+
+<div class="modal fade" id="MemberDetailsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+          <div class="modal-header" style=" background-color: #010c2a; padding-top: 0%; padding-bottom: 0%; color: white; font-size: 15px; ">
+              <span class="modal-title" id="exampleModalLabel"><i class="material-icons md-18">speaker_notes</i>&nbsp;Member Devices Detail.</span> 
+                           
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true" style="color: #f5f6f8">×</span>
+              </button>
+          </div>
+          <div class="modal-body">
+            <div class="container-fluid">
+            <div  id="container">
+             
+          </div>
+          </div>
+          </div>
+        
+      </div>
+  </div>
+</div>
+
+<div class="modal fade" id="MinesDetailsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+          <div class="modal-header" style=" background-color: #010c2a; padding-top: 0%; padding-bottom: 0%; color: white; font-size: 15px; ">
+              <span class="modal-title" id="exampleModalLabel"><i class="material-icons md-18">speaker_notes</i>&nbsp;Mines Devices Detail.</span> 
+                           
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true" style="color: #f5f6f8">×</span>
+              </button>
+          </div>
+          <div class="modal-body">
+            <div class="container-fluid">
+            <div  id="container">
+             
+          </div>
+          </div>
+          </div>
+        
+      </div>
+  </div>
+</div>
+
+<div class="modal fade" id="CorporateDetailsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+          <div class="modal-header" style=" background-color: #010c2a; padding-top: 0%; padding-bottom: 0%; color: white; font-size: 15px; ">
+              <span class="modal-title" id="exampleModalLabel"><i class="material-icons md-18">speaker_notes</i>&nbsp;Corporate Devices Detail.</span> 
+                           
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true" style="color: #f5f6f8">×</span>
+              </button>
+          </div>
+          <div class="modal-body">
+            <div class="container-fluid">
+            <div  id="container">
+             
+          </div>
+          </div>
+          </div>
+        
+      </div>
+  </div>
+</div>
+
+<div class="modal fade" id="PollingDetailsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+          <div class="modal-header" style=" background-color: #010c2a; padding-top: 0%; padding-bottom: 0%; color: white; font-size: 15px; ">
+              <span class="modal-title" id="exampleModalLabel"><i class="material-icons md-18">speaker_notes</i>&nbsp;Polling Devices Detail.</span> 
+                           
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true" style="color: #f5f6f8">×</span>
+              </button>
+          </div>
+          <div class="modal-body">
+            <div class="container-fluid">
+            <div  id="container">
+             
+          </div>
+          </div>
+          </div>
+        
+      </div>
+  </div>
+</div>
+
+<div class="modal fade" id="NonPollingDetailsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+          <div class="modal-header" style=" background-color: #010c2a; padding-top: 0%; padding-bottom: 0%; color: white; font-size: 15px; ">
+              <span class="modal-title" id="exampleModalLabel"><i class="material-icons md-18">speaker_notes</i>&nbsp;Non-Polling Devices Detail.</span> 
+                           
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true" style="color: #f5f6f8">×</span>
+              </button>
+          </div>
+          <div class="modal-body">
+            <div class="container-fluid">
+            <div  id="container">
+             
+          </div>
+          </div>
+          </div>
+        
+      </div>
+  </div>
+</div>

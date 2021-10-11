@@ -1,0 +1,358 @@
+<!--
+Developer 	: Kajal Kartar
+Date      	: 14-01-2021
+Description : CRM Master Module
+Modified By:  
+Update date : 
+End date : 18-01-2021
+-->
+<div class="content shadow-sm">
+  <!-- Main container starts -->
+  <div class="container-fluid main-container" id="main-container">
+    <div class="row">
+      <div class="col-12 col-md-12 col-lg-12 col-xl-12 mx-auto align-self-center">
+        <div class="card shadow-sm border-0 mb-4">
+          <div class="card-header" style="padding-top: 0; padding-bottom: 0">
+
+            <h4 class="text-left m-1" style="font-size: 15px;">Customer Complaint
+              <span class="text-template-primary" style="color: #00ed54">Master</span>
+
+            </h4>
+            <!-- <button class="btn btn-sm btn-primaryyel ml-2 float-right" style="margin-right: 89px;" type="button"> DeviceDetails <i _ngcontent-ael-c19="" class="material-icons md-18">navigate_next</i></button>
+            ComplaintDetails 
+            <i class="material-icons md-18">navigate_next</i>
+          </button> -->
+
+            <button type="button" class="btn btn-sm btn-primaryyel ml-2 float-right"
+              style="margin-right: 15px; background-color: #f6c53b; font-size: 12px;margin-top: -23px;"
+              [routerLink]="['/helpdesk']">
+              ComplaintDetails
+              <i class="material-icons md-18">navigate_next</i>
+
+            </button>
+          </div>
+          <div class="card-body" style="padding: 5px;">
+            <div class="row justify-content-center">
+              <div class="col-md-12 mx-auto">
+                <div class="row">
+                  <div class="col-lg-12 col-md-12">
+
+
+                  </div>
+                </div>
+
+                <div class="container-fluid main-container" id="main-container">
+
+
+
+
+                  <!--    --------------       Table Header Staret    ------------------------    -->
+                  <div class="col-md-12">
+                    <div class="row" *ngIf="showcustomer">
+
+
+
+
+
+
+                      <div class="col-lg-2 col-md-2 " style="margin-left: -14px;">
+
+                        <ngx-select-dropdown tabindex="0" id="customerentry" [multiple]="false"
+                          [(ngModel)]="customerText" [config]="config" [options]="ListOfCustomer"
+                          (change)="CustId();clear1();HideTable();SelectUserListData()"></ngx-select-dropdown>
+                        <span class="invalidmsg" id="msg_customerName"></span>
+                      </div>
+
+                      <div class="col-lg-2 col-md-2" style="display: none;">
+                        <label class="indlabel">Dummy Customer</label>
+                        <span class="mandatory">*</span>
+                        <input type="text" class="form-control" placeholder="Enter Customer" tabindex="1" required
+                          minlength="3" maxlength="30" id="customerdummy" onpaste="return false;"
+                          [(ngModel)]="selectcustomer" #vendornm="ngModel" onkeypress="return onlyAlphabets(event);"
+                          ondrop="return false;">
+
+                      </div>
+
+
+
+
+
+
+
+
+
+
+
+
+                    </div>
+
+                  </div>
+
+                  <!-- ---------------------  Table header end  ------------------------------ -->
+
+
+
+
+
+
+                  <br>
+
+                  <div id="complaintdetailpage" *ngIf="showdetail">
+                    <div id="step-14" class="stepsdiv">
+                      <!-- <span class="StepTitle">Step 1: Basic Details</span> -->
+                      <div class="form-group row" style="display: none;">
+                        <div class="col-md-2 col-lg-2">
+                          <label class="indlabel">Complaint ID</label>
+                          <span class="mandatory">*</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                          <input type="text" class="form-control" [(ngModel)]="complaintmodelid" required minlength="4"
+                            maxlength="20" #idCtrl="ngModel" id="complaintId" placeholder="Enter ID">
+                          <div class="invalidmsg" *ngIf="idCtrl.errors?.minlength">
+                            Complaint ID must be at least minimum 4 characters & maximum 20 characters long.
+                          </div>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <div class="col-lg-3 col-md-3">
+                          <label class="indlabel">Mobile No.</label>
+                          <span class="mandatory">*</span>
+                          <input type="text" class="form-control" placeholder="Enter Mobile No" tabindex="1" required
+                            minlength="10" maxlength="10" [(ngModel)]="usermno" #officialnonew="ngModel" id="mnoentry"
+                            onkeypress="return isNumberKey(event)" autocomplete="none">
+                          <div class="invalidmsg" *ngIf="officialnonew.errors?.minlength">
+                           Mobile No. must contain 10 digits only.
+                          </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3">
+                          <label class="indlabel">Email Id.</label>
+                          <!-- <span class="mandatory">*</span> -->
+                          <input type="email" class="form-control" placeholder="Enter Email Address" tabindex="2"
+                            required minlength="13" maxlength="30" [(ngModel)]="officialemailentryText"
+                            #officialemailnew="ngModel" id="Emailentry" autocomplete="none">
+                          <div class="invalidmsg" *ngIf="officialemailnew.errors?.minlength">
+                             EmailID must contain at least minimum 13 characters & maximum 30 characters long.
+                          </div>
+                        </div>
+                      </div>
+
+
+                      <div class="form-group row">
+                        <div class="col-lg-12 col-md-12">
+                          <label class="indlabel">Complaint Against</label>
+                          <span class="mandatory">*</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                          <input type="radio" [(ngModel)]="radioSelected" name="list_name" id="Vehicleid1"
+                            value="Vehicle" (change)="onItemChange($event)" #complaintagainst="ngModel" />
+                          Vehicle/Device &nbsp;&nbsp;&nbsp;&nbsp;
+                          <input type="radio" [(ngModel)]="radioSelected" name="list_name" id="Applicationid1"
+                            value="Application" (change)="onItemChange($event)" #complaintagainst="ngModel" />
+                          Application &nbsp;&nbsp;&nbsp;&nbsp;
+                          <input type="radio" [(ngModel)]="radioSelected" name="list_name" id="Paymentid1"
+                            value="Payment" (change)="onItemChange($event)" #complaintagainst="ngModel" />
+                          Payment &nbsp;&nbsp;&nbsp;&nbsp;
+                          <input type="radio" [(ngModel)]="radioSelected" name="list_name" id="Serviceid1"
+                            value="Service" (change)="onItemChange($event)" #complaintagainst="ngModel" />
+                          Service &nbsp;&nbsp;&nbsp;&nbsp;
+                          <input type="radio" [(ngModel)]="radioSelected" name="list_name" id="Otherid1" value="Other"
+                            (change)="onItemChange($event)" #complaintagainst="ngModel" />
+                          Other
+                        </div>
+
+                        <div *ngIf="complaintagainst.invalid">
+                          Complaint Against required.
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <div class="col-lg-6 col-md-6">
+                          <label class="indlabel"> Complaint</label>
+                          <span class="mandatory">*</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                          <textarea class="form-control" rows="2" style=" font-size:12px" placeholder="Enter complaint."
+                            tabindex="3" minlength="5" maxlength="250" name="complaintname" [(ngModel)]="complaintModel"
+                            #complaintCtrl="ngModel" id="complaintentry1" autocomplete="none"></textarea>
+                          <div class="invalidmsg" *ngIf="complaintCtrl.errors?.minlength">
+                            Complaint must contain at least 5 characters & maximum 250 characters long.
+                          </div>
+                          <!-- <span class="invalidmsg" id="msg_regaddentry"></span> -->
+                        </div>
+                      </div>
+                      <br>
+
+
+
+
+
+
+
+                      <div class="col-md-12" id="searchidview" style="margin-left:-14px" style="display:none;">
+                        <div class="row  mx-1">
+                          <div class="col-12 col-sm-12 col-md text-md-left align-self-center pr-0">
+                            <ul class="nav  justify-sm-content-center  justify-content-left">
+                              <li class="nav-item ">
+                                <div class="input-group" style="max-width: 250px;margin-left: -18px;">
+                                  <input type="text" placeholder="Search" id="searchData"
+                                    class="form-control searchicon" id="searchData" [(ngModel)]="filter"
+                                    aria-label="Amount (to the nearest dollar)">
+                                  <div class="input-group-append">
+                                    <button class="btn  apendbtn" (click)="getSelectedComplaint()">
+                                      <i style="color: #00ed54; margin-top: -15px;" class="fa fa-search"></i>
+                                    </button>
+                                  </div>
+                                </div>
+                              </li>
+                              <li class="nav-item mx-3">
+
+                              </li>
+                            </ul>
+                          </div>
+
+                          <div class="col-12 col-sm-12 col-md-auto text-right text-md-end pl-0">
+                            <ul class="nav justify-content-center justify-lg-content-end  justify-sm-content-center">
+                              <li class="nav-item mx-2">
+
+                              </li>
+                              <!-- <li class="nav-item mx-2">
+                             
+                            </li> -->
+
+                              <li class="nav-item pt-1">
+                                <span style="font-size:12px;font-weight: bold;">Total Records : {{viewcount}} of
+                                  {{count}}</span>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+
+                      </div>
+                      <div class="deviceno" id="hidedeviceno" style="margin-top: 20px;margin-left:-14px" style="display:none;">
+                        <div class="tableFixHead">
+                          <div id="GridTable" class="card-body table-responsive">
+                            <table class="table table-hover table-striped">
+                              <thead>
+                                <tr role="row">
+                                  <th><input type="checkbox" [(ngModel)]="isMasterSel" name="list_name" value="h1"
+                                      (change)="checkUncheckAll()" [disabled]="buttonHit" id="list_id" /></th>
+                                  <!-- <th><input type="checkbox" [(ngModel)]="isMasterSelsummary" name="pol_name" value="h2" (change)="checkUncheckAll()"  /></th> -->
+                                  <th>Vehicle No</th>
+                                  <th>Device No</th>
+                                  <th>Vehicle Class</th>
+                                  <th>Installed Date</th>
+                                  <th>Polling Time</th>
+                                  <th>Status</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr *ngFor="let pol of tipdetailsgrid">
+                                  <td style=" padding: 0.35rem 0.5rem;">
+
+                                    <input type="checkbox" [(ngModel)]="pol.isChecked" name="list_name"
+                                      value="{{pol.param11}}" (change)="changeSelection()" [disabled]="buttonHit"
+                                      checked>
+                                  </td> <!-- checked          id="id_{{pol.id}}"-->
+                                  <td style=" padding: 0.35rem 0.5rem;">{{pol.param12}}</td>
+                                  <td style=" padding: 0.35rem 0.5rem;">{{pol.param4}}</td>
+
+                                  <td style=" padding: 0.35rem 0.5rem;">{{pol.param29}}</td>
+                                  <td style=" padding: 0.35rem 0.5rem;">{{pol.param16}}</td>
+                                  <td style=" padding: 0.35rem 0.5rem;">{{pol.param32}}</td>
+                                  <td style=" padding: 0.35rem 0.5rem;">{{pol.param47}}</td>
+                                </tr>
+                                <tr *ngIf="this.tipdetailsgrid.length == 0">
+                                  <td colspan="7">
+        <span style="text-align: center;margin-left: 45%;">No Data Found</span>
+                                  </td>
+                                </tr>
+                              </tbody>
+                              <tfoot id="foot" class="box-footer clearfix">
+                                <tr>
+                                  <!-- <td colspan="12"> 
+            <pagination-controls style=" float: right;" (pageChange)="ComplaintMasterpageChanged($event)" ></pagination-controls>                                               
+          </td> -->
+                                </tr>
+                              </tfoot>
+                            </table>
+
+                          </div>
+                        </div>
+                      </div>
+                      <!--Table-->
+                      <br> <span class="invalidmsg" id="msg_errorentry4"></span>
+                      <br> <span class="invalidmsg" id="msg_errorentry5"></span>
+                      <div class="actionBar">
+                        <button id="save" class="mb-2 btn btn-wizard btn-sm btn-success buttonFinish"
+                          (click)="InsertComplaint()" style="display: none;">Save and Send
+                          <!-- <i class="material-icons">save</i> -->
+                        </button>
+                        <button id="next" class="mb-2 btn btn-wizard btn-sm btn-success buttonNext"
+                          (click)="InsertComplaint()" style="width: 132px;float: left;">
+                          <!-- <i class="material-icons">save</i> -->Save and Send
+                        </button>
+
+                      </div>
+                    </div>
+
+                  </div>
+
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- --------------------  view & Edit Modal start------------------------>
+
+
+<!-- ------------------- view & Edit model close ------------------------ -->
+
+<!-- ------------------ Delete Model Start ------------------------>
+
+
+<!-- Delete Model -->
+
+<!-- ------------------- Delete model End ----------------------- -->
+
+<!-- ------------------- onclick no btn model  ----------------------- -->
+<!-- The Modal -->
+<div class="modal fade" id="Noclickmodel">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-contentno">
+
+      <!-- Modal Header -->
+      <div class="modal-header" style="background-color: 	rgb(255, 255, 255);">
+        <h4 class="modal-title text-center" style="color: rgb(0, 0, 0)">Your Data is not Delete</h4>
+        <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+      </div>
+
+      <!-- Modal body -->
+      <!-- <div class="modal-body">
+          Your Data is Not delete..
+        </div> -->
+
+      <!-- Modal footer -->
+      <div class="modal-footer" style="background-color: 	rgb(255, 255, 255);">
+        <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">
+          <span class="material-icons">
+            highlight_off
+          </span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>

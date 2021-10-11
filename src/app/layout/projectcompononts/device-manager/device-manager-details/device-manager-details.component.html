@@ -1,0 +1,116 @@
+<!-- developer :Dhammadeep dahiwale
+date : 9-mar-2021 -->
+
+<div class="content shadow-sm">
+  <!-- main content starts -->
+
+  <div class="container-fluid main-container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card shadow-sm mb-3">
+          <div class="card-header p-0">
+            <h4 class="text-left m-1" style="font-size: 15px;">Device
+              <span class="text-template-primary" style="color: #00ed54">Manager</span>
+              <button type="button" class="btn btn-sm btn-primaryyel ml-2 float-right"
+                style="margin-right: 89px; width: 100px;" data-toggle="modal" data-target="#exampleModal">
+                ADD NEW
+                <i class="material-icons md-18">navigate_next</i>
+
+              </button>
+            </h4>
+          </div>
+          <div class="card-body">
+            <div class="row justify-content-center">
+              <div class="col-md-12">
+              </div>
+            </div>
+
+            <div class="container-fluid main-container" id="main-container">
+              <!--    ---------------        Table Header Staret=------------------------    -->
+              <div class="col-12">
+
+              </div>
+
+              <!-- ---------------------  Table header end  ------------------------------ -->
+
+              <div class="card-body table-responsive">
+                <table class="table table-hover table-striped">
+                  <thead>
+                    <tr role="row">
+                      <!-- <th><span (click)="sort('rowNumber')">#</span> -->
+                      <!-- <span class="material-icons">
+                        import_export
+                        </span> 
+                      </th> -->
+                      <th><span (click)="sort('param4')"> Device type</span></th>
+                      <th><span (click)="sort('param13')"> Vendor</span></th>
+                      <th><span (click)="sort('param10')"> Device model</span></th>
+                      <th><span (click)="sort('param17')">command Name</span></th>
+                      <th><span (click)="sort('param8')"> Description </span></th>
+
+
+                      <!-- <th style="background-color: #99c049;">Action</th> -->
+                    </tr>
+                  </thead>
+                  <tbody id="grid">
+                    <tr
+                      *ngFor="let item of  commandDetails| filter:filter | orderBy: key : reverse | paginate : {itemsPerPage:pagecount,currentPage:p,totalItems:count} ;"
+                      class="trheight">
+                      <!-- <td>{{item.rowNumber}}</td> -->
+                      <td>{{item.devicetype}}</td>
+                      <td>{{item.vendor}}</td>
+                      <td>{{item.devicemodel}}</td>
+                      <td>{{item.commandName}}</td>
+                      <td>{{item.desc}}</td>
+
+
+                      <!-- <td [ngStyle]="{'background-color':com.altColor}" class="viewbtncss">
+                        <span class="iconhover" data-toggle="modal" data-target="#myModalwizard" (click)="setdata(com)">
+                          <i class="material-icons" style="color: #161e43">visibility</i>
+                        </span>
+                      </td> -->
+                    </tr>
+
+                  </tbody>
+                  <tfoot id="foot" class="box-footer clearfix">
+                    <tr>
+                      <td colspan="12">
+                        <pagination-controls style=" float: right;" (pageChange)="VendorMasterpageChanged($event)">
+                        </pagination-controls>
+                      </td>
+                    </tr>
+                  </tfoot>
+
+                </table>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<app-device-manager-entry></app-device-manager-entry>

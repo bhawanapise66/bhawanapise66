@@ -1,0 +1,961 @@
+<div class="content">
+  <!-- Main container starts -->
+  <div class="container-fluid main-container" id="main-container">
+    <div class="row">
+      <div class="col-12 col-md-12 col-lg-12 col-xl-12 mx-auto align-self-center">
+        <div class="card shadow-sm border-0 mb-4">
+          <div class="card-header" style="padding-top: 0; padding-bottom: 0">
+
+
+            <h4 class="text-left m-1" style="font-size: 15px;">Vehicle
+              <span class="text-template-primary" style="color: #00ed54">Installation</span>
+              <button type="button" class="btn btn-sm btn-primaryyel ml-2 float-right"
+                style="margin-right: 15px; background-color: #f6c53b; font-size: 12px;" data-toggle="modal"
+                data-target="#myModalwizard"
+                (click)="toInsert = true;toUpdate =false;;toRenew = false;showDetails = false;closemodal()">
+                ADD NEW
+                <i class="material-icons md-18">navigate_next</i>
+              </button>
+            </h4>
+
+          </div>
+          <div class="card-body" style="padding: 5px;">
+            <div class="row justify-content-center">
+              <div class="col-md-12 mx-auto">
+                <div class="row">
+                  <div class="col-lg-12 col-md-12">
+                  </div>
+                </div>
+
+                <div class="container-fluid main-container" id="main-container">
+
+                  <!--    ---------------        Table Header Staret=------------------------    -->
+
+                  <div class="row  mx-1">
+                    <div class="col-12 col-sm-12 col-md text-md-left align-self-center pr-0">
+                      <ul class="nav  justify-sm-content-center  justify-content-left">
+                        <li class="nav-item ">
+                          <div class="input-group" style="max-width: 250px;">
+                            <input type="text" placeholder="Search" class="form-control searchicon " id="searchData"
+                              [(ngModel)]="filter" aria-label="Amount (to the nearest dollar)">
+                            <div class="input-group-append">
+                              <button class="btn  apendbtn" (click)="searchdata()">
+                                <i style="color: #00ed54; margin-top: -15px;" class="fa fa-search"></i>
+                              </button>
+                            </div>
+                          </div>
+                        </li>
+                        <li class="nav-item mx-3">
+                          <i class="fa fa-refresh fa-2x fa-spin-hover" style="font-size: 17px;
+                    padding-top: 4px;color: #00fff3;" (click)="Refreshfunction()"></i>
+                        </li>
+                      </ul>
+                    </div>
+
+                    <div class="col-12 col-sm-12 col-md-auto text-right text-md-end pl-0">
+                      <ul class="nav justify-content-center justify-lg-content-end  justify-sm-content-center">
+                        <li class="nav-item mx-2">
+                          <img style="cursor: pointer; height: 20px; margin-top: 3px;" (click)="exportToPDF()"
+                            ngbTooltip="PDF" src="assets/images/PDFicon.png">
+                        </li>
+                        <li class="nav-item mx-2">
+                          <img style="cursor: pointer;" (click)="exportToExcel()" ngbTooltip="Excel"
+                            src="assets/images/excellogo.png">
+                        </li>
+                        <li class="nav-item mx-3">
+                          <span style="display: inline;font-size:12px;font-weight :bold;">Show Rows : </span> <select
+                            class="form-control p-1" style="width: 44px;display: inline;" data-live-search="true"
+                            (change)="changeItemsPerPage()" aria-hidden="true" [(ngModel)]="itemsPerPage">
+                            <option value="5">5</option>
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="50">50</option>
+                          </select>
+                        </li>
+                        <li class="nav-item pt-1">
+                          <span style="font-size:12px;font-weight: bold;">Total Records : {{viewcount}} of
+                            {{totalcount}}</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <!-- ---------------------  Table header end  ------------------------------ -->
+
+
+                  <div id="PDFTable" class="card-body table-responsive" #epltable>
+                    <table class="table table-hover table-striped">
+                      <thead>
+                        <tr role="row">
+                          <th><span (click)="sort('rowNumber')">#</span></th>
+                          <th><span (click)="sort('param25')">Customer Name</span></th>
+                          <th><span (click)="sort('param26')">Customer Mobile</span></th>
+                          <th><span (click)="sort('param10')">Vehicle No</span></th>
+                          <th><span (click)="sort('param11')">Chasis No</span> </th>
+                          <th><span (click)="sort('param17')">RTO Name</span></th>
+                          <th><span (click)="sort('param38')">Make Name </span></th>
+                          <th><span (click)="sort('param39')">Model Name</span></th>
+                          <th><span (click)="sort('param40')">Vehicle Class</span></th>
+                          <th><span (click)="sort('param3')">Vehicle IMEI No</span></th>
+                          <th><span (click)="sort('param41')">Installation Date</span></th>
+                          <th style="background-color: #99c049;">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody id="grid">
+                        <tr
+                          *ngFor="let com of vehicledetails | filter:filter | orderBy: key : !reverse | paginate : {itemsPerPage:itemsPerPage,currentPage:pageNumber,totalItems:totalcount} ;"
+                          class="trheight">
+                          <td>{{com.rowNumber}}</td>
+                          <td>{{com.param25}}</td>
+                          <td>{{com.param26}}</td>
+                          <td>{{com.param10}}</td>
+                          <td>{{com.param11}}</td>
+                          <td>{{com.param17}}</td>
+                          <td>{{com.param37}}</td>
+                          <td>{{com.param38}}</td>
+                          <td>{{com.param39}}</td>
+                          <td>{{com.param3}}</td>
+                          <td>{{com.param40}}</td>
+                          <td [ngStyle]="{'background-color':com.altColor}" class="viewbtncss">
+                            <span class="iconhover" data-toggle="modal" data-target="#myModalwizard"
+                              (click)="setdata(com)">
+                              <i class="material-icons" style="color: #161e43">visibility</i>
+                            </span>
+                          </td>
+                        </tr>
+
+                      </tbody>
+                      <tfoot id="foot" class="box-footer clearfix">
+                        <tr>
+                          <td colspan="12">
+                            <pagination-controls style=" float: right;" (pageChange)="changePageNumber($event)">
+                            </pagination-controls>
+                          </td>
+                        </tr>
+                      </tfoot>
+
+                    </table>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- --------------------  view & Edit Modal start------------------------>
+
+<div class="modal fade " id="myModalwizard" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-xl ">
+    <div class="modal-content ">
+
+      <!-- Modal Header -->
+      <div class="modal-header modelcolor d-none">
+
+        <h4 *ngIf="toInsert==true" class="text-left m-1" style="font-size: 15px;">Vehicle <span
+            class="text-template-primary" style="color: #00ed54">Installation</span>
+        </h4>
+
+        <h4 *ngIf="toInsert==false && showDetails" class="text-left m-1" style="font-size: 15px;">Vehicle <span
+            class="text-template-primary" style="color: #00ed54">Details</span>
+        </h4>
+
+        <h4 *ngIf="toInsert==false && !showDetails" class="text-left m-1" style="font-size: 15px;">Vehicle Installation
+          <span class="text-template-primary" style="color: #00ed54">Update</span>
+        </h4>
+
+        <div style="float:right; margin-left: 59%;" *ngIf="toInsert==false">
+          <button type="button" class=" btn btn-sm btn-secondary float-right ml-2 bg-warning" style="display: block;"
+            id="editbtn" ngbTooltip="Edit" (click)="editEntries()">
+            <i class="material-icons md-18">edit</i>
+          </button>
+
+          <button type="button" class=" btn btn-sm btn-danger float-right ml-2" id="deletebtn" ngbTooltip="Delete"
+            data-toggle="modal" data-target="#modeldelete">
+            <i class="material-icons md-18">delete</i>
+          </button>
+
+          <button type="button" class=" btn btn-sm btn-primary float-right ml-2" id="backdetailsbtn" ngbTooltip="Back"
+            style="display: none;" (click)="backdetailsbtn()">
+            <i class="material-icons md-18">arrow_back</i>
+          </button>
+        </div>
+
+        <!-- <div class=" justify-content-center">
+          <button type="button" class=" btn btn-sm btn-primary  ml-2" id="backdetailsbtn" ngbTooltip="Back"
+            (click)="backdetailsbtn()">
+            <i class="material-icons md-18">arrow_back</i>
+          </button>
+        </div> -->
+
+
+        <button type="button" style="color: white" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <div class="modal-header row  mx-1">
+        <div class="col-12 col-sm-12 col-md text-md-left align-self-center pr-0">
+          <ul class="nav  justify-sm-content-center  justify-content-left">
+            <li class="nav-item ">
+              <h4 *ngIf="toInsert==true" class="text-left m-1" style="font-size: 15px;">Vehicle <span
+                  class="text-template-primary" style="color: #00ed54">Installation</span>
+              </h4>
+              <h4 *ngIf="toUpdate==true" class="text-left m-1" style="font-size: 15px;">Vehicle <span
+                  class="text-template-primary" style="color: #00ed54">Details</span>
+              </h4>
+              <h4 *ngIf="toInsert==false && !showDetails" class="text-left m-1" style="font-size: 15px;"
+                (click)="stepWizard()"> Installation <span class="text-template-primary"
+                  style="color: #00ed54">Update</span>
+              </h4>
+              <h4 *ngIf="toRenew==true && !showDetails" class="text-left m-1" style="font-size: 15px;">Vehicle <span
+                  class="text-template-primary" style="color: #00ed54">Renewal</span>
+              </h4>
+            </li>
+
+          </ul>
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-auto text-right text-md-end pl-0">
+          <ul class="nav justify-content-center justify-lg-content-end  justify-sm-content-center">
+
+            <li class="nav-item" *ngIf="toInsert ==false">
+              <button type="button" class=" btn btn-sm btn-secondary float-right ml-2" id="blockbtn" ngbTooltip="Block"
+                data-toggle="modal" data-target="#modelblock"
+                *ngIf="(toInsert ==false || toUpdate ==false || toRenew ==false) && showDetails==true">
+                <i class="material-icons md-18">block</i>
+              </button>
+            </li>
+            <li class="nav-item" *ngIf="toInsert ==false">
+              <button type="button" class=" btn btn-sm btn-danger float-right ml-2" id="downloadPDFbtnais"
+                ngbTooltip="Download Receipt" (click)="ShowVehicleReceiptais()"
+                *ngIf="(toInsert ==false || toUpdate ==false || toRenew ==false) && showDetails==true">
+                <i class="fa fa-download" style="color:rgb(9, 238, 20)"></i>
+              </button>
+            </li>
+
+            <li class="nav-item" *ngIf="toInsert ==false">
+              <button type="button" class=" btn btn-sm btn-danger   ml-2" id="deletebtn" ngbTooltip="Delete"
+                data-toggle="modal" data-target="#modeldelete"
+                *ngIf="(toInsert ==false || toUpdate ==false || toRenew ==false) && showDetails==true">
+                <i class="material-icons md-18">delete</i>
+              </button>
+            </li>
+
+            <li class="nav-item" *ngIf="(toInsert ==false || toUpdate ==false || toRenew ==false) && showDetails==true">
+              <button type="button" class=" btn btn-sm btn-secondary float-right ml-2 bg-warning"
+                style="display: block;" id="renewbtnais" ngbTooltip="Edit" (click)="renewalform()">Renewal</button>
+            </li>
+
+            <button type="button" class=" btn btn-sm btn-primary   ml-2" id="backdetailsbtn" ngbTooltip="Back"
+              *ngIf="(toInsert==false || toUpdate ==true||toRenew ==true) && showDetails == false"
+              (click)="backdetailsbtn()">
+              <i class="material-icons md-18">arrow_back</i>
+            </button>
+
+            <button type="button" class=" btn btn-sm btn-secondary  ml-2 bg-warning" id="editbtn" ngbTooltip="Edit"
+              *ngIf="(toInsert ==false || toUpdate ==false || toRenew ==false) && showDetails==true"
+              (click)="editEntries()">
+              <i class="material-icons md-18">edit</i>
+            </button>
+
+
+            <li class="nav-item">
+              <button type="button" style="color: white" class="close" data-dismiss="modal"
+                (click)="closemodal()">&times;</button>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+
+      <!-- Modal body -->
+      <div class="modal-body " style=" background-color: #CBD2F1;">
+        <div class="container">
+          <div id="container" *ngIf="(toInsert ==false && showDetails==false) || toInsert ==true">
+            <div class="step-wizard" role="navigation">
+              <div class="progress">
+                <div class="progressbar empty"></div>
+                <div id="prog" class="progressbar"></div>
+              </div>
+              <ul>
+                <li class="active">
+                  <button id="step1">
+                    <div class="step">1</div>
+                    <div class="title">Device Details</div>
+                  </button>
+                </li>
+                <li class="">
+                  <button id="step2">
+                    <div class="step">2</div>
+                    <div class="title">Vehicle Details</div>
+                  </button>
+                </li>
+                <li class="">
+                  <button id="step3">
+                    <div class="step">3</div>
+                    <div class="title">Other Details</div>
+                  </button>
+                </li>
+              </ul>
+
+
+              <div class="stepsection">
+                <span class="invalidmsg" id="msg_mainmessageentry"></span>
+                <div id="step-11" class="stepsdiv">
+                  <div class="form-group row">
+
+                    <div class="col-lg-4 col-md-4">
+                      <label class="indlabel">Vendor</label>
+                      <span class="mandatory">*</span>
+                      <ngx-select-dropdown tabindex="0" id="vendor" [multiple]="false" [(ngModel)]="vendorObj"
+                        (change)="getVendorId()" [config]="config" [options]="vendorlist">
+                      </ngx-select-dropdown>
+                      <span class="invalidmsg" id="msg_vendorName"></span>
+                    </div>
+
+
+                    <div class="col-lg-4 col-md-4">
+                      <label class="indlabel">Device Type</label>
+                      <span class="mandatory">*</span>
+
+                      <ngx-select-dropdown tabindex="1" id="devicetypeentry" [multiple]="false"
+                        [(ngModel)]="devicetypeobj" [config]="config" [options]="devicetypelist"
+                        (change)="getDeviceTypeId()"></ngx-select-dropdown>
+                      <span class="invalidmsg" id="msg_vendorName"></span>
+                    </div>
+
+
+                    <div class="col-lg-4 col-md-4">
+                      <label class="indlabel">IMEI No.</label>
+                      <span class="mandatory">*</span>
+                      <ngx-select-dropdown tabindex="2" id="devicetypeIMEIentry" [multiple]="false"
+                        [(ngModel)]="imeiobj" [config]="config" [options]="imeilist" (change)="getImeiNumber()">
+                      </ngx-select-dropdown>
+                      <span class="invalidmsg" id="msg_vendorName"></span>
+                    </div>
+
+                  </div>
+
+                  <div class="form-group row">
+                    <div class="col-lg-4 col-md-4">
+                      <label class="indlabel">Install By</label>
+                      <span class="mandatory">*</span>
+
+                      <ngx-select-dropdown tabindex="12" id="installbyentry" [multiple]="false" [(ngModel)]="empobj"
+                        [config]="config" [options]="emplist" (change)="getEmpId()"></ngx-select-dropdown>
+
+                      <span class="invalidmsg" id="msg_vendorName"></span>
+                    </div>
+
+                    <div class="col-lg-4 col-md-4" *ngIf="devicetypename =='Personal Tracker'">
+                      <label class="indlabel">Person Name.</label>
+                      <span class="mandatory">*</span>
+                      <input type="text" class="form-control" placeholder="Enter Person Name." tabindex="14" required
+                        minlength="7" maxlength="30" id="personentry" [(ngModel)]="installation.vehicleRegNo"
+                        #personCtrl="ngModel" onkeypress="avoidSplChars(event)">
+                      <div class="invalidmsg" *ngIf="personCtrl.errors?.minlength">
+                        Person Name must be at least minimum 7 characters & maximum 30 characters long.
+                      </div>
+                      <span class="invalidmsg" id="msg_modelname"></span>
+                    </div>
+                  </div>
+
+                  <div class="row text-white" *ngIf="devicetypeobj!=''&&devicetypeobj!=null ">
+                    <div class="col-md-4">
+                      <span> <span *ngIf="devicetypename=='AIS-140'">ICCID</span><span
+                          *ngIf="devicetypename!='AIS-140'">Sim</span> No. : {{simNo}}</span>
+                    </div>
+                    <div class="col-md-4">
+                      <span> Unique No. : {{uniqueNo}}</span>
+                    </div>
+                    <div class="col-md-4">
+                      <span> Status : {{status}}</span>
+                    </div>
+                  </div>
+
+                  <span class="invalidmsg" id="msg_errorentry" style="position: absolute;bottom:20px;left:20px"></span>
+                </div>
+
+
+                <div id="step-12" class="stepsdiv" style="display: none;">
+                  <div class="form-group row">
+                    <div class="col-lg-4 col-md-4 mb-3">
+                      <label class="indlabel">Customer Name</label>
+                      <span class="mandatory">*</span>
+
+                      <ngx-select-dropdown tabindex="6" id="customer" [multiple]="false" [(ngModel)]="customerobj"
+                        [config]="config" [options]="customerlist" (change)="getCustomerId()">
+                      </ngx-select-dropdown>
+
+                      <span class="invalidmsg" id="msg_vendorName"></span>
+                    </div>
+
+                    <div class="col-lg-4 col-md-4 mb-3">
+                      <label class="indlabel">Vehicle No.</label>
+                      <span class="mandatory">*</span>
+                      <input type="text" class="form-control" placeholder="Enter Vehicle No." tabindex="7" required
+                        minlength="7" maxlength="30" id="vehicleno" [(ngModel)]="installation.vehicleRegNo"
+                        #vehicleno="ngModel" onkeypress="avoidSplChars(event)">
+                      <div class="invalidmsg" *ngIf="vehicleno.errors?.minlength">
+                        Vehicle No Name must be at least minimum 7 characters & maximum 30 characters long.
+                      </div>
+                      <span class="invalidmsg" id="msg_modelname"></span>
+                    </div>
+
+                    <div class="col-lg-4 col-md-4 mb-3">
+                      <label class="indlabel">Chassis No.</label>
+                      <span class="mandatory">*</span>
+                      <input type="text" class="form-control" placeholder="Enter Chassis No." tabindex="8" required
+                        minlength="7" maxlength="17" id="chassisnumber" [(ngModel)]="installation.vehicleChasisNo"
+                        #chassis="ngModel" onkeypress="avoidSplChars(event)">
+                      <div class="invalidmsg" *ngIf="chassis.errors?.minlength">
+                        Chassis No Name must be at least minimum 7 characters & maximum 17 characters long.
+                      </div>
+                      <span class="invalidmsg" id="msg_modelname"></span>
+                    </div>
+
+                    <div class="col-lg-4 col-md-4 mb-3">
+                      <label class="indlabel">Engine No.</label>
+                      <span class="mandatory">*</span>
+                      <input type="text" class="form-control" placeholder="Enter Engine No." tabindex="9" required
+                        minlength="5" maxlength="20" id="enginenumber" [(ngModel)]="installation.vehicleEngineNo"
+                        #engineno="ngModel" onkeypress="avoidSplChars(event)">
+                      <div class="invalidmsg" *ngIf="engineno.errors?.minlength">
+                        Engine No. must be at least minimum 5 characters & maximum 20 characters long.
+                      </div>
+                      <span class="invalidmsg" id="msg_modelname"></span>
+                    </div>
+
+                    <div class="col-lg-4 col-md-4 mb-3" *ngIf="devicetypename =='Personal Tracker'">
+                      <label class="indlabel">Person Type <span class="mandatory">*</span> </label>
+                      <ngx-select-dropdown tabindex="5" id="persontypeentry" [multiple]="false"
+                        [(ngModel)]="persontypeText" (change)="dummypersontype()" [config]="config"
+                        [options]="ListOfVehicleclass"></ngx-select-dropdown>
+                      <span class="invalidmsg" id="msg_vendorName"></span>
+                    </div>
+
+                    <div class="col-lg-4 col-md-4 mb-3" *ngIf="devicetypename =='Personal Tracker'">
+
+                      <label class="indlabel">Date of Birth</label>
+                      <input type="text" class="form-control datepicker" id="dateofbirth" [(ngModel)]="Dateofbirth">
+
+                      <span class="invalidmsg" id="msg_shortcode"></span>
+                    </div>
+
+                    <div class="col-lg-4 col-md-4 mb-3" *ngIf="this.selectdevicetypedummy != 'Personal Tracker'">
+                      <label class="indlabel">Vehicle Type <span class="mandatory">*</span> </label>
+                      <select class="form-control" id="vehicletype" tabindex="10"
+                        [(ngModel)]="installation.vehicleType">
+                        <option> NEW </option>
+                        <option> OLD </option>
+                      </select>
+
+                    </div>
+
+                    <div class="col-lg-4 col-md-4 mb-3">
+                      <label class="indlabel">Vehicle Class <span class="mandatory">*</span> </label>
+                      <ngx-select-dropdown tabindex="11" id="vehicleclass" [multiple]="false" [(ngModel)]="classobj"
+                        (change)="getClassId()" [config]="config" [options]="vehicleclasslist"></ngx-select-dropdown>
+                      <span class="invalidmsg" id="msg_vendorName"
+                        style="position: absolute;bottom:20px;left:20px"></span>
+                    </div>
+
+                    <div class="col-lg-4 col-md-4 mb-3">
+                      <label class="indlabel">Select Make</label>
+                      <span class="mandatory">*</span>
+                      <ngx-select-dropdown tabindex="12" id="vehiclemake" [multiple]="false" [(ngModel)]="makeobj"
+                        [config]="config" [options]="makelist" (change)="getMakeId()"></ngx-select-dropdown>
+
+                      <span class="invalidmsg" id="msg_vendorName"></span>
+                    </div>
+
+                    <div class="col-lg-4 col-md-4 mb-3">
+                      <label class="indlabel">Select Model</label>
+                      <span class="mandatory">*</span>
+
+                      <ngx-select-dropdown tabindex="13" id="vehiclemodel" [multiple]="false" [(ngModel)]="modelobj"
+                        [config]="config" [options]="modellist" (change)="getModelId()"></ngx-select-dropdown>
+
+                      <span class="invalidmsg" id="msg_vendorName"></span>
+                    </div>
+
+                    <div class="col-lg-4 col-md-4 mb-3">
+                      <label class="indlabel">Mfg Year</label>
+                      <span class="mandatory">*</span>
+                      <ngx-select-dropdown tabindex="14" id="mfgyear" [multiple]="false" [(ngModel)]="yearobj"
+                        [config]="config" [options]="yearlist" (change)="getYearId()"></ngx-select-dropdown>
+                    </div>
+
+                    <div class="col-lg-4 col-md-4 mb-3">
+                      <label class="indlabel">Select State</label>
+                      <span class="mandatory">*</span>
+
+                      <ngx-select-dropdown tabindex="15" id="state" [multiple]="false" [(ngModel)]="stateobj"
+                        [config]="config" [options]="statelist" (change)="getStateId()">
+                      </ngx-select-dropdown>
+
+                      <span class="invalidmsg" id="msg_vendorName"></span>
+                    </div>
+
+                    <div class="col-lg-4 col-md-4 mb-3">
+                      <label class="indlabel">Select RTO</label>
+                      <span class="mandatory">*</span>
+
+                      <ngx-select-dropdown tabindex="16" id="rto" [multiple]="false" [(ngModel)]="rtoobj"
+                        [config]="config" [options]="rtolist" (change)="getRTOId()">
+                      </ngx-select-dropdown>
+
+                      <span class="invalidmsg" id="msg_vendorName"></span>
+                    </div>
+
+                    <div class="col-lg-4 col-md-4 mb-3">
+                      <label class="indlabel">Vehicle Icon</label>
+                      <ngx-select-dropdown tabindex="17" id="vehicleicon" [multiple]="false" [(ngModel)]="iconobj"
+                        [config]="config" [options]="iconlist" (change)="getIconId()"></ngx-select-dropdown>
+
+                      <span class="invalidmsg" id="msg_vendorName"></span>
+                    </div>
+
+                    <div class="col-md-4 col-lg-4 mb-3">
+                      <label class="indlabel">Installation Date</label>
+                      <span class="mandatory">*</span>
+                      <input id="installationdate" tabindex="18" type="text" class="form-control datepicker"
+                        placeholder="" tabindex="22">
+                    </div>
+                  </div>
+
+                  <span class="invalidmsg" id="msg_error_contactentry" style="position: absolute;bottom :10px;"></span>
+                </div>
+
+
+
+                <div id="step-13" class="stepdiv" style="display: none;">
+                  <div class="form-group row">
+                    <div class="col-lg-4 col-md-4 mb-5">
+                      <label class="indlabel" style="display: inline;">Customer Id : </label>
+                      <span class="mandatory" id="customeridentitystar">*</span>
+                      <select style="display: inline;width: 165px;" class="form-control mb-1" id="idproofName"
+                        [(ngModel)]="installation.idproofName">
+                        <option>Aadhar Card</option>
+                        <option>Pan Card</option>
+                        <option>Voter id Card</option>
+                      </select>
+                      <br>
+                      <input type="text" class="form-control" placeholder="Enter {{idOption}} Number" tabindex="17"
+                        required minlength="7" maxlength="12" id="custidentityentry" [(ngModel)]="installation.idProof"
+                        onkeypress="return isNumberKey(event)" [disabled]='idOption=="Identity"'>
+                      <br>
+                      <!-- before -->
+                      <label class="btn btn-default indlabel">
+                        <input type="file" id="imgInp" (change)="selectFile($event)">
+                      </label>
+                      <img id="defaultimg" style="display: block" src="assets/img/default_img.png"
+                        style="width: 50px; height: 50px; margin-left: 65px;" />
+                      <img id="blah" src="#" alt="your image" style="height:70px; width:140px; display: none;" />
+
+
+                      <!-- after -->
+                    </div>
+
+                    <div class="col-lg-4 col-md-4 mb-3">
+                      <label class="indlabel">Address Proof : </label> <span class="mandatory"
+                        id="addressproofstar">*</span>
+                      <select [(ngModel)]="installation.addressroofname" id="addressproofname"
+                        style="display: inline;width: 160px;" class="form-control mb-1">
+                        <option>Aadhar Card</option>
+                        <option>PAN Card</option>
+                      </select><br>
+                      <input type="text" class="form-control" placeholder="Enter {{installation.addressroofname}}"
+                        tabindex="18" minlength="2" maxlength="25" id="Addressproof"
+                        [(ngModel)]="installation.addressProof" required onkeypress="return isNumberKey(event)"
+                        [disabled]='addressproffName=="Address Proof No."'>
+                      <br><!-- before  -->
+                      <label class="btn btn-default indlabel">
+                        <input type="file" id="imgInp2" (change)="selectFile2($event)">
+                      </label>
+                      <img id="defaultimg2" style="display: block" src="assets/img/default_img.png"
+                        style="width: 50px; height: 50px; margin-left: 65px;" />
+
+                      <img id="blah2" src="#" alt="your image" style="height:70px; width:140px; display: none;" />
+
+                      <!-- after -->
+                    </div>
+
+                    <div class="col-lg-4 col-md-4 mb-3" *ngIf="this.selectdevicetypedummy != 'Personal Tracker'">
+                      <label class="indlabel">RC</label>
+                      <span class="mandatory" style="margin-bottom: 10px;margin-left: 20px;margin-top: -25px;"
+                        id="rcstar">*</span>
+                      <input type="text" class="form-control" placeholder="Please Enter RC" tabindex="19" id="rcentry"
+                        minlength="2" maxlength="12" [(ngModel)]="installation.rcNo" required
+                        onkeypress="return isNumberKey(event)">
+                      <br>
+
+                      <!-- before -->
+                      <label class="btn btn-default indlabel">
+                        <input type="file" id="imgInp3" (change)="selectFile3($event)">
+                      </label>
+                      <img id="defaultimg3" style="display: block" src="assets/img/default_img.png"
+                        style="width: 50px; height: 50px; margin-left: 65px;" />
+
+                      <img id="blah3" src="#" alt="your image" style="height:70px; width:140px; display:none;" />
+
+                      <!-- after -->
+                    </div>
+
+                    <div class="col-lg-4 col-md-4 mb-3">
+                      <label>Device Image : </label>
+                      <label class="btn btn-default indlabel">
+                        <input type="file" id="imgInp4" (change)="selectFile4($event)">
+                      </label>
+                      <img id="defaultimg4" src="assets/img/default_img.png"
+                        style="width: 50px;display: block;margin-left :65px">
+                      <img id="blah4" src="#" alt="your image" style="height:70px; width:140px; display:none;" />
+
+                    </div>
+
+                    <div class="col-lg-4 col-md-4 mb-3">
+                      <label> <span *ngIf="this.selectdevicetypedummy != 'Personal Tracker'">Vehicle</span><span
+                          *ngIf="this.selectdevicetypedummy == 'Personal Tracker'">Person</span> Image : </label>
+                      <label class="btn btn-default indlabel">
+                        <input type="file" id="imgInp5" (change)="selectFile5($event)">
+                      </label>
+                      <img id="defaultimg5" style="display: block" src="assets/img/default_img.png"
+                        style="width: 50px;margin-left:65px">
+
+                      <img id="blah5" src="#" alt="your image" style="height:70px; width:140px; display:none;" />
+
+                    </div>
+
+                    <div class="col-lg-4 col-md-4 mb-3">
+
+                      <div class="mb-3" *ngIf="this.selectdevicetypedummy != 'Personal Tracker'">
+                        <label class="indlabel">Invoice</label>
+                        <input type="text" class="form-control" placeholder="Please Enter Invoice" tabindex="20"
+                          minlength="1" maxlength="12" id="invoicedataentry" [(ngModel)]="InvoiceText" required
+                          onkeypress="return isNumberKey(event)">
+                      </div>
+
+                      <div *ngIf="this.selectdevicetypedummy != 'Personal Tracker'">
+                        <label class="indlabel">Panic</label>
+                        <input type="text" class="form-control" placeholder="Please Enter Panic" tabindex="21"
+                          minlength="1" maxlength="15" id="panicdataentry" [(ngModel)]="Panictext" required
+                          onkeypress="return isNumberKey(event)">
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <div class="form-group row" *ngIf="this.selectdevicetypedummy != 'Personal Tracker'">
+
+                    <div class="col-lg-4 col-md-4" id="Mobilize_entry" style="margin-top: 20px;">
+                      <label class="indlabel">Mobilize:</label>
+                      <span style="padding-right: 20px" class="mandatory">*</span>
+                      <input type="radio" id="mobilizeno" name="mobilize" checked="checked" value="NO">
+                      <label style="padding-right: 10px" for="mobno">No</label>
+                      <input type="radio" id="mobilizeyes" name="mobilize" value="YES">
+                      <label for="mobyes">Yes</label><br>
+                    </div>
+                    <div class="col-lg-4 col-md-4" id="fulecheck_entry" style="margin-top: 20px;">
+                      <label class="indlabel">Fuel Check:</label>
+                      <span style="padding-right: 20px" class="mandatory">*</span>
+                      <input type="radio" id="fuelno" name="fulecheck" checked="checked" value="NO">
+                      <label style="padding-right: 10px" for="mobno">No</label>
+                      <input type="radio" id="fuelyes" name="fulecheck" value="YES">
+                      <label for="mobyes">Yes</label><br>
+                    </div>
+                    <div class="col-lg-4 col-md-4" id="acstatus_entry" style="margin-top: 20px;">
+                      <label class="indlabel">AC Status:</label>
+                      <span style="padding-right: 20px" class="mandatory">*</span>
+                      <input type="radio" id="acstatusno" name="acstatus" checked="checked" value="NO">
+                      <label style="padding-right: 10px" for="mobno">No</label>
+                      <input type="radio" id="acstatusyes" name="acstatus" value="YES">
+                      <label for="mobyes">Yes</label><br>
+                    </div>
+
+
+                  </div>
+                  <span class="invalidmsg" id="msg_error_image" style="position: absolute;bottom:10px;"></span>
+
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <!-- --------------------------------------------- View Section ------------------------------------------- -->
+          <div *ngIf="toInsert ==false && showDetails==true">
+            <div id="vendordtls" class="row" style="background-color: #0e2145; border: 1px ridge #02108d;">
+              <div class="col-12 col-md-12 col-lg-12">
+
+                <div class="row" style="background-color: rgb(198 201 202);">
+                  <div class="col-12 col-md-12 col-lg-12">
+                    <div class="viewheading">Device Details</div>
+                  </div>
+                </div><br>
+
+                <div class="row">
+
+                  <div class="col-4 col-md-4 col-lg-4" style=" float: left;">
+                    <span class="caplable">Vendor :</span>&nbsp;<span class="viewlable">{{vendorName}}</span>
+                  </div>
+                  <div class="col-4 col-md-4 col-lg-4" style=" float: left;">
+                    <span class="caplable">Device Type :</span>&nbsp;<span class="viewlable">{{devicetypename}}</span>
+                  </div>
+                  <div class="col-4 col-md-4 col-lg-4" style=" float: left;">
+                    <span class="caplable">IMEI Number:</span>&nbsp;<span
+                      class="viewlable">{{installation.deviceimeino}}</span>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-4 col-md-4 col-lg-4" style=" float: left;">
+                    <span class="caplable">Installed By :</span>&nbsp;<span class="viewlable">{{empName}}</span>
+                  </div>
+
+                  <div class="col-4 col-md-4 col-lg-4" style=" float: left;"
+                    *ngIf="devicetypename =='Personal Tracker'">
+                    <span class="caplable">Person Name :</span>&nbsp;<span class="viewlable">{{vehicleRegNo}}</span>
+                  </div>
+
+                </div>
+                <br>
+
+                <div class="row" style="background-color: rgb(198 201 202);">
+                  <div class="col-12 col-md-12 col-lg-12">
+                    <div class="viewheading">Vehicle Details</div>
+                  </div>
+                </div><br>
+
+                <div class="row">
+                  <div class="col-4 col-md-4 col-lg-4" style=" float: left;">
+                    <span class="caplable">Customer Name:</span>&nbsp;<span
+                      class="viewlable">{{installation.customerName}}</span>
+                  </div>
+                  <div class="col-4 col-md-4 col-lg-4" style=" float: left;">
+                    <span class="caplable">Vehicle No. :</span>&nbsp;<span
+                      class="viewlable">{{installation.vehicleRegNo}}</span>
+                  </div>
+                  <div class="col-4 col-md-4 col-lg-4" style=" float: left;">
+                    <span class="caplable">Chassis No. :</span>&nbsp;<span
+                      class="viewlable">{{installation.vehicleChasisNo}}</span>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-4 col-md-4 col-lg-4" style=" float: left;">
+                    <span class="caplable">Engine No.:</span>&nbsp;<span
+                      class="viewlable">{{installation.vehicleEngineNo}}</span>
+                  </div>
+                  <div class="col-8 col-md-4 col-lg-4" style=" float: left;">
+                    <span class="caplable">Vehicle Type:</span>&nbsp;<span
+                      class="viewlable">{{installation.vehicleType}}</span>
+                  </div>
+                  <div class="col-8 col-md-4 col-lg-4" style=" float: left;">
+                    <span class="caplable">Vehicle Class:</span>&nbsp;<span
+                      class="viewlable">{{vehicleClassName}}</span>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-4 col-md-4 col-lg-4" style=" float: left;">
+                    <span class="caplable">Vehicle Make:</span>&nbsp;
+                    <!-- <span                      class="viewlable">{{}}</span> -->
+                  </div>
+                  <div class="col-4 col-md-4 col-lg-4" style=" float: left;">
+                    <span class="caplable">Vehicle Model :</span>&nbsp;<span
+                      class="viewlable">{{vendor.vendorcitypincode}}</span>
+                  </div>
+                  <div class="col-4 col-md-4 col-lg-4" style=" float: left;">
+                    <span class="caplable">Mfg Year :</span>&nbsp;<span
+                      class="viewlable">{{vendor.vendorcitypincode}}</span>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-4 col-md-4 col-lg-4" style=" float: left;">
+                    <span class="caplable">State :</span>&nbsp;<span
+                      class="viewlable">{{vendor.vendorregaddress1}}</span>
+                  </div>
+                  <div class="col-4 col-md-4 col-lg-4" style=" float: left;">
+                    <span class="caplable">RTO :</span>&nbsp;<span class="viewlable">{{vendor.vendorcitypincode}}</span>
+                  </div>
+                  <div class="col-4 col-md-4 col-lg-4" style=" float: left;">
+                    <span class="caplable">Icon :</span>&nbsp;<span
+                      class="viewlable">{{vendor.vendorcitypincode}}</span>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-4 col-md-4 col-lg-4" style=" float: left;">
+                    <span class="caplable">Installation Date :</span>&nbsp;<span
+                      class="viewlable">{{vendor.vendorcitypincode}}</span>
+                  </div>
+                </div>
+                <br>
+
+                <div class="row" style="background-color: rgb(198 201 202);">
+                  <div class="col-12 col-md-12 col-lg-12">
+                    <div class="viewheading">Bank Details</div>
+                  </div>
+                </div>
+                <br>
+
+                <div class="row">
+                  <div class="col-6 col-md-6 col-lg-6" style=" float: left;">
+                    <span class="caplable">Account No:</span>&nbsp;<span
+                      class="viewlable">{{vendor.vendorbankaccountno1}}</span>
+                  </div>
+                  <div class="col-6 col-md-6 col-lg-6" style=" float: left;">
+                    <span class="caplable">Bank Name :</span>&nbsp;<span
+                      class="viewlable">{{vendor.vendorbankname1}}</span>
+                  </div>
+
+                </div>
+                <div class="row">
+                  <div class="col-6 col-md-6 col-lg-6" style=" float: left;">
+                    <span class="caplable">Bank IFSC:</span>&nbsp;<span
+                      class="viewlable">{{vendor.vendorbankifsc1}}</span>
+                  </div>
+                  <div class="col-6 col-md-6 col-lg-6" style=" float: left;">
+                    <span class="caplable">Bank Address:</span>&nbsp;<span
+                      class="viewlable">{{vendor.vendorbankaddress1}}</span>
+                  </div>
+                </div>
+                <br>
+              </div>
+              <!-- --------------------- View Section End ------------------------------ -->
+            </div>
+          </div>
+        </div>
+        <!-- --------------------- View Section End ------------------------------ -->
+
+      </div>
+
+
+      <!-- Modal footer -->
+
+      <div class="modal-footer" *ngIf=" showDetails==false" id="modelfooter">
+        <div class="container mx-5 row">
+          <div class="col-md-8">
+            <div *ngIf="toInsert==false" style="display: none;">
+              <textarea class="form-control bg-white" rows="1" placeholder="Enter Remark" tabindex="21" minlength="10"
+                maxlength="40" id="Remarkvenupdate" [(ngModel)]="installation.remarks" #remark="ngModel" required
+                [ngClass]="{'is-invalid': remark.invalid && submitted }"></textarea>
+              <div class="invalidmsg" *ngIf="remark.errors?.minlength">
+                Remark must be 10 to 40 characters.
+              </div>
+            </div>
+
+          </div>
+          <div class="col-md-4">
+            <div class="actionBar">
+              <button id="prev" class="mx-1 btn btn-wizard btn-sm btn-primary buttonPrevious" (click)="prevStep()">
+                <i class="material-icons">arrow_back</i>
+              </button>
+              <button id="next" class="mx-1 btn btn-wizard btn-sm btn-primary buttonNext" (click)="nextStep()">
+                <i class="material-icons">arrow_forward</i>
+              </button>
+              <button id="save" class="mx-1 btn btn-wizard btn-sm btn-success buttonFinish" (click)="installvehicle()"
+                disabled>
+                <i class="material-icons">save</i>
+              </button>
+
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ------------------- view & Edit model close ------------------------ -->
+
+<!-- ------------------ Delete Model Start ------------------------>
+
+<div class="modal fade" id="modeldelete" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-sm modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header" style="background-color: 	red;">
+        <h4 class="modal-title text-center" style="color: yellow">Are You Sure?</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body" style="background-color: #f0e8e9">
+
+        <div class="form-group row">
+
+
+          <div class="col-lg-12 col-md-12">
+            <label style="color: black">Remark</label>&nbsp;
+            <span class="indlabelstar">*</span>
+            <textarea class="form-control" rows="2" style=" font-size:12px" placeholder="Enter Remark" tabindex="1"
+              minlength="10" maxlength="40" [(ngModel)]="installation.remarks" #regaddress="ngModel"
+              id="deleteremark"></textarea>
+          </div>
+        </div>
+        <span class="invalidmsg" id="msg_error_delete"></span>
+        <p style="    background-color: yellow;
+          /* padding-right: 20px; */
+          margin-right: 89px;
+          color: red; display: none;">Do You want to Delete !!&hellip;</p>
+      </div>
+
+
+      <!-- Modal footer -->
+      <div class="modal-footer text-center" style="background-color: #cfbaa8">
+        <button type="submit" class="btndel btn-primary mr-3" data-toggle="modal" data-dismiss="modal" tabindex="18">
+          No
+        </button>
+        <button type="reset" tabindex="19" class="btndel btn-danger " data-toggle="modal" (click)="deleteVendor()">
+          Yes
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!-- ------------------- Delete model End ----------------------- -->
+
+<div class="modal fade " id="SuccessModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+  aria-hidden="true">
+  <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+    <div class="modal-content box-shadow">
+      <div class="card border-0">
+        <div class="card-header py-1 pl-3 m-0" style="background-color: green;">
+          <p style="font-size:17px; font-weight:bold"> Success </p>
+        </div>
+        <div class="card-body bg-white text-dark">
+          <p> {{responseMessage}}</p>
+          <div class="text-right">
+            <button class="btn btn-sm btn-success" (click)="closemodal()" data-dismiss="modal">ok</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade " id="ErrorModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+  aria-hidden="true">
+  <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+    <div class="modal-content box-shadow">
+      <div class="card  border-0">
+        <div class="card-header  py-1 pl-3 m-0" style="background-color: red;">
+          <p style="font-size:17px; font-weight:bold"> Error </p>
+        </div>
+        <div class="card-body bg-white text-dark">
+          <p> {{responseMessage}}</p>
+          <div class="text-right">
+            <button class="btn btn-sm btn-success" data-dismiss="modal">ok</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

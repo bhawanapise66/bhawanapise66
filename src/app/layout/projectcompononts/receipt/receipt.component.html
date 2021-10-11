@@ -1,0 +1,155 @@
+<div class="container">
+    <div class="card container" id="vehicleReceipt" #epltable>
+        <div class="card-body mx-5">
+
+            <div class="row">
+                <div class="col-md-6" id="leftside">
+                    <!-- <img src="assets/images/indgps.png"> -->
+                    <img src="https://track.indtrack.com/indtrack/assets/images/indgps.png">
+                    <h6 id="heading">Technology Pvt Ltd. </h6>
+                    <h6 style="font-weight: bold;margin-bottom: 0;margin-top: 10px;">CIN: U72900MH2012PTC236363</h6>
+                </div>
+
+                <div class="col-md-6 " id="rightside" style="border-left: 1px solid gray;padding-left:15px">
+                    <h6 id="contact">Contact Details</h6>
+                    <hr class="new mt-0">
+                    <p id="address">Sales: 8888883573, 0712-2646115<br>
+                        Customer Care: 8380000445 Time: 10:30 AM-06:30 PM<br>
+                        help@indtrack.com | sales@indtrack.com</p>
+                </div>
+            </div>
+            <hr style="margin-top: 10px;border-top:1px solid gray;">
+            <div class="row">
+                <div class="col-md-12">
+                    <h5 style="font-weight: bold;text-decoration:underline;text-align:center">TO WHOMSOEVER IT MAY
+                        CONCERN </h5><br>
+                </div>
+            </div>
+            <form novalidate #receiptForm="ngForm">
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <span style="text-indent: 40px;">This is to certify that Mr./ Mrs.</span>
+                        <span id="nameid" class="d-none">{{receipt.custName}}</span>
+
+                        <input id="nameinput" type="text" name="name" style=" width:30%;padding-left:50px "
+                            [(ngModel)]="receipt.custName" #custnameCtrl="ngModel" required>
+                        <small *ngIf="submitted && custnameCtrl.invalid"><b class="text-danger" >Please Enter Customer Name</b></small>
+
+
+
+                        <p style="text-indent: 40px;">
+                            Following vehicle is fitted with GPS & GPRS Based Vehicle Tracking device, which can be
+                            track on
+                            www.indtrack.com with given credential. Details of vehicle and VTS Device are as follows.
+                        </p>
+                    </div>
+                </div>
+
+                <table>
+
+                    <tr>
+                        <td class="tlabel">Vehicle No. <span style="float: right;"> : </span> </td>
+                        <td><input type="text" [(ngModel)]="receipt.vehicleNo" class="form-control form-control-sm"
+                                #vehicleNoCtrl="ngModel" name="vehicleNo" required>
+                            <small *ngIf="vehicleNoCtrl.invalid && submitted"> <b class="text-danger">Please
+                                    Enter Vehicle No.</b> </small>
+                            <p class="d-none pl-3">{{receipt.vehicleNo}}</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tlabel">Chassis No. <span style="float: right;"> : </span> </td>
+                        <td><input type="text" [(ngModel)]="receipt.chassisNo" class="form-control form-control-sm"
+                                #chassisNoCtrl="ngModel" name="chassisNo" required>
+                            <small *ngIf="chassisNoCtrl.invalid && submitted"><b class="text-danger"> Please
+                                    Enter Chassis No.</b> </small>
+                            <p class="d-none pl-3">{{receipt.chassisNo}}</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tlabel">Engine No. <span style="float: right;"> : </span> </td>
+                        <td><input type="text" [(ngModel)]="receipt.EngineNo" class="form-control form-control-sm"
+                                #engineNoCtrl="ngModel" name="engineNo" required>
+                            <small *ngIf="engineNoCtrl.invalid && submitted"><b class="text-danger"> Please
+                                    Enter Engine No.</b> </small>
+                            <p class="d-none pl-3">{{receipt.EngineNo}}</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tlabel">Vehicle Make & Model <span style="float: right;"> : </span> </td>
+                        <td><input type="text" [(ngModel)]="receipt.vehicleMM" class="form-control form-control-sm"
+                                #vehicleCtrl="ngModel" name="vehicleMakenModel" required>
+                            <small *ngIf="vehicleCtrl.invalid && submitted"><b class="text-danger"> Please
+                                    Enter Vehicle Make And Model </b></small>
+                            <p class="d-none pl-3">{{receipt.vehicleMM}}</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tlabel">VTS Mobile No. <span style="float: right;"> : </span> </td>
+                        <td><input type="text" [(ngModel)]="receipt.VTSMobileNo" class="form-control form-control-sm"
+                                #vtsmobileCtrl="ngModel" name="vtsmobile" required>
+                            <small *ngIf="vtsmobileCtrl.invalid && submitted"><b class="text-danger"> Please
+                                    Enter VTS Mobile No. </b></small>
+                            <p class="d-none pl-3">{{receipt.VTSMobileNo}}</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tlabel">Installation Date <span style="float: right;"> : </span> </td>
+                        <td><input type="text" id="installationDate" class="form-control form-control-sm datepicker"
+                                name="installDate" required>
+
+                            <p class="d-none pl-3" id="showInstallationDate"></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tlabel">Renewal Date <span style="float: right;"> : </span> </td>
+                        <td><input type="text" id="renewalDate" class="form-control form-control-sm datepicker"
+                                name="renewDate" required>
+
+                            <p class="d-none pl-3" id="showRenewalDate"></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tlabel">Aadhar No <span style="float: right;"> : </span> </td>
+                        <td><input type="text" [(ngModel)]="receipt.AadharCard" class="form-control form-control-sm"
+                                #adharCtrl="ngModel" name="aadharNo" required>
+                            <small *ngIf="adharCtrl.invalid && submitted"> <b class="text-danger">Please
+                                    Enter Aadhar No.</b> </small>
+                            <p class="d-none pl-3">{{receipt.vehicleNo}}</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="tlabel">Customer Mobile No <span style="float: right;"> : </span> </td>
+                        <td><input type="text" [(ngModel)]="receipt.CustMobileNo" class="form-control form-control-sm"
+                                #custmobileCtrl="ngModel" name="custMobileNo" required>
+                            <small *ngIf="custmobileCtrl.invalid && submitted"> <b class="text-danger">Please
+                                    Enter Customer Mobile Number </b></small>
+                            <p class="d-none pl-3">{{receipt.vehicleNo}}</p>
+                        </td>
+                    </tr>
+
+                </table>
+
+
+            </form>
+
+            <p style="text-align: center;">Thanking You! </p>
+
+            <p><b>Date : </b>{{currentdate | date:'dd-MMM-yyyy'}}</p>
+
+            <p style="text-align: center;"> This is system generated certificate </p>
+
+            <hr>
+            <p style="text-align: center;">Reg. Off.:("INDTRACK TECHNOLOGY PVT LTD.").693,"Chinar", Opp. Lamba Tyres,
+                Near Tuli
+                Inox Mall, Model
+                Town, NAGPUR-440014 | Maharashtra | INDIA, www.Indtrack.com</p>
+
+            <div id="buttons" class="text-center">
+                <button class="btn btn-sm btn-info m-3" (click)=printReceipt()>print pdf</button>
+            </div>
+
+        </div>
+    </div>
+
+</div>

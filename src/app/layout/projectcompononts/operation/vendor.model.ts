@@ -1,0 +1,40 @@
+export class Vendor {
+    remarks: string='';
+    vendorid: string='';
+    vendorcode: string='';
+    vendorname: string='';
+    vendorshortcode: any='';
+    vendorregaddress1: string='';
+    vendorregaddress2: string='';
+    vendorcity: string='';
+    vendorstate: string='';
+    vendorcin: string='';
+    vendorgst: string='';
+    vendorpan: string='';
+    vendorcitypincode: string='';
+    vendorofficialemailid: string='';
+    vendorlandlineno: string='';
+    vendorcontactperson: string='';
+    vendorcontpersemailid: string='';
+    vendorbankifsc1: string='';
+    vendorbankaddress1: string='';
+    vendorcontactmobile: string='';
+    vendorstatusflag: any='';
+    loginname: any='';
+    loginpasswd: any='';
+    vendorbankaccountno1: string='';
+    vendorbankname1: string='';
+    vendorbankcityname1: string='';
+    vendorbankaccountno2: string='';
+    vendorbankname2: string='';
+    vendorbankifsc2: string='';
+    vendorbankaddress2: string='';
+    vendorbankcityname2: string='';
+    vendortypeid: string='';
+    vendorbankbranchname1: string='';
+    vendorbankbranchname2: string='';
+    vendorlandmark: string='';
+    vendorarea: string='';
+    devicetypeid: any[]=[];
+
+}

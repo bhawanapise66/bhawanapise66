@@ -1,0 +1,640 @@
+.modal-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 0.4rem 0.5rem;
+    border-bottom: 1px solid #dee2e6;
+    border-top-left-radius: .3rem;
+    border-top-right-radius: .3rem;
+}
+/* .indlabel{
+    font-size:13px; color: black; 
+} */
+.modelcolor{
+    background-color: #010C2A;
+} 
+/* .indsubhead{
+    color:rgb(6, 48, 107); font-size: 16px; font-weight: bold;
+} */
+
+
+.modal-content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    pointer-events: auto;
+    background-color: #1c2756;
+    background-clip: padding-box;
+    border: 1px solid rgba(0,0,0,0.2);
+    border-radius: .3rem;
+    outline: 0;
+    color: white;
+} 
+.modal-content2{
+    background-color: white;
+}
+
+
+.modal-title {
+    font-weight: bold;
+    margin-bottom: 0;
+    line-height: 1.0;
+    color: #cfdfff;
+    font-size: 19px;
+    
+}
+.modal-footer{
+    height: 52px;
+    background: #CBD2F1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 0.3rem;
+    border-top: 0px solid #dee2e6;
+    border-bottom-right-radius: .3rem;
+    border-bottom-left-radius: .3rem;
+    background-color: #CBD2F1;
+    
+}
+
+
+
+
+
+.indlabel {
+    font-size: 13px;
+    font-weight: bold;
+    color: white;
+}
+
+
+
+.indsubhead {
+    color: #0aff6c;
+    font-size: 16px;
+    font-weight: bold;
+}
+.trheight{
+    height: 5px;
+}
+tr{
+    height: 10px;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+th{
+   
+    text-transform: uppercase;
+    font-weight: bold !important;
+    padding: 0.50rem 0.8rem;
+    font-size: 10px;
+    color: #fff;
+    border: 0 none;
+    
+}
+thead{
+    text-transform: uppercase;
+    font-weight: bold !important;
+    background: #051873;
+    height: 100px;;
+}
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgb(114 150 222 / 50%);
+}
+.fa-spin-hover:hover {
+    animation: fa-spin 2s infinite linear;
+    cursor: pointer !important;
+}
+.fa-2x {
+    font-size: 1.7em;
+}
+@-webkit-keyframes fa-spin{0%{-webkit-transform:rotate(0deg);transform:rotate(0deg)}100%{-webkit-transform:rotate(359deg);transform:rotate(359deg)}}
+@keyframes fa-spin{0%{-webkit-transform:rotate(0deg);transform:rotate(0deg)}100%{-webkit-transform:rotate(359deg);transform:rotate(359deg)}}
+
+.statustd{
+    text-transform: uppercase;
+}
+.iconhover{
+    
+    cursor: pointer !important;
+}
+td{
+    color: #cfdefc;
+    vertical-align: middle;
+    font-size: 11px;
+    padding: 0.50rem 0.2rem;
+}
+
+
+/* ---------------------------------------------------------------------------------------- */
+
+.step-wizard {
+    display: inline-block;
+    position: relative;
+    width: 85%;
+}
+
+.step-wizard .progress {
+    /* position: absolute;
+    top: 14px;
+    left: 9.5%;
+    width: 75%; */
+    position: absolute;
+    top: -39px;
+    left: 31.5%;
+    width: 48%;
+}
+.step-wizard .progressbar.empty {
+    opacity: 1;
+    width: 100%;
+    background-color: #d0d0d0;
+}
+
+.step-wizard .progressbar {
+    position: absolute;
+    background-color: #c3d5f9;
+    opacity: 1;
+    height: 3px;
+    width: 0%;
+    -webkit-transition: width 0.6s ease;
+    -o-transition: width 0.6s ease;
+    transition: width 0.6s ease;
+}
+
+.step-wizard .progressbar {
+    position: absolute;
+    background-color: #5b92ff;
+    opacity: 1;
+    height: 3px;
+    width: 0%;
+    -webkit-transition: width 0.6s ease;
+    -o-transition: width 0.6s ease;
+    transition: width 0.6s ease;
+}
+
+
+.mandatory{
+    color: rgb(255, 96, 96);
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.btn {
+    height: 25px !important;
+}
+searchbtn{
+    height: 30px !important;
+}
+.btndel{
+    margin-bottom: 4px; 
+}
+
+.step-wizard ul {
+    /* position: absolute;
+    width: 100%;
+    list-style-type: none;
+    padding: 0;
+    left: -2%; */
+    position: absolute;
+
+    width: 74%;
+    list-style-type: none;
+    left: 16%;
+    top: -14%;
+}
+@media only screen and (max-width: 1200px) {
+    .step-wizard li {
+      width: 24%;
+    }
+  }
+  
+  @media only screen and (max-width: 375px) {
+    .step-wizard li {
+      width: 22%;
+    }
+  }
+  
+  li.done button div.step {
+      font-size: 0;
+  }
+.step-wizard li {
+    display: inline-block;
+    text-align: center;
+    width: 24%;
+}
+
+.step-wizard li > button {
+    background: none;
+    border: none;
+    display: block;
+    width: 100%;
+    color: #777;
+    position: relative;
+    text-align: center;
+}
+
+.step-wizard li.done .step {
+    color: white;
+    background-color: #5b92ff;
+    border-color: #ffffff;
+}
+li.done button div.step {
+    font-size: 0;
+}
+
+.step-wizard li .step {
+    text-align: center;
+    display: inline-block;
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 30px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 3px solid;
+    border-color: #d0d0d0;
+    background: #ffffff;
+    -webkit-transition: background-color 0.6s ease, border-color 0.6s ease;
+    -o-transition: background-color 0.6s ease, border-color 0.6s ease;
+    transition: background-color 0.6s ease, border-color 0.6s ease;
+}
+
+li.done button div.step::before {
+    content: '\2713\0020';
+    font-size: 18px;
+}
+
+.step-wizard li.done .title {
+    color: #03f554;
+}
+.step-wizard li .title {
+    text-decoration: underline;
+    width: 100%;
+    font-size: 12px;
+    padding-top: 10px;
+    font-weight: bold;
+    color: #c3d5f9;
+    transition: color 0.6s ease;
+}
+
+.step-wizard li {
+    display: inline-block;
+    text-align: center;
+    width: 24%;
+}
+
+
+.step-wizard li > button {
+    background: none;
+    border: none;
+    display: block;
+    width: 100%;
+    color: #777;
+    position: relative;
+    text-align: center;
+}
+.step-wizard li.active .step {
+    border-color: #5b92ff;
+    color: #5b92ff;
+}
+
+.step-wizard li .step {
+    text-align: center;
+    display: inline-block;
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 30px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 3px solid;
+    border-color: #d0d0d0;
+    background: #ffffff;
+    -webkit-transition: background-color 0.6s ease, border-color 0.6s ease;
+    -o-transition: background-color 0.6s ease, border-color 0.6s ease;
+    transition: background-color 0.6s ease, border-color 0.6s ease;
+}
+
+.step-wizard li.active .title {
+    /* border-color: #5b92ff;
+    color: #5b92ff; */
+    border-color: #fee000 ;
+    color:#ffe100;
+}
+
+.step-wizard li .title {
+    text-decoration: underline;
+    width: 100%;
+    padding-top: 10px;
+    color:#c3d5f9;
+    -webkit-transition: color 0.6s ease;
+    -o-transition: color 0.6s ease;
+    transition: color 0.6s ease;
+}
+
+.step-wizard {
+    display: inline-block;
+    position: relative;
+    width: 85%;
+}
+
+#container {
+    position: relative;
+    text-align: center;
+    max-width: 100%;
+    box-sizing: border-box;
+    margin: 0 auto;
+}
+
+.buttons {
+    position: absolute;
+    top: 180px;
+    text-align: center;
+    width: 100%;
+}
+.btn-wizard {
+    width: 50px;
+    height: 30px;
+}
+
+
+.progressbar {
+    position: absolute;
+    background-color: #3B5343;
+    opacity: 1;
+    height: 3px;
+    border: 1px solid e5e6e6;
+    width: 0%;
+    -webkit-transition: width 0.6s ease;
+    -o-transition: width 0.6s ease;
+    transition: width 0.6s ease;
+  }
+  .progress {
+    display: flex;
+    height: 3px;
+}
+
+
+
+.invalidmsg{
+    color:rgb(255, 96, 96);
+    font-size: 10px;
+    font-weight: bold;
+}
+.form-control, .custom-select, .easy-autocomplete input {
+     background-color: #c3d5f9;
+    border: 1px solid rgba(0,0,0,0.05); 
+    
+    color: #05145a;
+    font-size: 10px;
+}
+.form-group label {
+    font-size: 10px;
+    color: white;
+    font-weight: bold;
+}
+
+.stepsection{
+    
+    display: block;
+    position: relative;
+    margin: 0;
+    padding: 0;
+    border: 0px solid #CCC;
+    overflow: hidden;
+    clear: both;
+    display: block;
+    margin-top: 20px;
+    padding: 10px;
+    font: normal 12px Verdana, Arial, Helvetica, sans-serif;
+    color: #5A5655;
+    background-color: #051042;;
+ 
+    
+
+    text-align: left;
+    overflow: visible;
+    z-index: 88;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    clear: both;
+    height:132px;
+}
+.StepTitle{
+    line-height: 2.5;
+    color: #00ffff;
+    font-weight: bold !important; 
+    font-size: 13px;
+}
+
+.buttonFinish {
+    display: block;
+    float: right;
+    margin: 5px 10px 0 3px;
+    text-decoration: none;
+    text-align: center;
+    font: bold 13px Verdana, Arial, Helveti, sans-serif;
+   
+    color: #FFF;
+    outline-style: none;
+    background-color: #1FC96E;
+    border: 1px solid #1FC96E;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+}
+.buttonNext {
+    display: block;
+    float: right;
+    margin: 5px 3px 0 3px;
+    text-decoration: none;
+    text-align: center;
+    margin-right: 90px;
+    font: bold 13px Verdana, Arial, Helvetica, sans-serif;
+  
+    color: #FFF;
+    outline-style: none;
+    background-color: #1FC96E;
+    /* background-color: #17a2b8; */
+    border: 1px solid #1FC96E;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+}
+
+.buttonPrevious {
+    display: block;
+    float: right;
+    margin: 5px 3px 0 3px;
+    text-decoration: none;
+    text-align: center;
+    font: bold 13px Verdana, Arial, Helvetica, sans-serif;
+   
+    color: #FFF;
+    outline-style: none;
+    /* background-color: #17a2b8; */
+    background-color: #cebb2e;
+    border: 1px solid #cebb2e;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+}
+
+.buttonDisabled {
+    color: #F8F8F8 !important;
+    background-color: #72ccda !important;
+    border: 1px solid #CCCCCC !important;
+    cursor: text;
+}
+
+/* .actionBar
+ {
+    display: block;
+    position: relative;
+    clear: both;
+    margin: 0px 0 0 0;
+    /* border: 1px solid #CCC; 
+    padding: 0;
+    /* color: #5A5655; */
+    /* background-color: #c3d5f9; */
+    /* height: 39px; */
+    /* text-align: left; 
+    overflow: auto;
+    z-index: 88;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    left: 0;
+} */
+.material-icons {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.caplable{
+    /*text-transform: uppercase; */  
+    color:rgb(204 213 255) !important;
+}
+.maxminwarn{
+    color: #ff5578;
+    font-weight: bold;
+}
+.viewheading{
+    color: #be0707;
+    font-weight: bold !important;
+}
+.indlabel{
+    font-weight: bold !important;
+    text-transform: uppercase;  
+}
+.detailsfont{
+    font-size: 14px;
+    color: #a90000;
+}
+.btn-primaryyel{
+    color: #212529;
+    background-color: #f6c53b;
+    border-color: #000000;
+}
+.searchicon{
+    color: black;
+    height: 26px;
+    font-weight: bold;
+    background-color: #a8c5ff;;
+}
+.apendbtn{
+    background-color: #33469b;
+    border-color: #33469b;
+    cursor: pointer;
+    
+}
+
+/* .hidestep {
+    display: none;
+}
+
+.showstep {
+    display: block;
+} ------------------------------------------------------------ */
+
+body{
+    background: #f2f2f2;
+    font-family: 'Open Sans', sans-serif;
+  }
+  
+  .search {
+    width: 100%;
+    position: relative;
+    display: flex;
+  }
+  
+  .searchTerm {
+    width: 100%;
+    border: 3px solid #00ed54;
+    border-right: none;
+    padding: 5px;
+    height: 26.5px;
+    border-radius: 5px 0 0 5px;
+    outline: none;
+    color: #9DBFAF;
+  }
+ 
+  
+  .searchTerm:focus{
+    color: #00B4CC;
+  }
+  
+  .searchButton {
+    width:40px;
+    height: 26.5px;
+    border: 1px solid #00ed54;
+    background: #00ed54;
+    text-align: center;
+    color: #fff;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    font-size: 20px;
+  }
+  
+  /*Resize the wrap to see the search bar change!*/
+  .wrap{
+    width: 30%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+
+
+  /* Table Header css start  */
+
+  thead{
+    text-transform: uppercase;
+    font-weight: bold !important;
+    background: #051873;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgb(114 150 222 / 50%);
+}
+
+.table tbody tr td {
+    color: #cbddff;
+    vertical-align: middle;
+    padding: 0.3rem 0.5rem;
+}
+table{
+    font-size: 11px;
+}
+  /* Table header css end  */
+
+  .viewlable{
+    text-transform: initial;
+    color: rgb(198 255 146) !important;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.viewheading{
+    color: #3c5340;
+    font-weight: bold;
+    font-size: 14px;
+}

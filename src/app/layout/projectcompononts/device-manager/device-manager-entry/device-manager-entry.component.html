@@ -1,0 +1,103 @@
+<div class="modal fade" id="exampleModal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header py-1">
+        <h5 class="modal-title" id="exampleModalLabel">Send Commmand</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" style="color: white">×</span>
+        </button>
+      </div>
+
+
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div id="container">
+            <div class="step-wizardentry" role="navigation">
+              <div class="stepsection m-5">
+                <span class="invalidmsg" id="msg_mainmessageentry"></span>
+                <div id="step-14" class="stepsdiv">
+
+                  <div class="form-group row">
+                    <div class="col-lg-4 col-md-4">
+                      <label class="indlabel">Device Type </label>
+                      <span class="mandatory">*</span>
+                      <ngx-select-dropdown tabindex="0" id="devicetypeid" [multiple]="false" [(ngModel)]="deviceTypeObj"
+                        [config]="config" [options]="deviceTypeList" (change)="getVendorList()"></ngx-select-dropdown>
+                    </div>
+
+                    <div class="col-lg-4 col-md-4">
+                      <label class="indlabel">Vendor </label>
+                      <span class="mandatory">*</span>
+                      <ngx-select-dropdown tabindex="1" id="vendorid" [multiple]="false" [(ngModel)]="vendorObj"
+                        [config]="config" [options]="vendorList" (change)="getDeviceModelList()">
+                      </ngx-select-dropdown>
+                    </div>
+
+                    <div class="col-lg-4 col-md-4">
+                      <label class="indlabel">Device Model </label>
+                      <span class="mandatory">*</span>
+                      <ngx-select-dropdown tabindex="2" id="devicemodelid" [multiple]="false"
+                        [(ngModel)]="deviceModelObj" [config]="config" [options]="deviceModelList"
+                        (change)="getImeiList()">
+                      </ngx-select-dropdown>
+                    </div>
+
+
+                  </div>
+
+                  <br>
+
+                  <div class="form-group row">
+                    <div class="col-lg-4 col-md-4">
+                      <label class="indlabel">Device IMEI </label>
+                      <span class="mandatory">*</span>
+                      <ngx-select-dropdown tabindex="0" id="imeiid" [multiple]="true" [(ngModel)]="imeiObj"
+                        [config]="config" [options]="imeiList" ></ngx-select-dropdown>
+                    </div>
+
+                    <div class="col-lg-4 col-md-4">
+                      <label class="indlabel">Command </label>
+                      <span class="mandatory">*</span>
+                      <ngx-select-dropdown tabindex="1" id="commandid" [multiple]="false" [(ngModel)]="commandObj"
+                        [config]="config" [options]="commandList">
+                      </ngx-select-dropdown>
+                    </div>
+
+
+
+                  </div>
+
+                  <br> <br><br> <br> <br><br>
+
+                  <span class="invalidmsg" id="msg_devicetypeError"></span>
+                  <span class="invalidmsg" id="msg_VendorError"></span>
+                  <span class="invalidmsg" id="msg_DeviceModelError"></span>
+                  <span class="invalidmsg" id="msg_imeiError"></span>
+                  <span class="invalidmsg" id="msg_commandError"></span>
+
+
+                </div>
+
+
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Modal footer -->
+
+      <div class="modal-footer" id="modelfooter">
+
+        <div class="actionBar">
+          <button id="save" class="mb-2 btn btn-wizard btn-sm btn-success buttonFinish" (click)="SendCommand()">
+            Send Command </button>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

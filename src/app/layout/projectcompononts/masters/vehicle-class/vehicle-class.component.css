@@ -1,0 +1,30 @@
+tbody td{
+    font-size: 11px;
+    padding-top: 5px;
+    padding-bottom: 0;     
+}
+th{
+    font-size: 12px;
+}
+
+.tableheading{
+    background-color: #051873;
+}
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgb(114 150 222 / 50%);
+}
+
+.form-control {
+    background-color:#c3d5f9 ;
+    color: black;
+}
+
+.mastermodal{
+    background-color: #1c2756;
+    color: white;
+}
+
+label{
+    font-size: 11px ;
+    font-weight: bold;
+}

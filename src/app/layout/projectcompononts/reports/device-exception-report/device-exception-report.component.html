@@ -1,0 +1,209 @@
+<body>
+
+
+  <div class="container-fluid mt-3" id="inputform" style="max-width: 800px;">
+    <fieldset>
+      <legend class="text-dark text-uppercase">Device Exception Report</legend>
+
+      <div class="row justify-content-center">
+        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 " *ngIf="isCustomer==false">
+          <div class="form-group">
+
+            <label class="indlabel">Vendor :</label>
+            <ng-select [items]="vendorList" [multiple]="true" bindLabel="param2" style="background-color: lightgray;"
+              placeholder="Select Vendor" [closeOnSelect]="false" bindValue="param1" [(ngModel)]="vendorIdArr"
+              (close)="getVehicleList();">
+              <ng-template ng-optgroup-tmp let-item="item" let-item$="item$" let-index="index">
+                <input id="item-{{index}}" type="checkbox" [ngModel]="item$.selected" /> Select All
+              </ng-template>
+            </ng-select>
+            <span class="text-danger validation"
+              *ngIf="(vendorIdArr.length==0) && submitted">
+              Select Vendor</span>
+          </div>
+        </div>
+
+        <div class="col-xl-4 col-lg-4 col-sm-6">
+          <div class="form-group">
+            <label class="indlabel">Device : </label>
+            <ng-select [items]="deviceList" [multiple]="true" bindLabel="param2" groupBy="param7"
+              [selectableGroup]="true" placeholder="Select Device" [selectableGroupAsModel]="false"
+              [closeOnSelect]="false" bindValue="param1" [(ngModel)]="deviceIdArr" >
+              <ng-template ng-optgroup-tmp let-item="item" let-item$="item$" let-index="index">
+                <input id="item-{{index}}" type="checkbox" [ngModel]="item$.selected" /> Select All
+              </ng-template>
+            </ng-select>
+
+            <span class="text-danger validation" *ngIf="(this.deviceIdArr.length == 0) && submitted">
+              Select Device</span>
+          </div>
+        </div>
+
+        <div class="col-xl-4 col-lg-4 col-sm-6">
+          <div class="form-group">
+            <label class="indlabel">Select date :</label>
+            <div id="daterangeadminux2" class="form-control pr-0">
+              <span id="daterange"></span> <i
+                class="material-icons avatar avatar-26 text-template-primary cal-icon float-right">event</i>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+      <div class="text-right pt-1 pb-0">
+        <button type="submit" class="btn btn-sm btn-success mr-1" (click)="onSubmit()">Submit</button>
+        <button type="reset" class="btn btn-sm btn-secondary">Reset </button>
+      </div>
+
+    </fieldset>
+
+
+  </div>
+
+  <div class="container-fluid" id="outputform" style="display: none;">
+    <h6 class="text-dark text-center mt-3 text-uppercase"> <b>Device Exception Report</b></h6>
+    <span style="float:left;position:relative;top:30;cursor: pointer;" (click)="gotoBack();"> <img
+        src="assets/images/Back-Button.png" width="30" height="30" style="margin-top: -65px;"></span>
+    <br>
+
+
+
+
+    <div class="card mt-2 mb-2">
+      <div class="card-header text-bold">
+        <b> Details</b><span style="float: right;"><b> Current Time :</b> {{d | date:'dd-MMM-yyyy hh:mm'}}</span>
+      </div>
+      <div class="card-body">
+
+        <!--    ---------------        Table Header Start=------------------------    -->
+
+        <!-- <div class="card text-center">
+          <div id="chartdiv" style="width: 600px;height: 300px;font-size: 9px;"></div>
+        </div> -->
+
+        <div class="row mb-3">
+          <div class="col-12 col-sm-12 col-md text-md-left align-self-center pr-0">
+            <ul class="nav  justify-sm-content-center  justify-content-left">
+              <li class="nav-item ">
+                <div class="input-group" style="max-width: 250px;">
+                  <input type="text" placeholder="Search" id="searchData" class="form-control searchicon"
+                    id="searchData" [(ngModel)]="filter" aria-label="Amount (to the nearest dollar)">
+                  <div class="input-group-append">
+                    <button class="btn  apendbtn" (click)="searchdata()" [disabled]="filter==''">
+                      <i style="color: #00ed54; margin-top: -15px;" class="fa fa-search"></i>
+                    </button>
+                  </div>
+                </div>
+              </li>
+              <li class="nav-item mx-3">
+                <i class="fa fa-refresh fa-2x fa-spin-hover" style="font-size: 17px;
+                padding-top: 4px;color: #00fff3;" (click)="Refreshfunction()"></i>
+              </li>
+            </ul>
+          </div>
+
+          <div class="col-12 col-sm-12 col-md-auto text-right text-md-end pl-0">
+            <ul class="nav justify-content-center justify-lg-content-end  justify-sm-content-center">
+              <li class="nav-item mx-2">
+                <img style="cursor: pointer; height: 20px; margin-top: 3px;" (click)="createPdf()" ngbTooltip="PDF"
+                  src="assets/images/PDFicon.png">
+              </li>
+              <li class="nav-item mx-2">
+                <img style="cursor: pointer;" (click)="createExcel()" ngbTooltip="Excel"
+                  src="assets/images/excellogo.png">
+              </li>
+              <li class="nav-item mx-3">
+                <span style="display: inline;">Show Rows : </span> <select class="form-control p-1"
+                  (change)="changeItemsPerPage()" [(ngModel)]="itemsPerPage" style="width: 44px;display: inline;">
+                  <option>5</option>
+                  <option>10</option>
+                  <option>20</option>
+                  <option>50</option>
+                </select>
+              </li>
+              <li class="nav-item ">
+                <span>Total Records : {{viewcount}} of {{totalcount}}</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+
+        <!-- ---------------------  Table header end  ------------------------------ -->
+
+
+        <div class="table-responsive">
+          <table class="table table-striped text-center">
+            <tr style="font-weight: bold;color: rgb(105, 28, 28);">
+              <th rowspan="2">#</th>
+              <th rowspan="2"> Vendor Name </th>
+              <th rowspan="2"> Vehicle No. </th>
+              <th rowspan="2"> Device IMEI No. </th>
+              <th rowspan="2"> Network / Mobile No 1 </th>
+              <th rowspan="2"> Network / Mobile No 2 </th>
+              <th colspan="2"> Polling Count </th>
+            </tr>
+            <tr style="font-weight: bold;color: rgb(105, 28, 28);">
+              <th>Live </th>
+              <th> History</th>
+            </tr>
+            <!-- <tr class="trheight" *ngFor="let item of reportList"> -->
+            <tr
+              *ngFor="let item of responseGridArray | orderBy: key : reverse | paginate : {itemsPerPage:itemsPerPage,currentPage:pageNumber,totalItems:totalcount}"
+              class="trheight" style="color: black; ">
+              <td>{{item.rowNumber}}</td>
+              <td>{{item.param8}}</td>
+              <td>{{item.param11}} </td>
+              <td>{{item.param7}}</td>
+              <td>{{item.param14}} / {{item.param12}}</td>
+              <td>{{item.param15}} / {{item.param13}} </td>
+              <td style="font-weight: bold;" [ngStyle]="{backgroundColor:getcolor(item.param4) }">{{item.param4}}</td>
+              <td style="font-weight: bold;" [ngStyle]="{backgroundColor:getcolor(item.param5) }">{{item.param5}}</td>
+            </tr>
+            <tfoot id="foot" class="box-footer clearfix">
+              <tr>
+                <td colspan="12">
+                  <pagination-controls style=" float: right;color: black;" (pageChange)="pageChange($event)">
+                  </pagination-controls>
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+          <div class="float-right mt-3">
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <!-- <error modal -->
+
+  <div class="modal fade " id="ErrorModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+    aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+      <div class="modal-content box-shadow">
+        <div class="card  border-0">
+          <div class="card-header  py-1 pl-3 m-0" style="background-color: red;">
+            <p style="font-size:17px; font-weight:bold"> Error </p>
+          </div>
+          <div class="card-body bg-white text-dark">
+            <p> {{errorMessage}}</p>
+            <div class="text-right">
+              <button class="btn btn-sm btn-success" data-dismiss="modal">ok</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- error modal -->
+
+
+
+</body>

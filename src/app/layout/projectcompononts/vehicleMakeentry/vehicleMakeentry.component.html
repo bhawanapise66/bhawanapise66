@@ -1,0 +1,126 @@
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"  data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Vehicla Make Master Entry</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="clear();">
+                  <span aria-hidden="true" style="color: white">×</span>
+              </button>
+          </div>
+          <div class="modal-body">
+            <div class="container-fluid">
+            <div  id="container">
+              <div class="step-wizardentry" role="navigation">
+                <!-- <div class="progress">
+                  <div class="progressbar empty"></div>
+                  <div id="progentry" class="progressbar"></div>
+                </div> -->
+                <ul>
+                  <li class="active">
+                    <button id="stepentry1">
+                      <div class="step">1</div>
+                      <div class="title">Basic Details</div>
+                    </button>
+                  </li>
+                
+                </ul>
+          
+                <div class="stepsection" >
+                  <span class="invalidmsg" id="msg_mainmessageentry"></span>
+                  <div id="stepentry-14" class="stepsdiv">
+                    <!-- <span class="StepTitle">Step 1: Basic Details</span> -->
+                    <div class="form-group row">
+
+
+                      <div class="col-lg-4 col-md-4">
+                        <label class="indlabel"> Vehicle Make Name</label>
+                        <span class="mandatory">*</span>
+                        <input  type="text" class="form-control" placeholder="Enter Vehicle Make Name." tabindex="1" minlength="3"
+                          maxlength="50" [(ngModel)]="makenameText" #makename="ngModel" style=" font-size:12px" required
+                           ondrop="return false;" onpaste="return false;" id="makenameentry">
+                        <div class="invalidmsg" *ngIf="makename.errors?.minlength">
+                          Vehicle Make Name required at least minimum 3 characters & maximum 50 characters long.
+                        </div>
+                        <!-- <span class="invalidmsg" id="msg_makename"></span> -->
+                      </div>
+                     <div class="col-lg-6 col-md-6">
+                        <label class="indlabel">Description </label>
+                        <span class="mandatory">*</span>
+                        <textarea class="form-control" rows="2" style=" font-size:12px" placeholder="Enter Description."
+                          tabindex="2" minlength="5" name="subDivisionDesc" [(ngModel)]="descriptionText"
+                          #subDivisionDescCtrl="ngModel" id="descriptionnameentry"></textarea>
+                        <div class="invalidmsg" *ngIf="subDivisionDescCtrl.errors?.minlength">
+                          Description must be at least of 5 characters long.
+                        </div>
+                        <!-- <span class="invalidmsg" id="msg_regaddentry"></span> -->
+                      </div>
+
+                     </div><br><br><br><br><br><br><br>
+                     <!-- < class="invalidmsg" id="msg_descriptionname"></span> -->
+                      <span class="invalidmsg" id="msg_errorentry3"></span>
+                  </div>
+                 
+                  
+                 
+              <!-- <div class="actionBar">
+                <button  id="saveentry" class="mb-2 btn btn-sm btn-success buttonFinish"  (click)="vensavebtn()"><i class="material-icons">save</i></button>
+                <button  id="nextentry" class="mb-2 btn btn-sm btn-primary buttonNext"><i class="material-icons">arrow_forward</i></button>
+                
+                <button  id="preventry" class="mb-2 btn btn-sm btn-primary buttonPrevious" onclick="validateAllSteps(4,4)"><i class="material-icons">arrow_back</i></button>
+                </div> -->
+          
+              </div>
+            </div>  
+          </div>
+          </div>
+          </div>
+           <!-- Modal footer -->
+
+       <div class="modal-footer" id="modelfooter">
+
+          <div class="actionBar">
+              <button  id="saveentry" class="mb-2 btn btn-sm btn-success buttonFinish"  (click)="vensavebtn1()"><i class="material-icons">save</i></button>
+                           </div>
+    </div> 
+        
+      </div>
+  </div>
+</div>
+
+<div class="modal fade " id="successmodelentry" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+aria-hidden="true">
+<div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+  <div class="modal-content box-shadow">
+    <div class="card border-0">
+      <div class="card-header  py-1 pl-3 m-0" style="background-color: green;">
+        <p style="font-size:17px; font-weight:bold"> Success </p>
+      </div>
+      <div class="card-body bg-white text-dark">
+       <p> {{datafromrespo}}</p>
+        <div class="text-right">
+          <button class="btn btn-sm btn-success" data-dismiss="modal">ok</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="modal fade " id="errormodelentry" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+aria-hidden="true">
+<div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+  <div class="modal-content box-shadow">
+    <div class="card border-0">
+      <div class="card-header  py-1 pl-3 m-0" style="background-color: red;">
+        <p style="font-size:17px; font-weight:bold"> Error </p>
+      </div>
+      <div class="card-body bg-white text-dark">
+       <p> {{datafromrespo}}</p>
+        <div class="text-right">
+          <button class="btn btn-sm btn-success" data-dismiss="modal">ok</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

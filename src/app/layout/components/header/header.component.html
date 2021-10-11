@@ -1,0 +1,500 @@
+<div class="row">
+    <!-- Header starts -->
+    <nav class="navbar col-12  navbar-expand p-0 pl-2">
+        <span class="material-icons text-warning" [routerLink]="[landingPage]">home</span>
+
+        <span style="font-size: 10px ; margin-left: 10px;font-weight: bold; color: #5b92ff;width: 200px;">Logged In As :
+            {{WelcomeName}}</span>
+
+        <div *ngIf="logoVisible" id="indLogo" class="p-1"
+            style="border-radius: 10%;">
+            <img src="assets/images/indlogo.png" height="30px" width="30px">
+        </div>
+        <button class="menu-btn btn btn-link btn-sm" type="button" id="menutoggle" (click)="toggleSidebar()">
+            <i class="material-icons">menu</i>
+        </button>
+
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent" style="width: 0px;">
+            <div id="notify" style="font-size: smaller; font-weight: bold; width: 70%;">
+                <marquee style="color: #0c671f;"> {{notificationData}}</marquee>
+            </div>
+
+            <!-- search starts -->
+
+            <!-- icons dropwdowns starts -->
+            <ul class="navbar-nav ml-auto" id="navbaritems">
+                <li class="nav-item px-1" style="display: none;">
+                    <div style="cursor: pointer;">
+                        <a href="https://play.google.com/store/apps/details?id=com.indtrack.railwaypersonaltracking"
+                            target="_blank" ngbTooltip="download Moile App">
+                            <img src="assets\report icons\playstore.png" style="height:22px;    margin-top: 5px;">
+                        </a>
+
+                    </div>
+                </li>
+
+
+                <li class="nav-item text-template-primary px-1">
+                    <p class="small text-right" style="cursor: pointer;margin-top: 8px;"
+                        (click)=openChangePasswordModal()>Change Passsword</p>
+                </li>
+                <!-- profile dropdown-->
+
+                <li class="nav-item dropdown d-sm-flex px-1" id="listitem1">
+                    <a style="height: 34px;" (click)="toggleAlert()" ngbTooltip="Alerts" placement="bottom"
+                        class="nav-link dropdown-toggle active m-0" href="#" id="navbarDropdown3" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <!-- <span class="counter bg-danger" style="z-index: 3;position: absolute;
+                        right: 24px;">{{alertsCount}}</span> -->
+                        <span class="material-icons" style="color:#f80325;font-size: 22px;"> notifications_active
+                        </span>
+                        <small
+                            style="position: absolute;top: 1px;left: 16px;color: white; text-align: center;font-size:8px;width: 20px ;">{{alertsCount}}</small>
+                        <!-- <span class="counter-small bg-danger" style="position: absolute;    left: 42px;
+                        top: 7px;;"></span> -->
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right w-300 pt-0 overflow-hidden"
+                        aria-labelledby="navbarDropdown3" id="visibilityPanel">
+                        <div class="position-relative text-center rounded">
+                            <div class="background h-150">
+                                <img src="assets/img/background-part.png" alt="" style="height: 150px;">
+                            </div>
+                            <div class="pt-3 pb-3 text-white">
+                                <h5 class="font-weight-normal">Alerts</h5>
+                                <br>
+                            </div>
+                        </div>
+                        <div class="row mx-0 top-30 z-2">
+                            <div class="col-12 mx-auto">
+                                <ul class="list-group list-group-flush bg-white rounded shadow overflow-hidden mb-3">
+                                    <li class="list-group-item p-0" *ngFor="let item of alertBellArray">
+                                        <div class="row p-2" style="cursor: pointer;"
+                                            (click)="getAlertDetailsParam(item)">
+                                            <div class="col">
+                                                <h6 class="text-success font-weight-normal mb-0 p-2">{{item.rowNumber}}
+                                                    &nbsp;&nbsp;{{item.param2}} </h6>
+                                                <!-- <a href="" class="text-danger">Remove</a> -->
+                                            </div>
+                                            <div class="col-auto align-self-center">
+                                                <input type="text" class="form-control py-0 form-control-sm w-35"
+                                                    style="font-weight:bold;  " placeholder="" value="{{item.param3}}"
+                                                    disabled>
+                                            </div>
+                                        </div>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="nav-item pl-1">
+                    <a id="btnGroupDrop1" type="button" placement="left" ngbTooltip="Logout"
+                        class="nav-link btn logoutbtn m-0" (click)="logout();">
+                        <i class="fa fa-sign-out" style="margin-top: -4px; font-size: 20px; color: #0c671f"
+                            aria-hidden="true"></i>
+                    </a>
+                </li>
+
+            </ul>   
+
+
+
+            <!-- icons dropwdowns starts -->
+        </div>
+
+    </nav>
+    <!-- Header ends -->
+
+</div>
+
+
+
+
+
+
+<!-- alert modal -->
+
+<!--CHange Password  Modal -->
+<div class="modal fade " id="ChangePasswordModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-md modal-dialog-centered " role="document">
+        <div class="modal-content box-shadow">
+            <div class="card shadow-sm border-0">
+                <div class="card-header text-center" style="background-color: #4ca2ec;">
+                    <b> Change Password</b>
+                    <button type="button" class="close" data-dismiss="modal" (click)="clearForm()">&times;</button>
+                </div>
+                <div class="card-body">
+                    <div class="container p-3" style="background-color: #bbd4e9;">
+                        <div class="text-center">
+                            <h5> {{WelcomeName}}</h5>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4"></div>
+
+                            <div class="col-md-5 pl-0">
+                                <label class=" indlabel text-center" for="pasword"> Enter Old Password </label>
+                                <input type="password" id="currentPassWord" name="password"
+                                    class="form-control form-control-sm" style="width: 180px;"
+                                    [(ngModel)]="oldpassword">
+                                <span class="invalidmsg" id="oldPasswordError"></span>
+
+                            </div>
+
+                            <div class="col-md-3">
+                                <button style="position:absolute;top: 23px;" class="btn btn-sm btn-warning mt-2"
+                                    (click)="generateOTP()"> Get OTP </button>
+                            </div>
+                        </div>
+
+
+
+                        <span class="invalidmsg text-center" id="passError"></span>
+
+                        <div class="text-center">
+                        </div>
+
+
+                        <br>
+                        <table class="">
+                            <tr>
+                                <th class="text-right"> <label class="indlabel" for="newPasword"> Enter OTP :
+                                    </label>
+                                </th>
+                                <td> <input type="text" id="otpfield" name="otp" style="width: 180px;"
+                                        class="form-control form-control-sm" [(ngModel)]="otp">
+                                    <span class="invalidmsg" id="otpError"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="text-right"> <label class="indlabel" for="newPasword"> New Password :
+                                    </label>
+                                </th>
+                                <td> <input type="password" id="newPassWord" name="password" style="width: 180px;"
+                                        class="form-control form-control-sm" [(ngModel)]="newpassword">
+                                    <span class="invalidmsg" id="npassError"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="text-right"> <label class="indlabel" for="cNewPasword"> Confirm Password :
+                                    </label>
+                                </th>
+                                <td> <input type="password" id="cnewPassWord" name="password" style="width: 180px;"
+                                        class="form-control form-control-sm" [(ngModel)]="cnewpassword">
+                                    <span class="invalidmsg" id="cnpassError"></span>
+                                </td>
+                            </tr>
+                        </table>
+                        <div class="text-center mt-2">
+                            <button class="btn btn-sm btn-success" (click)="changepassword()">Change
+                                Password</button>
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+
+
+<!-- response modals -->
+<div class="modal fade " id="otpSendModal" style="z-index: 10431;" data-backdrop="static" data-keyboard="false"
+    tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm dialogModal modal-dialog-centered" role="document">
+        <div class="modal-content box-shadow">
+            <div class="card text-center border-0">
+                <div class="card-header bg-success m-0 p-0">
+                    <h5>Success</h5>
+                </div>
+                <div class="card-body bg-white">
+                    {{responseMessage}}
+                    <div class="text-right">
+                        <button class="btn btn-sm btn-success" data-dismiss="modal">ok</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade " id="FailedModal" style="z-index: 10421;" data-backdrop="static" data-keyboard="false"
+    tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm dialogModal modal-dialog-centered" role="document">
+        <div class="modal-content box-shadow">
+            <div class="card text-center border-0">
+                <div class="card-header bg-warning m-0 p-0">
+                    <h5>Failed</h5>
+                </div>
+                <div class="card-body bg-white">
+                    {{responseMessage}}
+                    <!-- some error occured .try again later -->
+                    <div class="text-right pt-3">
+                        <button class="btn btn-sm btn-success" data-dismiss="modal">ok</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<div class="modal" id="AlertModalId">
+    <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+        <div class="modal-content" style="background-color:rgb(55 55 149) ; border: 2px solid white;">
+            <div class="modal-header" style="color: #cfdfff;font-size: 15px;">
+                <h6 class="modal-title" id="exampleModalLabel">
+                    <b>{{alertdescName}} </b>
+                </h6>
+                <span *ngIf="showDetails==true" style="margin-left: 30%;"> Alert Counts : {{alertdesecCount}} </span>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" style="color: white">×</span>
+                </button>
+                <!-- <button type="button" class="close" aria-label="Close" (click)="resetLocationButton()">
+                    <span aria-hidden="true" style="color: white">×</span>
+                </button> -->
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+
+                    <!-- modal header -->
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="input-group">
+                                <input type="text" placeholder="Search"
+                                    class="form-control form-control-sm tableInput searchicon" style="height: 25px;"
+                                    [(ngModel)]="filter" aria-label="Amount (to the nearest dollar)">
+                                <div class="input-group-append">
+                                    <button class="btn apendbtn" (click)="searchdata()"
+                                        style="background-color: #33469b;height: 25px;"><i
+                                            style="color: #00ed54; margin-top: -15px;" class="fa fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-md-1">
+                            <i class="fa fa-refresh fa-2x fa-spin-hover" style="font-size: 17px;
+                        padding-top: 4px;
+                        color: #00fff3;" (click)="Refreshfunction()"></i>
+                        </div>
+                        <div class="col-md-4"></div>
+
+
+                        <div class="col-md-1">
+                            <!-- <i class="fa fa-file-pdf-o" style="font-size:26.5px;color:rgb(250, 77, 77)"></i>&nbsp; -->
+                            <img style="float: right; cursor: pointer; height: 20px; margin-top: 3px;"
+                                (click)="createPDF()" ngbTooltip="PDF" src="assets/images/PDFicon.png">
+                            <img style="cursor: pointer;" (click)="exportToExcel()" ngbTooltip="Excel"
+                                src="assets/images/excellogo.png">
+                        </div>
+
+                        <div class="col-md-2">
+                            <span
+                                style="padding-top: 5px; font-size: 12px;font-weight: bold;color: white;display: inline-block;">Show
+                                Rows: </span>
+
+                            <div style="padding-top: 2px; width: 45px;display: inline-block;">
+                                <select class="form-control tableInput p-0" data-live-search="true" tabindex="1"
+                                    id="selectrow" (change)="LiveAlertOnBellDetails()" aria-hidden="true"
+                                    [(ngModel)]="itemsPerPage" style="font-size:12px;height: 25px; width: 40px;">
+                                    <option value="5">5</option>
+                                    <option value="10">10</option>
+                                    <option value="20">20</option>
+                                    <option value="50">50</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2"
+                            style="text-align: right; font-size: 12px;font-weight: bold; padding-top: 5px;color: white;">
+                            <span> Total Records&nbsp;:&nbsp;{{alertViewCount}}&nbsp;of&nbsp;{{alertdesecCount}}
+                            </span>
+                        </div>
+
+
+
+                    </div>
+                    <!-- modal header -->
+                    <table class="table table-striped" style="background-color: #1c2756;">
+                        <thead>
+                            <tr class="text-center">
+                                <th> #</th>
+                                <th>Device Number </th>
+                                <th> Alert Time </th>
+                                <th> Speed </th>
+                                <th> Ignition </th>
+                                <th> Battery Status </th>
+                                <th> Location</th>
+                                <th> Track</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="text-center trheight"
+                                *ngFor="let items of alertTable | filter:filter | orderBy: key : !reverse | paginate : {itemsPerPage:itemsPerPage,currentPage:pageNumber,totalItems:alertdesecCount} ;">
+                                <td class="p-1">{{items.rowNumber}}</td>
+                                <td class="p-1"> {{items.param8}} </td>
+                                <td class="p-1"> {{items.param4}} </td>
+                                <td class="p-1"> {{items.param16}} </td>
+                                <td class="p-1"> {{items.param19}} </td>
+                                <td class="p-1"> {{items.param20}} </td>
+                                <td class="p-0">
+                                    <div id="beforeapi{{items.rowNumber+alerttype}}">
+                                        <div (click)="viewLocation(items,alerttype)" class="btn btn-sm btn-link p-0">
+                                            <small> View Location</small>
+                                        </div>
+                                    </div>
+
+                                    <div id="afterapi{{items.rowNumber+alerttype}}" style="color: white;">
+                                        {{locaAddress[items.rowNumber]}}
+                                    </div>
+                                </td>
+                                <!-- <td class="p-0" *ngIf="alerttype!='Emergency'">
+                                    geofence
+                                </td> -->
+
+                                <td class="text-warning"> <span class="material-icons"
+                                        style="font-size: 15px;cursor: pointer;" (click)="OpenMap(items)"> location_on
+                                    </span>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot id="foot" class="box-footer clearfix bg-light">
+                            <tr>
+                                <td colspan="12">
+                                    <pagination-controls style=" float: right;color: black;"
+                                        (pageChange)="changePageNumber($event)">
+                                    </pagination-controls>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!-- Alert Modal End -->
+
+
+
+<div class="modal" id="headermapmodal" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content"
+            style="  border: 2px solid #aad3df; margin-left: -25%;    margin-left: -49%; width: 210%;">
+
+            <!-- Modal Header -->
+            <div style="    z-index: 1;">
+                <div class="modalClose" data-dismiss="modal"> <span class="dot">
+                        <h6>&times;</h6>
+                    </span></div>
+
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body" style="width: 102.5%; padding-bottom:0.5% !important;   padding: 2%;">
+
+                <div style="   position: absolute;  left: 92%;   top: 2%; z-index: 1;">
+                    <!-- <div class="switcherButton" data-toggle="collapse" data-target="#collapseExample"> <span class="dot" style="      background-color: #f7f7f7;  height: 30px;
+                  width: 30px;">
+                <h6><i class='fas fa-layer-group' style="    font-size: 14px;   color: black;"></i></h6>
+              </span></div> -->
+                    <div class="collapse" id="headerswitcher"
+                        style="background-color: white; padding: 7px;width: 234px;margin-left: -98%;margin-top: -22%;">
+
+                        <div><span (click)="CloseCollapse()" class="customCircle">&times;</span></div>
+                        <div class="cardheader">Map Types</div>
+
+                        <div>
+                            <div class="iconDiv" id="3">
+                                <img src="assets/mapimages/mapstyleicon/osm.JPG" (click)="MapSwitch('3')"
+                                    class="mapicons">
+                                <h6 class="imagelabel">OSM</h6>
+
+                            </div>
+                            <div class="iconDiv" id="0">
+                                <img src="assets/mapimages/mapstyleicon/bingmap.JPG" class="mapicons"
+                                    (click)="MapSwitch('0')">
+                                <h6 class="imagelabel">Bing</h6>
+
+                            </div>
+                            <div class="iconDiv" id="1">
+                                <img src="assets/mapimages/mapstyleicon/binghybrid.JPG" class="mapicons"
+                                    (click)="MapSwitch('1')">
+                                <h6 class="imagelabel">Satellite</h6>
+
+                            </div>
+                            <div class="iconDiv" id="2">
+                                <img src="assets/mapimages/mapstyleicon/tomtom.JPG" class="mapicons"
+                                    (click)="MapSwitch('2')">
+                                <h6 class="imagelabel" id="">Tom Tom</h6>
+                            </div>
+                            <div class="iconDiv" id="4">
+                                <img src="assets/mapimages/mapstyleicon/india.JPG" class="mapicons"
+                                    (click)="MapSwitch('4')">
+                                <h6 class="imagelabel">Indtrack</h6>
+                            </div>
+
+                        </div>
+
+
+
+
+                        <!-- map Detailss   ======  -->
+                        <div class="cardheader">Map Data</div>
+
+                        <div>
+                            <div class="iconDiv">
+                                <img src="assets/mapimages/mapstyleicon/polygonDataicon.jpg" class="mapicons">
+                                <h6 class="imagelabel">Polygon</h6>
+
+                            </div>
+                            <div class="iconDiv">
+                                <img src="assets/mapimages/mapstyleicon/routeDataicon.JPG" class="mapicons"
+                                    style="    height: 25px;">
+                                <h6 class="imagelabel">Route</h6>
+
+                            </div>
+                            <div class="iconDiv">
+                                <img src="assets/mapimages/mapstyleicon/poiDataicon2.JPG" class="mapicons"
+                                    style="    height: 25px;">
+                                <h6 class="imagelabel">POI</h6>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+
+                <div id="headermap" class="map" style="width:100%; margin-top: -30px;margin-left: -12px;"></div>
+
+                <div id="headerpopup" class="ol-popup">
+                    <a id="popupcloser" class="ol-popup-closer"></a>
+                    <div id="headerpopup-content"></div>
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+</div>

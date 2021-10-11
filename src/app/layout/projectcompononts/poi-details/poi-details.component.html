@@ -1,0 +1,510 @@
+<div class="content shadow-sm">
+  <!-- Main container starts -->
+  <div class="container-fluid main-container" id="main-container">
+    <div class="row">
+      <div class="col-12 col-md-12 col-lg-12 col-xl-12 mx-auto align-self-center">
+        <div class="card shadow-sm border-0 mb-4">
+          <div class="card-header" style="padding-top: 0; padding-bottom: 0">
+            <!-- <img src="../assets/img/logoicon.svg" alt="" class="w-50px mt-4"> -->
+            <h4 class="text-left m-1 fs15">POI
+              <span class="text-template-primary" style="color: #00ed54">Details</span>
+            </h4>
+          </div>
+
+          <div class="row">
+            <div class="col-12 col-md-12 col-lg-12">
+              <div class="card shadow-sm border-0 mb-4 h-100">
+                <div class="card-header p-0 border-0 bg-none">
+                  <button id="btnpoidetails" type="button" class="btn btn-sm btn-primaryyel ml-2 float-right"
+                    style="margin-right: 3%;" (click)="ShowPOIDetails()">
+                    POI Details
+                    <i class="material-icons md-18">navigate_next</i>
+
+                  </button>
+                  <button id="btnpoitype" type="button" class="btn btn-sm ml-2 float-right"
+                  style="margin-right: 3%; background-color: #b0ff59;" (click)="ShowPOIAssign()">
+                  POI Type
+                  <i class="material-icons md-18">navigate_next</i>
+                </button>
+                  <button id="btnpoitype" type="button" class="btn btn-sm ml-2 float-right"
+                    style="margin-right: 3%; background-color: #b0ff59;display: none;" data-toggle="modal"
+                    data-target="#exampleModal" (click)="refreshdata()">
+                    Add POI
+                    <i class="material-icons md-18">navigate_next</i>
+                  </button>
+                  <!-- <ul class="nav nav-tabs" role="tablist">
+                    <li class="nav-item">
+                      <a class="nav-link active" id="tabhome125-tab" data-toggle="tab" href="#tabhome125" role="tab"
+                        aria-controls="tabhome125" aria-selected="true">
+                        POI Details
+                      </a>
+                    </li>
+                    <li class="nav-item" >
+                      <a class="nav-link" id="tabhome225-tab" data-toggle="tab" href="#tabhome225" role="tab"
+                        aria-controls="tabhome225" aria-selected="false" (selectedTabChange)="mapopenfun(tabRef.selectedIndex)" >
+                        POI Type
+                      </a>
+                    </li>
+                  </ul> -->
+                </div>
+                <!--  <div class="card-header" style="padding-top: 0; padding-bottom: 0">
+                  <h4 class="text-left m-1" style="font-size: 19px;">POI
+                    <span class="text-template-primary" style="color: #00ed54; font-size: 19px;">Details</span>
+                  </h4>
+                </div> -->
+                <div class="card-body" style="padding: 5px;">
+
+                  <div id="tabhome125">
+                    <div class="card-body" style="padding: 0px;" id="liveblock" style="display: block;">
+                      <!-- <button type="button" class="btn btn-sm btn-primaryyel ml-2 float-right" style="margin-right: 89px;" data-toggle="modal" data-target="#exampleModal" >
+                          ADD NEW 
+                          <i class="material-icons md-18">navigate_next</i>                           
+                        </button> -->
+
+                      <div class="row justify-content-center">
+                        <div class="col-md-12 mx-auto">
+                          <div class="row">
+                            <div class="col-lg-12 col-md-12">
+                              <!-- <button type="button" class="btn btn-primary float-left" data-toggle="modal" >
+                              ADD NEW
+                            </button> -->
+
+                            </div>
+                          </div>
+
+                          <div class="container-fluid main-container" id="main-container">
+                            <!-- table header starts -->
+                            <div class="row  mx-1">
+                              <div class="col-12 col-sm-12 col-md text-md-left align-self-center pr-0">
+                                <ul class="nav  justify-sm-content-center  justify-content-left">
+                                  <li class="nav-item ">
+                                    <div class="input-group" style="max-width: 250px;">
+                                      <input type="text" placeholder="Search" id="searchData"
+                                        class="form-control form-control-sm searchicon" id="searchData"
+                                        [(ngModel)]="filter" aria-label="Amount (to the nearest dollar)">
+                                      <div class="input-group-append">
+                                        <button class="btn  apendbtn" (click)="searchdata()">
+                                          <i style="color: #00ed54; margin-top: -15px;" class="fa fa-search"></i>
+                                        </button>
+                                      </div>
+                                    </div>
+                                  </li>
+                                  <li class="nav-item mx-3">
+                                    <i class="fa fa-refresh fa-2x fa-spin-hover" style="font-size: 17px;
+                          padding-top: 4px;color: #00fff3;" (click)="Refreshfunction()"></i>
+                                  </li>
+
+                                </ul>
+                              </div>
+
+                              <div class="col-12 col-sm-12 col-md-auto text-right text-md-end pl-0">
+                                <ul
+                                  class="nav justify-content-center justify-lg-content-end  justify-sm-content-center">
+                                  <li class="nav-item mx-2">
+                                    <img style="cursor: pointer; height: 20px; margin-top: 3px;"
+                                      (click)="poiDetailsPDF()" ngbTooltip="PDF" src="assets/images/PDFicon.png">
+                                  </li>
+                                  <li class="nav-item mx-2">
+                                    <img style="cursor: pointer;" (click)="poiDetailsExcel()" ngbTooltip="Excel"
+                                      src="assets/images/excellogo.png">
+                                  </li>
+                                  <li class="nav-item mx-3">
+                                    <span style="display: inline;font-size:12px;font-weight :bold;">Show Rows : </span>
+                                    <select class="form-control form-control-sm p-0"
+                                      style="width: 44px;display: inline;" data-live-search="true" tabindex="1"
+                                      (change)="changeIemsPerPage()" aria-hidden="true" [(ngModel)]="itemsPerPage">
+                                      <option value="5">5</option>
+                                      <option value="10">10</option>
+                                      <option value="20">20</option>
+                                      <option value="50">50</option>
+                                    </select>
+                                  </li>
+                                  <li class="nav-item pt-1">
+                                    <span style="font-size:12px;font-weight: bold;">Total Records : {{viewCount}} of
+                                      {{totalCount}}</span>
+                                  </li>
+                                </ul>
+                              </div>
+                            </div>
+
+                            <!-- table header Ends -->
+                            <table class="table table-striped mt-3" style=" width: 100%; ">
+                              <thead>
+                                <tr>
+                                  <th>#</th>
+                                  <th>poi name</th>
+                                  <th>poi creation date</th>
+                                  <th>Assigned to</th>
+                                  <th>co ordinates</th>
+                                  <th class="text-center">Track</th>
+                                  <th>Action </th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr
+                                  *ngFor="let item of poidetailsmaintbl | filter:filter | orderBy: key : !reverse | paginate : {itemsPerPage:itemsPerPage,currentPage:pageNumber,totalItems:totalCount} ;">
+                                  <td>{{item.rowNumber}} </td>
+                                  <td>{{item.param2}} </td>
+                                  <td>{{item.param9}} </td>
+                                  <td>{{item.param3}} </td>
+                                  <td>{{item.param6}} , {{item.param7}} </td>
+                                  <td class="text-warning text-center"> <span class="material-icons"> location_on
+                                    </span></td>
+                                  <td>
+                                    <span class="material-icons  text-warning mx-2 " style="cursor: pointer;"
+                                      (click)="setData(item)">
+                                      edit
+                                    </span>
+
+                                    <span class="material-icons text-danger mx-2 " style="cursor: pointer;"
+                                      data-toggle="modal" data-target="#deleteModal" (click)="deleteData(item)">
+                                      delete
+                                    </span>
+
+                                  </td>
+                                </tr>
+                              </tbody>
+                              <tfoot id="foot" class="box-footer clearfix">
+                                <tr>
+                                  <td colspan="15">
+                                    <pagination-controls style=" float: right;" (pageChange)="pageChange($event)">
+                                    </pagination-controls>
+                                  </td>
+                                </tr>
+                              </tfoot>
+                            </table>
+
+
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div id="tabhome225">
+                    <!-- <app-poiassigntodevice></app-poiassigntodevice> -->
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mx-auto">
+                      <div class="row">
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                          <div class="form-group row">
+                            <div class="col-xl-2 col-lg-3 col-md-3 col-sm-6" style=" float:left;">
+                              <label class="indlabel">Customer</label>
+                              <span class="mandatory">*</span>
+                              <ngx-select-dropdown tabindex="0" id="customerentry2" [multiple]="false"
+                                [(ngModel)]="selectcustomerentry" [config]="config" [options]="ListOfCustomer"
+                                (change)="Vehiclelist()" style="font-size:11px; text-transform: capitalize; ">
+                              </ngx-select-dropdown>
+
+                              <input type="text" id="customerdummyupdate" [(ngModel)]="selectcustomerreturn"
+                                style="text-transform: capitalize;display: none;">
+                            </div>
+
+                            <div class="col-xl-2 col-lg-3 col-md-3 col-sm-6" style=" float:left;">
+                              <label class="indlabel">Device No.</label>
+                              <span class="mandatory">*</span>
+                              <ngx-select-dropdown tabindex="0" id="deviceentry2" [multiple]="false"
+                                [(ngModel)]="selectdeviceentry" [config]="config" [options]="ListOfVehicle"
+                                style="font-size:11px; text-transform: capitalize; " (change)="POIdetails();">
+                                <!-- (change)="Vehiclelist()" -->
+                              </ngx-select-dropdown>
+
+                              <input type="text" id="devicedummyupdate" [(ngModel)]="selectdevicereturn"
+                                style="text-transform: capitalize;display: none;">
+                            </div>
+
+                            <div class="col-xl-2 col-lg-21 col-md-2 col-sm-6" style=" margin-top: -1%;">
+                              <br><br>
+                              <input type="checkbox" [checked]="true" id="checkboxdata" class="showscheckbox"
+                                tabindex="8" [(ngModel)]="theCheckbox" data-md-icheck
+                                (change)="toggleEditable($event)" />&nbsp;&nbsp;<label class="indlabel">Create Also
+                                Route</label>
+
+                            </div>
+
+                            <div class="col-lg-2 col-md-2" id="routnm">
+                              <label class="indlabel">Route Name</label>
+
+                              <input type="text" class="form-control" placeholder="Route Name." tabindex="5"
+                                minlength="3" maxlength="50" [(ngModel)]="routenameText" #routenm="ngModel"
+                                style=" font-size:12px" required onkeypress="return onlyAlphabets(event);"
+                                ondrop="return false;" onpaste="return false;" id="routenameentryid">
+                              <div class="invalidmsg" *ngIf="routenm.errors?.minlength">
+                                Route name must be at least minimum 3 characters & maximum 50 characters long.
+                              </div>
+                            </div>
+
+                            <div class="col-lg-3 col-md-3" id="routdesc">
+                              <label class="indlabel">Route Description</label>
+
+                              <textarea class="form-control" rows="1" style=" font-size:12px"
+                                placeholder="Route Description." tabindex="6" minlength="5" maxlength="100"
+                                [(ngModel)]="routedescriptionText" #routedescri="ngModel"
+                                id="routedescriptionid"></textarea>
+                              <div class="invalidmsg" *ngIf="routedescri.errors?.minlength">
+                                Route Description must be at least minimum 5 characters & maximum 100 characters long.
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="form-group row">
+                            <div class="border-1 shadow-sm overflow-hidden h-100 col-md-4 col-lg-4 col-xl-4"
+                              id="devicetbl" style=" float:left; ">
+
+                              <div class="card-header">POI List</div>
+                              <div class="card-body " style=" height:343px ;overflow:scroll">
+                                <div class="input-group searchdevid">
+
+                                  <input type="text" placeholder="Search" id="searchDataDeviceID"
+                                    [(ngModel)]="filtersim" class="form-control searchicon"
+                                    aria-label="Amount (to the nearest dollar)" style=" width: 30%;">
+
+                                </div>
+                                <table class="table datatable display responsive w-100">
+                                  <thead>
+                                    <tr>
+                                      <th>#</th>
+                                      <th class="all">POI Name</th>
+                                      <th>Check</th>
+                                      <th class="all">Order</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr *ngFor="let item of poidetails | filter:filtersim">
+                                      <td>{{item.rowNumber}}</td>
+                                      <td>{{item.param2}}</td>
+                                      <td>
+                                        <input type="checkbox" name="" id="checkbox{{item.rowNumber}}"
+                                          [(ngModel)]="item.isSelecteddevicesummary" name="item1_name"
+                                          value="{{item.param1}}" data-md-icheck checked
+                                          (change)="changeCheck($event,item.rowNumber)">
+                                      </td> <!-- (change)="toggleEditableTable(item.rowNumber)" -->
+                                      <td id="input{{item.rowNumber}}">
+                                        <div>
+                                          <input class="inputNumber" type="number" id="ordertext{{item.rowNumber}}"
+                                            min="1" disabled>
+                                        </div>
+                                      </td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+
+                                <span class="invalidmsg" id="msg_AlertSelect"></span>
+
+                              </div>
+                            </div>
+
+                            <div class="col-md-2 col-lg-2 col-xl-2" style=" float:left;">&nbsp;</div>
+
+                            <div class="col-md-6 col-lg-6 col-xl-6" style=" float:left;">
+                              <div id="mapcontainer" style=" margin-top: 1px; margin-left: -32%;">
+                                <div id="map"></div>
+                                <div id="popup" class="ol-popup">
+                                  <a id="popup-closer" class="ol-popup-closer"></a>
+                                  <div id="popup-content"></div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="form-group row">
+                            <div class="col-md-12 col-lg-12 col-xl-12">
+                              <div id="saveentry" class=" col-lg-6 col-sm-6 col-md-6 mt-4"
+                                style=" float: left; padding-left: 46%; ">
+                                <button tabindex="4" class="mb-2 btn btn-sm btn-success" (click)="ADDRecord()">
+                                  Assign
+                                </button>
+                              </div>
+
+                              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6"
+                                style=" text-align: right; float: right;">
+                                <small class="text-danger" id="err_place"> </small>
+                              </div>
+                            </div>
+                          </div>
+
+                        </div>
+
+
+                      </div>
+
+                    </div>
+                  </div>
+
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ------------------- Delete model End ----------------------- -->
+<div class="modal fade " id="SuccessModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+  aria-hidden="true">
+  <div class="modal-dialog modal-sm dialogModal modal-dialog-centered" role="document">
+    <div class="modal-content box-shadow">
+      <div class="card text-center border-0">
+        <div class="card-header bg-success m-0 p-0">
+          <h5>Success</h5>
+        </div>
+        <div class="card-body bg-white">
+          {{datafromrespo}}
+          <div class="text-right">
+            <button class="btn btn-sm btn-success" data-dismiss="modal" (click)="closemodal()">ok</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade " id="ErrorModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+  aria-hidden="true">
+  <div class="modal-dialog modal-sm dialogModal modal-dialog-centered" role="document">
+    <div class="modal-content box-shadow">
+      <div class="card text-center border-0">
+        <div class="card-header bg-warning m-0 p-0">
+          <h5>Failed</h5>
+        </div>
+        <div class="card-body bg-white">
+          {{datafromrespo}}
+          <div class="text-right pt-3">
+            <button class="btn btn-sm btn-success" data-dismiss="modal" (click)="closemodal()">ok</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="text-left m-1" style="font-size: 15px;">POI
+          <span class="text-template-primary" style="color: #00ed54">Entry</span>
+        </h4>
+        <!-- <h5 class="modal-title" id="exampleModalLabel">Vehicle Class Master Entry</h5> -->
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" style="color: white">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div id="container">
+            <div class="step-wizardentry" role="navigation">
+
+
+              <div class="stepsection">
+                <span class="invalidmsg" id="msg_mainmessageentry"></span>
+                <div id="stepentry-14" class="stepsdiv">
+                  <div class="form-group row">
+
+                    <div class="col-lg-6 col-md-6 mb-3">
+                      <label class="indlabel"> POI Name</label>
+                      <span class="mandatory">*</span>
+                      <input type="text" class="form-control" tabindex="1" placeholder="Enter POI Name." minlength="3"
+                        maxlength="50" [(ngModel)]="poiName" #nameCtrl="ngModel" style=" font-size:12px" required
+                        ondrop="return false;" onpaste="return false;" id="name">
+                      <div class="invalidmsg" *ngIf="nameCtrl.errors?.minlength">
+                        Class Name should be at 3 to 50 characters long.
+                      </div>
+                    </div>
+
+                    <div class="col-lg-6 col-md-6 mb-3">
+                      <label class="indlabel"> POI Type</label>
+                      <span class="mandatory">*</span>
+                      <input type="text" class="form-control" tabindex="2" placeholder="Enter POI Type." minlength="3"
+                        maxlength="50" [(ngModel)]="poiType" #typeCtrl="ngModel" style=" font-size:12px" required
+                        ondrop="return false;" onpaste="return false;" id="type">
+                      <div class="invalidmsg" *ngIf="typeCtrl.errors?.minlength">
+                        Description required at least of 5 characters long.
+                      </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 mb-3">
+                      <label class="indlabel"> POI Range</label>
+                      <span class="mandatory">*</span>
+                      <input type="text" class="form-control" tabindex="3" placeholder="Enter POI Range." minlength="2"
+                        maxlength="7" [(ngModel)]="poiRange" #rangeCtrl="ngModel" style=" font-size:12px" required
+                        ondrop="return false;" onpaste="return false;" onkeypress="return  isNumberKey(event); "
+                        id="range">
+                      <!-- <div class="invalidmsg" *ngIf="rangeCtrl.errors?.minlength">
+                        Description required at least of 5 characters long.
+                      </div> -->
+                    </div>
+
+                    <div class="col-lg-6 col-md-6 mb-3">
+                      <label class="indlabel"> Lattitude</label>
+                      <span class="mandatory">*</span>
+                      <input type="text" class="form-control" tabindex="4" placeholder="Enter Lattitude." minlength="2"
+                        maxlength="7" [(ngModel)]="latt" #lattCtrl="ngModel" style=" font-size:12px" required
+                        ondrop="return false;" onpaste="return false;" id="lat"
+                        onkeypress=" return  isNumberKey(event);  ">
+                      <!-- <div class="invalidmsg" *ngIf="lattCtrl.errors?.minlength">
+                      </div> -->
+                    </div>
+
+
+                    <div class="col-lg-6 col-md-6 mb-3">
+                      <label class="indlabel"> Longitude</label>
+                      <span class="mandatory">*</span>
+                      <input type="text" class="form-control" tabindex="5" placeholder="Enter Longitude." minlength="2"
+                        maxlength="7" [(ngModel)]="longi" #longCtrl="ngModel" style=" font-size:12px" required
+                        ondrop="return false;" onpaste="return false;" onkeypress="return  isNumberKey(event); "
+                        id="long">
+                      <!-- <div class="invalidmsg" *ngIf="longCtrl.errors?.minlength">
+                        Description required at least of 5 characters long.
+                      </div> -->
+                    </div>
+                  </div>
+                  <span class="invalidmsg" id="msg_poi" style="position :absolute;bottom :10px"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Modal footer -->
+
+      <div class="modal-footer" id="modelfooter">
+
+        <div class="actionBar">
+          <button id="saveentry" class="mb-2 btn btn-sm btn-success buttonFinish" (click)="insertpoi()">
+            <i class="material-icons " *ngIf="updatevisible ==false">save</i>
+            <i class="material-icons" *ngIf="updatevisible ==true">edit</i>
+
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="deleteModal" role="dialog" data-backdrop="static" >
+  <div class="modal-dialog modal-sm modal-dialog-centered">
+    <div class="modal-content card">
+      <div class="card-header p-1">
+        <h6 class="text-warning"><b>Confirm Delete</b> <button type="button" class="close text-white"
+            data-dismiss="modal">&times;</button>
+        </h6>
+
+      </div>
+      <div class="card-body" style="background-color: #f0e8e9;">
+        <textarea class="form-control" id="deleteremark" [(ngModel)]="remark" style="font-size: 11px;"></textarea>
+        <small id="delete" class="text-danger"></small>
+      </div>
+      <div class="card-footer p-2" style="background-color: #cfbaa8;;">
+        <button type="button" class="btn btn-sm btn-danger float-right mx-2" (click)="deletePOI()">Delete</button>
+
+        <button type="button" class="btn btn-sm btn-secondary float-right mx-2" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

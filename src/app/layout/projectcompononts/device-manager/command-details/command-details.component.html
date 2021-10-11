@@ -1,0 +1,477 @@
+<!-- developer :Dhammadeep dahiwale
+date : 9-mar-2021 -->
+
+<div class="content shadow-sm">
+  <!-- main content starts -->
+
+  <div class="container-fluid main-container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card shadow-sm mb-3">
+
+
+          <div class="card-header p-3">
+            <h4 class="text-left" style="font-size: 15px;">Command
+              <span class="text-template-primary" style="color: #00ed54">Details</span>
+              <button type="button" class="btn btn-sm btn-primaryyel  float-right" data-toggle="modal"
+                data-target="#exampleModal" id="addnew">
+                ADD NEW
+                <i class="material-icons md-18">navigate_next</i>
+
+              </button>
+            </h4>
+          </div>
+
+
+          <div class="card-body">
+            <div class="container-fluid main-container" id="main-container">
+              <!--    ---------------        Table Header Start=------------------------    -->
+
+
+              <div class="row mb-3">
+                <div class="col-12 col-sm-12 col-md text-md-left align-self-center pr-0">
+                  <ul class="nav  justify-sm-content-center  justify-content-left">
+                    <li class="nav-item ">
+                      <div class="input-group" style="max-width: 250px;">
+                        <input type="text" placeholder="Search" id="searchData" class="form-control searchicon"
+                          id="searchData" [(ngModel)]="filter" aria-label="Amount (to the nearest dollar)">
+                        <div class="input-group-append">
+                          <button class="btn  apendbtn" (click)="searchdata()">
+                            <i style="color: #00ed54; margin-top: -15px;" class="fa fa-search"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </li>
+                    <li class="nav-item mx-3">
+                      <i class="fa fa-refresh fa-2x fa-spin-hover" style="font-size: 17px;
+                      padding-top: 4px;color: #00fff3;" (click)="Refreshfunction()"></i>
+                    </li>
+                  </ul>
+                </div>
+
+                <div class="col-12 col-sm-12 col-md-auto text-right text-md-end pl-0">
+                  <ul class="nav justify-content-center justify-lg-content-end  justify-sm-content-center">
+                    <li class="nav-item mx-2">
+                      <img style="cursor: pointer; height: 20px; margin-top: 3px;" (click)="createPDF()"
+                        ngbTooltip="PDF" src="assets/images/PDFicon.png">
+                    </li>
+                    <li class="nav-item mx-2">
+                      <img style="cursor: pointer;" (click)="exportToExcel()" ngbTooltip="Excel"
+                        src="assets/images/excellogo.png">
+                    </li>
+                    <li class="nav-item mx-3">
+                      <span style="display: inline;">Show Rows : </span> <select class="form-control p-1"
+                        [(ngModel)]="itemsPerPage" style="width: 44px;display: inline;" (change)="changeItemsPerPage()">
+                        <option>5</option>
+                        <option>10</option>
+                        <option>20</option>
+                        <option>50</option>
+                      </select>
+                    </li>
+                    <li class="nav-item ">
+                      <span>Total Records : {{viewcount}} of {{totalcount}}</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <!-- ---------------------  Table header end  ------------------------------ -->
+
+              <div class="table-responsive">
+                <table class="table table-hover table-striped">
+                  <thead>
+                    <tr role="row">
+                      <th><span (click)="sort('rowNumber')">#</span> </th>
+                      <th><span (click)="sort('param4')"> Device type</span></th>
+                      <th><span (click)="sort('param13')"> Vendor</span></th>
+                      <th><span (click)="sort('param10')"> Device model</span></th>
+                      <th><span (click)="sort('param17')">command Name</span></th>
+                      <th><span (click)="sort('param8')"> Description </span></th>
+
+
+                      <th style="background-color: #99c049;">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="grid">
+                    <tr
+                      *ngFor="let item of  commandDetails| filter:filter | orderBy: key : !reverse | paginate : {itemsPerPage:itemsPerPage,currentPage:pageNumber,totalItems:totalcount} ;"
+                      class="trheight">
+                      <td>{{item.rowNumber}}</td>
+                      <td>{{item.param13}}</td>
+                      <td>{{item.param12}}</td>
+                      <td>{{item.param11}}</td>
+                      <td>{{item.param5}}</td>
+                      <td>{{item.param7}}</td>
+
+
+                      <td [ngStyle]="{'background-color':item.altColor}" class="viewbtncss">
+                        <span class="iconhover" data-toggle="modal" data-target="#myModalwizard"
+                          (click)="setdata(item)">
+                          <i class="material-icons" style="color: #161e43">visibility</i>
+                        </span>
+                      </td>
+                    </tr>
+
+                  </tbody>
+                  <tfoot id="foot" class="box-footer clearfix">
+                    <tr>
+                      <td colspan="12">
+                        <pagination-controls style=" float: right;" (pageChange)="changePageNumber($event)">
+                        </pagination-controls>
+                      </td>
+                    </tr>
+                  </tfoot>
+
+                </table>
+
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- --------------------  view & Edit Modal start------------------------>
+
+<div class="modal fade " id="myModalwizard" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-lg ">
+    <div class="modal-content ">
+
+      <!-- Modal Header -->
+      <div class="modal-header modelcolor">
+        <!-- <h5 class="modal-title" id="vmd" style="display: block;">Command Details</h5> -->
+        <!-- <h5 class="modal-title" id="uvmd" style="display: none;">Update Command</h5> -->
+        <h4 class="text-left" id="vmd" style="font-size: 15px;">Command
+          <span class="text-template-primary" style="color: #00ed54">Detail</span>
+        </h4>
+        <h4 class="text-left" id="uvmd" style="font-size: 15px; display: none;">Command
+          <span class="text-template-primary" style="color: #00ed54">Update</span>
+        </h4>
+        <div style="float:right; margin-left: 63%;">
+          <button type="button" class=" btn btn-sm btn-secondary float-right ml-2 bg-warning" style="display: block;"
+            id="editbtn" ngbTooltip="Edit" (click)="editpageform()">
+
+            <i class="material-icons md-18">edit</i>
+          </button>
+          <button type="button" class=" btn btn-sm btn-danger float-right ml-2" id="deletebtn" ngbTooltip="Delete"
+            data-toggle="modal" data-target="#modeldelete">
+
+            <i class="material-icons md-18">delete</i>
+          </button>
+          <button type="button" class=" btn btn-sm btn-primary float-right ml-2" id="backdetailsbtn" ngbTooltip="Back"
+            style="display: none;" (click)="backdetailsbtn()">
+
+            <i class="material-icons md-18">arrow_back</i>
+          </button>
+        </div>
+        <button type="button" style="color: white" class="close" data-dismiss="modal"
+          (click)="clear();">&times;</button>
+      </div>
+
+
+      <!-- Modal body -->
+      <div class="modal-body " style="background-color: #CBD2F1">
+        <div class="container">
+          <div class="container-fluid">
+            <div id="container" style="display: none;">
+
+              <div class="stepsection">
+                <span class="invalidmsg" id="msg_mainmessage"></span>
+                <div id="step-14" class="stepsdiv">
+                  <div class="form-group row">
+                    <div class="col-lg-4 col-md-4">
+                      <label class="indlabel">Device Type</label>
+                      <span class="mandatory">*</span>
+                      <ngx-select-dropdown tabindex="0" id="devicetypeid" [multiple]="false" [(ngModel)]="deviceTypeObj"
+                        [config]="config" [options]="deviceTypeList" (change)="getVendorList()"></ngx-select-dropdown>
+
+                    </div>
+                    <div class="col-lg-4 col-md-4">
+                      <label class="indlabel">Vendor </label>
+                      <span class="mandatory">*</span>
+                      <ngx-select-dropdown tabindex="0" id="vendorId" [multiple]="false" [(ngModel)]="vendorObj"
+                        [config]="config" [options]="vendorList" (change)="getDeviceModelList()">
+                      </ngx-select-dropdown>
+
+                    </div>
+
+                    <div class="col-lg-4 col-md-4">
+                      <label class="indlabel">Device Model </label>
+                      <span class="mandatory">*</span>
+                      <ngx-select-dropdown tabindex="0" id="devicemodelid" [multiple]="false"
+                        [(ngModel)]="deviceModelObj" [config]="config" [options]="deviceModelList"
+                        (change)="getDeviceModelId()">
+                      </ngx-select-dropdown>
+
+                    </div>
+                  </div>
+
+
+                  <div class="form-group row">
+                    <div class="col-lg-4 col-md-4">
+                      <label class="indlabel">Command Name</label>
+                      <span class="mandatory">*</span>
+                      <input type="text" class="form-control" placeholder="Enter Command Name" tabindex="5" required
+                        minlength="4" maxlength="20" [(ngModel)]="commandName" #commandNameCtrl="ngModel" id="cNameId">
+                      <div class="invalidmsg" *ngIf="commandNameCtrl.errors?.minlength">
+                        Division Name must be at least minimum 4 characters & maximum 20 characters long.
+                      </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4">
+                      <label class="indlabel">Command </label>
+                      <span class="mandatory">*</span>
+                      <input type="text" class="form-control" placeholder="Enter Command" tabindex="5" required
+                        minlength="3" maxlength="20" [(ngModel)]="command" #commandCtrl="ngModel" id="commandId">
+                      <div class="invalidmsg" *ngIf="commandCtrl.errors?.minlength">
+                        command must be at least minimum 3 characters & maximum 30 characters long.
+                      </div>
+
+
+                    </div>
+
+                    <!-- </div>
+                      <div class="form-group row"> -->
+                    <div class="col-lg-4 col-md-4">
+                      <label class="indlabel">Command Desciption </label>
+                      <span class="mandatory">*</span>
+                      <textarea class="form-control" rows="2" style=" font-size:12px"
+                        placeholder="Enter Command Description" tabindex="12" minlength="3" maxlength="30"
+                        [(ngModel)]="commandDesc" #descCtrl="ngModel" id="descId"></textarea>
+                      <div class="invalidmsg" *ngIf="descCtrl.errors?.minlength">
+                        Description must be at least minimum 3 characters & maximum 30 characters long.
+                      </div>
+                      <span class="invalidmsg" id="msg_regaddentry"></span>
+                    </div>
+
+
+                  </div>
+
+                  <br><br>
+                  <span class="invalidmsg" id="msg_devicetypeErr"></span>
+                  <span class="invalidmsg" id="msg_vendorErr"></span>
+                  <span class="invalidmsg" id="msg_modelErr"></span>
+                  <span class="invalidmsg" id="msg_cmdNameErr"></span>
+                  <span class="invalidmsg" id="msg_cmdErr"></span>
+                  <span class="invalidmsg" id="msg_CmdDescErr"></span>
+                  <span class="invalidmsg" id="msg_remarkErr"></span>
+                </div>
+
+
+
+              </div>
+            </div>
+          </div>
+          <!-- --------------------------------------------- View Section ------------------------------------------- -->
+          <div class="">
+
+
+            <div id="vendordtls" class="row" style="background-color: #0e2145; border: 1px ridge #02108d;">
+              <div class="col-12 col-md-12 col-lg-12">
+
+                <div class="row" style="background-color: rgb(198 201 202);">
+                  <div class="col-12 col-md-12 col-lg-12">
+                    <div class="viewheading">Command Details</div>
+                  </div>
+                </div>
+                <br>
+
+                <div class="row">
+                  <div class="col-12 col-md-12 col-lg-12">
+                    <div class="col-4 col-md-4 col-lg-4" style=" float: left;">
+                      <span class="caplable">Device Type:</span>&nbsp;
+                      <span class="viewlable">{{deviceTypeName}}</span>
+                    </div>
+                    <div class="col-4 col-md-4 col-lg-4" style=" float: left;">
+                      <span class="caplable">Vendor:</span>&nbsp;
+                      <span class="viewlable">{{vendorName}}</span>
+                    </div>
+                    <div class="col-4 col-md-4 col-lg-4" style=" float: left;">
+                      <span class="caplable">Device Model:</span>&nbsp;
+                      <span class="viewlable">{{devicemodelName}}</span>
+                    </div>
+
+                  </div>
+
+                  <div class="col-12 col-md-12 col-lg-12 mt-4">
+                    <div class="col-4 col-md-4 col-lg-4" style=" float: left;">
+                      <span class="caplable">Command Name:</span>&nbsp;
+                      <span class="viewlable">{{commandName}}</span>
+                    </div>
+                    <div class="col-4 col-md-4 col-lg-4" style=" float: left;">
+                      <span class="caplable">Command :</span>&nbsp;
+                      <span class="viewlable">{{command}}</span>
+                    </div>
+                    <div class="col-4 col-md-4 col-lg-4" style=" float: left;">
+                      <span class="caplable">Description:</span>&nbsp;
+                      <span class="viewlable">{{commandDesc}}</span>
+                    </div>
+
+                  </div>
+                </div>
+
+                <br>
+                <br>
+
+              </div>
+              <!-- --------------------- View Section End ------------------------------ -->
+
+            </div>
+
+          </div>
+         
+        </div>
+        <!-- --------------------- View Section End ------------------------------ -->
+
+      </div>
+
+
+      <!-- Modal footer -->
+
+      <div class="modal-footer" style="display: none;" id="modelfooter">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-9">
+              <textarea class="form-control bg-white" rows="1" style=" font-size:12px;margin-left: 25px;" placeholder="Enter Remark."
+                tabindex="12" minlength="10" [(ngModel)]="remark" #remarkCtrl="ngModel" id="remarkId"></textarea>
+              <div class="invalidmsg" *ngIf="remarkCtrl.errors?.minlength" style="margin-left: 25px;">
+                Remark must be atleast of 10 characters long.
+              </div>
+              <span class="invalidmsg" id="msg_errorremark" style="margin-left: 0px;"></span>
+            </div>
+
+            <div class="col-md-3">
+              <div class="actionBar">
+                <button id="next" class="mb-2 btn btn-wizard btn-sm btn-success buttonFinish float-right"
+                  (click)="updateCommand()">
+                  <i class="material-icons">save</i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ------------------- view & Edit model close ------------------------ -->
+
+
+
+<div class="modal fade " id="SuccessModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+  aria-hidden="true">
+  <div class="modal-dialog modal-sm dialogModal" role="document">
+    <div class="modal-content box-shadow">
+      <div class="card text-center border-0">
+        <div class="card-header bg-success m-0 p-0">
+          <h5>Success</h5>
+        </div>
+        <div class="card-body bg-white">
+          {{responseMessage}} <div class="text-right">
+            <button class="btn btn-sm btn-success" data-dismiss="modal">ok</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade " id="ErrorModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+  aria-hidden="true">
+  <div class="modal-dialog modal-sm dialogModal" role="document">
+    <div class="modal-content box-shadow">
+      <div class="card text-center border-0">
+        <div class="card-header bg-warning m-0 p-0">
+          <h5>Failed</h5>
+        </div>
+        <div class="card-body bg-white">
+          {{responseMessage}}
+          <div class="text-right pt-3">
+            <button class="btn btn-sm btn-success" data-dismiss="modal">ok</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ------------------ Delete Model Start ------------------------>
+
+<!-- Delete Model-->
+<div class="modal fade" id="modeldelete" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-sm modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header" style="background-color: 	red;">
+        <h4 class="modal-title text-center" style="color: yellow">Are You Sure?</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body" style="background-color: #f0e8e9">
+
+        <div class="form-group row">
+
+
+          <div class="col-lg-12 col-md-12">
+            <label style="color: black">Remark</label>&nbsp;
+            <span class="indlabelstar">*</span>
+            <textarea class="form-control" rows="2" style=" font-size:12px" placeholder="Enter Remark" tabindex="1"
+              minlength="10" maxlength="40" [(ngModel)]="deleteText" #regaddress="ngModel" id="commandDelremark"
+              onchange=""></textarea>
+
+            <span class="text-danger" id="deleteremark"></span>
+          </div>
+
+        </div>
+        <span class="invalidmsg" id="msg_error_delete"></span>
+        <p style="    background-color: yellow;
+        /* padding-right: 20px; */
+        margin-right: 89px;
+        color: red; display: none;">Do You want to Delete !!&hellip;</p>
+      </div>
+
+
+      <!-- Modal footer -->
+      <div class="modal-footer text-center" style="background-color: #cfbaa8">
+        <button type="submit" class="btndel btn-primary mr-3" data-toggle="modal" data-dismiss="modal" tabindex="18">
+          No
+        </button>
+        <button type="reset" tabindex="19" class="btndel btn-danger" data-toggle="modal" (click)="deleteCommand()">
+          Yes
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!-- Delete Model -->
+
+<!-- ------------------- Delete model End ----------------------- -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<app-command-entry></app-command-entry>

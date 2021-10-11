@@ -1,0 +1,21 @@
+.btn-primaryyel{
+    color: #000;
+    background-color: #ffffff;
+    border-color: #000000;
+}
+
+.hplicon{
+    height: 40px; width: 40px;  margin-top: 5px;
+  margin-left: -1px; background-color: #f6c53b;
+}
+
+.wrap-fixed-top-right
+{
+  right: 20px;
+  top: 40px;
+}
+
+#tipWindow{
+  right: 20px;
+    top: 30px;
+}

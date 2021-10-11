@@ -1,0 +1,131 @@
+<div class="content shadow-sm">
+  <!-- Main container starts -->
+  <div class="container-fluid main-container" id="main-container">
+    <!-- <div class="row"> -->
+    <!-- <div class="col-12 col-md-12 col-lg-12 col-xl-12 mx-auto align-self-center"> -->
+    <div class="card shadow-sm border-0 mb-4 h-100">
+      <div class="card-header" style="padding-top: 0; padding-bottom: 0">
+        <h4 class="text-left m-1" style="font-size: 19px;">Live
+          <span class="text-template-primary" style="color: #00ed54; font-size: 19px;">Vehicle</span>
+        </h4>
+      </div>
+      <div class="card-body">
+
+
+
+        <!-- table header starts -->
+        <div class="row  mx-1">
+          <div class="col-12 col-sm-12 col-md text-md-left align-self-center pr-0">
+            <ul class="nav  justify-sm-content-center  justify-content-left">
+              <li class="nav-item ">
+                <div class="input-group" style="max-width: 250px;">
+                  <input type="text" placeholder="Search" id="searchData"
+                    class="form-control form-control-sm searchicon" id="searchData" [(ngModel)]="filter"
+                    aria-label="Amount (to the nearest dollar)">
+                  <div class="input-group-append">
+                    <button class="btn  apendbtn" (click)="searchdata()">
+                      <i style="color: #00ed54; margin-top: -15px;" class="fa fa-search"></i>
+                    </button>
+                  </div>
+                </div>
+              </li>
+              <li class="nav-item mx-3">
+                <i class="fa fa-refresh fa-2x fa-spin-hover" style="font-size: 17px;
+                padding-top: 4px;color: #00fff3;" (click)="Refreshfunction()"></i>
+              </li>
+            </ul>
+          </div>
+
+          <div class="col-12 col-sm-12 col-md-auto text-right text-md-end pl-0">
+            <ul class="nav justify-content-center justify-lg-content-end  justify-sm-content-center">
+              <li class="nav-item mx-2">
+                <img style="cursor: pointer; height: 20px; margin-top: 3px;" (click)="createPDF()" ngbTooltip="PDF"
+                  src="assets/images/PDFicon.png">
+              </li>
+              <li class="nav-item mx-2">
+                <img style="cursor: pointer;" (click)="exportToExcel()" ngbTooltip="Excel"
+                  src="assets/images/excellogo.png">
+              </li>
+              <li class="nav-item mx-3">
+                <span style="display: inline;font-size:12px;font-weight :bold;">Show Rows : </span> <select
+                  class="form-control form-control-sm p-0" style="width: 44px;display: inline;" data-live-search="true"
+                  tabindex="1" (change)="changeIemsPerPage()" aria-hidden="true" [(ngModel)]="itemsPerPage">
+                  <option value="5">5</option>
+                  <option value="10">10</option>
+                  <option value="20">20</option>
+                  <option value="50">50</option>
+                </select>
+              </li>
+              <li class="nav-item pt-1">
+                <span style="font-size:12px;font-weight: bold;">Total Records : {{viewCount}} of {{totalCount}}</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- table header Ends -->
+        <table class="table table-striped mt-3">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th style="width: 0;">Customer Name</th>
+              <th> Vehicle Number</th>
+              <th> Device Type</th>
+              <th> Vendor Name</th>
+              <th> IMEI Number</th>
+              <th> Mobile Number</th>
+              <th> Network</th>
+              <th> Polling Time</th>
+              <th> Speed</th>
+              <th> Ignition</th>
+              <th> port Number</th>
+              <th> Status</th>
+              <th> View Location</th>
+              <th>Track</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="let item of liveVehiclesData | filter:filter | orderBy: key : !reverse | paginate : {itemsPerPage:itemsPerPage,currentPage:pageNumber,totalItems:totalCount} ;">
+              <td>{{item.rowNumber}} </td>
+              <td>{{item.param22}} </td>
+              <td>{{item.param12}} </td>
+              <td>{{item.param65}} </td>
+              <td>{{item.param8}} </td>
+              <td>{{item.param3}} </td>
+              <td>{{item.param67}} <br>{{item.param68}} </td>
+              <td>{{item.param69}} <br>{{item.param70}} </td>
+              <td style="width: 85px;">{{item.param32}} </td>
+              <td>{{item.param37}} </td>
+              <td>{{item.param42}} </td>
+              <td>{{item.param66}} </td>
+              <td>{{item.param47}} </td>
+              <td>
+                {{item.param35}},{{item.param36}}<br>
+
+                <span class="text-center" id="btn{{item.rowNumber}}">
+
+                  <button class="btn btn-sm btn-link">
+                    <small (click)="getLocation(item.param35,item.param36,item.rowNumber)">view location</small> </button>
+                </span>
+
+                <span id="data{{item.rowNumber}}" style="display: none;">{{address}} </span>
+              </td>
+              <td class="text-warning"> <span class="material-icons" > location_on </span></td>
+
+            </tr>
+          </tbody>
+          <tfoot id="foot" class="box-footer clearfix">
+            <tr>
+              <td colspan="15">
+                <pagination-controls style=" float: right;" (pageChange)="pageChange($event)"></pagination-controls>
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+    <!-- </div> -->
+    <!-- </div> -->
+  </div>
+</div>

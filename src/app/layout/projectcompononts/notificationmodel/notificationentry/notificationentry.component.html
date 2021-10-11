@@ -1,0 +1,278 @@
+<!--
+Developer 	: Dhammadeep Dahiwale
+Date      	:12-22-2020
+Description : Tips Master Entry
+Modified By :  
+Update date : 
+-->
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Notification Entry</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)=" Clearfield()">
+          <span aria-hidden="true" style="color: white">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div id="container">
+            <div class="step-wizardentry" role="navigation">
+              <div class="progress" style="display: none;">
+                <div class="progressbar empty" style="display: none;"></div>
+                <div id="progentry" class="progressbar" style="display: none;"></div>
+              </div>
+              <ul style="display: none;">
+                <li class="active">
+                  <button id="stepentry1">
+                    <div class="step">1</div>
+                    <div class="title">Basic Details</div>
+                  </button>
+                </li>
+                <!-- <li class="">
+                    <button id="stepentry2">
+                      <div class="step">2</div>
+                      <div class="title">Contact Details</div>
+                    </button>
+                  </li> -->
+                <!-- <li class="">
+                  <button id="stepentry3">
+                    <div class="step">2</div>
+                    <div class="title">Contact Details</div>
+                  </button>
+                </li> -->
+                <!-- <li class="">
+                    <button id="stepentry4">
+                      <div class="step">4</div>
+                      <div class="title">Successful</div>
+                    </button>
+                  </li> -->
+              </ul>
+
+              <div class="stepsection">
+                <span class="invalidmsg" id="msg_mainmessageentry"></span>
+                <div id="step-14" class="stepsdiv">
+                  <!-- <span class="StepTitle">Step 1: Basic Details</span> -->
+
+                  <div class="form-group row">
+                  
+                    <div class="col-lg-6 col-md-6">
+                      <label class="indlabel">Title</label>
+                       <span class="mandatory">*</span> 
+                      <input type="text" name="title" class="form-control" [(ngModel)]="titlemodel" id="title_id"
+                      tabindex="1" placeholder="Enter Title" required minlength="4" maxlength="30" #titleCtrl="ngModel" >
+                      <div class="invalidmsg" *ngIf="titleCtrl.errors?.minlength">
+                        Title must be at least minimum 4 characters & maximum 30 characters long..
+                      </div>
+                    </div>
+
+                    <div class="col-lg-6 col-md-6" >
+                    
+                      <label class="indlabel">Valid Upto</label>
+                      <span class="mandatory">*</span>
+                      <!-- <input type="text" class="form-control datepicker" [(ngModel)]="Startdate" id= "dateupto"/> -->
+                       <!-- <input type="text" class="form-control datepicker" tabindex="8" [(ngModel)]="dateuptomodel" required id="dateupto"/>  -->
+                       <input type="text" class="form-control datepicker" tabindex="2" name="txtDate" required 
+                          id="dateupto" [(ngModel)]="dateuptomodel" onkeypress="avoidSplChars(event)"  >
+                       <span class="invalidmsg" id="msg_shortcode"></span>
+                  </div>
+
+
+                  
+                   
+                  </div><br>
+
+                  <div class="row form-group">
+                    <div class="col-lg-6 col-md-6">
+                      <label class="indlabel"> Message </label>
+                      <span class="mandatory">*</span>
+                      <textarea class="form-control" rows="2" style=" font-size:12px" placeholder="Enter Message."
+                        tabindex="3" minlength="5" maxlength="30" name="message" [(ngModel)]="messagemodel"
+                        #messageCtrl="ngModel" id="message_id"></textarea>
+                      <div class="invalidmsg" *ngIf="messageCtrl.errors?.minlength">
+                        Message must be at least minimum 5 characters & maximum 30 characters long.
+                      </div>
+                    
+                    </div>
+
+                    <div class="col-lg-6 col-md-6">
+                      <label class="indlabel"> Description </label>
+                      <span class="mandatory">*</span>
+                      <textarea class="form-control" rows="2" style=" font-size:12px" placeholder="Enter Description."
+                        tabindex="4" minlength="5" maxlength="30" name="description" [(ngModel)]="descriptionmodel"
+                        #descriptionCtrl="ngModel" id="description_id"></textarea>
+                      <div class="invalidmsg" *ngIf="descriptionCtrl.errors?.minlength">
+                        Description must be at least minimum 5 characters & maximum 30 characters long.
+                      </div>
+                    
+                    </div><br>
+                    <!-- <div class="col-lg-6 col-md-6" style="color: white"><br><br>
+                        <label class="indlabel"> Status </label>
+                        <span class="mandatory">*</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                      <input type="radio" id="active_id" name="list_name" tabindex="4" value="active" (change)=onItemChange($event) [(ngModel)]="radioSelectednotification"/>
+Active&nbsp;&nbsp;&nbsp;&nbsp;
+<input type="radio" id="inactive_id" name="list_name" value="inactive" tabindex="5" (change)=onItemChange($event) [(ngModel)]="radioSelectednotification"/>
+Inactive<br>
+                    </div> -->
+                 
+                   
+                  </div>
+
+
+                  <div class="form-group row">
+                      <!-- <div class="col-lg-6 col-md-6">
+                          <label class="indlabel">Notification For</label>
+                          <span class="mandatory">*</span><br>
+                          <input type="checkbox" [(ngModel)]="Mobile" value="Mobile" id="mobile_id" tabindex="6">&nbsp;<span
+                          class="text-white"><b>Mobile</b> </span><br><br>
+                          <input type="checkbox" [(ngModel)]="Web" value="web" id="web_id" tabindex="7">&nbsp;<span
+                          class="text-white"><b>Web</b></span>
+                        </div> -->
+                        <div class="col-lg-6 col-md-6" style="color: white">
+                          <label class="indlabel"> Status </label>
+                          <span class="mandatory">*</span><br>
+                          <input type="radio" id="active_id" name="status" value="active" tabindex="5" (change)=onItemChange($event) [(ngModel)]="radioSelectednotification">&nbsp;
+    Active&nbsp;&nbsp;&nbsp;&nbsp;
+    <input type="radio" id="inactive_id" name="status" value="inactive" tabindex="6" (change)=onItemChange($event) [(ngModel)]="radioSelectednotification">&nbsp;
+    Inactive<br>
+                        </div>
+
+                        <div class="col-lg-6 col-md-6">
+                          <label class="indlabel">Notification For</label>
+                          <span class="mandatory">*</span><br>
+                          <input type="checkbox" id="mobile_id" name="mobilename" value="Mobile" [(ngModel)]="Mobile" tabindex="7">&nbsp;&nbsp;<span style="color: white;">Mobile </span>&nbsp;&nbsp;&nbsp;&nbsp;
+                          <input type="checkbox" id="web_id" name="webname" value="Web" [(ngModel)]="Web" tabindex="8">&nbsp;&nbsp;<span style="color: white;">Web </span><br><br>
+                        </div>
+                      
+                  </div>
+                  
+                    <span class="invalidmsg" id="msg_errorentry_notification"></span>
+                  
+
+                  
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Modal footer -->
+
+      <div class="modal-footer" id="modelfooter">
+
+        <div class="actionBar">
+           <button id="save" class="mb-2 btn btn-wizard btn-sm btn-success buttonFinish" (click)="InsertNotification();"
+            style="display: none;">
+            <i class="material-icons">save</i>
+          </button> 
+          <button id="next" class="mb-2 btn btn-wizard btn-sm btn-success buttonNext" (click)="InsertNotification();" tabindex="9">
+            <i class="material-icons">save</i>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="notifymodelentry">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-contentno">
+
+      <!-- Modal Header -->
+      <div class="modal-header" style="background-color: 	rgb(245, 209, 92);">
+        <h4 class="modal-title text-center" style="color: rgb(0, 0, 0)">Error</h4>
+        <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+      </div>
+
+          <!-- Modal body -->
+      <div class="modal-body" style="background-color: white;">
+        {{datafromrespo}}
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer" style="background-color: 	rgb(255, 255, 255); margin-right: 0px;">
+        <!-- <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal"><span class="material-icons">
+            highlight_off
+            </span></button> -->
+            <button class="btn btn-success"  data-dismiss="modal" ><span class="material-icons">
+              highlight_off
+                </span></button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="successmodelentry">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-contentno">
+
+      <!-- Modal Header -->
+      <div class="modal-header" style="background-color: 	rgb(124, 255, 146);">
+        <h4 class="modal-title text-center" style="color: rgb(0, 0, 0)">Success</h4>
+        <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body" style="background-color: white;">
+        {{datafromrespo}}
+      </div>
+
+        <!-- Modal footer -->
+      <div class="modal-footer" style="background-color: 	rgb(255, 255, 255); margin-right: 0px;">
+        <!-- <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal"><span class="material-icons">
+            highlight_off
+            </span></button> -->
+        <button class="btn btn-success" data-dismiss="modal">
+          <!--ok--> <span class="material-icons">
+            check_circle_outline
+          </span> </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="modal fade " id="SuccessModalEntry" data-backdrop="static" data-keyboard="false" tabindex="-1"
+  role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-sm dialogModal" role="document">
+    <div class="modal-content box-shadow">
+      <div class="card text-center border-0">
+        <div class="card-header bg-success m-0 p-0">
+          <h5>Success</h5>
+        </div>
+        <div class="card-body bg-white">
+          {{datafromrespo}}
+          <div class="text-right">
+            <button class="btn btn-sm btn-success" data-dismiss="modal" >ok</button>   <!-- (click)="desidetailsentry()"-->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade " id="ErrorModalEntry" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+  aria-hidden="true">
+  <div class="modal-dialog modal-sm dialogModal" role="document">
+    <div class="modal-content box-shadow">
+      <div class="card text-center border-0">
+        <div class="card-header bg-warning m-0 p-0">
+          <h5>Failed</h5>
+        </div>
+        <div class="card-body bg-white">
+          {{datafromrespo}}
+          <div class="text-right pt-3">
+            <button class="btn btn-sm btn-success" data-dismiss="modal">ok</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

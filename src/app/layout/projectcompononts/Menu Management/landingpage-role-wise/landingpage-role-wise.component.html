@@ -1,0 +1,141 @@
+<!-- developer:dhammadeep dahiwale
+description: landing page role wise component -->
+
+<div class="">
+  <div class="row form-group">
+    <div class="col-md-3 col-sm-3 col-xs-3">
+      <label class="indlabel">Select Role :<span class="text-danger">*</span></label>
+      <select [(ngModel)]="role.roleId" class="form-control form-control-sm" (change)="roleIdEmpty=false;">
+        <option disabled>Select Role</option>
+        <option></option>
+        <!-- <option>Admin</option> -->
+        <option *ngFor="let item of roleLists" value="{{item.param1}}">{{item.param2}} </option>
+      </select>
+      <span class="text-danger validation" *ngIf="roleIdEmpty">Please enter menu type</span>
+    </div>
+
+    <div class="col-md-3 col-sm-3 col-xs-3">
+      <label class="indlabel"> Menu Type : <span class="text-danger">*</span></label>
+      <select [(ngModel)]="roleMenuType" (change)="SelectRoleSubmenu();menuTypeEmpty=false"
+        class="form-control form-control-sm">
+        <option disabled>Select Menu type</option>
+        <option>Main Menu</option>
+        <option>Sub Menu</option>
+      </select>
+      <span class="text-danger validation" *ngIf="menuTypeEmpty">Please enter menu type</span>
+
+    </div>
+
+    <div class="col-md-3 col-sm-3 col-xs-3" *ngIf="isRoleSubMenu">
+      <label class="indlabel"> Menu<span class="text-danger">*</span></label>
+      <select class="form-control form-control-sm" [(ngModel)]="roleSubMenu" (change)="mainmenulistempty=false">
+        <option></option>
+        <option *ngFor="let item of products" value="{{item.param1}}">{{item.param2}}</option>
+      </select>
+      <span class="text-danger validation" *ngIf="mainmenulistempty"> Please Select Menu </span>
+    </div>
+
+    <div class="col ">
+      <button type="submit" class="btn btn-sm btn-success mt-4" (click)="getmenulandingpagewise()">
+        View</button>
+      <hr>
+    </div>
+
+  </div>
+  <div class="" *ngIf="isRoleMainMenu">
+    <div class="row">
+      <div class="col-md-12">
+        <h6 style="display: inline; color: yellow; font-weight: bold;">Menu List</h6>
+       
+
+        <div style="display: block;;max-height: 450px;overflow-y: scroll;width: 100%;">
+
+          <table id="details" class="table table-hover table-striped">
+            <thead id="tableHeader">
+              <tr>
+                <th>#</th>
+                <th>Menu List </th>
+                <th>Menu Url</th>
+                <th>Menu Description</th>
+                <th>Select </th>
+              </tr>
+
+            </thead>
+            <tbody>
+
+              <tr *ngFor="let item of menuListforPage" class="trheight">
+                <td>{{item.rowNumber}}</td>
+                <td>{{item.param2}}</td>
+                <td>{{item.param4}}</td>
+                <td>{{item.param3}}</td>
+                <td>
+                  <input *ngIf="item.param6=='true'" type="radio" id="radio{{item.rowNumber}}"
+                    (change)="radioButton(item)" name="landingpage" [checked]="true">
+                  <input *ngIf="item.param6=='false'" type="radio" id="radio{{item.rowNumber}}"
+                    (change)="radioButton(item)" name="landingpage" [checked]="false">
+                  <!-- <input *ngIf="item.param6=='true'" type="checkbox"
+                                    (change)="triggerSomeEvent(item.param1,item.rowNumber)" id="check{{item.rowNumber}}"
+                                    [checked]="true">
+                                <input *ngIf="item.param6=='false'" type="checkbox"
+                                    (change)="triggerSomeEvent(item.param1,item.rowNumber)" id="check{{item.rowNumber}}"
+                                    [checked]="false"> -->
+                </td>
+                <td style="display: none;">{{item.param1}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <span class="text-danger validation" *ngIf="isduplicatevalue">duplicate value found</span>
+
+        <div class="text-right">
+          <button class="btn btn-success btn-sm mr-5" [disabled]="!isInvalid"
+            (click)="assignmenulandingpagewise()">Submit</button>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
+
+
+<div class="modal fade " id="updateSuccessModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
+  role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-sm dialogModal" role="document">
+    <div class="modal-content box-shadow">
+      <div class="card text-center border-0">
+        <div class="card-header bg-success m-0 p-0">
+          <h5>Success</h5>
+        </div>
+        <div class="card-body bg-white">
+          Data Saved Successfully
+          <div class="text-right">
+            <button class="btn btn-sm btn-success" data-dismiss="modal">ok</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade " id="ErrorModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+  aria-hidden="true">
+  <div class="modal-dialog modal-sm dialogModal" role="document">
+    <div class="modal-content box-shadow">
+      <div class="card text-center border-0">
+        <div class="card-header bg-warning m-0 p-0">
+          <h5>Failed</h5>
+        </div>
+        <div class="card-body bg-white">
+          Error In Assigning Menus <div class="text-right pt-3">
+            <button class="btn btn-sm btn-success" data-dismiss="modal">ok</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

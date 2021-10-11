@@ -1,0 +1,64 @@
+.modal-content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    pointer-events: auto;
+    background-color: #1c2756;
+    background-clip: padding-box;
+    border: 1px solid rgba(0,0,0,0.2);
+    border-radius: .3rem;
+    outline: 0;
+    color: white;
+} 
+.modal-title {
+    font-weight: bold;
+    margin-bottom: 0;
+    line-height: 1.0;
+    color: #cfdfff;
+    font-size: 19px; 
+}
+
+.stepsection{
+    
+    display: block;
+    position: relative;
+    margin: 0;
+    padding: 0;
+    border: 0px solid #CCC;
+    overflow: hidden;
+    clear: both;
+    display: block;
+    margin-top: 20px;
+    padding: 10px;
+    font: normal 12px Verdana, Arial, Helvetica, sans-serif;
+    color: #5A5655;
+    background-color: #051042;;
+     height: 292px; 
+    text-align: left;
+    overflow: visible;
+    z-index: 88;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    clear: both;
+}
+
+.indlabel{
+    font-weight: bold !important;
+    text-transform: uppercase; 
+    font-size: 10px; 
+    color: white;
+}
+
+.form-control, .custom-select, .easy-autocomplete input {
+    background-color: #c3d5f9;
+    border: 1px solid rgba(0,0,0,0.05);
+    color: #05145a;
+    font-size: 10px;
+}
+
+.invalidmsg{
+    color:rgb(255, 96, 96);
+    font-size: 10px;
+    font-weight: bold;
+}

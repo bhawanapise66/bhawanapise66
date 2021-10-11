@@ -1,0 +1,448 @@
+
+.form-control{
+    font-size: 13px;
+}
+
+.map{
+
+    width: 102%;
+    height: 85vh; 
+    margin-left: -11px;
+    
+    margin-top: -28px;
+
+}
+.mainDiv{
+    position:sticky;
+    z-index: 1;
+    margin-top: -21px;
+    width: 100%;
+    transition: all 3s ease 0s;
+}
+
+
+.containDiv{
+   
+    width: 95%;
+    padding: 5px;
+    height: 580px; 
+    background-color: #eaeaea;
+}
+
+
+
+.sliderButton{
+
+    margin-left: 16px;
+}
+
+.widgetsContainer{
+    display: flex;
+    background-color: #bfb6a9;
+    padding: 5px;
+}
+
+.widgets{
+    margin-left: 11px;
+    width: 68px;
+    background-color: white;
+    text-align: center;
+    cursor: pointer;
+}
+
+.countDiv{
+    font-size: 19px;
+    background-color: #25222f;
+    margin-top: 9px;
+    width: 56px;
+    margin-left: 6px;
+
+}
+
+.widgetsLabel{
+    color: black;
+    font-weight: bold;
+    font-size: 11px;
+    margin-top: 8px;
+}
+
+
+.gridContainer{
+    background-color: #bfb6a9;
+    padding: 5px;
+}
+
+.detailsContainer{
+    background-color: #bfb6a9;
+    padding: 5px;
+}
+
+.gridContainer tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+
+  .customTable td{
+    padding:4px;
+    text-align:left;
+  }
+
+  .detailslabel{
+    color: #010642;
+    font-size: 11px;
+    font-weight: bold;
+    width: 105px;
+  }
+
+  .form-control{
+    background-color: rgb(254 254 255 / 92%);
+  }
+  .form-control, .custom-select, .easy-autocomplete input {
+    color: #1d1c1c;
+  }
+
+
+
+  .anchorTag{
+    color: blue !important;
+    cursor: pointer;
+  }
+
+
+  .anchorTag :hover{
+    
+    cursor: pointer;
+  }
+
+  /* high  charts css*/
+
+
+  .highcharts-figure .chart-container {
+	width: 210px;
+	height: 200px;
+	float: left;
+}
+
+.highcharts-figure, .highcharts-data-table table {
+	width: 600px;
+	margin: 0 auto;
+}
+
+.highcharts-data-table table {
+    font-family: Verdana, sans-serif;
+    border-collapse: collapse;
+    border: 1px solid #EBEBEB;
+    margin: 10px auto;
+    text-align: center;
+    width: 100%;
+    max-width: 500px;
+}
+.highcharts-data-table caption {
+    padding: 1em 0;
+    font-size: 1.2em;
+    color: #555;
+}
+.highcharts-data-table th {
+	font-weight: 600;
+    padding: 0.5em;
+}
+.highcharts-data-table td, .highcharts-data-table th, .highcharts-data-table caption {
+    padding: 0.5em;
+}
+.highcharts-data-table thead tr, .highcharts-data-table tr:nth-child(even) {
+    background: #f8f8f8;
+}
+.highcharts-data-table tr:hover {
+    background: #f1f7ff;
+}
+
+@media (max-width: 600px) {
+	.highcharts-figure, .highcharts-data-table table {
+		width: 100%;
+	}
+	.highcharts-figure .chart-container {
+		width: 300px;
+		float: none;
+		margin: 0 auto;
+    }
+    
+
+    .highcharts-background{
+
+        background-color: #1d1c1c;
+    }
+
+}
+
+
+
+.alertwidgetsContainer{
+    background-color: #c3baad;
+    display:none;
+
+}
+
+.alertwidget{
+   
+    width: 55px;
+    height: 58px;
+    margin-left: 7px;
+    text-align: center;
+
+}
+
+.alertwidgetlabel{
+    color: black;
+    font-weight: bold;
+}
+
+
+.highcharts-container {
+
+    margin-top:-26px;
+}
+
+
+
+@-webkit-keyframes blinker {
+    from {opacity: 1.0;}
+    to {opacity: 0.0;}
+  }
+  .blink{
+      text-decoration: blink;
+      -webkit-animation-name: blinker;
+      -webkit-animation-duration: 1.6s;
+      -webkit-animation-iteration-count:infinite;
+      -webkit-animation-timing-function:ease-in-out;
+      -webkit-animation-direction: alternate;
+  }
+
+  .poicontainDiv{
+    background-color: white;
+    margin-top: -12px;
+  }
+
+
+  
+.flip-card {
+    widows: 100%;
+    height: 456px; 
+    perspective: 1000px;
+  }
+  
+  .flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  }
+  
+  /* .flip-card:hover .flip-card-inner {
+    transform: rotateY(180deg);
+  } */
+  
+  .flip-card-front, .flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+  
+  .flip-card-front {
+    overflow: auto;
+    color: black;
+  }
+  
+  .flip-card-back {
+    
+    color: white;
+    transform: rotateY(180deg);
+  }
+
+  .shadow {
+    -webkit-box-shadow: 3px 3px 5px 6px #ccc; 
+    -moz-box-shadow:    3px 3px 5px 6px #ccc; 
+    box-shadow:         3px 3px 5px 6px #ccc;  
+  }
+
+  .table-striped>tr:nth-of-type(odd) {
+    -webkit-box-shadow: 3px 3px 5px 6px #ccc; 
+    -moz-box-shadow:    3px 3px 5px 6px #ccc; 
+    box-shadow:         3px 3px 5px 6px #ccc;  
+    background-color: #9bdacb;
+
+  }
+
+  .customHover:hover{
+    background-color: #8c8fff !important;
+    color: white !important;
+  }
+
+
+  .switcherContainer{
+    position: sticky;
+    z-index: 1;
+    float: right;
+    margin-top: -111px;
+  }
+
+  .switcherLabel{
+
+    transition: 5s;
+    font-size: 12px;
+    padding-left: 5px;
+}
+
+.switcherMain{
+  perspective: 1000px;
+height: 100px;
+}
+  
+
+.switcherinner{
+  position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+}
+
+.switcherinner:hover{
+  transform: rotateX(180deg);
+
+}
+
+.switcherFront,.switcherBack{
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+.switcherBack{
+  transform: rotateX(180deg);
+
+}
+
+/* .switcherFront{
+  background-color: #15cece;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 12px;
+
+} */
+
+.switchbutton{
+  background-color: #15cece;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 11px;
+}
+
+
+.switcherLi{
+  padding: 5px;
+  margin-top: 7px;
+}
+
+
+
+/**************/
+.alertDiv{
+  display: flex;
+    background-color: aliceblue;
+    padding: 5px;
+    height: 35px;
+   
+}
+
+.alertwiddiv{
+  padding: 2px;
+  display:flex;
+  width: 80px;
+}
+
+.alertwidlabel{
+  color: black;  font-weight: bold;margin-left: 6px;
+}
+
+
+.mapwidContainer{
+  padding: 5px;
+  text-align: center;
+  /* border-radius: 4px; */
+  font-size: 12px;
+  font-weight: bold;
+  width: 80px;
+
+  margin-right: 5px;
+  border-radius: 3px;
+  border-top: 3px solid;
+}
+.mapwidCount{
+  padding: 2px;
+
+}
+
+.mapwidLabel{
+  font-size: 11px;
+  padding: 2px;
+}
+
+.allwidclass{
+  background-color: #058a84;
+}
+.allwidclass div{
+  color: #35fff6;
+}
+
+.nonpolingwidclass{
+  background-color: #09097c;
+}
+
+.nonpolingwidclass div{
+  color: #a5a5ff;
+}
+
+.runningwidclass{
+  background-color: #046504;
+
+}
+
+.pindiv{
+  margin-top: -6px;
+  float: left;
+  color: #313144;
+  font-size: 13px;
+  position: absolute;
+}
+
+.runningwidclass div{
+  color: #78f978;
+}
+
+.idlewidclass{
+  background-color: #a3a304;
+}
+.idlewidclass div{
+  color: #f5f592;
+}
+
+.stopwidclass{
+  background-color: #ab0872;
+}
+.stopwidclass div{
+  color: #ffaae1;
+}
+
+.emergencywidclass{
+  background-color: #c01a1a;
+}
+.emergencywidclass div{
+  color: #ffa9a9;
+}
+
+

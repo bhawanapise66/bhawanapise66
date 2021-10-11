@@ -1,0 +1,640 @@
+<!--
+Developer 	: Aditya Londhe
+Date      	: 03-06-2021
+Description : Plan Master Module
+Modified By:  
+Update date : 
+-->
+<div class="content shadow-sm">
+  <!-- Main container starts -->
+  <div class="container-fluid main-container" id="main-container">
+    <div class="row">
+      <div class="col-12 col-md-12 col-lg-12 col-xl-12 mx-auto align-self-center">
+        <div class="card shadow-sm border-0 mb-4">
+          <div class="card-header" style="padding-top: 0; padding-bottom: 0">
+
+            <!-- <img src="../assets/img/logoicon.svg" alt="" class="w-50px mt-4"> -->
+            <h4 class="text-left m-1 fs15">Customer
+              <span class="text-template-primary" style="color: #00ed54">Master</span>
+              <button type="button" class="btn btn-sm btn-primaryyel ml-2 float-right" style="margin-right: 89px;"
+                data-toggle="modal" data-target="#exampleModal">
+                ADD NEW
+                <i class="material-icons md-18">navigate_next</i>
+
+              </button>
+            </h4>
+
+          </div>
+          <div class="card-body" style="padding: 5px;">
+            <div class="row justify-content-center">
+              <div class="col-md-12 mx-auto">
+                <div class="row">
+                  <div class="col-lg-12 col-md-12">
+                    <!-- <button type="button" class="btn btn-primary float-left" data-toggle="modal" >
+                        ADD NEW
+                      </button> -->
+
+                  </div>
+                </div>
+
+                <div class="container-fluid main-container" id="main-container">
+
+                  <!--    ---------------        Table Header Staret=------------------------    -->
+
+                  <div class="row  mx-1">
+                    <div class="col-12 col-sm-12 col-md text-md-left align-self-center pr-0">
+                      <ul class="nav  justify-sm-content-center  justify-content-left">
+                        <li class="nav-item ">
+                          <div class="input-group" style="max-width: 250px;">
+                            <input type="text" placeholder="Search" id="searchData" class="form-control searchicon"
+                              [(ngModel)]="filter" aria-label="Amount (to the nearest dollar)">
+                            <div class="input-group-append">
+                              <button class="btn  apendbtn" (click)="searchdata()">
+                                <i style="color: #00ed54; margin-top: -15px;" class="fa fa-search"></i>
+                              </button>
+                            </div>
+                          </div>
+                        </li>
+                        <li class="nav-item mx-3">
+                          <i class="fa fa-refresh fa-2x fa-spin-hover"
+                            style="font-size: 17px;padding-top: 4px;color: #00fff3;" (click)="Refreshfunction()"></i>
+                        </li>
+                      </ul>
+                    </div>
+
+                    <div class="col-12 col-sm-12 col-md-auto text-right text-md-end pl-0">
+                      <ul class="nav justify-content-center justify-lg-content-end  justify-sm-content-center">
+                        <li class="nav-item mx-2">
+                          <img style="cursor: pointer; height: 20px; margin-top: 3px;" (click)="createPDF()"
+                            ngbTooltip="PDF" src="assets/images/PDFicon.png">
+                        </li>
+                        <li class="nav-item mx-2">
+                          <img style="cursor: pointer;" (click)="exportToExcel()" ngbTooltip="Excel"
+                            src="assets/images/excellogo.png">
+                        </li>
+                        <li class="nav-item mx-3">
+                          <span style="display: inline;font-size:12px;font-weight :bold;">Show Rows : </span> <select
+                            class="form-control p-1" style="width: 44px;display: inline;" ata-live-search="true"
+                            tabindex="1" [(ngModel)]="selectRowsText" id="selectrow1" (change)="SelectRows()"
+                            aria-hidden="true">
+                            <option value="5" selected>5</option>
+                            <!-- <option value="5">5</option> -->
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="50">50</option>
+                          </select>
+                        </li>
+                        <li class="nav-item pt-1">
+                          <span style="font-size:12px;font-weight: bold;">Total Records : {{viewcount}} of
+                            {{count}}</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <!-- ---------------------  Table header end  ------------------------------ -->
+
+
+                  <div id="PDFTable" class="card-body table-responsive" #epltable>
+                    <table class="table table-hover table-striped">
+                      <thead>
+                        <tr role="row">
+                          <th (click)="sort('rowNumber')"># </th>
+                          <th><span (click)="sort('param2')">Plan Name</span></th>
+                          <th><span (click)="sort('param3')">Plan Discription</span></th>
+                          <!-- <th class="all sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 86px;" aria-label="Order ID: activate to sort column descending" aria-sort="ascending">Order ID</th> -->
+                          <!-- <th><span (click)="sort('param11')"> Name</span></th> -->
+                          <th><span (click)="sort('param4')">Amount</span></th>
+                          <th><span (click)="sort('param5')">Data In MB</span></th>
+                          <th><span (click)="sort('param6')">SMS Count</span></th>
+                          <th><span (click)="sort('param7')">Validity</span></th>
+
+                          <th><span (click)="sort('param8')">Status Call</span></th>
+                          <th><span (click)="sort('param10')">Network</span></th>
+                          <th><span (click)="sort('param12')">Vendor</span></th>
+                          <th style="background-color: #99c049; text-align: center;">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody id="grid">
+                          <!-- <tr ng-show="PlanDetails$.length == 0">
+                              <td style="font-weight: bold;text-align: center;" colspan="100" >NO DATA FOUND</td>
+                          </tr> -->
+                        <tr
+                          *ngFor="let com of PlanDetails$ | filter:filter | orderBy: key : reverse | paginate : {itemsPerPage:pagecount,currentPage:p,totalItems:count} ;"
+                          class="trheight">
+
+                          <td>{{com.rowNumber}}</td>
+                          <td>{{com.param2}}</td>
+                          <td>{{com.param3}}</td>
+                          <!-- <td>{{com.param11}}</td> -->
+                          <td>{{com.param4}}</td>
+                          <td>{{com.param5}}</td>
+                          <td>{{com.param6}}</td>
+                          <td>{{com.param7}}</td>
+
+                          <td>{{com.param8}}</td>
+                          <td>{{com.param10}}</td>
+                          <td>{{com.param12}}</td>
+
+                          <td [ngStyle]="{'background-color':com.altColor}" class="viewbtncss">
+                            <span class="iconhover" data-toggle="modal" data-target="#myModalwizard"
+                              (click)="setdata(com)">
+                              <i class="material-icons" style="color: #161e43">visibility</i>
+                            </span>
+                          </td>
+                        </tr>
+               
+                      </tbody>
+                      <tfoot id="foot" class="box-footer clearfix">
+                        <tr>
+                          <td colspan="12">
+                            <pagination-controls style=" float: right;" (pageChange)="PlanpageChanged($event)">
+                            </pagination-controls>
+                          </td>
+                        </tr>
+                      </tfoot>
+                    </table>
+                    <!-- <div class="float-right mt-3">
+                        <nav class="mb-4">
+                            <ul class="pagination pagination-circular justify-content-end">
+                                <li class="page-item">
+                                    <a class="page-link" href="#"><i class="material-icons">keyboard_arrow_left</i></a>
+                                </li>
+                                <li class="page-item active">
+                                    <a class="page-link " href="#">1</a>
+                                </li>
+                                <!-- <li class="page-item">
+                                    <a class="page-link" href="#">2</a>
+                                </li> ->
+                                
+                                
+                                <li class="page-item">
+                                    <a class="page-link" href="#">...</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#"><i class="material-icons">keyboard_arrow_right</i></a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- --------------------  view & Edit Modal start------------------------>
+
+<div class="modal fade " id="myModalwizard" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-lg ">
+    <div class="modal-content ">
+
+      <!-- Modal Header -->
+      <div class="modal-header modelcolor">
+        <h5 class="modal-title" id="vmd" style="display: block;">Customer Master Details</h5>
+        <h5 class="modal-title" id="uvmd" style="display: none;">Update Customer Master</h5>
+        <div style="float:right; margin-left: 56%;">
+          <button type="button" class=" btn btn-sm btn-secondary float-right ml-2 bg-warning" style="display: block;"
+            id="editbtn" ngbTooltip="Edit" (click)="editpageform()">
+
+            <i class="material-icons md-18">edit</i>
+          </button>
+          <button type="button" class=" btn btn-sm btn-danger float-right ml-2" id="deletebtn" ngbTooltip="Delete"
+            data-toggle="modal" data-target="#modeldelete">
+
+            <i class="material-icons md-18">delete</i>
+          </button>
+          <button type="button" class=" btn btn-sm btn-primary float-right ml-2" id="backdetailsbtn" ngbTooltip="Back"
+            style="display: none;" (click)="backdetailsbtn()">
+
+            <i class="material-icons md-18">arrow_back</i>
+          </button>
+        </div>
+        <button type="button" style="color: white" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+
+      <!-- Modal body -->
+      <div class="modal-body" style="background-color: #CBD2F1;">
+        <div class="container">
+          <div class="container-fluid">
+            <div id="container" style="display: none;">
+              <div class="step-wizard" role="navigation">
+                <div class="progress">
+                  <div class="progressbar empty"></div>
+                  <div id="prog" class="progressbar"></div>
+                </div>
+                <ul>
+                  <li class="active">
+                    <button id="step1">
+                      <div class="step">1</div>
+                      <div class="title">Plan Details</div>
+                    </button>
+                  </li>
+                  <!-- <li class="" style="display: none;">
+                    <button id="step2">
+                      <div class="step">2</div>
+                      <div class="title">Contact Details</div>
+                    </button>
+                  </li> -->
+                  <li class="">
+                    <button id="step3">
+                      <div class="step">2</div>
+                      <div class="title">Validity Details</div>
+                    </button>
+                  </li>
+                  <!-- <li class="" style="display: none;">
+                    <button id="step4"> 
+                      <div class="step">4</div>
+                      <div class="title">Successful</div>
+                    </button>
+                  </li>  -->
+                </ul>
+
+
+                <div class="stepsection">
+                  <span class="invalidmsg" id="msg_mainmessage"></span>
+                  <div id="step-14" class="stepsdiv">
+                    <!-- <span class="StepTitle">Step 1: Basic Details</span> -->
+                    <div class="form-group row">
+
+
+                      <!--  Developer : Aditya Londhe 
+        Description : Changes of dropdown (multiselect) searchable dropdown added-->
+  
+  
+        <div class="col-lg-4 col-md-4">
+          <label class="indlabel"> Plan Name </label>
+          <span class="mandatory">*</span>
+          <input type="text" class="form-control" placeholder="Enter Plan Name." tabindex="4"
+            minlength="3" maxlength="80" [(ngModel)]="plan_nameup" #planname="ngModel"
+            style=" font-size:12px" required onkeypress="return onlyAlphabets(event);"
+            id="plannameupdate">
+          <div class="invalidmsg" *ngIf="planname.errors?.minlength">
+            Plan Name required at least minimum 3 characters & maximum 70 characters long.
+          </div>
+          <span class="invalidmsg" id="msg_pername"></span>
+        </div>
+  
+                    <div class="col-lg-4 col-md-4">
+                      <label class="indlabel"> Plan Discription </label>
+                      <span class="mandatory">*</span>
+                      <input type="text" class="form-control" placeholder="Enter Plan Discription." tabindex="4"
+                        minlength="3" maxlength="80" [(ngModel)]="plandiscriptionup" #compname="ngModel"
+                        style=" font-size:12px" required onkeypress="return onlyAlphabets(event);"
+                        id="plandiscriptionupdate">
+                      <div class="invalidmsg" *ngIf="compname.errors?.minlength">
+                        Plan Discription required at least minimum 3 characters & maximum 70 characters long.
+                      </div>
+                      <span class="invalidmsg" id="msg_pername"></span>
+                    </div>
+                      
+                    <div class="col-lg-4 col-md-4">
+                      <label class="indlabel"> Amount</label>
+                      <span class="mandatory">*</span>
+                      <input type="number" class="form-control" placeholder="Enter Amount." tabindex="4"
+                        minlength="1" maxlength="10" [(ngModel)]="planamountdataup" #amount="ngModel"
+                        style=" font-size:12px" required onkeypress="return isNumberKey(event)" id="amountupdate">
+                      <div class="invalidmsg" *ngIf="amount.errors?.minlength">
+                        Amount required at least minimum 1 characters & maximum 10 characters long.
+                      </div>
+                      <span class="invalidmsg" id="msg_pername"></span>
+                    </div>
+  
+                    </div>
+                    <div class="form-group row">
+                     
+                      <div id="basnet1update" class="col-lg-4 col-md-4">
+                        <label class="indlabel">Network</label>
+                        <span class="mandatory">*</span>
+                       
+                        <ngx-select-dropdown tabindex="10" id="Network1identry" [multiple]="false" [(ngModel)]="networkTextUpdate" (change)="selectnet1()"
+                        [config]="config" [options]="network1list" ></ngx-select-dropdown>  
+                  
+                        <span class="invalidmsg" id="msg_vendorName"></span>
+                      </div>
+                      <div class="col-lg-4 col-md-4" style="display: none;">
+                        <label class="indlabel">Network1 Dummy</label>
+                        <span class="mandatory">*</span>
+                        <input type="text" class="form-control" id="networkupdatedummy"  [(ngModel)]="networkreturnTextUpdate"  >
+                        
+                        <span class="invalidmsg" id="msg_vendorNameentry"></span>
+                      </div>
+  
+                      <div class="col-lg-4 col-md-4">
+                        <label class="indlabel">Vendor</label>
+                        <span class="mandatory">*</span>
+                        <ngx-select-dropdown tabindex="1" id="vendorentrydemo" [multiple]="false" [(ngModel)]="VendorTextUpdate"
+                          (change)="selectvendorList()" [config]="config" [options]="ListOfvendor"></ngx-select-dropdown>
+                        <span class="invalidmsg" id="msg_vendorName"></span>
+                      </div>
+                      <div class="col-lg-4 col-md-4" style="display: none;">
+                        <label class="indlabel">Vendor List Dummy</label>
+                        <span class="mandatory">*</span>
+                        <input type="text" class="form-control" id="vendorupdatedummy" [(ngModel)]="VendorreturnUpdate" >
+                       
+                      </div>
+                     
+                    </div>
+                    <br><br><br><br> <br><br><br>
+                    <span class="invalidmsg" id="msg_error"></span>
+                  </div>
+
+                  <div id="step-15" class="stepsdiv" style="display: none;">
+
+                    <!-- <span class="StepTitle">Step 2: Contact Details</span> -->
+                    <div class="form-group row">
+                      <div class="col-lg-4 col-md-4">
+                        <label class="indlabel"> Data In MB</label>
+                        <span class="mandatory">*</span>
+                        <input type="number" class="form-control" placeholder="Enter Data in mb." tabindex="4"
+                          minlength="1" maxlength="10" [(ngModel)]="plandatainmbup" #Datamb="ngModel"
+                          style=" font-size:12px" required onkeypress="return isNumberKey(event)" id="datainmbupdate">
+                        <div class="invalidmsg" *ngIf="Datamb.errors?.minlength">
+                          Data In MB required at least minimum 1 characters & maximum 10 characters long.
+                        </div>
+                        <span class="invalidmsg" id="msg_pername"></span>
+                      </div>
+                      <div class="col-lg-4 col-md-4">
+                        <label class="indlabel"> SMS Count</label>
+                        <span class="mandatory">*</span>
+                        <input type="number" class="form-control" placeholder="Enter SMS Count." tabindex="4"
+                          minlength="1" maxlength="10" [(ngModel)]="plansmscountup" #smscount="ngModel"
+                          style=" font-size:12px" required onkeypress="return isNumberKey(event)" id="smscountupdate">
+                        <div class="invalidmsg" *ngIf="smscount.errors?.minlength">
+                          SMS Count required at least minimum 1 characters & maximum 10 characters long.
+                        </div>
+                        <span class="invalidmsg" id="msg_pername"></span>
+                      </div>
+                      <div class="col-lg-4 col-md-4">
+                        <label class="indlabel"> Validity in Days </label>
+                        <span class="mandatory">*</span>
+                        <input type="text" class="form-control" placeholder="Enter Validity." tabindex="4"
+                          minlength="2" maxlength="80" [(ngModel)]="validityplanup" #validity="ngModel"
+                          style=" font-size:12px" required onkeypress="return onlyAlphabets(event);"
+                          id="validityupdate">
+                        <div class="invalidmsg" *ngIf="validity.errors?.minlength">
+                          Validity required at least minimum 2 characters & maximum 70 characters long.
+                        </div>
+                        <span class="invalidmsg" id="msg_pername"></span>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <div class="col-lg-5 col-md-5" id="Mobilize_entry" style="margin-top: 20px;">
+                        <label class="indlabel">Calling Status:</label>
+                        <span style="padding-right: 20px" class="mandatory">*</span>
+                  <input type="radio" id="statusnoup" name="statusup" checked="checked" value="NO">
+                    <label style="padding-right: 10px" for="mobno">No</label>
+                     <input type="radio" id="statusyesup" name="statusup" value="YES">
+                      <label for="mobyes">Yes</label><br>
+                      </div>
+                      <div class="col-lg-4 col-md-4">
+                        <label class="indlabel"> Remark </label>
+                        <span class="mandatory">*</span>
+                        <input type="text" class="form-control" placeholder="Enter Remark." tabindex="4"
+                          minlength="3" maxlength="80" [(ngModel)]="remarkup" #remark="ngModel"
+                          style=" font-size:12px" required onkeypress="return onlyAlphabets(event);"
+                          id="remarkupdte">
+                        <div class="invalidmsg" *ngIf="remark.errors?.minlength">
+                          Remark required at least minimum 3 characters & maximum 70 characters long.
+                        </div>
+                        <span class="invalidmsg" id="msg_pername"></span>
+                      </div>
+                    </div>
+                    
+                    <span class="invalidmsg" style="position: absolute;bottom:10px;" id="msg_error_contact"></span>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- --------------------------------------------- View Section ------------------------------------------- -->
+          <div class="">
+            <div id="vendordtls" class="row" style="background-color: #0e2145; border: 1px ridge #02108d;">
+              <div class="col-12 col-md-12 col-lg-12">
+
+                <div class="row" style="background-color: rgb(198 201 202);">
+                  <div class="col-12 col-md-12 col-lg-12">
+                    <div class="viewheading">Basic Details</div>
+                  </div>
+                </div><br>
+
+                <div class="row">
+                  <div class="col-12 col-md-12 col-lg-12">
+                    <div class="col-4 col-md-4 col-lg-4" style=" float: left;">
+                      <span class="caplable">Plan Name:</span>&nbsp;<span
+                        class="viewlable">{{plan_nameup}}</span>
+                    </div>
+                    <div class="col-4 col-md-4 col-lg-4" style=" float: left;">
+                      <span class="caplable">Plan Discription:</span>&nbsp;<span class="viewlable">{{plandiscriptionup}}</span>
+                    </div>
+                    <div class="col-4 col-md-4 col-lg-4" style=" float: left;">
+                      <span class="caplable">Amount:</span>&nbsp;<span class="viewlable">{{planamountdataup}}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-12 col-md-12 col-lg-12">
+                    <!-- <div class="page-subtitle viewheading">Basic Details</div> -->
+                    <div class="col-4 col-md-4 col-lg-4" style=" float: left;">
+                      <span class="caplable">Vendor:</span>&nbsp;<span
+                        class="viewlable">{{planvendornameup}}</span>
+                    </div>
+                    <div class="col-4 col-md-4 col-lg-4" style=" float: left;">
+                      <span class="caplable">Network:</span>&nbsp;<span class="viewlable">{{plannetworknameup}}</span>
+                    </div>
+
+                  </div>
+                </div>
+
+                <br>
+
+                <div class="row" style="background-color: rgb(198 201 202);">
+                  <div class="col-12 col-md-12 col-lg-12">
+                    <div class="viewheading">Validity Details</div>
+                  </div>
+                </div><br>
+
+                <div class="row">
+                  <div class="col-12 col-md-12 col-lg-12">
+                    <div class="col-4 col-md-4 col-lg-4" style=" float: left;">
+                      <span class="caplable">Data in MB:</span>&nbsp;<span class="viewlable">{{plandatainmbup}}</span>
+                    </div>
+                    <div class="col-4 col-md-4 col-lg-4" style=" float: left;">
+                      <span class="caplable">SMS Count:</span>&nbsp;<span class="viewlable">{{plansmscountup}}</span>
+                    </div>
+                    <div class="col-4 col-md-4 col-lg-4" style=" float: left;">
+                      <span class="caplable">Validity Days:</span>&nbsp;<span class="viewlable">{{validityplanup}}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-12 col-md-12 col-lg-12">
+                    <div class="col-4 col-md-4 col-lg-4" style=" float: left;">
+                      <span class="caplable">Status:</span>&nbsp;<span class="viewlable">{{planstatusup}}</span>
+                    </div>
+                    
+                  </div>
+                </div>
+
+               
+               
+                <br>
+
+
+
+
+
+
+              </div>
+              <!-- --------------------- View Section End ------------------------------ -->
+
+            </div>
+          </div>
+          <!-- <div class="row">
+            <button id="revbtn" ngbTooltip="Back" class="mb-2 btn btn-wizard btn-sm btn-primary " (click)="revback()" style="display: none;">
+                <i class="material-icons" >arrow_back</i>
+              </button>  &nbsp; &nbsp;
+            <button id="nextviewbtn" ngbTooltip="Next" class="mb-2 btn btn-wizard btn-sm btn-primary "(click)="viewnext()" style="display: block;">
+                <i class="material-icons">arrow_forward</i>
+              </button> 
+               <button id="next2viewbtn" ngbTooltip="Next" class="mb-2 btn btn-wizard btn-sm btn-primary"(click)="viewnext2()" style="display: none;">
+                  <i class="material-icons">arrow_forward</i>
+                </button>
+                 <button id="rev2btn" ngbTooltip="Back" class="mb-2 btn btn-wizard btn-sm btn-primary " (click)="revback2()" style="display: none;">
+                    <i class="material-icons" >arrow_back</i>
+                  </button>  
+              </div> -->
+        </div>
+        <!-- --------------------- View Section End ------------------------------ -->
+
+      </div>
+
+
+      <!-- Modal footer -->
+
+      <div class="modal-footer" style="display: none;" id="modelfooter">
+
+        <div class="actionBar" style="margin-right: 5pc;">
+          <button id="save" class="mb-2 btn btn-wizard btn-sm btn-success buttonFinish" (click)="vensaveeditbtn()">
+            <i class="material-icons">save</i>
+          </button>
+          <button id="next" class="mb-2 btn btn-wizard btn-sm btn-primary buttonNext">
+            <i class="material-icons">arrow_forward</i>
+          </button>
+          <button id="prev" class="mb-2 btn btn-wizard btn-sm btn-primary buttonPrevious"
+            onclick="validateAllSteps(4,4)">
+            <i class="material-icons">arrow_back</i>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ------------------- view & Edit model close ------------------------ -->
+<!-- ------------------ Delete Model Start ------------------------>
+
+<!-- Delete Model-->
+<div class="modal fade" id="modeldelete" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-sm modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header" style="background-color: 	red;">
+        <h4 class="modal-title text-center" style="color: yellow">Are You Sure?</h4>
+        <button type="button" class="close" data-dismiss="modal" (click)="closemodal();">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body" style="background-color: #f0e8e9">
+
+        <div class="form-group row">
+
+
+          <div class="col-lg-12 col-md-12">
+            <label style="color: black">Remark</label>&nbsp;
+            <span class="indlabelstar">*</span>
+            <textarea class="form-control" rows="2" style=" font-size:12px" placeholder="Enter Remark" tabindex="1"
+              minlength="10" maxlength="40" [(ngModel)]="deleteText" #regaddress="ngModel" id="plandelremark"></textarea>
+
+          </div>
+
+        </div>
+        <span class="invalidmsg" id="msg_error_delete"></span>
+        <p style="    background-color: yellow;
+        /* padding-right: 20px; */
+        margin-right: 89px;
+        color: red; display: none;">Do You want to Delete !!&hellip;</p>
+      </div>
+
+
+      <!-- Modal footer -->
+      <div class="modal-footer text-center" style="background-color: #cfbaa8">
+        <button type="submit" class="btndel btn-primary mr-3" data-toggle="modal" data-dismiss="modal" tabindex="18">
+          No
+        </button>
+        <button type="reset" tabindex="19" class="btndel btn-danger " data-toggle="modal" data-dismiss="modal"
+          (click)="PlanDeletefunction()">
+          Yes
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!-- Delete Model -->
+
+<!-- ------------------- Delete model End ----------------------- -->
+
+<!-- ------------------- onclick no btn model  ----------------------- -->
+<div class="modal fade " id="SuccessModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+  aria-hidden="true">
+  <div class="modal-dialog modal-sm dialogModal" role="document">
+    <div class="modal-content box-shadow">
+      <div class="card text-center border-0">
+        <div class="card-header bg-success m-0 p-0">
+          <h5>Success</h5>
+        </div>
+        <div class="card-body bg-white">
+          {{datafromrespo}}
+          <div class="text-right">
+            <button class="btn btn-sm btn-success" data-dismiss="modal" (click)="closemodal()">ok</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade " id="ErrorModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+  aria-hidden="true">
+  <div class="modal-dialog modal-sm dialogModal" role="document">
+    <div class="modal-content box-shadow">
+      <div class="card text-center border-0">
+        <div class="card-header bg-warning m-0 p-0">
+          <h5>Failed</h5>
+        </div>
+        <div class="card-body bg-white">
+          {{datafromrespo}}
+          <div class="text-right pt-3">
+            <button class="btn btn-sm btn-success" data-dismiss="modal" (click)="closemodal()">ok</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ------------------- onclick yes btn model End ----------------------- -->
+
+<app-planentry></app-planentry>

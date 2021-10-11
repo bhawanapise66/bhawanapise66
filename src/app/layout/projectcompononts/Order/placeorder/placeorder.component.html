@@ -1,0 +1,572 @@
+<!--
+Developer 	: Aditya Londhe
+Date      	: 30-10-2020
+Description : Place Order Module
+Modified By:  
+Update date : 
+-->
+<div class="content shadow-sm">
+  <!-- Main container starts -->
+  <div class="container-fluid main-container" id="main-container">
+    <div class="row">
+      <div class="col-12 col-md-12 col-lg-12 col-xl-12 mx-auto align-self-center">
+        <div class="card shadow-sm border-0 mb-4">
+          <div class="card-header" style="padding-top: 0; padding-bottom: 0">
+
+            <!-- <img src="../assets/img/logoicon.svg" alt="" class="w-50px mt-4"> -->
+            <h4 class="text-left m-1">Place
+              <span class="text-template-primary" style="color: #00ed54">Order</span>
+              <button type="button" class="btn btn-sm btn-primaryyel ml-2 float-right" style="margin-right: 89px; background-color: #f6c53b"
+                data-toggle="modal" data-target="#exampleModal">
+                ADD NEW
+                <i class="material-icons md-18">navigate_next</i>
+
+              </button>
+            </h4>
+
+          </div>
+          <div class="card-body" style="padding: 5px;">
+            <div class="row justify-content-center">
+              <div class="col-md-12 mx-auto">
+                <div class="row">
+                  <div class="col-lg-12 col-md-12">
+                    <!-- <button type="button" class="btn btn-primary float-left" data-toggle="modal" >
+                        ADD NEW
+                      </button> -->
+
+                  </div>
+                </div>
+
+                <div class="container-fluid main-container" id="main-container">
+
+
+
+
+                  <!--    ---------------        Table Header Staret=------------------------    -->
+                  <div class="col-md-12">
+                    <div class="row">
+
+
+
+                      <div class="col-md-2">
+
+                        <!-- <div class="search">
+                             <input type="text" class="searchTerm" placeholder="Search here">
+                             <button type="submit" class="searchButton">
+                               <i class="fa fa-search"></i>
+                            </button>
+                          </div> -->
+                        <div class="input-group">
+
+                          <input type="text" placeholder="Search" id="searchData" class="form-control searchicon" id="searchData" aria-label="Amount (to the nearest dollar)">
+                          <div class="input-group-append">
+                            <button class="btn  apendbtn" (click)="searchdata()">
+                              <i style="color: #00ed54; margin-top: -15px;" class="fa fa-search"></i>
+                            </button>
+                          </div>
+                        </div>
+
+                      </div>
+                      <div class="col-md-2">
+                        <i class="fa fa-refresh fa-2x fa-spin-hover" style="font-size: 17px;
+                      padding-top: 4px;
+                      color: #00fff3;" (click)="Refreshfunction()"></i>
+                      </div>
+
+                      <div class="col-md-2">
+
+                      </div>
+                      <div class="col-md-2">
+                        
+                      </div>
+                      <!-- <i class="fa fa-refresh fa-2x fa-spin-hover" style="padding-top: 2px;"></i>   -->
+
+                      <div class="col-md-4">
+                        <div class="row">
+                          <div class="col-md-3">
+                            <!-- <i class="fa fa-file-pdf-o" style="font-size:26.5px;color:rgb(250, 77, 77)"></i>&nbsp; -->
+                            <img style="float: right; cursor: pointer; height: 20px; margin-top: 3px;" (click)="createPDF()" ngbTooltip="PDF" src="assets/images/PDFicon.png">
+                            <img style="cursor: pointer;" (click)="exportToExcel()" ngbTooltip="Excel" src="assets/images/excellogo.png">
+                          </div>
+                         
+                          <span style="padding-top: 0px; font-size: 12px;
+                  font-weight: bold; float: right;">Show Rows: </span>
+                          <div class="col-md-1">
+                            <div style="padding-top: 2px; width: 45px;">
+                              <select class="form-control" data-live-search="true" tabindex="1" id="selectrow" (change)="SelectRows()" aria-hidden="true"
+                                style=" font-size:12px">
+                                <option value="5" selected>5</option>
+                                <option value="5">5</option>
+                                <option value="10">10</option>
+                                <option value="20">20</option>
+                                <option value="50">50</option>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="col-md-5" style="text-align: right; font-size: 12px;
+                  font-weight: bold;">
+
+                            <span> Total Records&nbsp;:&nbsp;{{viewcount}}&nbsp;of&nbsp;{{count}} </span>
+                          </div>
+                        </div>
+                      </div>
+
+
+
+                    </div>
+
+                  </div>
+
+                  <!-- ---------------------  Table header end  ------------------------------ -->
+
+
+                  <div id="PDFTable" class="card-body table-responsive" #epltable>
+                    <table class="table table-hover table-striped">
+                      <thead>
+                        <tr role="row">
+                          <th (click)="sort('rowNumber')">#</th>
+                          <th (click)="sort('rowNumber')">Number of Device</th>
+                          <!-- <th class="all sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 86px;" aria-label="Order ID: activate to sort column descending" aria-sort="ascending">Order ID</th> -->
+                          <th (click)="sort('rowNumber')">Customer Name</th>
+                          <th (click)="sort('rowNumber')">Mobile No.</th>
+                          <th (click)="sort('rowNumber')">Remark</th>
+
+                          <th style="text-align: center; background-color: #b69090;">Status</th>
+                          <th style="background-color: #99c049">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody id="grid">
+                        <tr *ngFor="let com of PlaceOrderDetails$ | filter:filter | orderBy: key : reverse | paginate : {itemsPerPage:pagecount,currentPage:p,totalItems:count} ;" class="trheight">
+                          <td>{{com.rowNumber}}</td>
+                          <td>{{com.param2}}</td>
+                          <td>{{com.param3}}</td>
+                          <td>{{com.param4}}</td>
+                          <td>{{com.param6}}</td>
+
+                          <td class="font-weight-bold statustd" style="color: red; background-color: #f1c6c6;
+                          text-align: center; width: 30px;">{{com.param5}}</td>
+                         
+                          <td style="background-color: #a8c5ff;
+                          text-align: center; width: 30px;">
+                            <span class="iconhover" data-toggle="modal" data-target="#myModalwizard" (click)="setdata(com)">
+                              <i class="material-icons" style="color: #161e43">visibility</i>
+                            </span>
+                          </td>
+                        </tr>
+
+                      
+
+
+                      </tbody>
+                      <tfoot id= "foot" class="box-footer clearfix">
+                          <tr>
+                              <td colspan="12">
+                                <pagination-controls  style=" float: right;" (pageChange)="PlaceOrderpageChanged($event)" ></pagination-controls>                                               
+                              </td>
+                          </tr>
+                      </tfoot>
+                      
+                    </table>
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- --------------------  view & Edit Modal start ------------------------>
+
+<div class="modal fade " id="myModalwizard">
+  <div class="modal-dialog modal-lg ">
+    <div class="modal-content ">
+
+      <!-- Modal Header -->
+      <div class="modal-header modelcolor">
+        <h5 class="modal-title" id="vmd" style="display: block;">Place Order Details</h5>
+        <h5 class="modal-title" id="uvmd" style="display: none;">Update Place Order</h5>
+        <div style="float:right; margin-left: 59%;">
+          <button type="button" class=" btn btn-sm btn-secondary float-right ml-2 bg-warning" style="display: block;" id="editbtn"
+            ngbTooltip="Edit" (click)="editpageform()">
+
+            <i class="material-icons md-18">edit</i>
+          </button>
+          <button type="button" class=" btn btn-sm btn-danger float-right ml-2" id="deletebtn" ngbTooltip="Delete" data-toggle="modal"
+            data-target="#modeldelete">
+
+            <i class="material-icons md-18">delete</i>
+          </button>
+          <button type="button" class=" btn btn-sm btn-primary float-right ml-2" id="backdetailsbtn" ngbTooltip="Back" style="display: none;"
+            (click)="backdetailsbtn()">
+
+            <i class="material-icons md-18">arrow_back</i>
+          </button>
+        </div>
+        <button type="button" style="color: white" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+
+      <!-- Modal body -->
+      <div class="modal-body " style="background-color: #CBD2F1">
+        <div class="container">
+          <div class="container-fluid">
+            <div id="container" style="display: none;">
+              <div class="step-wizard" role="navigation">
+                <!-- <div class="progress">
+                  <div class="progressbar empty"></div>
+                  <div id="prog" class="progressbar"></div>
+                </div> -->
+                <ul style="display: none;">
+                  <li class="active">
+                    <button id="step1">
+                      <div class="step">1</div>
+                      <div class="title"> Details</div>
+                    </button>
+                  </li>
+                  <li class="">
+                    <button id="step2">
+                      <div class="step">2</div>
+                      <div class="title">Contact Details</div>
+                    </button>
+                  </li>
+                  <li class="">
+                    <button id="step3">
+                      <div class="step">3</div>
+                      <div class="title">Account Details</div>
+                    </button>
+                  </li>
+                  <li class="">
+                    <button id="step4">
+                      <div class="step">4</div>
+                      <div class="title">Successful</div>
+                    </button>
+                  </li>
+                </ul>
+
+
+                <div class="stepsection">
+                  <span class="invalidmsg" id="msg_mainmessage"></span>
+                  <div id="step-14" class="stepsdiv">
+                    <!-- <span class="StepTitle">Step 1: Basic Details</span> -->
+                    <div class="form-group row">
+                      <div class="col-lg-3 col-md-3">
+                        <label class="indlabel">No Of Device</label>
+                        <span class="mandatory">*</span>
+                        <input type="text" class="form-control" placeholder="No of Device" tabindex="1" required minlength="1"
+                          maxlength="4" id="noofdevice" onpaste="return false;" [(ngModel)]="noof_device" #noofdevice="ngModel"
+                          onkeypress="return isNumberKey(event)" ondrop="return false;">
+                        <div class="invalidmsg" *ngIf="noofdevice.errors?.minlength">
+                          Vendor name must be at least minimum 3 characters & maximum 30 characters long.
+                        </div>
+                        <span class="invalidmsg" id="msg_vendorName"></span>
+                      </div>
+                      <div class="col-lg-4 col-md-4">
+                        <label class="indlabel">Mobile No.</label>
+                        <span class="mandatory">*</span>
+                        <input type="text" class="form-control" placeholder="Enter Mobile No" tabindex="2" required minlength="10"
+                          maxlength="10" id="Mobno" [(ngModel)]="mobile_no" #mobileno="ngModel" onkeypress="return isNumberKey(event)">
+                        <div class="invalidmsg" *ngIf="mobileno.errors?.minlength">
+                          Official number must be at least minimum 5 characters & maximum 5 characters long.
+                        </div>
+                        <span class="invalidmsg" id="msg_shortcode"></span>
+                      </div>
+                      <div class="col-lg-5 col-md-5">
+                        <label class="indlabel">Remark</label>
+                        <span class="mandatory">*</span>
+                        <textarea class="form-control" value="{{remark_}}" rows="1" placeholder="Enter Remark" tabindex="3" minlength="10" maxlength="40" id="Remark"
+                          [(ngModel)]="remarkText" #remark="ngModel"></textarea>
+                        <div class="invalidmsg" *ngIf="remark.errors?.minlength">
+                          Remark must be at least minimum 10 characters & maximum 40 characters long.
+                        </div>
+                      </div>
+
+
+                    </div>
+
+                    <span class="invalidmsg" id="msg_error"></span>
+                  </div>
+
+                  
+
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- --------------------------------------------- View Section ------------------------------------------- -->
+          <div class="">
+          
+
+            <div id="vendordtls" class="row" style="background-color: #0e2145; border: 1px ridge #02108d;">
+              <div class="col-12 col-md-12 col-lg-12">
+
+                <div class="row" style="background-color: rgb(198 201 202);">
+                  <div class="col-12 col-md-12 col-lg-12">
+                    <div class="viewheading">Order Details</div>
+                  </div>
+                </div>
+                <br>
+
+                <div class="row">
+                  <div class="col-12 col-md-12 col-lg-12">
+                    <div class="col-4 col-md-4 col-lg-4" style=" float: left;">
+                      <span class="caplable">Number Of Device:</span>&nbsp;
+                      <span class="viewlable">{{noof_device}}</span>
+                    </div>
+                    <div class="col-4 col-md-4 col-lg-4" style=" float: left;">
+                      <span class="caplable">Customer Name:</span>&nbsp;
+                      <span class="viewlable">{{cust_name}}</span>
+                    </div>
+                    <div class="col-4 col-md-4 col-lg-4" style=" float: left;">
+                      <span class="caplable">Mobile No.:</span>&nbsp;
+                      <span class="viewlable">{{mobile_no}}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-12 col-md-12 col-lg-12">
+                    <!-- <div class="page-subtitle viewheading">Basic Details</div> -->
+                    <div class="col-4 col-md-4 col-lg-4" style=" float: left;">
+                      <span class="caplable">Remark:</span>&nbsp;
+                      <span class="viewlable">{{remark_}}</span>
+                    </div>
+
+                  </div>
+                </div>
+                <br>
+
+
+
+
+
+
+
+                <br>
+
+              </div>
+              <!-- --------------------- View Section End ------------------------------ -->
+
+            </div>
+
+          </div>
+         
+        </div>
+        <!-- --------------------- View Section End ------------------------------ -->
+
+      </div>
+
+
+      <!-- Modal footer -->
+
+      <div class="modal-footer" style="display: none;" id="modelfooter">
+
+        <div class="actionBar">
+          <button id="save" class="mb-2 btn btn-wizard btn-sm btn-success buttonFinish" (click)="vensaveeditbtn()" style="display: none;">
+            <i class="material-icons">save</i>
+          </button>
+          <button id="next" class="mb-2 btn btn-wizard btn-sm btn-success buttonNext" (click)="vensaveeditbtn()">
+            <i class="material-icons">save</i>
+          </button>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ------------------- view & Edit model close ------------------------ -->
+
+<!-- Developer 	: Aditya Londhe
+Date      	: 1-12-2020
+Description : Added a popup for Delete
+Modified By:  
+Update date : -->
+
+<!-- Delete Model-->
+<div class="modal fade" id="modeldelete">
+  <div class="modal-dialog modal-sm modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header" style="background-color: 	red;">
+        <h4 class="modal-title text-center" style="color: yellow">Are You Sure?</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body" style="background-color: #f0e8e9">
+
+        <div class="form-group row">
+
+
+          <div class="col-lg-12 col-md-12">
+            <label style="color: black">Remark</label>&nbsp;
+            <span class="indlabelstar">*</span>
+            <textarea class="form-control" rows="2" style=" font-size:12px" placeholder="Enter Remark" tabindex="1" minlength="10" maxlength="40"
+              [(ngModel)]="deleteText" #regaddress="ngModel" id="cusdelremark"></textarea>
+           
+          </div>
+          
+        </div>
+        <span class="invalidmsg" id="msg_error_delete">{{successMessageUpdate}}</span>
+        <p style="    background-color: yellow;
+        /* padding-right: 20px; */
+        margin-right: 89px;
+        color: red; display: none;">Do You want to Delete !!&hellip;</p>
+      </div>
+      
+
+      <!-- Modal footer -->
+      <div class="modal-footer text-center" style="background-color: #cfbaa8">
+        <button type="submit" class="btndel btn-primary mr-3" data-toggle="modal" data-dismiss="modal" tabindex="18" >
+          No
+        </button>
+        <button type="reset" tabindex="19" class="btndel btn-danger " data-toggle="modal" data-dismiss="modal" (click) = "OrderDeletefunction()">
+          Yes
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!-- Delete Model -->
+
+<!-- ------------------- Delete model End ----------------------- -->
+
+<!-- ------------------- onclick no btn model  ----------------------- -->
+<!-- The Modal -->
+<div class="modal fade" id="Noclickmodel">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-contentno">
+
+      <!-- Modal Header -->
+      <div class="modal-header" style="background-color: 	rgb(255, 255, 255);">
+        <h4 class="modal-title text-center" style="color: rgb(0, 0, 0)">Your Data is not Delete</h4>
+        <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+      </div>
+
+      <!-- Modal body -->
+      <!-- <div class="modal-body">
+          Your Data is Not delete..
+        </div> -->
+
+      <!-- Modal footer -->
+      <div class="modal-footer" style="background-color: 	rgb(255, 255, 255);">
+        <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">
+          <span class="material-icons">
+            highlight_off
+          </span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ------------------- onclick no btn model End ----------------------- -->
+<!-- ------------------- onclick Yes btn model ----------------------- -->
+
+<div class="modal fade" id="Yesclickmodel">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-contentno">
+
+      <!-- Modal Header -->
+      <div class="modal-header" style="background-color: 	rgb(255, 255, 255);">
+        <h4 class="modal-title text-center" style="color: rgb(0, 0, 0)">Data Deleted Successfully</h4>
+        <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+      </div>
+
+      <!-- Modal body -->
+      <!-- <div class="modal-body">
+          Your Data is Not delete..
+        </div> -->
+
+      <!-- Modal footer -->
+      <div class="modal-footer" style="background-color: 	rgb(255, 255, 255);">
+        <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">
+          <span class="material-icons">
+            highlight_off
+          </span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- Developer 	: Aditya Londhe
+Date      	: 1-12-2020
+Description : Added a popup for success and error msg 
+Modified By:  
+Update date : -->
+
+
+<div class="modal fade" id="notifymodel">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-contentno">
+    
+      <!-- Modal Header -->
+      <div class="modal-header" style="background-color: 	rgb(133, 195, 197);">
+          <h4 class="modal-title text-center" style="color: rgb(0, 0, 0)">Error</h4>
+          <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+        </div>
+      
+      <!-- Modal body -->
+       <div class="modal-body" style="background-color: white;">
+        {{datafromrespo}}
+      </div> 
+      
+      <!-- Modal footer -->
+      <div class="modal-footer" style="background-color: 	rgb(255, 255, 255); margin-right: 0px;">
+        <!-- <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal"><span class="material-icons">
+            highlight_off
+            </span></button> -->
+            <button class="btn btn-success"  data-dismiss="modal" ><span class="material-icons">
+              highlight_off
+              </span></button>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="successmodel">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-contentno">
+    
+      <!-- Modal Header -->
+      <div class="modal-header" style="background-color: 	rgb(124, 255, 146);">
+          <h4 class="modal-title text-center" style="color: rgb(0, 0, 0)">Success</h4>
+          <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+        </div>
+      
+      <!-- Modal body -->
+       <div class="modal-body" style="background-color: white;">
+        {{datafromrespo}}
+      </div> 
+      
+      <!-- Modal footer -->
+      <div class="modal-footer" style="background-color: 	rgb(255, 255, 255); margin-right: 0px;">
+        <!-- <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal"><span class="material-icons">
+            highlight_off
+            </span></button> -->
+            <button class="btn btn-success"  data-dismiss="modal" ><span class="material-icons">
+              check_circle_outline
+              </span></button>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+
+<!-- ------------------- onclick yes btn model End ----------------------- -->
+
+<app-orderentry></app-orderentry>

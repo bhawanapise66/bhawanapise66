@@ -1,0 +1,317 @@
+<!--
+Developer 	: Aditya Londhe
+Date      	: 18-09-2020
+Description : Live Allert Master Module
+Modified By:  
+Update date : 
+-->
+<div class="content shadow-sm">
+  <!-- Main container starts -->
+  <div class="container-fluid main-container" id="main-container">
+    <div class="row">
+      <div class="col-12 col-md-12 col-lg-12 col-xl-12 mx-auto align-self-center">
+        <div class="card shadow-sm border-0 mb-4">
+          <div class="card-header" style="padding-top: 0; padding-bottom: 0">
+            <div class="row">
+              <h5 class="text-left ml-1" style="font-size: 21px;">Alert
+                <span class="text-template-primary" style="color: #c1ed00">Configuration</span>
+              </h5>
+            </div>
+          </div>
+          <!-- -------------------- LiveAlert start------------------------>
+
+          <!-- --------------------  LiveAlert End------------------------>
+
+          <!-- -------------------- HistoryAlert start------------------------>
+
+          <!-- --------------------  HistoryAlert End------------------------>
+          <div class="row">
+            <div class="col-12 col-md-12 col-lg-12">
+              <div class="card mb-12 border-0 shadow-sm">
+                <div class="card-header p-0 border-0 bg-none">
+                  <ul class="nav nav-tabs" role="tablist">
+                    <li class="nav-item">
+                      <a class="nav-link active" id="tabhome125-tab" data-toggle="tab" href="#tabhome125" role="tab"
+                        aria-controls="tabhome125" aria-selected="true">
+                        Live Alerts
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" id="tabhome225-tab" data-toggle="tab" href="#tabhome225" role="tab"
+                        aria-controls="tabhome225" aria-selected="false">
+                        History Alerts
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" id="tabhome325-tab" data-toggle="tab" href="#tabhome325" role="tab"
+                        aria-controls="tabhome325" aria-selected="false">
+                        Alerts Details
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div class="card-body togglebody" style="padding: 0px;">
+                  <div class="tab-content">
+                    <div class="tab-pane fade show active" id="tabhome125" role="tabpanel"
+                      aria-labelledby="tabhome125-tab">
+                      <div class="card-body" style="padding: 0px;" id="liveblock" style="display: block;">
+                        <div class="row justify-content-center">
+                          <div class="col-md-12 mx-auto">
+                            <div class="container-fluid main-container" id="main-container">
+                              <!-----------------        Table Header Staret=-------------------------->
+                              <div class="form-group row">
+                                <div class="col-lg-2 col-md-2">
+                                  <label class="indlabel">Customer Name</label>
+                                  <span class="mandatory">*</span>
+                                  <ngx-select-dropdown tabindex="0" id="customers" [multiple]="false"
+                                    [(ngModel)]="SelectedCustomer" [config]="config" [options]="customerList"
+                                    style="font-size:12px">
+                                  </ngx-select-dropdown>
+
+                                  <span class="invalidmsg" id="msg_customerEmpty"></span>
+                                </div>
+
+                                <div class="col-lg-2 col-md-2">
+                                  <label class="indlabel">Alerts</label>
+                                  <span class="mandatory">*</span>
+                                  <select class="form-control" data-live-search="true" tabindex="1" id="recievetype"
+                                    [(ngModel)]="alertRecieveType" style="font-size:12px">
+                                    <option>SMS</option>
+                                    <option>Notification</option>
+                                    <option>Email</option>
+                                  </select>
+
+                                  <span class="invalidmsg" id="msg_DataEmpty"></span>
+
+                                </div>
+
+                                <div class="col-lg-2 col-md-2" *ngIf="alertRecieveType=='SMS'">
+                                  <label class="indlabel"> Mobile No.</label>
+                                  <span class="mandatory">*</span>
+                                  <input type="text" id="mobileEntry" class="form-control" tabindex="9"
+                                    placeholder="Please Enter Mobile no" [(ngModel)]="mobileNumber"
+                                    #mobileCtrl="ngModel" style=" font-size:12px" required minlength="10" maxlength="10"
+                                    onkeypress="return isNumberKey(event);" ondrop="return false;"
+                                    onpaste="return false;" autocomplete="off">
+
+                                  <span class="invalidmsg" *ngIf="mobileCtrl.invalid && submitted" id="msg_mob">
+                                    Please Enter Proper Mobile Number</span>
+                                </div>
+
+                                <div class="col-lg-2 col-md-2" *ngIf="alertRecieveType=='Email'">
+                                  <label class="indlabel"> Email Address.</label>
+                                  <span class="mandatory">*</span>
+                                  <input type="email" id="emailaddress" class="form-control" tabindex="9"
+                                    placeholder="Please Enter Email Address" minlength="5" [(ngModel)]="emailid"
+                                    #emailCtrl="ngModel" style=" font-size:12px" required email ondrop="return false;"
+                                    onpaste="return false;">
+                                  <!-- <span class="invalidmsg" id="msg_email"></span> -->
+                                  <span class="invalidmsg" id="emailValidation" *ngIf="emailCtrl.invalid && submitted">
+                                    Please Provide Proper Email Address</span>
+                                </div>
+
+                                <div class="col-lg-2 col-md-2" *ngIf="alertRecieveType == 'Notification'">
+                                  <label class="indlabel"> Notification Status</label>
+                                  <span class="mandatory">*</span>
+                                  <br>
+                                  <label for="on">On</label>&nbsp; &nbsp;
+                                  <input type="radio" id="on" name="notification" [(ngModel)]="notification"
+                                    value="true" (change)="changenotificationStatus($event)">
+                                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                  <label for="off">Off</label>&nbsp;&nbsp;
+                                  <input type="radio" id="off" name="notification" value="false"
+                                    [(ngModel)]="notification" (change)="changenotificationStatus($event)">
+                                </div>
+
+                                <div class="col-lg-1 col-md-1" *ngIf="alertRecieveType != 'Notification'">
+                                  <button id="save" class="mb-2 btn btn-wizard btn-sm btnadd btn-secondary"
+                                    (click)="pushEntries()" style="margin-top: 30px;">
+                                    <i class="material-icons">add</i>
+                                  </button>
+                                </div>
+                                <!-- ---------------------  Table header end  ------------------------------ -->
+
+                              </div>
+
+                              <div class="row">
+                                <div class="col-12 col-md-8 col-lg-8 col-xl-8">
+                                  <div class="card border-1 shadow-sm overflow-hidden h-100">
+
+                                    <div class="card-header">Alert Types</div>
+                                    <div class="card-body ">
+                                      <table class="table datatable display responsive w-100">
+                                        <thead>
+                                          <tr>
+                                            <th>#</th>
+                                            <th class="all">Alerts Name</th>
+                                            <th class="all">Description</th>
+                                            <th class="all">Speed / Duration</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                          <tr *ngFor="let item of liveAlertList">
+                                            <td>
+                                              <input type="checkbox" id="checked{{item.rowNumber}}" name="overspeedname" (change)="changeOverspeed(item.rowNumber)">
+                                            </td>
+                                            <td>{{item.param2}}</td>
+                                            <td>{{item.param3}} </td>
+                                            <td id="input{{item.rowNumber}}">
+                                              <div *ngIf="item.param2=='Over Speed'">
+                                                <input type="text" id="overspeedCount{{item.rowNumber}}"
+                                                  placeholder="overspeed" [(ngModel)]="overSpeedCount" >
+                                              </div>
+                                              <div *ngIf="item.param2.includes('Stop') == true">
+                                                <input type="text" id="stoppageCount{{item.rowNumber}}"
+                                                  placeholder="stoppage">
+                                              </div>
+                                            </td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+
+                                      <span class="invalidmsg" id="msg_AlertSelect"></span>
+                                      <br>
+                                      <button class="btn btn-success btn-sm" style="margin-left: 5%"
+                                        (click)="insertLiveAlert()">
+                                        Save</button>
+                                      <button type="reset" class="btn btn-secondary btn-sm" style="margin-left: 10px">
+                                        Reset</button>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="col-12 col-md-4 col-lg-4 col-xl-4 ">
+
+                                  <div class="card border-1 shadow-sm overflow-hidden ">
+                                    <div class="card-header">
+                                      Mobile List
+                                    </div>
+
+                                    <div class="card-body" style=" height:200px ;overflow:scroll">
+                                      <table class="table table-hover table-striped" style="text-align: center">
+                                        <thead>
+                                          <tr role="row">
+                                            <th>Mobile No</th>
+                                            <th>Remove</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody id="grid">
+                                          <tr *ngFor="let item of phoneList" class="trheight" id="deleteid"
+                                            class="my-0">
+                                            <td>{{item}}</td>
+                                            <td>
+                                              <div class="col-auto pr-0 align-self-center">
+                                                <button class="btn btn-sm text-danger" (click)="deleteEntries(item)"><i
+                                                    class="material-icons">delete</i></button>
+                                              </div>
+                                            </td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                    </div>
+
+
+                                  </div>
+                                  <br>
+
+                                  <div class="card">
+                                    <div class="card-header">
+                                      Notification Status: {{ notification}}
+                                    </div>
+                                  </div>
+                                  <br>
+
+                                  <div class="card border-1 shadow-sm overflow-hidden ">
+
+                                    <div class="card-header">Email List</div>
+                                    <div class="card-body" style=" height:200px ;overflow:scroll">
+                                      <table class="table table-hover table-striped" style="text-align: center">
+                                        <thead>
+                                          <tr role="row">
+                                            <th>Email</th>
+                                            <th>Remove</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody id="grid">
+                                          <tr *ngFor="let item of emailList" class="trheight" id="deleteid"
+                                            class="my-0">
+                                            <td>{{item}}</td>
+                                            <td>
+                                              <div class="col-auto pr-0 align-self-center">
+                                                <button class="btn btn-sm text-danger" (click)="deleteEntries(item)"><i
+                                                    class="material-icons">delete</i></button>
+                                              </div>
+                                            </td>
+                                          </tr>
+                                        </tbody>
+                                      </table>
+
+                                    </div>
+
+                                  </div>
+                                </div>
+                              </div>
+
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="tab-pane fade" role="tabpanel" id="tabhome225" aria-labelledby="tabhome225-tab">
+
+                      <app-historyalert></app-historyalert>
+                    </div>
+                    <div class="tab-pane" role="tabpanel" id="tabhome325" aria-labelledby="tabhome325-tab">
+
+                      <app-alert-config-details></app-alert-config-details>
+
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade " id="insertSuccessModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
+  role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-sm dialogModal" role="document">
+    <div class="modal-content box-shadow">
+      <div class="card text-center border-0">
+        <div class="card-header bg-success m-0 p-0">
+          <h5>Success</h5>
+        </div>
+        <div class="card-body bg-white">
+          {{responseMessage}}
+          <div class="text-right">
+            <button class="btn btn-sm btn-success" data-dismiss="modal">ok</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade " id="ErrorModal " data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+  aria-hidden="true">
+  <div class="modal-dialog modal-sm modal-dialog-centered dialogModal" role="document">
+    <div class="modal-content box-shadow">
+      <div class="card text-center border-0">
+        <div class="card-header bg-warning m-0 p-0">
+          <h5>Failed</h5>
+        </div>
+        <div class="card-body bg-white">
+          {{responseMessage}}
+          <div class="text-right pt-3">
+            <button class="btn btn-sm btn-success" data-dismiss="modal">ok</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

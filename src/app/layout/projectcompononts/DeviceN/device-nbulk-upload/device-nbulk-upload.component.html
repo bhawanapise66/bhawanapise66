@@ -1,0 +1,513 @@
+
+<div class="content shadow-sm">
+  <!-- Main container starts -->
+  <div class="container-fluid main-container" id="main-container">
+    <div class="row">
+      <div class="col-12 col-md-12 col-lg-12 col-xl-12 mx-auto align-self-center">
+        <div class="card shadow-sm border-0 mb-4">
+          <div class="card-header" style="padding-top: 0; padding-bottom: 0">
+
+            <h4 class="text-left m-1" style="font-size: 19px;">Device Bulk
+              <span class="text-template-primary" style="color: #00ed54; font-size: 19px;">Master</span>
+              <button type="button" class="btn btn-sm btn-primaryyel ml-2 float-right" style="margin-right: 89px;" (click)="DevicedetailsClick()">
+               DeviceDetails
+                <i class="material-icons md-18">navigate_next</i>  
+               
+              </button>
+             
+            </h4>
+           
+          </div>
+          <div class="card-body" style="padding: 5px;">
+            <div class="row justify-content-center">
+              <div class="col-md-12 mx-auto">
+                <div class="row">
+                  <div class="col-lg-12 col-md-12">
+                   
+                  </div>
+                </div>
+
+                <div class="container-fluid">
+                <div class="col-lg-12 col-md-12">
+                  <div class="row">
+                  <div class="card col-md-6 col-lg-6 col-xl-6" style=" float:left; background-color: #001c66;">
+                    <div class="card-header" style=" background-color: #5a66a9;">Basic Details</div>
+                   <div class="card-body " > 
+                 
+                  <div class="form-group row">
+                                        
+                    <div class="col-lg-4 col-md-4">
+                      <label class="indlabel">Vendor</label>
+                      <span class="mandatory">*</span>
+                      <ngx-select-dropdown tabindex="7" id="vendorentrydemo" [multiple]="false" [(ngModel)]="vendorText"
+                        [config]="config" [options]="ListOfvendor" (change)="DevicetypeListBind()" ></ngx-select-dropdown>
+                      <span class="invalidmsg" id="msg_vendorName"></span>
+                    </div>
+
+                    <div class="col-lg-4 col-md-4" style="display: none;">
+                      <label class="indlabel">Vendor List Dummy</label>
+                      <span class="mandatory">*</span>
+                      <input type="text" class="form-control" id="vendordummy" [(ngModel)]="vendorlistdata" >                       
+                    </div>
+                    
+                    <div class="col-lg-4 col-md-4">
+                      <label class="indlabel">Mode Of Delivery</label>&nbsp;
+                      <ngx-select-dropdown tabindex="5" id="courierbyid" [multiple]="false" [(ngModel)]="courierbyText"
+                      [config]="config" [options]="ListOfModeofDelivery" (change)="CourierbyChangeList()"></ngx-select-dropdown>
+
+                      <input type="text" style="display: none;" [(ngModel)]="receivedbydummy">
+                    </div>
+
+                    <div class="col-lg-4 col-md-4" id="recdate">
+                      <label class="indlabel" >Received Date</label>
+                        <input type="text" class="form-control datepicker" id = "courierreceivedateid" [(ngModel)]="CourierReceivedate" tabindex="4">
+                        <span class="invalidmsg" id="msg_courierReceivedDate"></span>
+                      </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <div class="col-lg-4 col-md-4" id = recbydiv>
+                      <label class="indlabel">Received By</label>
+                      <span class="mandatory">*</span>
+                      <input type="text" class="form-control" placeholder="Received By Name." tabindex="1" minlength="3" maxlength="50" 
+                      [(ngModel)]="receivedbyText" #recby="ngModel" style=" font-size:12px" onkeypress="return onlyAlphabets(event);"
+                      ondrop="return false;" onpaste="return false;" id="receivedbynameentry">
+                      <div class="invalidmsg" *ngIf="recby.errors?.minlength">
+                        Received by must be at least minimum 3 characters & maximum 50 characters long.
+                      </div>
+                  </div>
+
+                    <div class="col-lg-4 col-md-4" id = "permobno">
+                      <label class="indlabel">Mobile Number</label>                        
+                      <input type="text" name="mobileno" id="personmobilenumber" class="form-control" placeholder="Mobile Number"
+                        [(ngModel)]="personmobileNo" #permobilenoCtrl="ngModel" onkeypress="return isNumberKey(event)" required minlength="10"
+                        maxlength="13" tabindex="3" >
+                        <span class="invalidmsg" *ngIf="permobilenoCtrl.errors?.minlength">
+                          Person Mobile Number should be between 10 to 13 digits
+                        </span>
+                    </div>
+
+                    <div class="col-lg-4 col-md-4" id = "recfrm">
+                      <label class="indlabel">From</label>
+
+                      <input type="text" class="form-control" placeholder="Received From." tabindex="1" minlength="3" maxlength="50" 
+                      [(ngModel)]="courierfromText" #courierfrom="ngModel" style=" font-size:12px" onkeypress="return onlyAlphabets(event);"
+                      ondrop="return false;" onpaste="return false;" id="receivedfromentry">
+                      <div class="invalidmsg" *ngIf="courierfrom.errors?.minlength">
+                        From location must be at least minimum 3 characters & maximum 50 characters long.
+                      </div>
+                    </div>
+                  </div>
+                 </div> 
+                  </div>
+
+                  <div class="col-md-1 col-lg-1 col-xl-1" style=" float:left; ">&nbsp;</div>
+                  
+                  <div class="card col-md-5 col-lg-5 col-xl-5" style=" float:left; background-color: #001c66;">
+                    <div id = "courierinfodiv"  class="row" >
+                    <div class="card-header" style=" background-color: #5a66a9;">Courier Details</div>
+                  <div class="card-body " >
+                      <div class="form-group row">
+                        <div class="col-lg-4 col-md-4">
+                          <label class="indlabel">Courier Name</label>
+                          <input type="text" class="form-control" placeholder="Courier Name." tabindex="1" minlength="3" maxlength="50" 
+                          [(ngModel)]="couriernameText" #coby="ngModel" style=" font-size:12px" onkeypress="return onlyAlphabets(event);"
+                          ondrop="return false;" onpaste="return false;" id="couriernameentry">
+                          <div class="invalidmsg" *ngIf="coby.errors?.minlength">
+                            Courier name must be at least minimum 3 characters & maximum 50 characters long.
+                          </div>
+                        </div>  
+
+                        <div class="col-lg-4 col-md-4">
+                          <label class="indlabel">Courier From</label>
+                          
+                          <input type="text" class="form-control" placeholder="Courier From." tabindex="1" minlength="3" maxlength="50" 
+                          [(ngModel)]="courierfromText" #courierfrom="ngModel" style=" font-size:12px" onkeypress="return onlyAlphabets(event);"
+                          ondrop="return false;" onpaste="return false;" id="courierfromentry">
+                          <div class="invalidmsg" *ngIf="courierfrom.errors?.minlength">
+                            From location must be at least minimum 3 characters & maximum 50 characters long.
+                          </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-4">
+                          <label class="indlabel">Tracker ID</label>&nbsp;
+                          <input type="text" class="form-control" style=" font-size:12px" placeholder="Tracker ID." tabindex="6" minlength="6"
+                            maxlength="6" [(ngModel)]="trackeridText" id="trackeridentry" #trackerid="ngModel" onkeypress="return isNumberKey(event)">
+                          <div class="invalidmsg" *ngIf="trackerid.errors?.minlength">
+                            Tracker ID must be at least minimum 6 characters & maximum 6 characters long.
+                          </div>
+                        </div>
+                      </div>
+                        </div>
+                        </div>
+
+                      <div class="row" >
+                        <div class="col-md-12 col-lg-12 col-xl-12" style=" float:left; background-color: #001c66;">
+                          <div class="card-header" style=" background-color: #5a66a9;"> Upload Device Details  
+                          </div>
+                          <div style=" margin-left: 76%; margin-top: -7%;" class="iconhover" data-toggle="modal" data-target="#myModalviewpage" >
+                            <i class="material-icons text-success" style="cursor:pointer" ngbTooltip="ViewExcel" >visibility</i>
+                          </div> 
+                          <div class="iconhover" data-toggle="modal" style="margin-left: 84%; margin-top: -5%;" >
+                            <a  href="assets/Excelformat/DeviceEntryUIDemotoview.xlsx" download="DeviceEntryUIDemotoview.xlsx"> <i class="material-icons downloadexcel" ngbTooltip="ExampleofExcel" placement="bottom" >get_app</i></a>
+                          </div>
+                        <div class="card-body " >
+                          <div class="form-group row">
+                          
+                            <div class="col-lg-5 col-md-5">
+                              <label class="indlabel">Device Type</label>
+                              <span class="mandatory">*</span>
+                            
+                              <ngx-select-dropdown tabindex="2" id="devicetypebulkentry" [multiple]="false" [(ngModel)]="devicetypebulkText" 
+                              [config]="config" [options]="ListOfdevicetype" (change)="SelectModellList(); devicetypech();"></ngx-select-dropdown>  
+
+                              <span class="invalidmsg" id="msg_vendorName"></span>
+                            </div>
+                            <div class="col-lg-2 col-md-2" style="display: none;">
+                                <label class="indlabel">Dummy Device Type</label>
+                                <span class="mandatory">*</span>
+                                <input type="text" class="form-control" placeholder="Enter Device IMEI No" tabindex="1" required minlength="3" maxlength="30"
+                                  id="devicetypeiddummy" onpaste="return false;" [(ngModel)]="devicetypeiddummy" #vendornm="ngModel" onkeypress="return onlyAlphabets(event);"
+                                  ondrop="return false;">
+                              </div>
+                            
+                            <div class="col-lg-5 col-md-5">
+                              <label class="indlabel">Select Model</label>
+                              <span class="mandatory">*</span>
+                            
+                              <ngx-select-dropdown tabindex="3" id="selectmodelbulkentry" [multiple]="false" [(ngModel)]="selectmodelbulkText" 
+                              [config]="config" [options]="ListOfModel" (change)="selectmodelch()" ></ngx-select-dropdown>  
+
+                              <span class="invalidmsg" id="msg_vendorName"></span>
+                            </div>
+                            <div class="col-lg-2 col-md-2" style="display: none;">
+                                <label class="indlabel">Dummy Device Model</label>
+                                <span class="mandatory">*</span>
+                                <input type="text" class="form-control" placeholder="Enter Device IMEI No" tabindex="1" required minlength="3" maxlength="30"
+                                  id="selectmodeliddummy" onpaste="return false;" [(ngModel)]="modeliddummy" #vendornm="ngModel" onkeypress="return onlyAlphabets(event);"
+                                  ondrop="return false;">
+                              </div>
+                          </div>
+
+                          <div class="form-group row">
+                            <div class="col-lg-5 col-md-5">
+              
+                              <label class="indlabel"> Upload <span class="mandatory">*</span> 
+                              </label><br>
+                              <input type="file" id="imgInp" id="filechoose" (change)="selectFile($event)"><br><br>
+                              
+                              </div>
+                              <div id = "courierbtndiv" class="col-lg-3 col-md-3" >
+                                  <br>
+                                  <button type="button" class="btn btn-sm btn-primary ml-2 float-right" style="margin-right: -166px; margin-top: 7px;" (click)="Courierupload()">
+                                        Upload<i class="material-icons md-18">cloud_upload</i>                               
+                                  </button>                           
+                              </div> 
+
+                              <div id = "receivedbybtndiv" class="col-lg-3 col-md-3" >
+                                <br>
+                                <button type="button" class="btn btn-sm btn-primary ml-2 float-right" style="margin-right: -166px; margin-top: 7px;" (click)="Receivedupload()">
+                                      Upload<i class="material-icons md-18">cloud_upload</i>                               
+                                </button>                           
+                            </div>
+                          </div>
+                        </div>
+                        </div>
+                      </div>
+                      </div>
+                  </div>
+                </div>
+                <div class="col-lg-8 col-md-8">
+                <div class="form-group row">
+                  
+                    <span class="invalidmsg" id="msg_error"></span>                
+                 
+                    </div>
+                </div>
+
+</div>
+
+            <div id="uploadtbldiv" class="card col-md-12 col-lg-12 col-xl-12" style=" float:left; background-color: #0d2f8b;">
+              <div class="card-header" style=" background-color: #5a66a9;"> Upload Device Excel-Sheet Details  
+              </div>
+
+                <div class="container-fluid main-container" id="main-container" style="display: block;">
+ 
+             <!--    ---------------        Table Header Staret          =------------------------    -->
+             <div class="col-md-12">
+                <div class="row">
+                        <div class="col-md-2">
+                      
+                          <div class="input-group">
+                          
+                            <input type="text" placeholder="Search" class="form-control searchicon " id="searchData" [(ngModel)]="filter" aria-label="Amount (to the nearest dollar)">
+                            <div class="input-group-append" >
+                                <button class="btn  apendbtn" (click)="searchdata()" ><i style="color: #00ed54; margin-top: -15px;" class="fa fa-search"></i> </button>
+                            </div>
+                        </div>                       
+                  </div> 
+                   <div class="col-md-2">                                         
+                      Total Records:{{resptotalrecord}}
+                  </div> 
+
+                  <div class="col-md-2">
+                      Saved Records:{{respsaverecord}}
+                  </div>
+                  <div class="col-md-2" >
+                      Failed Records:{{respfailedrecord}}                    
+                 </div>
+                                 
+                  <div class="col-md-4" >
+                      <div class="row">
+                        <div class="col-md-3">
+                          
+                    <img style="float: right; cursor: pointer; height: 20px; margin-top: 3px;" (click)="createPDF()" ngbTooltip="PDF" src="assets/images/PDFicon.png">
+                    <img style="cursor: pointer;" (click)="exportToExcel()" ngbTooltip="Excel" src="assets/images/excellogo.png">
+                        </div>
+                         
+                  </div>
+                  </div>
+                  
+                
+                 
+                </div>
+    
+              </div>
+    
+         <!-- ---------------------  Table header end  ------------------------------ --> 
+                 
+                  
+                  <div id="PDFTable" class="card-body table-responsive" #epltable>
+                    <table class="table table-hover table-striped">
+                      <thead >
+                        <tr role="row">
+                          <th><span (click)="sort('rowNumber')">#</span></th>
+                          <th><span (click)="sort('param1')"> IMEI No</span></th>
+                          <th><span (click)="sort('param2')"> Serial No</span></th>                          
+                          <th><span (click)="sort('param3')"> ICCID No/Sim No</span></th>
+                          <th><span (click)="sort('param4')"> Mobile No1</span></th>
+                          <th><span (click)="sort('param5')"> Mobile No2</span></th>
+                          <th><span (click)="sort('param6')"> Network No1</span></th>   
+                          <th><span (click)="sort('param7')"> Network No2</span></th>
+                          <th><span (click)="sort('param8')"> DateTime</span></th>
+                          <th><span (click)="sort('param9')"> Mode of Delivery</span></th>  
+                        
+                        </tr>
+                      </thead>
+                      <tbody id = "grid"> 
+                        <tr *ngFor="let com of respoofbulk | orderBy: key : reverse | paginate : {itemsPerPage:pagecount,currentPage:p,totalItems:count} ;" class="trheight">
+                          <td>{{com.recordNumber}}</td>
+                          <td>{{com.param1}}</td>
+                          <td>{{com.param2}}</td>                          
+                          <td>{{com.param3}}</td>
+                          <td>{{com.param4}}</td>
+                          <td>{{com.param5}}</td>
+                          <td>{{com.param6}}</td>
+                          <td>{{com.param7}}</td>
+                          <td>{{com.param8}}</td>
+                          <td>{{com.param9}}</td>
+                        </tr>
+                      </tbody>                     
+                    </table>
+                    
+                  </div>
+                </div>
+            </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- --------------------  view & Edit Modal start------------------------>
+
+
+
+<!-- ------------------- view & Edit model close ------------------------ -->
+
+<!-- ------------------ Delete Model Start ------------------------>
+
+<!-- Delete Model-->
+<div class="modal fade" id="modeldelete">
+    <div class="modal-dialog modal-sm modal-dialog-centered">
+      <div class="modal-content">
+  
+        <!-- Modal Header -->
+        <div class="modal-header" style="background-color: 	red;">
+          <h4 class="modal-title text-center" style="color: yellow">Are You Sure?</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+  
+        <!-- Modal body -->
+        <div class="modal-body" style="background-color: #f0e8e9">
+  
+          <div class="form-group row">
+  
+  
+            <div class="col-lg-12 col-md-12">
+              <label style="color: black">Remark</label>&nbsp;
+              <span class="indlabelstar">*</span>
+              <textarea class="form-control" rows="2" style=" font-size:12px" placeholder="Enter Remark" tabindex="1" minlength="10" maxlength="40"
+                [(ngModel)]="deleteText" #regaddress="ngModel" id="vendelremark"></textarea>
+             
+            </div>
+            
+          </div>
+          <span class="invalidmsg" id="msg_error_delete">{{successMessageUpdate}}</span>
+          <p style="    background-color: yellow;
+          /* padding-right: 20px; */
+          margin-right: 89px;
+          color: red; display: none;">Do You want to Delete !!&hellip;</p>
+        </div>
+        
+  
+        <!-- Modal footer -->
+        <div class="modal-footer text-center" style="background-color: #cfbaa8">
+          <button type="submit" class="btndel btn-primary mr-3" data-toggle="modal" data-dismiss="modal" tabindex="18" >
+            No
+          </button>
+          <button type="reset" tabindex="19" class="btndel btn-danger " data-toggle="modal" data-dismiss="modal" (click) = "VendorDeletefunction()">
+            Yes
+          </button>
+        </div>
+  
+      </div>
+    </div>
+  </div>
+  <!-- Delete Model -->
+
+<!-- ------------------- Delete model End ----------------------- -->
+
+<!-- ------------------- onclick no btn model  ----------------------- -->
+<!-- The Modal -->
+<div class="modal fade" id="Noclickmodel">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-contentno">
+      
+        <!-- Modal Header -->
+        <div class="modal-header" style="background-color: 	rgb(133, 195, 197);">
+            <h4 class="modal-title text-center" style="color: rgb(0, 0, 0)">Error</h4>
+            <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+          </div>
+        
+        <!-- Modal body -->
+         <div class="modal-body" style="background-color: white;">
+          Your Data is Not delete..
+        </div> 
+        
+        <!-- Modal footer -->
+        <div class="modal-footer" style="background-color: 	rgb(255, 255, 255);">
+          <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal"><span class="material-icons">
+              highlight_off
+              </span></button>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+<!-- ------------------- onclick no btn model End ----------------------- -->
+<!-- ------------------- onclick Yes btn model ----------------------- -->
+
+<div class="modal fade" id="Yesclickmodel">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-contentno">
+      
+        <!-- Modal Header -->
+        <div class="modal-header" style="background-color: 	rgb(133, 195, 197);">
+            <h4 class="modal-title text-center" style="color: rgb(0, 0, 0)">Successfully</h4>
+            <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+          </div>
+        
+        <!-- Modal body -->
+         <div class="modal-body" style="background-color: white;">
+          Your Data is delete..
+        </div> 
+        
+        <!-- Modal footer -->
+        <div class="modal-footer" style="background-color: 	rgb(255, 255, 255);">
+          <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal"><span class="material-icons">
+              highlight_off
+              </span></button>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+<!-- ------------------- onclick yes btn model End ----------------------- -->
+
+<div class="modal fade" id="notifymodel">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-contentno">
+    
+      <!-- Modal Header -->
+      <div class="modal-header" style="background-color: 	rgb(133, 195, 197);">
+          <h4 class="modal-title text-center" style="color: rgb(0, 0, 0)">Error</h4>
+          <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+        </div>
+      
+      <!-- Modal body -->
+       <div class="modal-body" style="background-color: white;">
+        {{datafromrespo}}
+      </div> 
+      
+      <!-- Modal footer -->
+      <div class="modal-footer" style="background-color: 	rgb(255, 255, 255); margin-right: 0px;">
+          <button class="btn btn-success"  data-dismiss="modal" ><span class="material-icons">
+              highlight_off
+              </span></button>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="successmodel">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-contentno">
+    
+      <!-- Modal Header -->
+      <div class="modal-header" style="background-color: 	rgb(124, 255, 146);">
+          <h4 class="modal-title text-center" style="color: rgb(0, 0, 0)">Success</h4>
+          <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+        </div>
+      
+      <!-- Modal body -->
+       <div class="modal-body" style="background-color: white;">
+        {{datafromrespo}}
+      </div> 
+      
+      <!-- Modal footer -->
+      <div class="modal-footer" style="background-color: 	rgb(255, 255, 255); margin-right: 0px;">
+         <button class="btn btn-success" style="width: 36px;"  data-dismiss="modal" ><span class="material-icons">
+              check_circle_outline
+              </span></button>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModalviewpage" role="dialog">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" style="color: white" data-dismiss="modal">&times;</button>
+         
+        </div>
+        <div class="modal-body" style="height: 320px;">
+          <!-- <p>This is a large modal.</p> -->
+          <img style="cursor: pointer;" src="assets/images/demoforexcelpic.PNG" style="width: 765px;">
+
+        </div>
+       
+      </div>
+    </div>
+ 
+</div>

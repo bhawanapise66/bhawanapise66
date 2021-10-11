@@ -1,0 +1,56 @@
+<div class="row">
+  <div class="col-md-4 col-sm-4">
+    <div>
+      <label class="indlabel">Select Assignment<span class="text-danger">*</span> : </label>
+      &nbsp;&nbsp;&nbsp;
+      <select class="form-control form-control-sm" style="background-color: #c3d5f9; color: black;"
+        [(ngModel)]="assignmentOption" (change)="getAssignment()">
+        <option>Menu</option>
+        <option>Landing Page</option>
+       </select>
+    </div>
+  </div>
+  <div class="col-md-4 col-sm-4">
+    <div id="menuSelected" *ngIf="menuSelected">
+      <label class="indlabel">Assign Menu To<span class="text-danger">*</span> :</label>
+      &nbsp;&nbsp;&nbsp;
+      <select class="form-control form-control-sm" [(ngModel)]="RoleforMenu" (change)="selectForMenuAssignment()"
+        style="background-color: #c3d5f9; color: black;">
+        <option disabled>Assigned To</option>
+        <option>Role</option>
+        <option>User</option>
+      </select>
+    </div>
+
+    <div id="menuSelected" *ngIf="landingPageSelected">
+      <label class="indlabel">Assign Landing Page To<span class="text-danger">*</span> :</label>
+      <select class="form-control form-control-sm" [(ngModel)]="Roleforlandingpage" (change)="selectForLandingPage()"
+        style="background-color: #c3d5f9; color: black;">
+        <option disabled>Assigned To</option>
+        <option>Role</option>
+        <option>User</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+
+
+<hr style="border: 1px solid #d3cfcf;">
+
+
+<div *ngIf="isMenuRoleWise">
+  <app-menu-role-wise></app-menu-role-wise>
+</div>
+
+<div *ngIf="isMenuUserWise">
+  <app-menu-user-wise></app-menu-user-wise>
+</div>
+
+<div *ngIf="isPageRoleWise">
+  <app-landingpage-role-wise></app-landingpage-role-wise>
+</div>
+
+<div *ngIf="isPageUserWise">
+  <app-landingpage-user-wise></app-landingpage-user-wise>
+</div>

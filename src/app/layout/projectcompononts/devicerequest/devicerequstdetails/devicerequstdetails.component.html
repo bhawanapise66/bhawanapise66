@@ -1,0 +1,369 @@
+<div class="row">
+  <div class="col-12 col-md-12 col-lg-12 col-xl-12 mx-auto align-self-center">
+    <div class="card shadow-sm border-0 mb-4">
+      <div class="card-header" style="padding-top: 0; padding-bottom: 0">
+        <h6 class="text-left m-1"><i class="material-icons md-18">grid_on</i>&nbsp;Device
+          <span class="text-template-primary" style=" color: #00ed53;">Request</span>
+        </h6>
+      </div>
+
+
+      <div class="card-body">
+        <div class="row justify-content-center">
+          <div class="col-md-12 mx-auto" style=" border: 3px ridge #040c4b">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group row">
+                  <div class="col-xl-2 col-lg-3 col-md-3 col-sm-6" *ngIf="!isCustomer">
+                    <label class="indlabel">Customer</label>
+                    <span class="mandatory">*</span>
+                    <ngx-select-dropdown tabindex="0" id="customerentry2" [multiple]="false"
+                      [(ngModel)]="selectcustomerentry" [config]="config" [options]="ListOfCustomer"
+                      (change)="getCustomerId()" style="font-size:11px; text-transform: capitalize; ">
+                    </ngx-select-dropdown>
+
+                    <input type="text" id="customerdummyupdate" [(ngModel)]="selectcustomerreturn"
+                      style="text-transform: capitalize;display: none;">
+
+                    <small class="text-danger" id="err_customer"> </small>
+                    <small class="text-danger" id="err_customer1"> </small>
+                  </div>
+
+                  <div class="col-xl-2 col-lg-3 col-md-3 col-sm-6">
+                    <label class="indlabel">Device Type</label>
+                    <span class="mandatory">*</span>
+                    <ngx-select-dropdown tabindex="1" id="devicetypeentry" [multiple]="false"
+                      [(ngModel)]="selectdevicetypeentry" [config]="config" [options]="ListOfDeviceType"
+                      (change)="selectdevicetypedummy()" style="font-size:11px; text-transform: capitalize;">
+                    </ngx-select-dropdown>
+
+                    <input type="text" style="display: none;" id="devicetypedummyupdate"
+                      [(ngModel)]="selectdevicetypereturn">
+
+                    <small class="text-danger" id="err_devicetype"> </small>
+                    <small class="text-danger" id="err_devicetype1"> </small>
+                  </div>
+
+                  <div class="col-xl-2 col-lg-3 col-md-3 col-sm-6">
+                    <label class="indlabel">Device Quantity</label>
+                    <span class="mandatory">*</span>
+                    <input type="text" class="form-control" placeholder="Device Quantity" tabindex="2" required
+                      id="deviceqtyidentry" [(ngModel)]="deviceqtyTextentry" #DeviceQTY="ngModel"
+                      onkeypress="return isNumberKey(event)" minlength="1" maxlength="5" style="font-size:11px">
+
+                    <small class="text-danger" id="err_quantity"></small>
+                    <small class="text-danger" id="err_quantity1"></small>
+                  </div>
+
+                  <div id="customerdiv" class="col-xl-2 col-lg-3 col-md-3 col-sm-6">
+                    <label class="indlabel">Request Type</label>
+                    <span class="mandatory">*</span>
+                    <ngx-select-dropdown tabindex="5" id="requesttypeentry" [multiple]="false"
+                      [(ngModel)]="selectrequesttypeentry" [config]="config2" [options]="options" tabindex="3"
+                      (change)="getReqTypeId()" style="font-size:11px"></ngx-select-dropdown>
+
+
+                    <input type="text" style="display: none;" [(ngModel)]="reqtyp">
+
+                    <small class="text-danger" id="err_reqtype"> </small>
+                    <small class="text-danger" id="err_reqtype1"> </small>
+                  </div>
+
+                  <div id="saveentry" class=" col-lg-1 col-sm-2 col-md-1 mt-4">
+                    <button tabindex="4" class="mb-2 btn btn-sm btn-success" (click)="ADDRecord()">
+                      Submit
+                    </button>
+                  </div>
+
+                  <div id="updateentry" class="col-lg-1 col-sm-2 col-md-1 mt-4">
+                    <button tabindex="5" class="mb-2 btn btn-sm btn-success" (click)="UpdateRecord()">
+                      Update
+                    </button>
+                  </div>
+
+                  <div class="col-sm-1 col-md-1 mt-4">
+
+                    <button tabindex="6" id="clearentry" class="mb-2 btn btn-sm btn-danger" (click)="clearfunction()">
+                      Clear
+                    </button>
+                  </div>
+
+                  <div class="col-lg-4 col-md-4">
+                    <!--  <div class="maxminwarn" *ngIf="DeviceNo.errors?.minlength">
+                              Device quantity must be at least minimum 1 characters & maximum 5 characters long.
+                            </div> -->
+
+                    <div id="alertmsg">
+
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+
+            </div>
+
+            <div class="row  mx-1">
+              <div class="col-12 col-sm-12 col-md text-md-left align-self-center pr-0">
+                <ul class="nav  justify-sm-content-center  justify-content-left">
+                  <li class="nav-item ">
+                    <div class="input-group">
+                      <input type="text" placeholder="Search" class="form-control searchicon " id="searchData"
+                        [(ngModel)]="filter" aria-label="Amount (to the nearest dollar)">
+                      <div class="input-group-append">
+                        <button class="btn  apendbtn" (click)="searchdata()"><i
+                            style="color: #00ed54; margin-top: -15px;" class="fa fa-search"></i> </button>
+                      </div>
+                    </div>
+                  </li>
+
+                  <li class="nav-item mx-3">
+                    <i class="fa fa-refresh fa-2x fa-spin-hover"
+                      style="font-size: 17px;padding-top: 4px;color: #00fff3;" (click)="RefreshDeviceDetail()"></i>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="col-12 col-sm-12 col-md-auto text-right text-md-end pl-0">
+                <ul class="nav justify-content-center justify-lg-content-end  justify-sm-content-center">
+                  <li class="nav-item mx-2">
+                    <img style="float: right; cursor: pointer; height: 20px; margin-top: 3px;" (click)="createPDF()"
+                      ngbTooltip="PDF" src="assets/images/PDFicon.png">
+                  </li>
+                  <li class="nav-item mx-2">
+                    <img style="cursor: pointer;" (click)="exportToExcel()" ngbTooltip="Excel"
+                      src="assets/images/excellogo.png">
+                  </li>
+                  <li class="nav-item mx-3">
+
+                    <span style="padding-top: 0px; font-size: 12px;font-weight: bold;display: inline;">Show Rows:
+                    </span>
+                    <select class="form-control p-0" data-live-search="true" tabindex="1" id="selectrow"
+                      [(ngModel)]="itemsPerPage" (change)="RowsBindChanged()" aria-hidden="true"
+                      style=" font-size:12px;display: inline;width: 45px;">
+
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+
+                      <option value="5">5</option>
+                      <option value="10">10</option>
+                      <option value="20">20</option>
+                      <option value="50">50</option>
+                    </select>
+                  </li>
+                  <li class="nav-item pt-1">
+                    <span> Total Records&nbsp;:&nbsp;{{viewCount}}&nbsp;of&nbsp;{{totalCount}} </span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="card-body table-responsive">
+              <table class="table table-hover table-striped">
+                <thead>
+                  <tr>
+                    <th (click)="sort('param10')">#</th>
+                    <!-- <th style=" display: none;">Request ID</th>
+                    <th style=" display: none;">Devicetype ID</th> -->
+                    <th (click)="sort('param14')" *ngIf="!isCustomer">Customer Name</th>
+                    <th (click)="sort('param2')">Device Type</th>
+                    <th (click)="sort('param3')">Quantity</th>
+                    <th (click)="sort('param4')">Request Type</th>
+                    <th (click)="sort('param10')">Request Date</th>
+                    <th (click)="sort('param9')">Request Status</th>
+                    <th>Action</th>
+                    <th>Approval</th>
+                  </tr>
+                </thead>
+                <tbody id="grid">
+                  <tr
+                    *ngFor="let dev of devicereqdetail | filter:filter | orderBy: key : reverse | paginate: { itemsPerPage: itemsPerPage, currentPage: pageNumber, totalItems: totalCount} ;"
+                    style=" padding: 0.35rem 0.5rem;">
+                    <td style=" padding: 0.35rem 0.5rem;">{{dev.rowNumber}}</td>
+                    <!-- <td style=" padding: 0.35rem 0.5rem; display: none;">{{dev.param1}}</td>
+                    <td style=" padding: 0.35rem 0.5rem; display: none;">{{dev.param2}}</td> -->
+                    <td style=" padding: 0.35rem 0.5rem;" *ngIf="!isCustomer">{{dev.param14}}</td>
+                    <td style=" padding: 0.35rem 0.5rem;">{{dev.param2}}</td>
+                    <td style=" padding: 0.35rem 0.5rem;">{{dev.param3}}</td>
+                    <td style=" padding: 0.35rem 0.5rem;">{{dev.param4}}</td>
+                    <td style=" padding: 0.35rem 0.5rem;">{{dev.param10}}</td>
+                    <td style=" padding: 0.35rem 0.5rem;">{{dev.param9}}</td>
+                    <td style=" padding: 0.35rem 0.5rem;">
+                      <span class="material-icons text-success text-sm" style="cursor:pointer" placement="bottom"
+                        ngbTooltip="Edit Entry" (click)="Updatedata(dev)">
+                        create
+                      </span>
+                      &nbsp;
+                      <span class="material-icons text-danger text-sm" style="cursor:pointer" placement="bottom"
+                        ngbTooltip="Cancel Request" id="deletebtn" data-toggle="modal" (click)="DeleteModal(dev)"
+                        data-target="#modeldelete">
+                        delete
+                      </span>
+                    </td>
+                    <td style=" padding: 0.35rem 0.5rem;"
+                      *ngIf="userKey=='10' ||  userKey=='11' ||  userKey=='16'|| userKey=='21'"> <button
+                        class="btn btn-link btn-sm" data-toggle="modal" data-target="#approveModal"
+                        (click)="setforApproval(dev)">approve</button>
+                    </td>
+                  </tr>
+                  <!-- <tr *ngIf="devicereqdetail.length==0 && flagg==1">
+                    <td colspan="8">
+                      <span style="text-align: center;margin-left: 45%;">No Data Found </span>
+                    </td>
+
+                  </tr>
+                  <tr *ngIf="devicereqdetail.length==0 && flagg==0">
+                    <td colspan="7">
+                      <span style="text-align: center;margin-left: 45%;">No Data Found </span>
+                    </td>
+
+                  </tr> -->
+                </tbody>
+                <tfoot id="foot">
+                  <tr>
+                    <td colspan="8">
+                      <pagination-controls style=" float: right;" (pageChange)="pageChanged($event)">
+                      </pagination-controls> <!--   -->
+                    </td>
+                  </tr>
+                </tfoot>
+              </table>
+              <!--Dummy Table of Excel -->
+              <div style=" display: none;">
+                <div class="row" id="PDFTable" style=" height : 480px; overflow-y: hidden; " #epltable>
+                  <table id="dtBasicExample" class="table table-striped table-bordered table-responsive" width="100%"
+                    style="font-size: 11px; text-align: center; color:black; border-collapse:collapse; ">
+                    <thead>
+                      <tr>
+                        <th (click)="sort('rowNumber')">#</th>
+                        <th (click)="sort('param69')">Customer Name</th>
+                        <th (click)="sort('param74')">Device Type</th>
+                        <th (click)="sort('param12')">Quantity</th>
+                        <th (click)="sort('param4')">Request Type</th>
+                      </tr>
+                    </thead>
+                    <tbody id="grid">
+                      <tr *ngFor="let dev of globalPDF$" style=" padding: 0.35rem 0.5rem;">
+                        <td style=" padding: 0.35rem 0.5rem;">{{dev.rowNumber}}</td>
+                        <td style=" padding: 0.35rem 0.5rem;">{{dev.param14}}</td>
+                        <td style=" padding: 0.35rem 0.5rem;">{{dev.param2}}</td>
+                        <td style=" padding: 0.35rem 0.5rem;">{{dev.param3}}</td>
+                        <td style=" padding: 0.35rem 0.5rem;">{{dev.param4}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+      <!--  </div> -->
+    </div>
+  </div>
+</div>
+
+
+<!-- ------------------ Delete Model Start ------------------------>
+
+<!-- Delete Model-->
+<div class="modal fade" id="modeldelete" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-sm modal-dialog-centered">
+    <div class="modal-content">
+      <div class="btn-warning modal-header p-1">
+        <h6 class="modal-title" style="color: black;font-size: 15px;padding-left: 9px;padding-top: 4px;"><b>Confirm
+            Delete</b></h6>
+
+        <button type="button" class="close" data-dismiss="modal" (click)="closemodal();">&times;</button>
+      </div>
+      <div class="modal-body" style="background-color: #f0e8e9;">
+        <textarea class="form-control" id="deleteremark" [(ngModel)]="deleteText" style="font-size: 11px;"
+          placeholder="Enter Remark"></textarea>
+        <small id="delete" class="text-danger"></small>
+      </div>
+      <div class="modal-footer p-2" style="background-color: #cfbaa8;height: 44px;">
+        <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal"
+          (click)="closemodal();">Close</button>
+        <button type="button" class="btn btn-sm btn-danger" (click)="Deletefunction()">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Delete Model -->
+
+<!-- ------------------- Delete model End ----------------------- -->
+
+<div class="modal fade" id="approveModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true" data-backdrop="static">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h6 class="modal-title" id="exampleModalLabel">Request Approval</h6>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <div class="row">
+            <div class="col-md-4">
+              <label for="devicetype" class="indalabel">Device Quantity</label>
+              <input type="number" class="form-control" [(ngModel)]="quantityApproval" disabled>
+            </div>
+
+            <div class="col-md-4">
+              <label for="devicetype" class="indalabel">Approve Quantity</label>
+              <input type="number" class="form-control" [(ngModel)]="quantityApproval" max="{{quantityApproval}}">
+            </div>
+
+
+            <div class="col-md-4">
+              <label for="devicetype" class="indalabel">Device Type</label>
+              <input type="text" class="form-control" [(ngModel)]="devicetypeApproval" disabled>
+            </div>
+
+            <div class="col-md-4">
+              <label for="vendor" class="indalabel">Vendor List</label>
+              <!-- <ng-select [items]="vendorlist" [multiple]="false" bindLabel="param2" style="background-color: lightgray;"
+                placeholder="Select Vendor" [closeOnSelect]="true" bindValue="param1" [(ngModel)]="vendorid"
+                (change)="DeviceList()"></ng-select> -->
+              <ngx-select-dropdown [multiple]="false" [(ngModel)]="selectcustomerentry" [config]="config"
+                [options]="vendorlist" (change)="getCustomerId()" style="font-size:11px; text-transform: capitalize;">
+              </ngx-select-dropdown>
+              <small class="text-danger" *ngIf="vendorid=='' || vendorid ==null">Please Select Vendor</small>
+            </div>
+
+
+            <div class="col-md-8">
+              <label for="devicetype" class="indalabel">Select Devices</label>
+              <!-- <ng-select [items]="devicelistforApproval" [multiple]="true" bindLabel="param2"
+                style="background-color: lightgray;" placeholder="Select Devices" [closeOnSelect]="false"
+                [maxSelectedItems]="quantityApproval" bindValue="param1" [(ngModel)]="selectedDeviceList"></ng-select> -->
+
+              <ngx-select-dropdown [multiple]="false" [(ngModel)]="selectcustomerentry" [config]="config"
+                [options]="ListOfCustomer" (change)="getCustomerId()"
+                style="font-size:11px; text-transform: capitalize; ">
+              </ngx-select-dropdown>
+              <small class="text-danger" *ngIf="selectedDeviceList.length==0 || selectedDeviceList ==[]">Please Select
+                Devices</small>
+
+            </div>
+
+          </div>
+
+          <!-- <div class="row">
+            <div class="col-md-4" *ngFor="let item of selectedDeviceList"> {{item}} </div>
+          </div> -->
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary btn-sm" (click)="ApproveRequest()">Approve</button>
+      </div>
+    </div>
+  </div>
+</div>

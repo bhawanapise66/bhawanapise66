@@ -1,0 +1,85 @@
+
+#main{
+    
+    padding: 12px 20px;
+    box-shadow: 0 0px 8px rgba(0, 0, 0, 0.5);
+    transition: transform .1s;
+ 
+  background-color: #ffffff;
+  border-radius: 7px;
+}
+legend{
+    width: auto;
+   border-radius: 6px;
+       background-color: #a2e3ea;
+       color: black;
+       text-align: left;
+       font-size: 20px;
+       font-weight: bold;
+     padding: 3px 10px;
+   
+   } 
+   
+.widget2{
+    box-shadow: 0 0px 8px rgba(0, 0, 0, 0.5); 
+    border: none;   
+    border-radius: 8px;
+    /* background-image: linear-gradient(red, yellow, blue); */
+}
+
+.counta{
+    position: absolute;
+    top: -15px;
+    left: 12px;
+    background-color:#aa2835;
+    color: white;
+    padding: 1px 5px;
+    border-radius: 5px;
+    width: 50px;
+    font-weight: 700;
+   }
+  .card-title{
+       border-top: 25px solid rgb(48 159 184);
+      border-left: 26px solid  #f4f3f0; 
+      width: 175px;
+      position: absolute;
+      top: 0px;
+      right: 5px;
+      
+      
+  }
+
+  .diamond {
+    position: absolute;
+    top: -25px;
+    right: 12px;
+    width: 55px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 2px;
+    background: #ec4848fa;
+    color: white;
+    
+  }
+  
+  .diamond:before {
+    content: "\00a0";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 10px 10px 0;
+    border-color: transparent white transparent transparent;
+  }
+h6{
+  color: white;
+}
+.Info{
+  background-color: orange;
+  width: 25px;
+  border-radius: 50px;
+}

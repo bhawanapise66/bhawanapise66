@@ -1,0 +1,417 @@
+<div class="container-fluid inputform" id="inputform" style="display:block ;">
+  <fieldset class="reportfieldset">
+    <legend class="text-dark text-uppercase reportlegend">Live Transit Report</legend>
+    <div class="row">
+      <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 mb-2">
+        <label class="indlabel">Select type:</label>
+        <ng-select [(ngModel)]="liveselect" [multiple]="false" placeholder="Select type" [closeOnSelect]="true">
+          <ng-option value="All Vehicle">All Vehicle</ng-option>
+          <ng-option value="District">District</ng-option>
+          <ng-option value="Vendor">Vendor</ng-option>
+        </ng-select>
+        <!-- <ngx-select-dropdown tabindex="0" id="liveSelect" style="font-size:11px" [multiple]="false"
+          [(ngModel)]="liveselect" [config]="config" [options]="liveSelectlist">
+        </ngx-select-dropdown> -->
+        <span class="text-danger validation" *ngIf="(liveselect==null || liveselect =='') && submitted ">
+          Select Type</span>
+      </div>
+      <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 " *ngIf="liveselect=='Vendor'">
+        <div class="form-group">
+          <label class="indlabel">Vendor : </label>
+          <ng-select [(ngModel)]="vendorObj" (change)="getVendor()" [multiple]="false" placeholder="Select Vendor"
+            [closeOnSelect]="true">
+            <ng-option *ngFor="let item of vendorlist" [value]="item">{{item.param2}}</ng-option>
+          </ng-select>
+          <!-- <ngx-select-dropdown tabindex="0" id="vendor" style="font-size:11px" [multiple]="false"
+            [(ngModel)]="vendorObj" [config]="config" [options]="vendorlist" (change)="getVendor()">
+          </ngx-select-dropdown> -->
+          <span class="text-danger validation" *ngIf="(vendorObj==null || vendorObj =='') && submitted">
+            Select Vendor</span>
+        </div>
+
+      </div>
+      <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 " *ngIf="liveselect=='District'">
+        <div class="form-group">
+          <label class="indlabel">District : </label>
+          <ng-select [(ngModel)]="districtObj" (change)="getDistrict()" [multiple]="false" placeholder="Select District"
+            [closeOnSelect]="true">
+            <ng-option *ngFor="let item of districtlist" [value]="item">{{item.param2}}</ng-option>
+          </ng-select>
+          <!-- <ngx-select-dropdown tabindex="0" id="district" style="font-size:11px" [multiple]="false"
+            [(ngModel)]="districtObj" [config]="config" [options]="districtlist" (change)="getDistrict()">
+          </ngx-select-dropdown> -->
+          <span class="text-danger validation" *ngIf="(districtObj==null || districtObj =='') && submitted">
+            Select District</span>
+        </div>
+
+      </div>
+      <!-- <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
+        <div class="form-group">
+          <label class="indlabel">Select date :</label>
+          <div id="daterangeadminux2" class="form-control pr-0">
+            <span id="daterange"></span> <i
+              class="material-icons avatar avatar-26 text-template-primary cal-icon float-right" >event</i>
+          </div>
+        </div>
+      </div> -->
+      <div class=" col text-right float-right submit">
+        <button type="submit" class="btn btn-sm btn-success mr-1" (click)="onSubmit()">Submit</button>
+      </div>
+    </div>
+  </fieldset>
+</div>
+<div class="container-fluid inputform" id="outputdata" style="display: none;">
+  <div class="row">
+    <div class="col-md-12 text-center">
+      <span class="float-left" (click)="gotoBack();"> <i class="fa fa-arrow-left"
+          style="background-color: black; color: #fff; padding: 5px;"></i></span>
+      <span class="text-center reportheadtext">Live Transit Report</span>
+
+    </div>
+
+  </div>
+
+
+  <fieldset class="reportfieldset">
+    <legend class="text-uppercase reportlegend">Summary</legend>
+    <div class="row">
+      <div class="col-md-12 m-0 p-0">
+        <p class="summarydetail my-0 py-0" *ngIf="liveselect=='District'">Districtwise Report Of <span
+            style="color: blue; text-transform: capitalize;"> &nbsp;{{distictName}}</span>
+          Date {{today}} </p>
+        <p class="summarydetail  my-0 py-0" *ngIf="liveselect!='District' && liveselect!='Vendor'">All Vehicle Report
+          Date {{today}}</p>
+        <p class="summarydetail  my-0 py-0" *ngIf="liveselect=='Vendor'">Vendorwise Report Of <span
+            style="color: blue;text-transform: capitalize;">&nbsp;{{vendorname}}</span>
+          Date {{today}}</p>
+
+
+      </div>
+
+    </div>
+    <div class="row ">
+      <div class="col-md-3 col-lg-3 my-2 col" style="padding-left: 55px;">
+        <div class="summarytext">Total Vehicle <span class="summarycount">{{total_Vehicle}}</span></div>
+      </div>
+      <div class="col-md-3 col-lg-3 my-2 col" style="padding-left: 55px;">
+        <div class="summarytext"> Total TP<span class="summarycount">{{total_Tp}}</span></div>
+      </div>
+      <div class="col-md-3 col-lg-3 my-2 col " style="padding-left: 55px;">
+        <div class="summarytext">Total Picked <span class="summarycount">{{total_picked}}</span></div>
+      </div>
+      <div class="col-md-3 col-lg-3 col  my-2 " style="padding-left: 55px;">
+        <div class="summarytext">Total Reached <span class="summarycount">{{total_reached}}</span></div>
+      </div>
+      <div class="col-md-3 col-lg-3 col  my-2 " style="padding-left: 55px;">
+        <div class="summarytext">Total Time Expired <span class="summarycount">{{total_time_expired}}</span></div>
+      </div>
+      <div class="col-md-3 col-lg-3 col  my-2  " style="padding-left: 55px;">
+        <div class="summarytext">Polling Status <span class="summarycount">{{polling}}</span></div>
+      </div>
+      <div class="col-md-3 col-lg-3 col  my-2 " style="padding-left: 55px;">
+        <div class="summarytext">Non-Polling Status <span class="summarycount">{{nonpolling}}</span></div>
+      </div>
+      <div class="col-md-3 col-lg-3 col  my-2 " style="padding-left: 55px;">
+        <p style="font-size: 10px; color: gray;">Generated Date:{{today}}</p>
+      </div>
+    </div>
+  </fieldset>
+  <!--  details table -->
+  <div class="card carddata">
+    <div class="container-fluid pb-2 mt-1">
+
+      <!-- table data pagination searching and refresh and  -->
+      <div class="row">
+        <!-- Header starts -->
+        <nav class="navbar col-12 navbar-expand ">
+
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <!-- search starts -->
+
+            <div class="input-group " style="width: 200px;">
+              <input type="search" class="form-control form-control-sm search" id="searchData" [(ngModel)]="filter"
+                aria-label="Amount (to the nearest dollar)" placeholder="Search">
+              <div class="input-group-append">
+                <button class="btn  btn-search" type="button" (click)="searchdata()" [disabled]="filter==''">
+                  <i class="material-icons" style="font-size: 20px;">search</i>
+                </button>
+              </div>
+            </div>
+
+            <button class="btn btn-link btn-sm" type="button" (click)="refreshdata()" placement="bottom"
+              ngbTooltip="Refresh">
+              <i class="material-icons" style="font-size: 20px;">refresh</i>
+            </button>
+            <!-- search ends -->
+
+
+            <!-- icons dropwdowns starts -->
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item mx-3">
+                <img style="cursor: pointer; height: 20px; margin-top: 3px;" (click)="ReportPDFDownload()"
+                  ngbTooltip="PDF" src="assets/images/PDFicon.png">
+
+              </li>
+
+
+              <!-- applicatio quicklinks dropdown-->
+              <li class="nav-item mx-3">
+
+
+                <img style="cursor: pointer;" (click)="exportToExcel()" ngbTooltip="Excel"
+                  src="assets/images/excellogo.png">
+              </li>
+
+              <!-- cart dropdown-->
+              <li class="nav-item showrow pt-1 ml-3">
+                Show Rows :
+              </li>
+
+              <li class="nav-item pt-1 mr-3">
+                <select [(ngModel)]="itemsPerPage" (change)="changeItemsPerPage()">
+                  <option>5</option>
+                  <option>10</option>
+                  <option>20</option>
+                  <option>50</option>
+                </select>
+              </li>
+              <!-- task dropdown-->
+              <li class="nav-item totalrecord pt-1 mx-3">
+
+                <b> Total Records </b> : {{viewcount}} of {{totalcount}}
+              </li>
+            </ul>
+            <!-- icons dropwdowns starts -->
+          </div>
+        </nav>
+        <!-- Header ends -->
+      </div>
+
+
+      <!-- details in table -->
+
+      <table id="tableid" class="table sortable table-striped table-hover table-bordered grid">
+        <thead class="bg-warning">
+          <tr>
+            <th>#</th>
+            <th style="width: 130px;">Lessee</th>
+            <th style="width: 73px;">TP No.</th>
+            <th style="width:  85px;">TP Date</th>
+            <th style="width: 90px;">Vehicle No.</th>
+            <th style="width: 114px;">Customer Name</th>
+            <th style="width: 97px;">Device Detail</th>
+            <th style="width: 131px;" class="text-center">Route<br><span
+                style="font-size: 9px;">Source-Destination</span></th>
+            <th style="width: 101px;">Picked Time</th>
+            <th style="width: 90px;">Status</th>
+            <th style="width: 94px;">Distance<span style="font-size: 9px;">(Km)</span></th>
+            <th style="width:94px">Stoppage<span style="font-size: 9px;">(Min))</span></th>
+            <th><i class="fa fa-map-marker text-center" aria-hidden="true"
+                style="font-size: 12px; color: yellow; text-align: center;"></i></th>
+          </tr>
+        </thead>
+        <tbody *ngIf="reportData==null">
+          <tr>
+            <td colspan="12" style="text-align: center;"> NO RECORDS FOUND</td>
+          </tr>
+        </tbody>
+        <tbody *ngIf="reportData !=null">
+          <tr class="gridbody"
+            *ngFor="let item of reportData |  orderBy: key : reverse | paginate : {itemsPerPage:itemsPerPage,currentPage:pageNumber,totalItems:totalcount} ">
+            <td> {{item.rowNumber}} </td>
+            <td>{{item.param1}}</td>
+            <td>{{item.param2}}</td>
+            <td>{{item.param2}}</td>
+            <td>{{item.param19}}</td>
+            <td>{{item.param3}}</td>
+
+            <td (click)="getData(item)"><a placement="bottom" [ngbPopover]="popContent">{{item.param4}}</a>
+            </td>
+            <td>{{item.param13}} To {{item.param14}}</td>
+            <td>{{item.param15}}</td>
+            <td>{{item.param16}}</td>
+            <td>{{item.param17}}</td>
+            <td>{{item.param18}} </td>
+            <td class="maptd"><i class="fa fa-map-marker text-center maptd" aria-hidden="true"
+                style="font-size: 12px; text-align: center;"></i></td>
+
+
+          </tr>
+        </tbody>
+      </table>
+      <!-- details in table -->
+      <!--start this for popover on imei dtails -->
+      <ng-template #popContent style="padding: 0px; width: max-content;">
+        <div class="card  border-0 p-0">
+          <div class="card-header ImeiModalhead m-0">
+            <p class="ImeiModaltitle"> Device Details </p>
+          </div>
+          <div class="card-body bg-white text-dark p-0">
+            <!-- details in table -->
+
+            <table class="table sortable table-striped  table-bordered imeitable">
+              <tbody>
+                <tr>
+                  <th>Imei No.</th>
+                  <td>{{imeiNo}}</td>
+                  <th>Iccid No.</th>
+                  <td>{{iccidNo}}</td>
+                </tr>
+                <tr>
+                  <th>Make Name</th>
+                  <td>{{makename}}</td>
+                  <th>Model Name</th>
+                  <td>{{modelname}}</td>
+
+                </tr>
+                <tr>
+                  <th> Mobile No.1</th>
+                  <td>{{simMobile1}}</td>
+                  <th>Mobile No.2</th>
+                  <td>{{simMobile2}}</td>
+                </tr>
+
+                <tr>
+                  <th>Network 1</th>
+                  <td>{{network1}}</td>
+                  <th>Network 2</th>
+                  <td>{{network2}}</td>
+                </tr>
+              </tbody>
+
+
+
+            </table>
+            <!-- details in table -->
+
+          </div>
+        </div>
+      </ng-template>
+      <!--end this for popover on imei dtails -->
+      <!-- view of pagination buttons  -->
+      <div style="float: right;">
+        <pagination-controls style=" float: right;color: black;" (pageChange)="changePageNo($event)">
+        </pagination-controls>
+        <!-- <ngb-pagination [collectionSize]="totalcount" [(page)]="pageNumber" [pageSize]="itemsPerPage"
+          (pageChange)="changePageNo($event)" [maxSize]="5" size="sm">
+        </ngb-pagination> -->
+      </div>
+      <!-- view of pagination buttons  -->
+
+    </div>
+  </div>
+
+  <!--  details table -->
+
+</div>
+
+
+<!--Dummy Table of Excel -->
+<div style=" display: none;">
+  <div class="row" id="ReportForPDF" style=" overflow-y: hidden; ">
+
+    <img src="assets/images/ap-govt-logo.png" style="position: absolute; width: 65px; height: 65px;">
+    <br><br>
+    <h5 style="font-weight: bold;text-align :center;margin-top:0px;"><u>LIVE TRANSIT REPORT</u></h5>
+    <br>
+    <p style="font-size: 12px; ">Districtwise Report Of Nagpur District On Date 5 Oct 2021</p>
+
+    <table style="width: 100%;border:none">
+      <tr>
+        <th style="text-align: left;border:none; font-size:12px; color: gray; width: 115px; ">Total Vehicle:</th>
+        <td style="text-align: left;border:none;font-size:12px; color: gray;width: 115px; ">{{total_Vehicle}}</td>
+        <th style="text-align: left;border:none; font-size:12px;color: gray; width: 115px;">Total TP :
+        <th>
+        <td style="text-align: left;border:none; font-size:12px; color: gray;width: 115px;">{{total_Tp}}</td>
+        <th style="text-align: left;border:none;font-size:12px;color: gray;width: 115px;">Total Picked: </th>
+        <td style="text-align: left;border:none; font-size:12px;color: gray;width: 115px;">{{total_picked}}</td>
+        <th style="text-align: left;border:none; font-size:12px;color: gray;width: 115px;">Total Reached:
+        <th>
+        <td style="text-align: left;border:none;font-size:12px;color: gray;width: 115px;">{{total_reached}}</td>
+      </tr>
+      <tr>
+        <th style="text-align: left;border:none; font-size:12px;color: gray;width: 115px;">Total Time Expired:</th>
+        <td style="text-align: left;border:none;font-size:12px;color: gray;width: 115px;">{{total_time_expired}}</td>
+        <th style="text-align: left;border:none;font-size:12px;color: gray;width: 115px;">Polling Status:</th>
+        <td style="text-align: left;border:none;font-size:12px;color: gray;width: 115px;">{{polling}}</td>
+        <th style="text-align: left;border:none;font-size:12px;color: gray;width: 115px;">Non-Polling Status:</th>
+        <td style="text-align: left;border:none;font-size:12px;color: gray;width: 115px;">{{nonpolling}}</td>
+
+      </tr>
+    </table>
+    <br><br>
+    <table id="tableid" class="table sortable table-striped table-hover table-bordered ">
+
+      <thead>
+        <tr>
+          <th style="font-size: 10px; padding: 5px 10px 5px 10px; text-transform: uppercase;">#</th>
+          <th style="font-size: 10px; padding: 5px 10px 5px 10px; text-transform: uppercase;">Lessee</th>
+          <th style="font-size: 10px; padding: 5px 10px 5px 10px;text-transform: uppercase;">TP No.</th>
+          <th style="font-size: 10px; padding: 5px 10px 5px 10px; text-transform: uppercase;">Tp Date</th>
+          <th style="font-size: 10px; padding: 5px 10px 5px 10px;  text-transform: uppercase;">Vehicle No.</th>
+          <th style="font-size: 10px; padding: 5px 10px 5px 10px; text-transform: uppercase;">Customer Name</th>
+          <th style="font-size: 10px; padding: 5px 10px 5px 10px;  text-transform: uppercase;">Device Detail</th>
+          <th style="font-size: 10px; padding: 5px 10px 5px 10px;  text-transform: uppercase;" class="text-center">
+            Route<br><span style="font-size: 8px;">Source-Destination</span></th>
+          <th style="font-size: 10px; padding: 5px 10px 5px 10px;text-transform: uppercase;">Picked Status</th>
+          <th style="font-size: 10px; padding: 5px 10px 5px 10px; text-transform: uppercase;">Status</th>
+          <th style="max-width:116px; font-size: 11px; padding: 5px 10px 5px 10px; text-transform: uppercase;">Distance
+            (Km)</th>
+          <th style="max-width:116px;font-size: 11px; padding: 5px 10px 5px 10px;  text-transform: uppercase;">
+            Stoppage(Min)
+          </th>
+         
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of reportPDFData" class="gridbody">
+          <td style=" padding: 6px 6px 6px 6px;font-size: 10px;"> {{item.rowNumber}} </td>
+          <td style=" padding: 6px 6px 6px 6px;font-size: 10px;">{{item.param1}}</td>
+          <td style=" padding: 6px 6px 6px 6px;font-size: 10px;">{{item.param2}}</td>
+          <td style=" padding: 6px 6px 6px 6px;font-size: 10px;">{{item.param2}}</td>
+          <td style=" padding: 6px 6px 6px 6px;font-size: 10px;"> {{item.param19}}</td>
+          <td style=" padding: 6px 6px 6px 6px;font-size: 10px;">{{item.param3}}</td>
+          <td style=" padding: 6px 6px 6px 6px;font-size: 10px;">{{item.param4}}</td>
+          <td style=" padding: 6px 6px 6px 6px;font-size: 10px;">{{item.param13}} To{{item.param14}}</td>
+          <td style=" padding: 6px 6px 6px 6px;font-size: 10px;">{{item.param15}}</td>
+          <td style=" padding: 6px 6px 6px 6px;font-size: 10px;">{{item.param16}}</td>
+          <td style=" padding: 6px 6px 6px 6px;font-size: 10px;">{{item.param17}}</td>
+          <td style=" padding: 6px 6px 6px 6px;font-size: 10px;">{{item.param18}}  </td>
+          
+        </tr>
+      </tbody>
+    </table>
+
+    <footer style="position: fixed; bottom: 0px;">
+      <span style="font-size: 12px; font-weight:bold;"> Date : {{d |date:'dd-MMM-yyyy hh:mm' }}</span>
+      <p style="text-align: center; font-size: 11px;"><b>This is system generated report</b></p>
+    </footer>
+  </div>
+</div>
+<!--Dummy Table of Excel -->
+
+
+
+
+<!-- <error modal -->
+
+<div class="modal fade " id="ErrorModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+  aria-hidden="true">
+  <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+    <div class="modal-content box-shadow">
+      <div class="card  border-0">
+        <div class="card-header  py-1 pl-3 m-0" style="background-color: red;">
+          <p style="font-size:17px; font-weight:bold"> Error </p>
+        </div>
+        <div class="card-body bg-white text-dark">
+          <p> {{errorMessage}}</p>
+          <div class="text-right">
+            <button class="btn btn-sm btn-success" data-dismiss="modal">ok</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- error modal -->

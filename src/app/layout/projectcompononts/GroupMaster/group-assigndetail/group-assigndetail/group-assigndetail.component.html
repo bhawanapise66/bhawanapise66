@@ -1,0 +1,529 @@
+<div class="content shadow-sm">
+  <!-- Main container starts -->
+  <div class="container-fluid main-container" id="main-container">
+    <div class="row">
+      <div class="col-12 col-md-12 col-lg-12 col-xl-12 mx-auto align-self-center">
+        <div class="card shadow-sm border-0 mb-4">
+          <div class="card-header" style="padding-top: 0; padding-bottom: 0">
+
+
+            <h4 class="text-left m-1" style="font-size: 15px;">Vehicle Assign To Group
+              <span class="text-template-primary" style="color: #00ed54">Master</span>
+              <button type="button" class="btn btn-sm btn-primaryyel ml-2 float-right" style="margin-right: 89px;"
+                data-toggle="modal" data-target="" [routerLink]="['/groupdetail']">
+
+                ADD NEW
+                <i class="material-icons md-18">navigate_next</i>
+
+              </button>
+            </h4>
+
+          </div>
+          <div class="card-body" style="padding: 5px;">
+            <div class="row justify-content-center">
+              <div class="col-md-12 mx-auto">
+                <div class="row">
+                  <div class="col-lg-12 col-md-12">
+                    <!-- <button type="button" class="btn btn-primary float-left" data-toggle="modal" >
+                        ADD NEW
+                      </button> -->
+
+                  </div>
+                </div>
+
+                <div class="container-fluid main-container" id="main-container">
+
+                  <!--    ---------------        Table Header Staret=------------------------    -->
+                  <div class="col-md-12">
+                    <div class="row  mx-1">
+                      <div class="col-12 col-sm-12 col-md text-md-left align-self-center pr-0">
+                        <ul class="nav  justify-sm-content-center  justify-content-left">
+                          <li class="nav-item ">
+                            <div class="input-group" style="max-width: 250px;">
+                              <input type="text" placeholder="Search" id="searchData" class="form-control searchicon"
+                                [(ngModel)]="filter" aria-label="Amount (to the nearest dollar)">
+                              <div class="input-group-append">
+                                <button class="btn  apendbtn" (click)="searchdata()">
+                                  <i style="color: #00ed54; margin-top: -15px;" class="fa fa-search"></i>
+                                </button>
+                              </div>
+                            </div>
+                          </li>
+                          <li class="nav-item mx-3">
+                            <i class="fa fa-refresh fa-2x fa-spin-hover" style="font-size: 17px;
+                      padding-top: 4px;color: #00fff3;" (click)="Refreshfunction()"></i>
+                          </li>
+                        </ul>
+                      </div>
+
+                      <div class="col-12 col-sm-12 col-md-auto text-right text-md-end pl-0">
+                        <ul class="nav justify-content-center justify-lg-content-end  justify-sm-content-center">
+                          <li class="nav-item mx-2">
+                            <img style="cursor: pointer; height: 20px; margin-top: 3px;" (click)="createPDF()"
+                              ngbTooltip="PDF" src="assets/images/PDFicon.png">
+                          </li>
+                          <li class="nav-item mx-2">
+                            <img style="cursor: pointer;" (click)="exportToExcel()" ngbTooltip="Excel"
+                              src="assets/images/excellogo.png">
+                          </li>
+                          <li class="nav-item mx-3">
+                            <span style="display: inline;font-size:12px;font-weight :bold;">Show Rows : </span> <select
+                              class="form-control p-1" style="width: 44px;display: inline;" data-live-search="true"
+                              tabindex="1" id="selectgrpveh" (change)="SelectRows()" aria-hidden="true"
+                              [(ngModel)]="itemsPerPage">
+                              <option value="5">5</option>
+                              <option value="10" selected>10</option>
+                              <option value="20">20</option>
+                              <option value="50">50</option>
+                            </select>
+                          </li>
+                          <li class="nav-item pt-1">
+                            <span style="font-size:12px;font-weight: bold;">Total Records : {{viewcount}} of
+                              {{count}}</span>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <!-- ---------------------  Table header end  ------------------------------ -->
+
+
+                  <div id="PDFTable" class="card-body table-responsive">
+                    <table class="table table-hover table-striped">
+                      <thead>
+                        <tr role="row">
+                          <th (click)="sort('rowNumber')">#</th>
+                          <th (click)="sort('param4')" id="th_customerid">Customer Name</th>
+                          <th (click)="sort('param9')">Group Name</th>
+                          <th (click)="sort('param10')">Group Description</th>
+                          <th (click)="sort('param3')">No. of Vehicles </th>
+
+                          <th (click)="sort('param2')">Assign Date</th>
+                          <th style="background-color: #99c049; width: 30px;">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody id="grid">
+                        <tr
+                          *ngFor="let com of groupVehicleDetails | filter:filter | orderBy: key : reverse | paginate : {itemsPerPage:pagecount,currentPage:p,totalItems:count} ;"
+                          class="trheight">
+                          <td>{{com.rowNumber}}</td>
+                          <td id="td_customerid">{{com.param4}}</td>
+                          <td>{{com.param9}}</td>
+                          <td>{{com.param10}}</td>
+                          <td>{{com.param3}}</td>
+
+                          <td>{{com.param2}}</td>
+                          <td [ngStyle]="{'background-color':com.altColor}" class="viewbtncss">
+                            <span class="iconhover" data-toggle="modal" data-target="#myModalwizard"
+                              (click)="setdata(com)">
+                              <i class="material-icons" style="color: #161e43; padding-left: 9px;">visibility</i>
+                            </span>
+                          </td>
+                        </tr>
+
+
+                      </tbody>
+                      <tfoot id="foot" class="box-footer clearfix">
+                        <tr>
+                          <td colspan="12">
+                            <pagination-controls style=" float: right;" (pageChange)="GrpVehpageChanged($event)">
+                            </pagination-controls>
+                          </td>
+                        </tr>
+                      </tfoot>
+                    </table>
+
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- --------------------  view & Edit Modal start------------------------>
+
+<div class="modal fade " id="myModalwizard" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-lg ">
+    <div class="modal-content ">
+
+
+      <!-- Modal Header -->
+      <div class="modal-header modelcolor">
+        <h5 class="modal-title" id="vmd" style="display: block;width: 100%;">Assign Vehicle To Group Details</h5>
+        <h5 class="modal-title" id="uvmd" style="display: none;width: 99%;">Update Assign Vehicle To Group</h5>
+        <div style="float:right; margin-left: -16%;">
+
+          <button type="button" class=" btn btn-sm btn-secondary float-right ml-2 bg-warning" style="display: block;"
+            id="editbtn1" ngbTooltip="Edit" (click)="editpageform()">
+
+            <i class="material-icons md-18">edit</i>
+          </button>
+          <button type="button" class=" btn btn-sm btn-danger float-right ml-2" id="deletebtn" ngbTooltip="Delete"
+            data-toggle="modal" data-target="#modeldelete">
+
+            <i class="material-icons md-18">delete</i>
+          </button>
+          <button type="button" class=" btn btn-sm btn-primary float-right ml-2" id="backdetailsbtn" ngbTooltip="Back"
+            style="display: none;" (click)="backdetailsbtn()">
+
+            <i class="material-icons md-18">arrow_back</i>
+          </button>
+        </div>
+        <button type="button" style="color: white" class="close" data-dismiss="modal"
+          (click)="closemodal();">&times;</button>
+      </div>
+      <!-- Modal body -->
+      <div class="modal-body " style="background-color: #CBD2F1">
+        <div class="container">
+          <div class="">
+            <div id="container" style="display: none;">
+              <div class="step-wizard" role="navigation">
+                <ul style="display: none;">
+                  <li class="active">
+                    <button id="step1">
+                      <div class="step">1</div>
+                      <div class="title"> Details</div>
+                    </button>
+                  </li>
+
+                </ul>
+
+
+                <div class="stepsection">
+                  <span class="invalidmsg" id="msg_mainmessage"></span>
+                  <div id="step-14" class="stepsdiv">
+                    <div class="form-group row">
+
+                      <div class="col-lg-9 col-md-9" id="tableid">
+                        <label class="indlabel"
+                          style="padding-left: 40px; width: 100%;margin-top: 0px;margin-left: -15px;">Device No.
+                          <!-- <span class="mandatory">* </span> -->
+                          <div class="input-group searchdevid" style="margin-left: 399px;width:154px;">
+                            <input type="text" placeholder="Search" id="searchDataDeviceID" [(ngModel)]="filter"
+                              class="form-control searchicon" aria-label="Amount (to the nearest dollar)">
+                            <div class="input-group-append">
+                            
+                                <button class="btn  apendbtn">
+                                <i style="color: #00ed54; margin-top: -15px;" class="fa fa-search"></i>
+                              </button>
+                            </div>
+                          </div>
+                        </label> <br>
+                        <div class="deviceno" id="hidedeviceno" style="margin-top: 0px;margin-left:1px;width: 110%;">
+                          <div class="tableFixHead">
+                            <div id="GridTable" class="card-body table-responsive">
+                              <table class="table table-hover table-striped">
+                                <thead>
+                                  <tr role="row">
+                                    <th><input type="checkbox" [(ngModel)]="isMasterSel" name="list_name" value="h1"
+                                        (change)="checkUncheckAllnew()" id="checkedisMaster" /></th>
+
+                                    <th>Vehicle No.</th>
+                                    <th>Vehicle Id</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+
+                                  <tr *ngFor="let litem of newArray| filter:filter">
+
+                                    <td style=" padding: 0.35rem 0.5rem;">
+                                      <input type="checkbox" [checked]="litem.isSelected == 'true'" id="{{'abc' + litem.rowNumber}}"  checked>
+                                     
+
+                                    </td>
+                                    <td style=" padding: 0.35rem 0.5rem;">{{litem.param2}}</td>
+                                    <td style=" padding: 0.35rem 0.5rem;">{{litem.param3}}</td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+
+                    <br><br>
+                  
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+          <!-- --------------------------------------------- View Section ------------------------------------------- -->
+          <div class="">
+
+
+            <div id="vendordtls" class="row" style="background-color: #0e2145; border: 1px ridge #02108d;">
+              <br>
+              <div class="col-12 col-md-12 col-lg-12">
+                <div class="col-4 col-md-4 col-lg-4" style=" float: left;">
+                  <span class="caplable">Customer Name:</span>&nbsp;
+                  <span class="viewlable">{{cust_name}}</span>
+                </div>
+
+                <div class="col-4 col-md-4 col-lg-4" style=" float: left;">
+                  <span class="caplable">Group Name:</span>&nbsp;
+                  <span class="viewlable">{{groupname}}</span>
+                </div>
+                <br>
+
+                <div class="row">
+
+                  <div class="col-12 col-md-12 col-lg-12">
+                    <div class="col-4 col-md-4 col-lg-4" style=" float: left;">
+                      <span class="caplable">No. Of Vehicles:</span>&nbsp;
+                      <span class="viewlable">{{no_ofveh}}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <br>
+                <div class="row">
+                  <div class="col-12 col-md-12 col-lg-12">
+                    <div class="col-12 col-md-12 col-lg-12">
+                      <span class="caplable">Vehicle Details:</span>&nbsp;
+                      <div class="deviceno" id="hidedeviceno" style="margin-top: 0px;margin-left:-14px">
+                        <div class="tableFixHead">
+                          <div id="GridTable" class="card-body table-responsive">
+                            <table class="table table-hover table-striped">
+                              <thead>
+                                <tr role="row">
+                                  <th>Sr no.</th>
+                                  <th>Vehicle No.</th>
+                                  <th>Vehicle Id</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr *ngFor="let pol of vehiclelistassigned;let i = index">
+
+                                  <td style=" padding: 0.35rem 0.5rem;">{{i+1}}</td>
+                                  <td style=" padding: 0.35rem 0.5rem;">{{pol.param2}}</td>
+                                  <td style=" padding: 0.35rem 0.5rem;">{{pol.param3}}</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <br>
+
+              </div>
+              <!-- --------------------- View Section End ------------------------------ -->
+
+            </div>
+
+          </div>
+
+        </div>
+        <!-- --------------------- View Section End ------------------------------ -->
+
+      </div>
+
+
+      <!-- Modal footer -->
+
+
+      <div class="modal-footer" style="display: none;" id="modelfooter">
+        <div class=" container mx-5 px-5">
+          <div class="row">
+            <div class="col-md-7">
+              <textarea class="form-control bg-white" rows="1" style="margin-left: -14px;margin-top: -20px;"
+                placeholder="Enter Remark" tabindex="21" minlength="10" id="remarkupdategrpveh"
+                [(ngModel)]="remarkgrpvehText" #remark="ngModel" required></textarea>
+              <div class="invalidmsg" *ngIf="remark.errors?.minlength" style="margin-left: -11px;">
+                Remark must be atleast of 10 characters long.
+              </div>
+
+              <span class="invalidmsg" id="msg_errorremark" style="margin-left: -10px;"></span>
+            </div>
+            <div class="col-md-4">
+              <div class="actionBar" style="margin-right: 1pc;">
+                <button id="save" class="mb-2 btn btn-wizard btn-sm btn-success buttonFinish float-right"
+                  (click)="editassignVehGrp()">
+                  <i class="material-icons">save</i>
+                </button>
+
+              </div>
+            </div>
+          </div>
+
+
+
+        </div>
+
+      </div>
+
+
+
+    </div>
+  </div>
+</div>
+
+<!-- ------------------- view & Edit model close ------------------------ -->
+
+<!-- ------------------ Delete Model Start ------------------------>
+
+<!-- Delete Model-->
+<div class="modal fade" id="modeldelete" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-sm modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header" style="background-color: 	red;">
+        <h4 class="modal-title text-center" style="color: yellow">Are You Sure?</h4>
+        <button type="button" class="close" data-dismiss="modal" (click)="closemodal();">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body" style="background-color: #f0e8e9">
+
+        <div class="form-group row">
+
+
+          <div class="col-lg-12 col-md-12">
+            <label style="color: black">Remark</label>&nbsp;
+            <span class="indlabelstar">*</span>
+            <textarea class="form-control" rows="2" style=" font-size:12px" placeholder="Enter Remark" tabindex="1"
+              minlength="10" maxlength="40" [(ngModel)]="deleteTextgrp" #regaddress="ngModel" id="grpdelremark"
+              onchange=""></textarea>
+
+          </div>
+
+        </div>
+        <span class="invalidmsg" id="msg_error_delete"></span>
+        <p style="    background-color: yellow;
+          /* padding-right: 20px; */
+          margin-right: 89px;
+          color: red; display: none;">Do You want to Delete !!&hellip;</p>
+      </div>
+
+
+      <!-- Modal footer -->
+      <div class="modal-footer text-center" style="background-color: #cfbaa8">
+        <button type="submit" class="btndel btn-primary mr-3" data-toggle="modal" data-dismiss="modal" tabindex="18"
+          (click)="closemodal();">
+          No
+        </button>
+        <button type="reset" tabindex="19" class="btndel btn-danger" data-toggle="modal"
+          (click)="GroupVehDeletefunction()">
+          Yes
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!-- Delete Model -->
+
+<!-- ------------------- Delete model End ----------------------- -->
+
+<!-- ------------------- onclick no btn model  ----------------------- -->
+<!-- The Modal -->
+<div class="modal fade" id="Noclickmodel">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-contentno">
+
+      <!-- Modal Header -->
+      <div class="modal-header" style="background-color: 	rgb(255, 255, 255);">
+        <h4 class="modal-title text-center" style="color: rgb(0, 0, 0)">Your Data is not Delete</h4>
+        <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+      </div>
+
+      <!-- Modal body -->
+      <!-- <div class="modal-body">
+            Your Data is Not delete..
+          </div> -->
+
+      <!-- Modal footer -->
+      <div class="modal-footer" style="background-color: 	rgb(255, 255, 255);">
+        <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">
+          <span class="material-icons">
+            highlight_off
+          </span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ------------------- onclick no btn model End ----------------------- -->
+<!-- ------------------- onclick Yes btn model ----------------------- -->
+
+<div class="modal fade" id="Yesclickmodel">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-contentno">
+
+      <!-- Modal Header -->
+      <div class="modal-header" style="background-color: 	rgb(255, 255, 255);">
+        <h4 class="modal-title text-center" style="color: rgb(0, 0, 0)">Data Deleted Successfully</h4>
+        <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+      </div>
+
+      <!-- Modal body -->
+      <!-- <div class="modal-body">
+            Your Data is Not delete..
+          </div> -->
+
+      <!-- Modal footer -->
+      <div class="modal-footer" style="background-color: 	rgb(255, 255, 255);">
+        <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">
+          <span class="material-icons">
+            highlight_off
+          </span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="modal fade " id="SuccessModalGrp" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+  aria-hidden="true">
+  <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+    <div class="modal-content box-shadow">
+      <div class="card border-0">
+        <div class="card-header  py-1 pl-3 m-0" style="background-color: green;">
+          <p style="font-size:17px; font-weight:bold"> Success </p>
+        </div>
+        <div class="card-body bg-white text-dark">
+          <p> {{datafromrespo}}</p>
+          <div class="text-right">
+            <button class="btn btn-sm btn-success" data-dismiss="modal">ok</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade " id="ErrorModalGrp" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+  aria-hidden="true">
+  <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+    <div class="modal-content box-shadow">
+      <div class="card border-0">
+        <div class="card-header  py-1 pl-3 m-0" style="background-color: red;">
+          <p style="font-size:17px; font-weight:bold"> Error </p>
+        </div>
+        <div class="card-body bg-white text-dark">
+          <p> {{datafromrespo}}</p>
+          <div class="text-right">
+            <button class="btn btn-sm btn-success" data-dismiss="modal">ok</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ------------------- onclick yes btn model End ----------------------- -->

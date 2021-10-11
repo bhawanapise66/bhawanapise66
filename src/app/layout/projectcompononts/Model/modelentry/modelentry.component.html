@@ -1,0 +1,164 @@
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="text-left m-1" style="font-size: 19px;">Device Model
+          <span class="text-template-primary" style="color: #00ed54; font-size: 19px;">Entry</span>
+         </h4>        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" style="color: white">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div id="container">
+          <div class="step-wizardentry" role="navigation">
+
+            <div class="stepsection" style="top: -35px;">
+              <div id="stepentry-14" class="stepsdiv">
+
+                <div class="form-group row">
+                  
+                  <div class="col-lg-4 col-md-4">
+                    <label class="indlabel">Vendor</label>
+                    <span class="mandatory">*</span>
+                    <ngx-select-dropdown tabindex="1" id="vendornameentry" [multiple]="false"
+                      [(ngModel)]="VendorNameTextentry" [config]="config" [options]="ListOfVendor"
+                      (change)="getVendorId()">
+                    </ngx-select-dropdown>
+                    <input type="text" name="vendor" id="vendornameentry1" style="display: none;"
+                      [(ngModel)]="selectvendorname">
+                  </div>
+
+                  <div class="col-lg-4 col-md-4" style="display:none;">
+                    <label class="indlabel">Device Type</label>
+                    <span class="mandatory">*</span>
+                    <ngx-select-dropdown tabindex="2" id="devicetypeentry" [multiple]="false"
+                      [(ngModel)]="DeviceTypeTextentry" [config]="config" [options]="ListOfDevicetype"
+                      (change)="getDevicetypeId()">
+                    </ngx-select-dropdown>
+
+                    <input type="text" id="devicetypeentry1" name="devicetype" style="display: none;"
+                      [(ngModel)]="selectdevicetype">
+                  </div>
+                <!-- </div>
+
+                <div class="form-group row"> -->
+                  <div class="col-lg-4 col-md-4">
+                    <label class="indlabel">Model Name</label>
+                    <span class="mandatory">*</span>
+                    <input type="text" class="form-control" placeholder="Enter Model Name" tabindex="3" required
+                      minlength="2" maxlength="20" id="modelnameentry" [(ngModel)]="ModelNameentry" #modelname="ngModel"
+                      onkeypress="avoidSplChars(event)">
+                    <div class="invalidmsg" *ngIf="modelname.errors?.minlength">
+                      Model Name must be between 2 to 20 characters </div>
+                    <span class="invalidmsg" id="msg_modelname"></span>
+                  </div>
+
+                  <div class="col-lg-4 col-md-4">
+                    <label class="indlabel">Model Code</label>
+                    <span class="mandatory">*</span>
+                    <input type="text" class="form-control" placeholder="Enter Model Code" tabindex="4" required
+                      minlength="2" maxlength="2" id="modelcodeentry" [(ngModel)]="Modelcodeentry" #modelcode="ngModel"
+                      onkeypress="avoidSplChars(event)">
+                    <div class="invalidmsg" *ngIf="modelcode.errors?.minlength">
+                      model code must be only 2 digits </div>
+                  </div>
+
+                  <!-- <div class="col-lg-4 col-md-4">
+                    <label class="indlabel">Upload TAC</label>
+                    <span class="mandatory">*</span>
+                    <input type="file" name="uploadcop" id="uploadcop" 
+                          class="mb-3 form-control" [dataAutoFocus]="true">  
+                    <div class="invalidmsg" *ngIf="modelcode.errors?.minlength">
+                      Upload Pdf/jpeg/jpe file </div>
+                  </div>
+
+                  <div class="col-lg-4 col-md-4">
+                    <label class="indlabel">Upload COP</label>
+                    <span class="mandatory">*</span>
+                    <input type="file" name="uploadcop" id="uploadcop" 
+                          class="mb-3 form-control" [dataAutoFocus]="true">  
+                    <div class="invalidmsg" *ngIf="modelcode.errors?.minlength">
+                      Upload Pdf/jpeg/jpe file </div>
+                  </div>
+
+                  <div class="col-lg-4 col-md-4">
+                    <label class="indlabel">Upload Protocol</label>
+                    <span class="mandatory">*</span>
+                    <input type="file" name="uploadcop" id="uploadcop" 
+                          class="mb-3 form-control" [dataAutoFocus]="true">  
+                    <div class="invalidmsg" *ngIf="modelcode.errors?.minlength">
+                      Upload Pdf/jpeg/jpe file </div>
+                  </div>
+
+                  <div class="col-lg-4 col-md-4">
+                    <label class="indlabel">Upload User Manual</label>
+                    <span class="mandatory">*</span>
+                    <input type="file" name="uploadcop" id="uploadcop" 
+                          class="mb-3 form-control" [dataAutoFocus]="true">  
+                    <div class="invalidmsg" *ngIf="usermanual.errors?.minlength">
+                      Upload Pdf/jpeg/jpe file </div>
+                  </div> -->
+
+                </div>
+
+                <span class="invalidmsg" id="msg_errorentry" style="position: absolute;bottom :10px"></span>
+              </div>
+          
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Modal footer -->
+
+      <div class="modal-footer" id="modelfooter">
+
+        <div class="actionBar">
+          <button id="saveentry" class="mb-2 btn btn-sm btn-success buttonFinish" (click)="insertdevicemodel()">
+            <i class="material-icons">save</i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- The Modal -->
+
+<div class="modal fade " id="SuccessModalEntry" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+  aria-hidden="true">
+  <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+    <div class="modal-content box-shadow">
+      <div class="card border-0">
+        <div class="card-header py-1 pl-3 m-0" style="background-color: green;">
+          <p style="font-size:17px; font-weight:bold"> Success </p>
+        </div>
+        <div class="card-body bg-white text-dark">
+          <p> {{datafromrespo}}</p>
+          <div class="text-right">
+            <button class="btn btn-sm btn-success" (click)="closemodal()" data-dismiss="modal">ok</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade " id="ErrorModalEntry" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+  aria-hidden="true">
+  <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+    <div class="modal-content box-shadow">
+      <div class="card  border-0">
+        <div class="card-header  py-1 pl-3 m-0" style="background-color: red;">
+          <p style="font-size:17px; font-weight:bold"> Error </p>
+        </div>
+        <div class="card-body bg-white text-dark">
+          <p> {{datafromrespo}}</p>
+          <div class="text-right">
+            <button class="btn btn-sm btn-success" data-dismiss="modal">ok</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

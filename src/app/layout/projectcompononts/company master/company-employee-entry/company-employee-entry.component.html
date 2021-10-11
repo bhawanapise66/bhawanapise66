@@ -1,0 +1,376 @@
+<!--
+Developer 	: Dhammadeep dahiwale
+Date      	: mar -30-2021
+Description : Customer Employee Master Entry
+-->
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Company Employee Entry</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closemodal();">
+          <span aria-hidden="true" style="color: white">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div id="container">
+            <div class="step-wizardentry" role="navigation">
+              <div class="progress">
+                <div class="progressbar empty"></div>
+                <div id="progentry" class="progressbar"></div>
+              </div>
+              <ul>
+                <li class="active">
+                  <button id="stepentry1">
+                    <div class="step">1</div>
+                    <div class="title">Basic Details</div>
+                  </button>
+                </li>
+                <li class="">
+                  <button id="stepentry2">
+                    <div class="step">2</div>
+                    <div class="title">Professional Details</div>
+                  </button>
+                </li>
+                <li class="">
+                  <button id="stepentry3">
+                    <div class="step">3</div>
+                    <div class="title">Bank Details</div>
+                  </button>
+                </li>
+                <li class="">
+                  <button id="stepentry4">
+                    <div class="step">4</div>
+                    <div class="title">Login Details</div>
+                  </button>
+                </li>
+              </ul>
+
+              <div class="stepsection">
+                <span class="invalidmsg" id="msg_mainmessageentry"></span>
+                <div id="stepentry-14" class="stepsdiv">
+
+                  <div class="form-group row">
+
+                    <div class="col-lg-4 col-md-4">
+                      <label class="indlabel">Employee Name</label>
+                      <span class="mandatory">*</span>
+                      <input type="text" class="form-control" placeholder="Enter Employee name" tabindex="1" required
+                        minlength="3" maxlength="30" id="employeeNameId" onpaste="return false;"
+                        [(ngModel)]="employeeName" #vendornm="ngModel" onkeypress="return onlyAlphabets(event);"
+                        ondrop="return false;">
+                    </div>
+
+                    <div class="col-lg-4 col-md-4">
+                      <label class="indlabel">Mobile No.</label>
+                      <span class="mandatory">*</span>
+                      <input type="text" class="form-control" placeholder="Enter Mobile No" tabindex="5" required
+                        minlength="10" maxlength="10" [(ngModel)]="mobileNumber" #officialnonew="ngModel"
+                        id="mobileNoId" onkeypress="return isNumberKey(event)">
+                      <div class="invalidmsg" *ngIf="officialnonew.errors?.minlength">
+                        Official number must be at least minimum 10 characters & maximum 12 characters long.
+                      </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-4">
+                      <label class="indlabel">Email Id.</label>
+                      <span class="mandatory">*</span>
+                      <input type="email" class="form-control" placeholder="Enter Email Address" tabindex="5" required
+                        minlength="13" maxlength="30" [(ngModel)]="emailId" #officialemailnew="ngModel"
+                        id="emailAddressId">
+                      <div class="invalidmsg" *ngIf="officialemailnew.errors?.minlength">
+                        Official EmailID must be at least minimum 13 characters & maximum 30 characters long.
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <div class="form-group row">
+
+                    <div class="col-lg-5 col-md-5">
+                      <label class="indlabel">Per. Addres</label>
+                      <span class="mandatory">*</span>
+                      <textarea class="form-control" rows="2" style=" font-size:12px"
+                        placeholder="Enter Registration Address." tabindex="12" minlength="5" [(ngModel)]="permAddres"
+                        #regaddressnew="ngModel" id="permAddressId"></textarea>
+                      <div class="invalidmsg" *ngIf="regaddressnew.errors?.minlength">
+                        Registered Address must be at least minimum 5 characters & maximum 30 characters long.
+                      </div>
+                      <span class="invalidmsg" id="msg_regaddentry"></span>
+                    </div>
+
+                    <div class="col-lg-5 col-md-5">
+                      <label class="indlabel">Cor. Addres</label>
+                      &nbsp; <input type="checkbox" name="" id="" [(ngModel)]="isChecked" (change)="AddressSelection()">
+                      <label class="indlabel">Copy</label>
+                      <textarea class="form-control" rows="2" style=" font-size:12px"
+                        placeholder="Enter Registration Address." tabindex="12" minlength="5" [(ngModel)]="corrAddress"
+                        #regaddressnew="ngModel" id="corrAddressId"></textarea>
+                      <div class="invalidmsg" *ngIf="regaddressnew.errors?.minlength">
+                        Registered Address must be at least minimum 5 characters & maximum 30 characters long.
+                      </div>
+                      <span class="invalidmsg" id="msg_regaddentry"></span>
+                    </div>
+
+                  </div>
+
+                  <div class="form-group row">
+
+                    <div class="col-lg-4 col-md-4">
+                      <label class="indlabel">State</label>
+                      <span class="mandatory">*</span>
+                      <ngx-select-dropdown tabindex="0" id="stateId" [multiple]="false" [(ngModel)]="stateObj"
+                        [config]="config" [options]="statelistarr" (change)="getCitylist()" value="stateObj">
+                      </ngx-select-dropdown>
+                      <span class="invalidmsg" id="msg_vendorName"></span>
+
+                      <div style="display: none;">
+                        <input type="text" name="stateEncId" [(ngModel)]="stateEncId" id="stateencid">
+                      </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-4">
+                      <label class="indlabel">City</label>
+                      <span class="mandatory">*</span>
+                      <ngx-select-dropdown tabindex="0" id="cityId" [multiple]="false" [(ngModel)]="cityObj"
+                        [config]="config" [options]="citylistarr" (change)="getCityId()"></ngx-select-dropdown>
+                      <span class="invalidmsg" id="msg_vendorName"></span>
+
+                      <div style="display: none;">
+                        <input type="text" name="cityEncId" [(ngModel)]="cityEncId" id="cityencid">
+                      </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-4">
+                      <label class="indlabel">Pin Code No.</label>&nbsp;
+                    <input type="text" class="form-control" style=" font-size:12px" placeholder="Enter Pincode No."
+                      tabindex="15 " minlength="6" maxlength="6" [(ngModel)]="pincode" id="pincodeno"
+                      #pincodeno="ngModel" onkeypress="return isNumberKey(event)">
+                    <div class="invalidmsg" *ngIf="pincodeno.errors?.minlength">
+                      Pincode must be of 6 digits long only.
+                    </div>
+                      <span class="invalidmsg" id="msg_pincode"></span>
+                    </div>
+
+                  </div>
+                  <br>
+                  <br>
+
+                  <span class="invalidmsg" id="msg_errorentry" style="position: absolute;bottom:20px"></span>
+                </div>
+
+                <div id="stepentry-15" class="stepsdiv">
+
+                  <div class="form-group row">
+
+                    <div class="col-lg-4 col-md-4">
+                      <label class="indlabel">Department</label>
+                      <span class="mandatory">*</span>
+
+                      <ngx-select-dropdown tabindex="0" id="DepartmentId" [multiple]="false" [(ngModel)]="departmentObj"
+                        [config]="config" [options]="departmentlistarr" (change)="getDeptId()"></ngx-select-dropdown>
+
+                      <span class="invalidmsg" id="msg_vendorName"></span>
+
+                      <div style="display: none;">
+                        <input type="text" name="departmentId" [(ngModel)]="departmentEncId" id="deptId">
+                      </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-4">
+                      <label class="indlabel">Designation</label>
+                      <span class="mandatory">*</span>
+
+                      <ngx-select-dropdown tabindex="0" id="DesignationId" [multiple]="false"
+                        [(ngModel)]="designationObj" [config]="config" [options]="designationlistarr"
+                        (change)="getDesignationId()"></ngx-select-dropdown>
+
+                      <span class="invalidmsg" id="msg_vendorName"></span>
+
+                      <div style="display: none;">
+                        <input type="text" name="designationId" [(ngModel)]="designationEncId" id="designationId">
+                      </div>
+                    </div>
+
+
+
+                  </div>
+
+
+                  <br>
+                  <span class="invalidmsg" id="msg_error_contactentry" style="position: absolute; bottom: 20px;"></span>
+                </div>
+                <div id="stepentry-16" class="stepsdiv">
+
+                  <div class="form-group row">
+
+                    <div class="col-lg-5 col-md-5">
+                      <label class="indlabel">Bank Name</label>
+                     
+                        <input type="text" class="form-control" style=" font-size:12px" placeholder="Enter Branch Name." tabindex="15" minlength="3"
+                        maxlength="30" [(ngModel)]="bankName"  id="bankNameid" #branchnm="ngModel" onkeypress="avoidSplChars(event)">
+                      <div class="invalidmsg" *ngIf="branchnm.errors?.minlength">
+                        Branch name must be at least minimum 3 characters & maximum 30 characters long.
+                      </div>
+
+                    </div>
+
+                    <div class="col-lg-5 col-md-5">
+                      <label class="indlabel">Account Number</label>
+           
+                        <input type="text" class="form-control" placeholder="Enter Account No" tabindex="1" required minlength="9" maxlength="18"
+                        id="bankAccountid" [(ngModel)]="bankAccNumber" #accountNo="ngModel" onkeypress="return isNumberKey(event)">
+                      <div class="invalidmsg" *ngIf="accountNo.errors?.minlength">
+                        Account no. must be at least minimum 9 characters & maximum 18 characters long.
+                      </div>
+                    </div>
+                    <div class="col-lg-5 col-md-5">
+                      <label class="indlabel">IFSC Code</label>
+                     
+                        <input type="text" class="form-control" id="ifscCodeid" style=" font-size:12px" placeholder="Enter IFSC Code." tabindex="16" minlength="11"
+                        maxlength="11" [(ngModel)]="ifscCode" #ifsc="ngModel" onkeypress="avoidSplChars(event)">
+                      <div class="invalidmsg" *ngIf="ifsc.errors?.minlength">
+                        IFSC code must be at least minimum 11 characters & maximum 11 characters long.
+                      </div>
+                    </div>
+
+                    <div class="col-lg-5 col-md-5">
+                      <label class="indlabel">Bank Address</label>
+                     
+                        <textarea type="text" class="form-control" style=" font-size:12px" placeholder="Enter Bank Address." tabindex="15" minlength="3"
+                        maxlength="30" [(ngModel)]="bankAddress"  id="bankaddressid" #branchaddnm="ngModel" ></textarea>
+                      <div class="invalidmsg" *ngIf="branchaddnm.errors?.minlength">
+                        Branch Addess must be at least minimum 3 characters & maximum 30 characters long.
+                      </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-4">
+                      <label class="indlabel">Bank State</label>
+                      <ngx-select-dropdown id="BankStateId" [multiple]="false" [(ngModel)]="bankStateObj"
+                        [config]="config" [options]="statelistarr" (change)="getBankStateId()">
+                      </ngx-select-dropdown>
+                      <span class="invalidmsg" id="msg_vendorName"></span>
+
+                      <div style="display: none;">
+                        <input type="text" name="designationId" [(ngModel)]="bankStateEncId" id="bankstateencid">
+                      </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4">
+                      <label class="indlabel">Bank City</label>
+                      <ngx-select-dropdown id="BankCityId" [multiple]="false" [(ngModel)]="bankCityObj"
+                        [config]="config" [options]="bankcitylistarr" (change)="getBankCityId()"></ngx-select-dropdown>
+
+                      <span class="invalidmsg" id="msg_vendorName"></span>
+
+                      <div style="display: none;">
+                        <input type="text" name="designationId" [(ngModel)]="bankcityEncId" id="bankcityencid">
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <br><br>
+                  <span class="invalidmsg" id="msg_error_loginentry" style="position: absolute;bottom: 20px;"></span>
+                </div>
+                <div id="stepentry-17" class="stepsdiv">
+                  <div class="form-group row">
+
+                    <div class="col-lg-4 col-md-4">
+                      <label class="indlabel">Username </label>&nbsp;
+                      <span class="mandatory">*</span>
+                      <input type="text" class="form-control" style=" font-size:12px" placeholder="Enter Username."
+                        tabindex="15 " minlength="5" maxlength="15" [(ngModel)]="userName" id="Username"
+                        #usernameno="ngModel">
+                        <div class="invalidmsg" *ngIf="usernameno.errors?.minlength">
+                          Username must be at least minimum 5 characters & maximum 20 characters long.
+
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4">
+                      <label class="indlabel">Password </label>&nbsp;
+                      <span class="mandatory">*</span>
+                      <input type="password" class="form-control" style=" font-size:12px" placeholder="Enter Password."
+                        tabindex="15 " minlength="5" maxlength="20" [(ngModel)]="password" id="Password"
+                        #passwordno="ngModel">
+                        <div class="invalidmsg" *ngIf="passwordno.errors?.minlength">
+                          Password must be at least minimum 5 characters & maximum 20 characters long.
+                        </div>
+                    </div>
+                    <span class="invalidmsg" style="position: absolute;bottom:20px;left:10px"
+                      id="msg_creadentials"></span>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Modal footer -->
+
+      <div class="modal-footer" id="modelfooter">
+
+        <div class="actionBar">
+          <button id="saveentry" class="mb-2 btn btn-sm btn-success buttonFinish" (click)="CompanyEmployeeEntry()">
+            <i class="material-icons">save</i>
+          </button>
+          <button id="nextentry" class="mb-2 btn btn-sm btn-primary buttonNext">
+            <i class="material-icons">arrow_forward</i>
+          </button>
+
+          <button id="preventry" class="mb-2 btn btn-sm btn-primary buttonPrevious" onclick="validateAllSteps(4,4)">
+            <i class="material-icons">arrow_back</i>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade " id="SuccessModalEntry" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+aria-hidden="true">
+<div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+  <div class="modal-content box-shadow">
+    <div class="card border-0">
+      <div class="card-header  py-1 pl-3 m-0" style="background-color: green;">
+        <p style="font-size:17px; font-weight:bold"> Success </p>
+      </div>
+      <div class="card-body bg-white text-dark">
+       <p> {{responseMessage}}</p>
+        <div class="text-right">
+          <button class="btn btn-sm btn-success" data-dismiss="modal">ok</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="modal fade " id="ErrorModalEntry" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+aria-hidden="true">
+<div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+  <div class="modal-content box-shadow">
+    <div class="card border-0">
+      <div class="card-header  py-1 pl-3 m-0" style="background-color: red;">
+        <p style="font-size:17px; font-weight:bold"> Error </p>
+      </div>
+      <div class="card-body bg-white text-dark">
+       <p> {{responseMessage}}</p>
+        <div class="text-right">
+          <button class="btn btn-sm btn-success" data-dismiss="modal">ok</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+
+
+

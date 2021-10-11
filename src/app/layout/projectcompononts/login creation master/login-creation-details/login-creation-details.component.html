@@ -1,0 +1,440 @@
+<!--
+Developer 	: Dhammadeep Dahiwale
+Date      	: 13-1-2021
+Description : login creation component
+Modified By:  
+Update date : 
+-->
+
+<div [@routerTransition]>
+
+  <div class="content shadow-sm">
+    <!-- Main container starts -->
+    <div class="main-container" id="main-container">
+      <div class="row">
+        <div class="col-12 col-md-12 col-lg-12 col-xl-12 mx-auto align-self-center">
+          <div class="card shadow-sm border-0  h-100">
+            <div class="card-header" style="padding-top: 0; padding-bottom: 0">
+
+              <!-- <img src="../assets/img/logoicon.svg" alt="" class="w-50px mt-4"> -->
+              <h4 class="text-left m-1" style="font-size: 15px;">Login
+                <span class="text-template-primary" style="color: #00ed54">Details</span>
+                <button type="button" class="btn btn-sm btn-primaryyel ml-2 float-right"
+                  style="margin-right: 15px; background-color: #f6c53b; font-size: 12px;width: auto;"
+                  data-toggle="modal" data-target="#exampleModal" id="addnewlog">
+                  ADD NEW
+                  <i class="material-icons md-18">navigate_next</i>
+                </button>
+              </h4>
+
+            </div>
+            <div class="card-body" style="padding: 5px;">
+              <div class="row justify-content-center">
+                <div class="col-md-12 mx-auto">
+                  <div class="row">
+                    <div class="col-lg-12 col-md-12">
+                      <!-- <button type="button" class="btn btn-primary float-left" data-toggle="modal" >
+                        ADD NEW
+                      </button> -->
+
+                    </div>
+                  </div>
+
+                  <div class=" main-container" id="main-container">
+
+
+
+
+                    <!--    ---------------        Table Header Staret=------------------------    -->
+                    <div class="row  mx-1 px-0 col-md-12">
+                      <div class="col-12 col-sm-12 col-md text-md-left align-self-center pr-0">
+                        <ul class="nav  justify-sm-content-center  justify-content-left">
+                          <li class="nav-item ">
+
+                            <div class="input-group">
+
+                              <input type="text" placeholder="Search" class="form-control searchicon " id="searchData" maxlength="30"
+                                [(ngModel)]="filter" aria-label="Amount (to the nearest dollar)">
+                              <div class="input-group-append">
+                                <button class="btn  apendbtn" (click)="searchdata()"><i
+                                    style="color: #00ed54; margin-top: -15px;" class="fa fa-search"></i> </button>
+                              </div>
+                            </div>
+
+                          </li>
+                          <li class="nav-item mx-3">
+                            <i class="fa fa-refresh fa-2x fa-spin-hover"
+                              style="font-size: 17px;padding-top: 4px;color: green;" (click)="Refreshfunction()"></i>
+                          </li>
+                        </ul>
+
+                      </div>
+
+                      <div class="col-12 col-sm-12 col-md-auto text-right text-md-end pl-0">
+                        <ul class="nav justify-content-center justify-lg-content-end  justify-sm-content-center">
+
+                          <li class="nav-item mx-2">
+                            <img style="float: right; cursor: pointer; height: 20px; margin-top: 3px;"
+                              (click)="createPDF()" ngbTooltip="PDF" src="assets/images/PDFicon.png">
+
+                          </li>
+                          <li class="nav-item mx-2">
+                            <img style="cursor: pointer;" (click)="exportToExcel()" ngbTooltip="Excel"
+                              src="assets/images/excellogo.png">
+                          </li>
+
+
+                          <li class="nav-item ml-3">
+                            <span style="padding-top: 5px; font-size: 12px;font-weight: bold;display: inline;">Show
+                              Rows:
+                            </span>
+
+                            <select class="form-control p-0" data-live-search="true" tabindex="1" id="selectrow1"
+                              (change)="SelectRows()" aria-hidden="true" [(ngModel)]="itemsPerPage"
+                              style=" font-size:12px;height: 25px; width: 40px;display: inline;">
+                              <option value="5">5</option>
+                              <option value="10">10</option>
+                              <option value="20">20</option>
+                              <option value="50">50</option>
+                            </select>
+                          </li>
+
+                          <li class="nav-item mx-3">
+                            <span style="font-size: 12px ;font-weight:bold"> Total
+                              Records&nbsp;:&nbsp;{{viewcount}}&nbsp;of&nbsp;{{count}} </span>
+                          </li>
+
+                        </ul>
+                      </div>
+                    </div>
+
+
+
+                    <!-- ---------------------  Table header end  ------------------------------ -->
+
+
+                    <div id="PDFTable" class="card-body table-responsive" #epltable>
+                      <table class="table table-hover table-striped">
+                        <thead>
+                          <tr role="row">
+                            <th (click)="sort('rowNumber')">#</th>
+                            <th (click)="sort('param7')">Welcome Name</th>
+                            <th (click)="sort('param2')">Login Name</th>
+                            <th (click)="sort('param6')">Role Name</th>
+                            <th (click)="sort('param9')">Create Date</th>
+                            <th (click)="sort('param8')">Status</th>
+
+                            <!-- <th class="all sorting_asc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 86px;" aria-label="Order ID: activate to sort column descending" aria-sort="ascending">Order ID</th> -->
+                            <th style="background-color: #99c049; text-align: center;" id="visibleaction">Action</th>
+                          </tr>
+                        </thead>
+                        <tbody id="grid">
+                          <tr
+                            *ngFor="let item of loginDetailsArray |  orderBy: key : reverse | paginate : {itemsPerPage:itemsPerPage,currentPage:pageNumber,totalItems:count} ;"
+                            class="trheight">
+                            <td>{{item.rowNumber}}</td>
+                            <td>{{item.param7}}</td>
+                            <td>{{item.param2}}</td>
+                            <td>{{item.param6}}</td>
+                            <td>{{item.param9}} </td>
+                            <td>{{item.param8}}</td>
+                            <td class="viewbtncss text-center custombtncolor"
+                              *ngIf="keybooleana">
+                              <span class="iconhover" data-toggle="modal" data-target="#myModalwizard"
+                                (click)="setdata(item)">
+                                <i class="material-icons" style="color: #161e43">visibility</i>
+                              </span>
+                            </td>
+                          </tr>
+
+
+
+                        </tbody>
+                        <tfoot id="foot" class="box-footer clearfix">
+                          <tr>
+                            <td colspan="12">
+                              <pagination-controls style=" float: right;" (pageChange)="loginPageChange($event)">
+                              </pagination-controls>
+                            </td>
+                          </tr>
+                        </tfoot>
+                      </table>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- --------------------  view & Edit Modal start------------------------>
+
+<div class="modal fade " style="overflow: scroll;" id="myModalwizard" data-backdrop="static">
+  <div class="modal-dialog modal-lg" style="width: 35rem;">
+    <div class="modal-content ">
+
+      <!-- Modal Header -->
+      <div class="modal-header modelcolor">
+        <h6 class="modal-title"> Change Status</h6>
+
+        <button type="button" style="color: white" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+
+      <!-- Modal body -->
+      <div class="modal-body " style=" background-color: #CBD2F1;">
+        <div class="container">
+
+          <!-- --------------------------------------------- View Section ------------------------------------------- -->
+          <div class="">
+            <div id="vendordtls" class="row" style="    background-color: #fff; border: 1px ridge #02108d;">
+              <div class="col-12 col-md-12 col-lg-12">
+                <h6 class="text-center text-white pt-3" style="font-weight: bold;"> Login Details</h6>
+
+                <div class="row">
+                  <div class="col-12 py-1">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <span class="loginLabel">Login Name &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: </span>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span> {{loginName}} </span>
+                      </div>
+                      <div class="col-md-6">
+                        <span class="loginLabel">Welcome Name&nbsp;&nbsp;&nbsp; :
+                        </span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span> {{welcomeName}} </span>
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <div class="col-md-12  py-1">
+                    <span class="loginLabel">Active Status
+                      &nbsp;&nbsp;&nbsp;&nbsp;:</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span> {{ActiveStatus}}
+                    </span>
+                  </div>
+
+                  <div class="col-md-12 py-1">
+                    <span class="loginLabel" style="display: inline;">Choose action&nbsp;&nbsp; :
+                    </span>&nbsp;&nbsp;&nbsp;
+                    <select class="form-control form-control-sm" [(ngModel)]="action" (change)="ActiveButton()"
+                      style="display: inline;width: auto;">
+                      <option>Block</option>
+                      <option>Unblock</option>
+                      <option>Activate</option>
+                      <option>Forcefully Logout</option>
+                      <option>Change Password</option>
+                      <option>Delete</option>
+                      <option>Get Password</option>
+                    </select>
+                  </div>
+
+                  <div class="col-md-12">
+                    <span class="loginLabel" style="display: inline;position: relative;top:-30px;">Remark
+                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <textarea type="text" style="display: inline;width: 60%;" id="remarkField" name="remark"
+                      placeholder="Enter Remark" class="form-control form-control-sm" [(ngModel)]="remark"></textarea>
+                    <br>
+                    <small class="invalidmsg" id="remarkError" style="margin-left:8rem"></small>
+                  </div>
+                </div>
+
+                <div id="deletebuttonlogin" style="display: none;">
+                  <button id="deletebuttonlogin" class="btn btn-sm btn-danger" style="width: auto; float: right; "
+                    (click)="UpdateLoginStatus()">
+                    Delete Login
+                  </button>
+                </div>
+
+                <div id="getpasswordbutton" style="display: none;">
+
+                  <div class="row">
+                    <div class="col-md-4">
+                      <input type="text" class="form-control" name="phone" id="phoneField" [(ngModel)]="phoneNumber"
+                        placeholder="Enter Phone Number">
+                      <span class="invalidmsg" id="passError"></span>
+
+                    </div>
+                    <div class="col-md-2">
+                      <button class="btn btn-sm btn-secondary">Send otp</button>
+                    </div>
+
+                    <div class="col-md-4">
+                      <input type="text" class="form-control" name="otp" id="otp2field" [(ngModel)]="newPass"
+                        placeholder="Enter otp">
+                      <span class="invalidmsg" id="newpassError"></span>
+
+                    </div>
+
+                    <div class="col-md-2">
+                      <button class="btn btn-sm btn-secondary">verify</button>
+                    </div>
+                  </div>
+                  <br>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <label class="indlabel">
+                        Your Password
+                      </label>
+                      <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <u> {{yourpassword}} </u></span>
+                    </div>
+                  </div>
+                </div>
+
+                <div *ngIf="toChange == true;">
+                  <div *ngIf="statusbuttonvisible">
+                    <button id="statusButton" class="btn btn-sm btn-warning" style="width: auto; float: right; "
+                      (click)="UpdateLoginStatus()">
+                      <!-- Change Status -->
+                      {{action}}
+                    </button>
+                  </div>
+
+
+
+                  <div *ngIf="passwordbuttonvisible">
+                    <div class="row">
+                      <div class="col-md-4">
+                        <label class="" for="oldPassword">Enter Old Password</label>
+                        <input type="password" class="form-control" name="password" id="passField"
+                          [(ngModel)]="password" autocomplete="off">
+                        <span class="invalidmsg" id="passError"></span>
+
+                      </div>
+
+                      <div class="col-md-4">
+                        <label class=" text-left" for="oldPassword">Enter New Password</label>
+                        <input type="password" class="form-control" name="password" id="newPassField"
+                          [(ngModel)]="newPass" autocomplete="off">
+                        <span class="invalidmsg" id="newpassError" > </span>
+
+                      </div>
+                      <div class="col-md-4">
+                        <label class=" text-left" for="oldPassword">Confirm Password</label>
+                        <input type="password" class="form-control" name="password" id="cnewPassField"
+                          [(ngModel)]="cNewPass">
+                        <span class="invalidmsg" id="cnewpassError"></span>
+
+                      </div>
+                    </div>
+
+                    <button class="btn btn-sm btn-success mt-2" (click)="ResetPassword()"
+                      style="float: right;width: auto;">Reset Password</button>
+                  </div>
+
+
+
+
+                </div>
+
+ 
+              </div>
+
+              <!-- --------------------- View Section End ------------------------------ -->
+
+            </div>
+          </div>
+          <!-- <div class="row">
+            <button id="revbtn" ngbTooltip="Back" class="mb-2 btn btn-wizard btn-sm btn-primary " (click)="revback()" style="display: none;">
+                <i class="material-icons" >arrow_back</i>
+              </button>  &nbsp; &nbsp;
+            <button id="nextviewbtn" ngbTooltip="Next" class="mb-2 btn btn-wizard btn-sm btn-primary "(click)="viewnext()" style="display: block;">
+                <i class="material-icons">arrow_forward</i>
+              </button> 
+               <button id="next2viewbtn" ngbTooltip="Next" class="mb-2 btn btn-wizard btn-sm btn-primary"(click)="viewnext2()" style="display: none;">
+                  <i class="material-icons">arrow_forward</i>
+                </button>
+                 <button id="rev2btn" ngbTooltip="Back" class="mb-2 btn btn-wizard btn-sm btn-primary " (click)="revback2()" style="display: none;">
+                    <i class="material-icons" >arrow_back</i>
+                  </button>  
+              </div> -->
+        </div>
+        <!-- --------------------- View Section End ------------------------------ -->
+
+      </div>
+
+
+      <!-- Modal footer -->
+
+      <div class="modal-footer" style="display: none;" id="modelfooter">
+
+        <div class="actionBar" style="margin-right: 5pc;">
+          <button id="save" class="mb-2 btn btn-wizard btn-sm btn-success buttonFinish" (click)="vensaveeditbtn()">
+            <i class="material-icons">save</i>
+          </button>
+          <button id="next" class="mb-2 btn btn-wizard btn-sm btn-primary buttonNext">
+            <i class="material-icons">arrow_forward</i>
+          </button>
+          <button id="prev" class="mb-2 btn btn-wizard btn-sm btn-primary buttonPrevious"
+            onclick="validateAllSteps(4,4)">
+            <i class="material-icons">arrow_back</i>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ------------------- view & Edit model close ------------------------ -->
+
+<!-- ------------------ Delete Model Start ------------------------>
+
+<!-- ------------------- Delete model End ----------------------- -->
+
+<!-- ------------------- onclick no btn model  ----------------------- -->
+<!-- The Modal -->
+
+<!-- ------------------- onclick no btn model End ----------------------- -->
+<!-- ------------------- onclick Yes btn model ----------------------- -->
+
+
+<!-- ------------------- onclick yes btn model End ----------------------- -->
+
+
+
+<app-login-creation-entry (showDetails)="LoginDetails()"></app-login-creation-entry>
+
+
+
+<div class="modal fade" id="updateSuccessModal1" data-backdrop="static" data-keyboard="false" tabindex="-1"
+  role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-sm dialogModal" role="document">
+    <div class="modal-content box-shadow">
+      <div class="card text-center border-0 ">
+        <div class="card-header bg-success m-0 p-0">
+          Success
+        </div>
+        <div class="card-body bg-white">
+          <p>{{errorMessage}}</p>
+          <div class="text-right">
+            <button class="btn btn-sm btn-success" data-dismiss="modal">ok</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="ErrorModal1" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+  aria-hidden="true">
+  <div class="modal-dialog modal-sm dialogModal" role="document">
+    <div class="modal-content box-shadow">
+      <div class="card text-center border-0">
+        <div class="card-header bg-warning m-0 p-0">
+          <h5>Failed</h5>
+        </div>
+        <div class="card-body bg-white">
+          {{errorMessage}}
+          <div class="text-right pt-3">
+            <button class="btn btn-sm btn-success" data-dismiss="modal">ok</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

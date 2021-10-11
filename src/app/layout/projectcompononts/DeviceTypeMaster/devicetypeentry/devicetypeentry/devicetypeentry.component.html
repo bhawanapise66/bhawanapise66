@@ -1,0 +1,97 @@
+<!--
+Developer 	: Dhammadeep Dahiwale
+Date      	:12-22-2020
+Description : Tips Master Entry
+Modified By :  
+Update date : 
+-->
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <!-- <h5 class="modal-title" id="exampleModalLabel">Device Type Entry</h5> -->
+        <h4 class="text-left" style="font-size: 15px;">Device Type
+          <span class="text-template-primary" style="color: #00ed54">Entry</span>
+         </h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="clear();">
+          <span aria-hidden="true" style="color: white">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div id="container">
+            <div class="step-wizardentry" role="navigation">
+              <div class="progress" style="display: none;">
+                <div class="progressbar empty" style="display: none;"></div>
+                <div id="progentry" class="progressbar" style="display: none;"></div>
+              </div>
+              
+
+              <div class="stepsection">
+                <span class="invalidmsg" id="msg_mainmessageentry"></span>
+                <div id="step-14" class="stepsdiv">
+                  <!-- <span class="StepTitle">Step 1: Basic Details</span> -->
+
+                  <div class="form-group row">
+                    <div class="col-lg-6 col-md-6">
+                      <label class="indlabel">Device Type </label>
+                      <span class="mandatory">*</span>
+                      <input type="text" class="form-control" placeholder="Enter Device Type" tabindex="5" required minlength="3" maxlength="35"
+                        [(ngModel)]="Devicetypeentry" #VendorType="ngModel" id="devicetypeid" style="font-size: 12px;">
+                      <div class="invalidmsg" *ngIf="VendorType.errors?.minlength">
+                        Device Type must be at least minimum 3 characters & maximum 35 characters long.
+                      </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                      <label class="indlabel">Description </label>
+                      <span class="mandatory">*</span>
+                      <textarea class="form-control" rows="2" style=" font-size:12px" placeholder="Enter Description." tabindex="12" minlength="5"
+                        maxlength="100" [(ngModel)]="devicetypedescription" #vendordesc="ngModel" id="descdevicetypeid"></textarea>
+                      <div class="invalidmsg" *ngIf="vendordesc.errors?.minlength">
+                     Description must be at least minimum 3 characters & maximum 100 characters long.
+                      </div>
+                    </div>
+
+
+                  </div>
+
+            
+                  <span class="invalidmsg" id="msg_errordivision" style="position: absolute;bottom:10px;"></span>
+                </div>
+
+
+
+                <!-- <div class="actionBar">
+                <button  id="saveentry" class="mb-2 btn btn-sm btn-success buttonFinish"  (click)="vensavebtn()"><i class="material-icons">save</i></button>
+                <button  id="nextentry" class="mb-2 btn btn-sm btn-primary buttonNext"><i class="material-icons">arrow_forward</i></button>
+                
+                <button  id="preventry" class="mb-2 btn btn-sm btn-primary buttonPrevious" onclick="validateAllSteps(4,4)"><i class="material-icons">arrow_back</i></button>
+                </div> -->
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Modal footer -->
+
+      <div class="modal-footer" id="modelfooter">
+
+        <div class="actionBar">
+           <button id="save" class="mb-2 btn btn-wizard btn-sm btn-success buttonFinish" (click)="DeviceVendorType();"
+            style="display: none;">
+            <i class="material-icons">save</i>
+          </button> 
+          <button id="next" class="mb-2 btn btn-wizard btn-sm btn-success buttonFinish" (click)="DeviceVendorType();">
+            <i class="material-icons">save</i>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+

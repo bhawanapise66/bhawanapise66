@@ -1,0 +1,152 @@
+<!-- alert modal -->
+<div class="modal fade" id="FlastAlertModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+  aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div class="modal-content" style="background-color:rgb(55 55 149) ; border: 2px solid white;">
+      <div class="modal-header" style="color: #cfdfff;font-size: 15px;padding: 10px;">
+        <span class="material-icons text-warning text-left"> report </span>
+        <h6 class=" text-center text-white ml-5" id="exampleModalLabel"><b>{{alertName}}</b></h6>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" style="color: white">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <form novalidate #flashForm="ngForm">
+            <div class="container">
+              <div class="card">
+                <div class="card-body">
+
+
+                  <div> <label class="indlabel mb-0">Vehicle No.</label> <span> : {{vehicleNo}}</span></div>
+
+                  <div> <label class="indlabel mb-0">Location</label> <span> : {{location}}</span></div>
+                  <div> <label class="indlabel mb-0">From</label> <span> : {{from}}</span></div>
+                  <div> <label class="indlabel">Duration</label> <span> : {{duration}}</span></div>
+
+                  <div> <label class="indlabel mb-0">Action</label>
+
+                    <select class="form-control form-control-sm for d-inline" name="permission"
+                      [(ngModel)]="flashAlert.permission" #permissionCtrl="ngModel"
+                      style="width: 100px; margin-left: 10px;" required>
+                      <option>Allow</option>
+                      <option>Not Allow</option>
+                    </select>
+
+                    <small class="text-right text-red" *ngIf="permissionCtrl.invalid && submitted">
+                      Please Choose Permission
+                    </small>
+                  </div>
+
+
+                  <div class="form-group mt-4">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="row form-group">
+                          <div class="col-md-12">
+                            <input type="text" class="form-control form-control-sm opacity-1" name="personName"
+                              [(ngModel)]="flashAlert.name" placeholder="Enter Name" #nameCtrl="ngModel" required>
+                            <small class="text-right text-red" *ngIf="nameCtrl.invalid && submitted">
+                              Please Enter Name </small>
+                          </div>
+
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="row form-group">
+                          <div class="col-md-12">
+                            <input type="text" class="form-control form-control-sm opacity-2" name="mobile"
+                              [(ngModel)]="flashAlert.mobile" placeholder="Enter Mobile" #mobileCtrl="ngModel"onkeypress="return isNumberKey(event)" required>
+                            <small class="text-right text-red" *ngIf="mobileCtrl.invalid && submitted">
+                              Please Enter Mobile </small>
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row form-group">
+                      <div class="col-md-12">
+                        <input type="text" class="form-control form-control-sm opacity-3" name="reason"
+                          [(ngModel)]="flashAlert.reason" placeholder="Enter Reason" #reasonCtrl="ngModel" required>
+                        <small class="text-right text-red" *ngIf="reasonCtrl.invalid && submitted">
+                          Please Enter Reason </small>
+                      </div>
+
+                    </div>
+
+                    <div class="row form-group">
+                      <div class="col-md-12">
+                        <input type="text" class="form-control form-control-sm opacity-4" name="action"
+                          [(ngModel)]="flashAlert.action" placeholder="Enter Action Taken" #actionnCtrl="ngModel"
+                          required>
+                        <small class="text-right text-red" *ngIf="actionnCtrl.invalid && submitted">
+                          Please Enter Action Taken</small>
+                      </div>
+
+                    </div>
+
+                    <div class="text-center">
+                      <button class="btn btn-success btn-sm px-5" [disabled]="formSubmitted" (click)="SubmitAlertForm()">
+                        OK
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- alert modal -->
+
+
+  <!-- <success modal -->
+
+    <div class="modal fade " id="AlertSuccessModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+    aria-hidden="true">
+    <div class="modal-dialog modal-sm dialogModal  modal-dialog-centered" role="document">
+      <div class="modal-content box-shadow">
+        <div class="text-center border-0">
+          <div class="card-header bg-success m-0 p-0">
+            <h5>Success</h5>
+          </div>
+          <div class="card-body bg-white">
+           Alert Resolved Successfully
+            <div class="text-right pt-3">
+              <button class="btn btn-sm btn-success" data-dismiss="modal">ok</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- success modal -->
+  
+  <!-- <error modal -->
+
+    <div class="modal fade " id="AlertErrorModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+    aria-hidden="true">
+    <div class="modal-dialog modal-sm dialogModal  modal-dialog-centered" role="document">
+      <div class="modal-content box-shadow">
+        <div class="text-center border-0">
+          <div class="card-header bg-warning m-0 p-0">
+            <h5>Failed</h5>
+          </div>
+          <div class="card-body bg-white">
+          Alert Not Resolved
+            <div class="text-right pt-3">
+              <button class="btn btn-sm btn-success" data-dismiss="modal">ok</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- error modal -->

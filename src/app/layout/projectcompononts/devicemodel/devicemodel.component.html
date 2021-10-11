@@ -1,0 +1,740 @@
+<!--
+Developer 	: Aditya Londhe
+Date      	: 02-10-2020
+Description : Device Module Master
+Modified By:  
+Update date : 
+-->
+<div class="content shadow-sm">
+  <!-- Main container starts -->
+  <div class="" id="main-container">
+    <div class="row">
+      <div class="col-12 col-md-12 col-lg-12 col-xl-12 mx-auto align-self-center">
+        <div class="card shadow-sm border-0 mb-4">
+          <div class="card-header" >
+
+            <!-- <img src="../assets/img/logoicon.svg" alt="" class="w-50px mt-4"> -->
+            <h4 class="text-left m-1">Device
+              <span class="text-template-primary">Model</span>
+              <button type="button" class="btn btn-sm btn-primary ml-2 float-right" style="margin-right: 89px;" data-toggle="modal" data-target="#exampleModal" >
+                  ADD NEW
+                  <i class="material-icons md-18">navigate_next</i>
+                </button>
+            </h4>
+          </div>
+          <div class="card-body">
+            <div class="row justify-content-center">
+              <div class="col-md-12 mx-auto">
+                <div class="row">
+                  <div class="col-lg-12 col-md-12">
+                    <!-- <button type="button" class="btn btn-primary float-left" data-toggle="modal" >
+                        ADD NEW
+                      </button> -->
+                   
+                  </div>
+                </div>
+
+                <div class="container-fluid main-container" id="main-container">
+                  <!-- <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-header border-0 bg-none">
+
+                    </div>
+
+                  </div> -->
+                  <div class="col-md-12">
+                      <div class="row">
+                        <div class="col-md-2">
+                            <form class="form-inline search col-auto align-self-center px-0">
+                                <input class="form-control form-control-md" type="search" placeholder="Search" aria-label="Search">
+                                <button class="btn btn-link btn-sm" type="submit">
+                                  <i class="material-icons">search</i>
+                                </button>
+                              </form>
+                        </div> &nbsp; <i class="fa fa-refresh fa-2x fa-spin-hover" style="padding-top: 2px;"></i> 
+                        <div class="col-md-2">
+                          
+                        </div>
+   
+                        <div class="col-md-2">
+                        
+                        </div>
+                        <!-- <i class="fa fa-refresh fa-2x fa-spin-hover" style="padding-top: 2px;"></i>  &nbsp;&nbsp;&nbsp; -->
+                        <span style="padding-top: 0px;">Show Rows: </span>&nbsp;
+                        <div class="col-md-1">
+                            <div style="padding-top: 2px;">
+                                <select class="form-control" data-live-search="true" tabindex="1" aria-hidden="true" style=" font-size:12px ">
+                                  <option value="5" selected>5</option>
+                                  <option value="5">5</option>
+                                  <option value="10">10</option>
+                                  <option value="20">20</option>
+                                  <option value="50">50</option>
+                                </select>
+                              </div>
+                        </div>
+                        <div class="col-md-2">
+                            Total Records&nbsp;&nbsp;:&nbsp;&nbsp;5&nbsp;/&nbsp;10
+                        </div>
+                        <div class="col-md-1">
+                            <div class="col-auto align-self-center">
+                                <div class="btn-group" role="group" ngbDropdown>
+                                  <button id="btnGroupDrop1" type="button" class="btn btn-sm btn-outline-template ml-2 dropdown-toggle active " ngbDropdownToggle>
+                                    <i class="material-icons md-18">cloud_download</i> Export
+                                  </button>
+                                  <div class="dropdown-menu" aria-labelledby="btnGroupDrop1" ngbDropdownMenu>
+          
+                                    <button type="button" class="btn btn-link" data-toggle="modal" data-target="#">
+                                      <i class="material-icons md-18">picture_as_pdf</i>
+                                      PDF
+                                    </button>
+                                    <br>
+          
+                                    <button type="button" class="btn btn-link" data-toggle="modal" data-target="#">
+                                      <i class="material-icons md-18">import_export</i> Excel
+                                    </button>
+                                    <br>
+          
+                                  </div>
+                                </div>
+                                <!--  <button class="btn btn-sm btn-outline-template ml-2"> 
+                               
+                                
+                              </button> -->
+          
+                              </div>
+                       </div>
+                       
+                      </div>
+          
+                    </div>
+                 
+                  <div class="card-body table-responsive">
+                    <table class="table table-hover table-striped">
+                      <thead >
+                        <tr>
+                          <th>#</th>
+                          <th>Device Type</th>
+                          <th>Model Code</th>
+                          <th>Model Name</th>
+                          <th>Certificate Autho</th>
+                          <th>TAC Cert No.</th>
+                          <th>TAC Cert Date.</th>
+                          <th>TAC Cert Validity</th>
+                          <th>Production Date</th>
+                          <th>Production Cert No.</th>
+                          <th>COP Cert No.</th>
+                          <th>COP Cert Date.</th>
+                          <th>COP Cert Validity</th>
+                          <th>Status</th>
+                          <th>Action</th>
+                        </tr>
+                      </thead>
+                      <tbody id = "grid" title="When Click On Header Columns then show Asc to Desc / Desc to Asc records." > 
+                        <tr *ngFor="let com of DeviceModeldetails$" class="trheight">
+                          <td>1</td>
+                          <td>{{com.param4}}dsf</td>
+                          <td>{{com.param13}}fdsf</td>
+                          <td>{{com.param10}}dsf</td>
+                          <td>{{com.param11}}</td>
+                          <td>{{com.param18}}</td>
+                          <td>{{com.param9}}</td>
+                          <td>{{com.param8}}</td>
+                          <td>{{com.param6}}</td>
+                          <td class="font-weight-bold statustd" style="color: rgb(231, 213, 213) ">Pending</td>
+                          <!-- <td>
+                            <div class="btn-group" role="group" ngbDropdown>
+                              <button id="btnGroupDrop1" class="btn btn-link dropdown-toggle active " ngbDropdownToggle>
+                             
+                              </button >
+                              <!-- <span class="dropdown-toggle" ngbDropdownToggle> 
+                                  <i class="material-icons">more_horiz</i>
+                              </span> 
+                              <div class="dropdown-menu" aria-labelledby="btnGroupDrop1" ngbDropdownMenu>
+                                <button type="button" class="btn btn-link" data-toggle="modal" data-target="#myModalview">
+                                  View
+                                </button>
+                              </div>
+                            </div>
+                          </td> -->
+                          <td>
+                            <span class="iconhover" data-toggle="modal" data-target="#myModalwizard" (click)="setdata(com)">
+                              <i class="material-icons" style="color: white">visibility</i>
+                            </span>
+                          </td>
+                        </tr>
+                         <tr>
+                          <td>2</td>
+                          <td>Indtrack</td>
+                          <td>abc@gmail.com</td>
+                          <td>123521763567</td>
+                          <td>123521567</td>
+                          <td>9767644776</td>
+                          <td>Maharashtra</td>
+                          <td>Nagpur</td>
+                          <td>Nagpur</td>
+                          <td>Nagpur</td>
+                          <td>Nagpur</td>
+                          <td>Nagpur</td>
+                          <td>Nagpur</td>
+                          <td class="font-weight-bold statustd" style="color: rgb(248, 139, 139) ">Pending</td>
+
+                          <td>
+                            <span class="iconhover" data-toggle="modal" data-target="#myModalwizard">
+                              <i class="material-icons" style="color: white">visibility</i>
+                            </span>
+                          </td>
+                        </tr> 
+                        <!-- <tr>
+                          <td>3</td>
+                          <td>Indtrack</td>
+                          <td>abc@gmail.com</td>
+                          <td>123521763567</td>
+                          <td>123521567</td>
+                          <td>9767644776</td>
+                          <td>Maharashtra</td>
+                          <td>Nagpur</td>
+                          <td>Nagpur</td>
+                          <td class="font-weight-bold statustd" style="color: red ">Pending</td>
+
+                          <td>
+                            <span class="iconhover" data-toggle="modal" data-target="#myModalwizard">
+                              <i class="material-icons" style="color: white">visibility</i>
+                            </span>
+                          </td>
+                        </tr> -->
+                        <!-- <tr>
+                          <td>4</td>
+                          <td>Indtrack</td>
+                          <td>abc@gmail.com</td>
+                          <td>123521763567</td>
+                          <td>123521567</td>
+                          <td>9767644776</td>
+                          <td>Maharashtra</td>
+                          <td>Nagpur</td>
+                          <td>Nagpur</td>
+                          <td class="font-weight-bold statustd" style="color: rgb(0, 255, 0) ">Completed</td>
+
+                          <td>
+                            <span class="iconhover" data-toggle="modal" data-target="#myModalwizard">
+                              <i class="material-icons" style="color: white">visibility</i>
+                            </span>
+                          </td>
+                        </tr>
+                        <tr style="height: 5px;">
+                          <td>5</td>
+                          <td>Indtrack</td>
+                          <td>abc@gmail.com</td>
+                          <td>123521763567</td>
+                          <td>123521567</td>
+                          <td>9767644776</td>
+                          <td>Maharashtra</td>
+                          <td>Nagpur</td>
+                          <td>Nagpur</td>
+                          <td class="font-weight-bold statustd" style="color: red ">Pending</td>
+
+                          <td>
+                            <span class="iconhover" data-toggle="modal" data-target="#myModalwizard">
+                              <i class="material-icons " style="color: white">visibility</i>
+                            </span>
+                          </td>
+                        </tr> -->
+
+
+                      </tbody>
+                    </table>
+                    <div class="float-right mt-3">
+                      <!-- <ngb-pagination [collectionSize]="50" [(page)]="paginationSize" size="sm"></ngb-pagination> -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- --------------------  view & Edit Modal start------------------------>
+
+<div class="modal fade " id="myModalwizard">
+  <div class="modal-dialog modal-lg ">
+    <div class="modal-content ">
+
+      <!-- Modal Header -->
+      <div class="modal-header modelcolor">
+        <h5 class="modal-title"style="display: block;" id="dmd">Device Model Master</h5>
+        <h5 class="modal-title"style="display: none;" id="udm">Update Device Model </h5>
+     <div style="float:right; margin-left: 59%;">
+        <button type="button" class=" btn btn-sm btn-secondary float-right ml-2 bg-warning" style="display: block;" id="editbtn" ngbTooltip="Edit" (click)="editpageform()">
+      
+          <i class="material-icons md-18">edit</i>
+        </button>
+        <button type="button" class=" btn btn-sm btn-danger float-right ml-2" id="deletebtn" ngbTooltip="Delete" data-toggle="modal" data-target="#modeldelete">
+          
+          <i class="material-icons md-18">delete</i>
+        </button>
+        <button type="button" class=" btn btn-sm btn-primary float-right ml-2" id="backdetailsbtn" ngbTooltip="Back" style="display: none;" (click)="backdetailsbtn()">
+          
+          <i class="material-icons md-18">arrow_back</i>
+        </button>
+      </div>
+        <button type="button" style="color: white" class="close" data-dismiss="modal">&times;</button>
+        </div>
+    
+
+      <!-- Modal body -->
+      <div class="modal-body ">
+        <div class="container">
+          <div class="container-fluid">
+            <div id="container" style="display: none;">
+              <div class="step-wizard" role="navigation">
+                <div class="progress">
+                  <div class="progressbar empty"></div>
+                  <div id="prog" class="progressbar"></div>
+                </div>
+                <ul>
+                  <li class="active">
+                    <button id="step1">
+                      <div class="step">1</div>
+                      <div class="title">Device Model Details</div>
+                    </button>
+                  </li>
+                  <li class="">
+                    <button id="step2">
+                      <div class="step">2</div>
+                      <div class="title">Certificate Details</div>
+                    </button>
+                  </li>
+                  <!-- <li class="">
+                    <button id="step3">
+                      <div class="step">3</div>
+                      <div class="title">Document Details</div>
+                    </button>
+                  </li> -->
+                  <li class="">
+                    <button id="step4">
+                      <div class="step" >{{stepno}}</div>
+                      <div class="title">Successful</div>
+                    </button>
+                  </li>
+                  
+                </ul>
+
+                <div class="stepsection">
+                  <span class="invalidmsg" id="msg_mainmessage"></span>
+                  <div id="step-14" class="stepsdiv">
+                    <span class="StepTitle">Step 1: Device Model Details</span>
+                    <div class="form-group row">
+                      <div class="col-lg-3 col-md-3">
+                        <label class="indlabel">Device Type</label>
+                        <span class="mandatory">*</span>
+                         <select class="form-control" id="devicetype" data-live-search="true" [(ngModel)]="DeviceTypelistText" tabindex="8" placeholder="Select Device Type." aria-hidden="true" style=" font-size:12px">
+                          <option *ngFor =  "let list of ListOfDevicetype$" value={{list.param2}} >{{list.param2}}</option>
+                         
+                        </select> 
+                        <!-- <select class="form-control" id="devicetype" data-live-search="true" [(ngModel)]="DeviceTypelistText" data-live-search="true" tabindex="7" (change)="DeviceNormOnchange()" aria-hidden="true" style=" font-size:12px">
+                          <option value="" selected>Choose</option>
+                          <option value="AIS140">AIS140</option>
+                          <option value="basic">Basic</option>
+                        </select> -->
+                        <span class="invalidmsg" id="msg_devicetype"></span>
+                      </div>
+                      <div class="col-lg-3 col-md-3">
+                        <label class="indlabel">Vendor List</label>
+                        <span class="mandatory">*</span>
+                         <select class="form-control" id="vendorlist" data-live-search="true" [(ngModel)]="VendorListText" tabindex="9" placeholder="Select Vendor List."  aria-hidden="true" style=" font-size:12px">
+                          <option *ngFor =  "let list of ListOfVendor$" value={{list.param2}} >{{list.param2}}</option>
+                         
+                        </select> 
+                        <!-- <select class="form-control" id="vendorlist" data-live-search="true" [(ngModel)]="VendorListText" data-live-search="true" tabindex="7"  aria-hidden="true" style=" font-size:12px">
+                          <option value="" selected>Choose</option>
+                          <option value="AIS140">AIS140</option>
+                          <option value="basic">Basic</option>
+                        </select> -->
+                        <span class="invalidmsg" id="msg_vendorlist"></span>
+                      </div>
+                      
+                      <div class="col-lg-3 col-md-3">
+                        <label class="indlabel">Model Code</label>
+                        <span class="mandatory">*</span>
+                        <input type="text" class="form-control" placeholder="Enter Model Code" tabindex="3" required minlength="2" maxlength="2" id="modelcode"
+                          [(ngModel)]="Modelcode" #modelcode="ngModel" onkeypress="avoidSplChars(event)">
+                        <div class="invalidmsg" *ngIf="modelcode.errors?.minlength">
+                          model code must be at least minimum 3 characters & maximum 21 characters long.
+                        </div>
+                        <span class="invalidmsg" id="msg_modelcode"></span>
+                      </div>
+                      <div class="col-lg-3 col-md-3">
+                        <label class="indlabel">Model Name</label>
+                        <span class="mandatory">*</span>
+                        <input type="text" class="form-control" placeholder="Enter Model Name" tabindex="4" required minlength="3" maxlength="30" id="modelname"
+                          [(ngModel)]="ModelName" #modelname="ngModel" onkeypress="avoidSplChars(event)">
+                        <div class="invalidmsg" *ngIf="modelname.errors?.minlength">
+                          Model Name must be at least minimum 15 characters & maximum 15 characters long.
+                        </div>
+                        <span class="invalidmsg" id="msg_modelname"></span>
+                      </div>
+
+                    </div>
+                    <div class="form-group row">
+                      <div class="col-lg-3 col-md-3">
+                        <label class="indlabel" >Production Date</label>
+                        <input type="text" class="form-control datepicker" [(ngModel)]="Productiondate">
+                    </div>
+                     
+                     
+                    </div>
+                  </div>
+                  <div id="step-15" class="stepsdiv" style="display: none;">
+
+                    <span class="StepTitle">Step 2: Certificate Details</span>
+                    <div class="form-group row">
+                      <div class="col-lg-3 col-md-3">
+                        <label class="indlabel">Certificate Authority</label>
+                        <!-- <span class="mandatory">*</span> -->
+                        <select class="form-control" id="certauthList" data-live-search="true" [(ngModel)]="CertiAutho" tabindex="9" placeholder="Select Vendor List."  aria-hidden="true" style=" font-size:12px">
+                          <option *ngFor =  "let list of ListOfCertAuth$" value={{list.param2}} >{{list.param2}}</option>
+                         
+                        </select>
+                        <span class="invalidmsg" id="msg_certautho"></span>
+                      </div>
+                      <div class="col-lg-3 col-md-3">
+                        <label class="indlabel">TAC Certificate No.</label>
+                        <!-- <span class="mandatory">*</span> -->
+                        <input type="text" class="form-control" placeholder="Enter TAC Certficate No" tabindex="2" required minlength="5" maxlength="12"
+                          id="taccertnoaa" [(ngModel)]="TACcertNo" #taccertNo="ngModel" required onkeypress="return isNumberKey(event)">
+                        <div class="invalidmsg" *ngIf="taccertNo.errors?.minlength">
+                          TAC Numner must be at least minimum 10 characters & maximum 12 characters long.
+                        </div> 
+                        <span class="invalidmsg" id="msg_taccertNo"></span>
+                      </div>
+                     
+                        <div class="col-lg-3 col-md-3">
+                          <label class="indlabel" >TAC Certification Date</label>
+                          <input type="text" class="form-control datepicker"  [(ngModel)]="TACcertDate">
+                      </div>
+                        <!-- <span class="invalidmsg" id="msg_alternateNo"></span> -->
+                    
+
+                      
+                        <div class="col-lg-3 col-md-3">
+                          <label class="indlabel" >TAC Certification Validity</label>
+                          <input type="text" class="form-control datepicker" [(ngModel)]="TACcertval">
+                      </div>
+                      
+                    </div>
+
+                    <div class="form-group row">
+
+                      <div class="col-lg-3 col-md-3">
+                        <label class="indlabel">COP Certificate No.</label>
+                        <!-- <span class="mandatory">*</span> -->
+                        <input type="text" class="form-control" placeholder="Enter TAC Certficate No" tabindex="2" required minlength="5" maxlength="12"
+                          id="copcertno" [(ngModel)]="COPcertNo" #taccertNo="ngModel" required onkeypress="return isNumberKey(event)">
+                        <!-- <div class="invalidmsg" *ngIf="taccertNo.errors?.minlength">
+                          TAC Numner must be at least minimum 10 characters & maximum 12 characters long.
+                        </div> >
+                        <span class="invalidmsg" id="msg_taccertNo"></span> -->
+                      </div>
+                     
+                        <div class="col-lg-3 col-md-3">
+                          <label class="indlabel" >COP Certification Date</label>
+                          <input type="text" class="form-control datepicker" [(ngModel)]="COPcertDate">
+                      </div>
+                     
+                     
+                        <div class="col-lg-3 col-md-3">
+                          <label class="indlabel" >COP Certification Validity</label>
+                          <input type="text" class="form-control datepicker " [(ngModel)]="COPcertval">
+                      </div>
+                      <div class="col-lg-3 col-md-3">
+                        <label class="indlabel">Remark</label>&nbsp;
+                        <span class="indlabelstar">*</span>
+                        <textarea class="form-control" rows="2" style=" font-size:12px" placeholder="Enter Remark" tabindex="1" minlength="10" maxlength="40"
+                          [(ngModel)]="remarkDevModText" #regaddress="ngModel"></textarea>
+                        <div class="invalidmsg" *ngIf="regaddress.errors?.minlength" id="devmodremark">
+                          Remark must be at least minimum 10 characters & maximum 40 characters long.
+                        </div>
+                        <span class="invalidmsg" id="msg_devmodremark"></span>
+                      </div>
+                     
+                    </div>
+
+
+                  </div>
+                  <!-- <div id="step-16" class="">
+                    <span class="StepTitle">Step 3: Upload Document</span>
+                    <div class="form-group row">
+                      <div class="col-lg-3 col-md-3">
+                        <label class="indlabel">Select Document</label>
+                        <span class="mandatory">*</span>
+                        <select class="form-control" data-live-search="true" [(ngModel)]="selDocument" tabindex="1" aria-hidden="true" style=" font-size:12px" id="seldocument">
+                          <option value="" >Choose</option>
+                          <option value="cert1">Document 1</option>
+                          <option value="cert2">Document 2</option>
+                          <option value="cert3">Document 3</option>
+                        </select>
+                        <span class="invalidmsg" id="msg_seldocment"></span>
+                      </div>
+                      
+                    </div>
+                    
+                  </div> -->
+                  <div id="step-17" class="">
+                    <h1>THIS iS 4th step</h1>
+                  </div>
+                
+
+                </div>
+              </div>
+            </div>
+          </div>
+<!-- --------------------------------------------- View Section ------------------------------------------- -->
+          <div class="">
+            <div id="devicemodeldtls" style="display: block;">
+              <div class="page-subtitle viewheading">Device Model Details</div>
+              <div class="row">
+                <div class="col-12 col-md-6 col-lg-3">
+                  <div class="form-group">
+                    <label class="caplable">Device Type</label>
+                    <p>Rohit</p>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-3">
+                  <div class="form-group">
+                    <label class="caplable" >Vendor List</label>
+                    <p>12345</p>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-3">
+                  <div class="form-group">
+                    <label class="caplable" >Model Code</label>
+                    <p>21328139</p>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-3">
+                  <div class="form-group">
+                    <label class="caplable">Model Name</label>
+                    <p>12645373885386</p>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                
+                <div class="col-12 col-md-6 col-lg-3">
+                  <div class="form-group">
+                    <label class="caplable" >Production Date</label>
+                    <p>20-1-2020</p>
+                  </div>
+                </div>
+               
+              </div>
+              
+              
+              <div class="page-subtitle viewheading">Certificate Details</div>
+              <div class="row">
+                <div class="col-12 col-md-6 col-lg-3">
+                  <div class="form-group">
+                    <label class="caplable"  >Certificate Authority</label>
+                    <p>Rohit Sharma</p>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-3">
+                  <div class="form-group">
+                    <label class="caplable"  >TAC Certficate No.</label>
+                    <p>9987875458</p>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-3">
+                  <div class="form-group">
+                    <label class="caplable"  >TAC Certficate Date.</label>
+                    <p>9784548511</p>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-3">
+                  <div class="form-group">
+                    <label class="caplable"  >TAC Certficate Validity. </label>
+                    <p>Pqu@gmail.com</p>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 col-md-6 col-lg-3">
+                  <div class="form-group">
+                    <label class="caplable"  >COP Certificate No.</label>
+                    <p>Maharashtra</p>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-3">
+                  <div class="form-group">
+                    <label class="caplable"  >COP Certificate Date.</label>
+                    <p>Nagpur</p>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-3">
+                  <div class="form-group">
+                    <label class="caplable"  >COP Certificate Validity.</label>
+                    <p>Indora Sq. Nagpur</p>
+                  </div>
+                </div>
+               
+              </div>
+              </div>
+              
+              
+            </div>
+           <!-- <div class="row">
+            <button id="revbtn" ngbTooltip="Back" class="mb-2 btn btn-wizard btn-sm btn-primary " (click)="revback()" style="display: none;">
+                <i class="material-icons" >arrow_back</i>
+              </button>  &nbsp; &nbsp;
+            <button id="nextviewbtn" ngbTooltip="Next" class="mb-2 btn btn-wizard btn-sm btn-primary "(click)="viewnext()" style="display: block;">
+                <i class="material-icons">arrow_forward</i>
+              </button> 
+               <button id="next2viewbtn" ngbTooltip="Next" class="mb-2 btn btn-wizard btn-sm btn-primary"(click)="viewnext2()" style="display: none;">
+                  <i class="material-icons">arrow_forward</i>
+                </button>
+                 <button id="rev2btn" ngbTooltip="Back" class="mb-2 btn btn-wizard btn-sm btn-primary " (click)="revback2()" style="display: none;">
+                    <i class="material-icons" >arrow_back</i>
+                  </button>  
+              </div> -->
+          </div>
+          <!-- --------------------- View Section End ------------------------------ -->
+
+        </div>
+
+
+        <!-- Modal footer -->
+
+        <div class="actionBar"style="display: none;" id="modelfooter">
+            <button id="save" class="mb-2 btn btn-wizard btn-sm btn-success buttonFinish" >
+              <i class="material-icons">save</i>
+            </button>
+            <button id="next" class="mb-2 btn btn-wizard btn-sm btn-primary buttonNext">
+              <i class="material-icons">arrow_forward</i>
+            </button>
+            <button id="prev" class="mb-2 btn btn-wizard btn-sm btn-primary buttonPrevious" onclick="validateAllSteps(4,4)">
+              <i class="material-icons">arrow_back</i>
+            </button>
+          </div>
+
+      </div>
+    </div>
+  </div>
+
+<!-- ------------------- view & Edit model close ------------------------ -->
+
+<!-- ------------------ Delete Model Start ------------------------>
+
+<!-- Delete Model-->
+<div class="modal fade" id="modeldelete">
+    <div class="modal-dialog modal-sm modal-dialog-centered">
+      <div class="modal-content">
+  
+        <!-- Modal Header -->
+        <div class="modal-header" style="background-color: 	#FF7F50;">
+          <h4 class="modal-title text-center" style="color: white">Are You Sure?</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+  
+        <!-- Modal body -->
+        <div class="modal-body">
+  
+          <div class="form-group row">
+  
+  
+            <div class="col-lg-12 col-md-12">
+              <label class="indlabel">Remark</label>&nbsp;
+              <span class="indlabelstar">*</span>
+              <textarea class="form-control" rows="2" style=" font-size:12px" placeholder="Enter Remark" tabindex="1" minlength="10" maxlength="40"
+                [(ngModel)]="DeleteDevModText" #delremark="ngModel"></textarea>
+              <div class="invalidmsg" *ngIf="delremark.errors?.minlength">
+                Remark must be at least minimum 10 characters & maximum 40 characters long.
+              </div>
+            </div>
+          </div>
+          <p>Do You want to Delete !!&hellip;</p>
+        </div>
+  
+        <!-- Modal footer -->
+        <div class="modal-footer text-center">
+          <button type="submit" class="btndel btn-primary mr-3" data-toggle="modal" data-target="#Noclickmodel" data-dismiss="modal" tabindex="18" >
+            No
+          </button>
+          <button type="reset" tabindex="19" class="btndel btn-danger" data-toggle="modal" data-target="#Yesclickmodel" data-dismiss="modal">
+            Yes
+          </button>
+        </div>
+  
+      </div>
+    </div>
+  </div>
+  <!-- Delete Model -->
+
+<!-- ------------------- Delete model End ----------------------- -->
+
+<!-- ------------------- onclick no btn model  ----------------------- -->
+<!-- The Modal -->
+<div class="modal fade" id="Noclickmodel">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-contentno">
+      
+        <!-- Modal Header -->
+        <div class="modal-header" style="background-color: 	rgb(255, 255, 255);">
+            <h4 class="modal-title text-center" style="color: rgb(0, 0, 0)">Your Data is not Delete</h4>
+            <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+          </div>
+        
+        <!-- Modal body -->
+        <!-- <div class="modal-body">
+          Your Data is Not delete..
+        </div> -->
+        
+        <!-- Modal footer -->
+        <div class="modal-footer" style="background-color: 	rgb(255, 255, 255);">
+          <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal"><span class="material-icons">
+              highlight_off
+              </span></button>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+<!-- ------------------- onclick no btn model End ----------------------- -->
+<!-- ------------------- onclick Yes btn model ----------------------- -->
+
+<div class="modal fade" id="Yesclickmodel">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-contentno">
+      
+        <!-- Modal Header -->
+        <div class="modal-header" style="background-color: 	rgb(255, 255, 255);">
+            <h4 class="modal-title text-center" style="color: rgb(0, 0, 0)">Data Deleted Successfully</h4>
+            <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+          </div>
+        
+        <!-- Modal body -->
+        <!-- <div class="modal-body">
+          Your Data is Not delete..
+        </div> -->
+        
+        <!-- Modal footer -->
+        <div class="modal-footer" style="background-color: 	rgb(255, 255, 255);">
+          <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal"><span class="material-icons">
+              highlight_off
+              </span></button>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+<!-- ------------------- onclick yes btn model End ----------------------- -->
+
+ <app-devicemodel-new></app-devicemodel-new> 
+
+
+
+
+ 

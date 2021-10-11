@@ -1,0 +1,434 @@
+.inputNumber{
+    width: 50px;
+}
+th,td{
+     font-size: smaller;
+}
+
+.inputNumber{
+    width: 50px;
+}
+
+
+
+/* aditya */
+
+.modal-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 0.4rem 0.5rem;
+    border-bottom: 1px solid #dee2e6;
+    border-top-left-radius: .3rem;
+    border-top-right-radius: .3rem;
+}
+ 
+.modelcolor{
+    background-color: rgb(55, 55, 149);
+} 
+/* .indsubhead{
+    color:rgb(6, 48, 107); font-size: 16px; font-weight: bold;
+} */
+
+
+.modal-content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    pointer-events: auto;
+    background-color: #1c2756;
+    background-clip: padding-box;
+    border: 1px solid rgba(0,0,0,0.2);
+    border-radius: .3rem;
+    outline: 0;
+    color: white;
+} 
+
+.modal-title {
+    font-weight: bold;
+    margin-bottom: 0;
+    line-height: 1.0;
+    color: #cfdfff;
+    font-size: 19px;
+    
+}
+.modal-footer{
+    background: rgb(55 55 149);
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 0.3rem;
+    border-top: 1px solid #dee2e6;
+    border-bottom-right-radius: .3rem;
+    border-bottom-left-radius: .3rem;
+}
+
+
+
+
+
+.indlabel {
+    font-size: 11px;
+    font-weight: bold;
+    color: white;
+    font-weight: bold !important;
+    text-transform: uppercase;  
+}
+
+
+
+.indsubhead {
+    color: #0aff6c;
+    font-size: 16px;
+    font-weight: bold;
+}
+.trheight{
+    height: 5px;
+}
+tr{
+    height: 10px;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+th{
+   
+    text-transform: uppercase;
+    font-weight: bold !important;
+    padding: 0.50rem 0.8rem;
+    font-size: 12px;
+    color: #fff;
+    border: 0 none;
+    
+}
+thead{
+    text-transform: uppercase;
+    font-weight: bold !important;
+    background: #051873;
+}
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgb(114 150 222 / 50%);
+}
+.fa-spin-hover:hover {
+    animation: fa-spin 2s infinite linear;
+}
+@-webkit-keyframes fa-spin{0%{-webkit-transform:rotate(0deg);transform:rotate(0deg)}100%{-webkit-transform:rotate(359deg);transform:rotate(359deg)}}
+@keyframes fa-spin{0%{-webkit-transform:rotate(0deg);transform:rotate(0deg)}100%{-webkit-transform:rotate(359deg);transform:rotate(359deg)}}
+
+.statustd{
+    text-transform: uppercase;
+}
+.iconhover{
+    
+    cursor: pointer !important;
+}
+
+
+/* ---------------------------------------------------------------------------------------- */
+
+
+
+.mandatory{
+    color: red;
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.btn {
+    height: 25px !important;
+}
+.btndel{
+    margin-bottom: 4px; 
+}
+
+@media only screen and (max-width: 1200px) {
+    .step-wizard li {
+      width: 24%;
+    }
+  }
+  
+  @media only screen and (max-width: 375px) {
+    .step-wizard li {
+      width: 22%;
+    }
+  }
+
+#container {
+    position: relative;
+    text-align: center;
+    max-width: 100%;
+    box-sizing: border-box;
+    margin: 0 auto;
+}
+
+.buttons {
+    position: absolute;
+    top: 180px;
+    text-align: center;
+    width: 100%;
+}
+
+
+.invalidmsg{
+    color:red;
+    font-size: 10px;
+    font-weight: bold;
+}
+.form-control, .custom-select, .easy-autocomplete input {
+    background-color: #c3d5f9;
+    border: 1px solid rgba(0,0,0,0.05);
+    
+    color: #05145a;
+    font-size: 10px;
+}
+ 
+.buttonDisabled {
+    color: #F8F8F8 !important;
+    background-color: #72ccda !important;
+    border: 1px solid #CCCCCC !important;
+    cursor: text;
+}
+
+.material-icons {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.caplable{
+    text-transform: uppercase;   
+    color: rgb(172, 186, 252) !important;
+}
+.maxminwarn{
+    color: #ff5578;
+    font-weight: bold;
+}
+.viewheading{
+    color: #00ffff;
+    font-weight: bold !important;
+}
+ 
+/* 
+ 
+output{
+    font-size: smaller;
+    color: black;
+}
+
+/* th,td{
+     font-size: 12;
+} */
+
+/* 
+span{
+    font-size: 12;
+    font-weight: bold;
+} */
+
+/* adity */
+
+ 
+.modelcolor{
+    background-color: rgb(55, 55, 149);
+} 
+ 
+ 
+ .indsubhead {
+    color: #0aff6c;
+    font-size: 16px;
+    font-weight: bold;
+}
+.trheight{
+    height: 5px;
+}
+
+.fa-spin-hover:hover {
+    animation: fa-spin 2s infinite linear;
+}
+@-webkit-keyframes fa-spin{0%{-webkit-transform:rotate(0deg);transform:rotate(0deg)}100%{-webkit-transform:rotate(359deg);transform:rotate(359deg)}}
+@keyframes fa-spin{0%{-webkit-transform:rotate(0deg);transform:rotate(0deg)}100%{-webkit-transform:rotate(359deg);transform:rotate(359deg)}}
+
+.statustd{
+    text-transform: uppercase;
+}
+.iconhover{  
+    cursor: pointer !important;
+}
+
+
+
+.whiteBg {
+   background:rgba(128, 121, 231, 0.8)
+}
+
+
+/* copied css */
+
+ 
+
+
+.indsubhead {
+    color: #0aff6c;
+    font-size: 16px;
+    font-weight: bold;
+}
+.trheight{
+    height: 5px;
+}
+tr{
+    height: 10px;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+th{
+   
+    text-transform: uppercase;
+    font-weight: bold !important;
+    padding: 0.50rem 0.8rem;
+    font-size: 10px;
+    color: #fff;
+    border: 0 none;
+    
+}
+thead{
+    text-transform: uppercase;
+    font-weight: bold !important;
+    background: #051873;
+}
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgb(114 150 222 / 50%);
+}
+.fa-spin-hover:hover {
+    animation: fa-spin 2s infinite linear;
+    cursor: pointer !important;
+}
+.fa-2x {
+    font-size: 1.7em;
+}
+@-webkit-keyframes fa-spin{0%{-webkit-transform:rotate(0deg);transform:rotate(0deg)}100%{-webkit-transform:rotate(359deg);transform:rotate(359deg)}}
+@keyframes fa-spin{0%{-webkit-transform:rotate(0deg);transform:rotate(0deg)}100%{-webkit-transform:rotate(359deg);transform:rotate(359deg)}}
+
+.statustd{
+    text-transform: uppercase;
+}
+.iconhover{
+    
+    cursor: pointer !important;
+}
+td{
+    color: #cfdefc;
+    vertical-align: middle;
+    font-size: 11px;
+    padding: 0.50rem 0.2rem;
+}
+
+
+/* ---------------------------------------------------------------------------------------- */
+
+.mandatory{
+    color: red;
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.btn {
+    height: 25px !important;
+}
+searchbtn{
+    height: 30px !important;
+}
+.btndel{
+    margin-bottom: 4px; 
+}
+
+@media only screen and (max-width: 1200px) {
+    .step-wizard li {
+      width: 24%;
+    }
+  }
+  
+  @media only screen and (max-width: 375px) {
+    .step-wizard li {
+      width: 22%;
+    }
+  }
+  
+
+.form-control, .custom-select, .easy-autocomplete input {
+     background-color: #c3d5f9;
+    border: 1px solid rgba(0,0,0,0.05); 
+    
+    color: #05145a;
+    font-size: 10px;
+}
+ 
+.material-icons {
+    font-weight: bold;
+    font-size: 18px;
+}
+ 
+.detailsfont{
+    font-size: 11px;
+}
+.btn-primaryyel{
+    color: #212529;
+    background-color: #f6c53b;
+    border-color: #000000;
+}
+
+
+
+body{
+    background: #f2f2f2;
+    font-family: 'Open Sans', sans-serif;
+  }
+  
+
+
+  /* Table Header css start  */
+
+  thead{
+    text-transform: uppercase;
+    font-weight: bold !important;
+    background: #051873;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgb(114 150 222 / 50%);
+}
+
+.table tbody tr td {
+    color: #cbddff;
+    vertical-align: middle;
+    padding: 0.3rem 0.5rem;
+}
+table{
+    font-size: 11px;
+}
+  /* Table header css end  */
+
+  .validation{
+    font-weight: bold;
+    font-size: smaller;
+} 
+  
+#details{
+    display: block;
+    max-height: 500px;
+    overflow-y: scroll;
+width: 100%;
+}
+
+  .dialogModal{
+    position: absolute;
+     /* float: left;   */
+     left: 45%;  
+     top: 35%; 
+     right: 45%;  
+     width: 300px; 
+     transform: translate(-50%, -50%);
+     animation-duration: 0.5s;
+}
+@keyframes fadein {
+   from {height:0;width:0}
+   to {      width: 300px;     }
+ }

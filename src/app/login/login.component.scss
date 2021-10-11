@@ -1,0 +1,365 @@
+
+
+  .inputval{
+    background-color: rgb(255 255 255);
+    border: 1px solid rgba(0,0,0,0.05);
+    color: #524d4d;
+    font-size: 11px;
+  }
+
+  label{
+    font-size: 11px;
+    color: #ea8910;
+    margin-bottom: 0 !important;
+  }
+
+
+
+  .animateflip{
+    position: absolute;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    transform: rotateY(45deg);
+  }
+  
+  
+  
+  .flip-card {
+   width:105%;
+    perspective: 1000px;
+  
+  }
+  
+  .flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  }
+  
+  
+  .flip-card-front, .flip-card-back {
+    position: absolute;
+    width: 100%;
+  color:black;
+    background-color: #f1f1f1;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+  
+  .flip-card-front {
+    overflow: auto;
+    color: black;
+  }
+  
+  .flip-card-back {
+    
+    color: white;
+    transform: rotateY(180deg);
+  }
+
+  .customlink{
+    color: blue !important;
+    text-decoration: underline !important;
+    cursor: pointer !important;
+  }
+
+  .customcaptcha{
+    float: left;
+    font-size: 17px !important;
+    // color: #080202;
+    font-family: inherit;
+    color: teal;
+  }
+
+  .collapsible {
+    background-color: #777;
+    color: white;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+  }
+  
+  .active, .collapsible:hover {
+    background-color: #555;
+  }
+  
+  .content {
+    padding: 0 18px;
+    display: none;
+    overflow: hidden;
+    background-color: #f1f1f1;
+  }
+
+
+  
+
+// .btn.btn-rounded-circle {
+//     border-radius: 50%;
+//     height: 60px;
+//     width: 60px;
+//     vertical-align: middle;
+//     text-align: center;
+//     margin-top: -32px;
+//     background: white;
+// }
+// .card .card-body {
+//     text-align: center;
+//     padding: 15px;
+// }
+// .heading{
+//     color: #f7a618 !important;
+//     font-weight: bold !important;
+// }
+// .dropdown>.dropdown-toggle+.dropdown-menu .dropdown-item {
+//     padding: 10px 15px;
+// }
+// .card {
+//     background-color: white;
+//     margin-top: 13px;
+// }
+// .text-warning {
+//     color: #f7a618 !important;
+// }
+
+// .accountlist {
+//     text-transform: uppercase;
+//     font-weight: bold;
+//     color: #68bff5;
+// }
+// .welcometext {
+//     margin-top: 5px;
+//     margin-bottom: 2px;
+//     color: #68bff5;
+//     font-weight: bold !important;
+// }
+// a{
+//    cursor: pointer;
+// }
+// .background.blur {
+//     -webkit-filter: blur(5px);
+//     -ms-filter: blur(5px);
+//     -moz-filter: blur(5px);
+//     filter: blur(1px);
+//     transform: scale(1.1);
+//     -webkit-transform: scale(1.1);
+//     -moz-transform: scale(1.1);
+//     -ms-transform: scale(1.1);
+// }
+
+// .field-wrapper{
+//     position: relative;
+//     margin-bottom: 15px;
+// }
+
+// .text-mute {
+//     color: #f7a618;
+//     font-size: 17px;
+// }
+
+// input {
+//     padding: 10px;
+// }
+
+// .card {
+//     background-color: #2a2f33 !important;
+//     margin-top: 13px;
+// }
+
+// .field-wrapper input{
+//     padding: 15px;
+//     border-radius: 4px;
+//     width: 100%;
+//     background: black;
+//     color: white;
+// }
+// ::placeholder{
+//     color: rgb(255, 251, 251);
+//     text-transform: capitalize;
+// }
+
+// #randowmNumber{
+//     font-size: 20px;
+//     border: 2px solid rgb(41, 58, 41);
+//     background-color: antiquewhite;
+//     color: black;
+//     padding: 5px;
+//     margin-bottom: 10px;
+// }
+// .material-icons{
+//     float: right;
+//     padding: 5px;
+//     cursor: pointer;
+// }
+
+/* 
+* Typography
+*/
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,700);
+
+
+/*
+* Color Variables
+*/
+
+$light-grey: #eee;
+$med-grey: #666;
+$dark-grey: #444;
+$highlight-color: #1abc9c;
+
+
+/*
+* Animation Variables
+*/
+
+$timing: .4s;
+$ease: cubic-bezier(0.865, 0.140, 0.095, 0.870);
+
+
+/* 
+* Global
+*/
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+/* 
+* Base
+*/
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  background: $light-grey;
+  
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0.3) 100%);
+  }
+  
+}
+
+
+/*
+* Accordion
+*/
+
+/* Basic Accordion Styles */
+.accordion {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 75%;
+  box-shadow: 0 1px 8px rgba(#000,.25);
+  
+  
+  /* Radio Inputs */
+  input[name='panel'] {
+    display: none;
+  }
+
+  /* Labels */
+  label {
+    position: relative;
+    display: block;
+    padding: 1em;
+    background: linear-gradient(to bottom, rgba(254,254,254,1) 0%,rgba(209,209,209,1) 50%,rgba(219,219,219,1) 55%,rgba(226,226,226,1) 100%);
+    border-top: 1px solid #fff;
+    border-bottom: 1px solid rgba(#000,.15);
+    box-shadow: inset 0 2px 0 #fff;
+    font-size: 0.85em;
+    text-shadow: 0 1px 0 rgba(#fff,.75);
+    // color: $med-grey;
+    cursor: pointer;
+    transition: all $timing $ease;
+    
+    &:after {
+      content: '+';
+      position: absolute;
+      right: 1em;
+      width: 1em;
+      height: 1em;
+      color: $light-grey;
+      text-align: center;
+      border-radius: 50%;
+      background: $highlight-color;
+      box-shadow: inset 0 1px 6px rgba(#000,.5), 0 1px 0 #fff;
+      text-shadow: 0 1px 0 rgba(#000,.75);     
+    }
+    
+    &:hover {
+      color: $highlight-color;
+    }
+      
+  }
+  
+  input:checked + label {
+    color: $highlight-color;
+    
+    &:after {
+      content: '-';
+      /* adjsut line-height to vertically center icon */
+      line-height: .8em;
+    }
+    
+  }
+  
+  /* Panel Content */
+  .accordion__content {
+    overflow: scroll;
+    height: 0px;
+    position: relative;
+    // padding: 0 1.5em;
+    box-shadow: inset 4px 0 0 0 $highlight-color, inset 0 3px 6px rgba(#000,.75);
+    background: $dark-grey;
+    background: linear-gradient(to bottom, rgba(68,68,68,1) 0%,rgba(34,34,34,1) 100%);
+    color: $light-grey;
+    transition: height $timing $ease;
+    
+    &:not(:last-of-type) {
+      box-shadow: inset 0 -2px 2px rgba(#000,.25), inset 4px 0 0 0 $highlight-color, inset 0 3px 6px rgba(#000,.75);
+    }
+    
+    .accordion__header {
+      padding: 1em 0;
+    }
+      
+    .accordion__body {
+      font-size: .825em;
+      line-height: 1.4em;
+    }
+    
+  }
+   
+}
+
+/* 
+* Size Variations
+*/
+
+input[name='panel']:checked ~ .accordion__content.accordion__content--small {
+  height: 150px;
+}
+
+input[name='panel']:checked ~ .accordion__content.accordion__content--med {
+  height: 200px;
+}
+
+input[name='panel']:checked ~ .accordion__content.accordion__content--large {
+  height: 300px;
+}

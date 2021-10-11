@@ -1,0 +1,568 @@
+<div class="modal fade" id="exampleModal" data-backdrop="static" tabindex="-1" role="dialog"
+  aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document" data-backdrop="static" data-keyboard="false">
+    <div class="modal-content">
+      <!--header start-->
+      <div class="modal-header">
+        <h4 class="text-left m-1" style="font-size: 19px;">Vehicle
+          <span class="text-template-primary" style="color: #00ed54; font-size: 19px;">Entry</span>
+        </h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" style="color: white">×</span>
+        </button>
+      </div>
+      <!--header close-->
+      <!-- body start-->
+      <div class="modal-body">
+        <div id="container">
+          <div class="step-wizardentry" role="navigation">
+            <div class="progress">
+              <div class="progressbar empty"></div>
+              <div id="progentry" class="progressbar"></div>
+            </div>
+            <ul>
+              <li class="active">
+                <button id="stepentry1">
+                  <div class="step">1</div>
+                  <div class="title">Device Details</div>
+                </button>
+              </li>
+              <li class="">
+                <button id="stepentry2">
+                  <div class="step">2</div>
+                  <div class="title">Vehicle Details</div>
+                </button>
+              </li>
+              <li class="">
+                <button id="stepentry3">
+                  <div class="step">3</div>
+                  <div class="title">Other Details</div>
+                </button>
+              </li>
+            </ul>
+            <!--stepsection start-->
+            <div class="stepsection">
+              <span class="invalidmsg" id="msg_mainmessage"></span>
+              <!-- stepentry-14 start-->
+              <div id="stepentry-14" class="stepsdiv">
+                <!-- row1 start-->
+                <div class="form-group row">
+
+                  <div class="col-lg-4 col-md-4">
+                    <label class="indlabel">Vendor</label>
+                    <span class="mandatory">*</span>
+                    <ngx-select-dropdown tabindex="0" id="vendorentrydemoup" [multiple]="false" [(ngModel)]="vendorText"
+                      (change)="selectvendorList();DeviceTypelist()" [config]="config" [options]="ListOfvendorup"></ngx-select-dropdown>
+                    <span class="invalidmsg" id="msg_vendorName"></span>
+
+                    <input type="text" class="form-control" id="vendordummyentry" style="display: none;"
+                      [(ngModel)]="vendorlistdata">
+
+                  </div>
+
+
+                  <div class="col-lg-4 col-md-4">
+                    <label class="indlabel">Device Type</label>
+                    <span class="mandatory">*</span>
+
+                    <ngx-select-dropdown tabindex="1" id="devicetypeentry" [multiple]="false"
+                      [(ngModel)]="devicetypeText" [config]="config" [options]="ListOfDevicetype"
+                      (change)="DeviceTypeIMEIlistent();"></ngx-select-dropdown>
+                    <span class="invalidmsg" id="msg_vendorName"></span>
+                  </div>
+                  <div class="col-lg-4 col-md-4" style="display: none;">
+                    <label class="indlabel">Device Type Dummy</label>
+                    <span class="mandatory">*</span>
+                    <input type="text" class="form-control" placeholder="Enter Device Type" tabindex="1" required
+                      minlength="3" maxlength="30" id="devicetypeentrydummy" onpaste="return false;"
+                      [(ngModel)]="selectdevicetypedummy" #vendornm="ngModel" onkeypress="return onlyAlphabets(event);"
+                      ondrop="return false;">
+                  </div>
+
+                  <div class="col-lg-4 col-md-4">
+                    <label class="indlabel">IMEI No.</label>
+                    <span class="mandatory">*</span>
+
+                    <ngx-select-dropdown tabindex="2" id="devicetypeIMEIentry" [multiple]="false"
+                      [(ngModel)]="devicetypeIMEIText" [config]="config" [options]="ListOfDeviceRawData"
+                      (change)="DummyIMEIlist()"></ngx-select-dropdown>
+
+                    <span class="invalidmsg" id="msg_vendorName"></span>
+                  </div>
+                  <div class="col-lg-4 col-md-4" style="display: none;">
+                    <label class="indlabel">IMEI No Dummy</label>
+                    <span class="mandatory">*</span>
+                    <input type="text" class="form-control" placeholder="Enter Device IMEI No" tabindex="1" required
+                      minlength="3" maxlength="30" id="deviceimeientrydummy" onpaste="return false;"
+                      [(ngModel)]="selectdeviceIMEINodummy" #vendornm="ngModel"
+                      onkeypress="return onlyAlphabets(event);" ondrop="return false;">
+                  </div>
+                </div>
+                <!-- row 1 end-->
+                <span class="invalidmsg" id="msg_errorentry" style="position: absolute;bottom: 20px;"></span>
+              </div>
+              <!-- stepentry-14 end-->
+              <!-- stepentry-15 start-->
+              <div id="stepentry-15" class="stepsdiv" style="display: none;">
+                <div class="form-group row">
+                  <div class="col-lg-4 col-md-4" id="customername">
+                    <label class="indlabel">Customer Name</label>
+                    <span class="mandatory">*</span>
+
+                    <ngx-select-dropdown tabindex="12" id="statecustomerentry" [multiple]="false"
+                      [(ngModel)]="SelectCustomerText" [config]="config" [options]="ListOfCustomer"
+                      (change)="dummycustomername()"></ngx-select-dropdown>
+
+                    <span class="invalidmsg" id="msg_vendorName"></span>
+                  </div>
+                  <div class="col-lg-4 col-md-4" style="display: none;">
+                    <label class="indlabel">Dummy customer</label>
+                    <span class="mandatory">*</span>
+                    <input type="text" class="form-control" placeholder="Enter Device IMEI No" required minlength="3"
+                      maxlength="30" id="customernamedummy" onpaste="return false;" [(ngModel)]="selectcustname"
+                      #vendornm="ngModel" onkeypress="return onlyAlphabets(event);" ondrop="return false;">
+                  </div>
+                  <!-- customer ends -->
+
+                  <div class="col-lg-4 col-md-4" id="vehicleno" style="display: block;">
+                    <label class="indlabel">Vehicle No.</label>
+                    <span class="mandatory">*</span>
+                    <input type="text" class="form-control" placeholder="Enter Vehicle No." tabindex="13" required
+                      minlength="7" maxlength="30" id="vehiclenoentry" [(ngModel)]="VehiclenoText" #vehicleno="ngModel"
+                      onkeypress="avoidSplChars(event)">
+                    <div class="invalidmsg" *ngIf="vehicleno.errors?.minlength">
+                      Vehicle No Name must be at least minimum 7 characters & maximum 30 characters long.
+                    </div>
+                    <span class="invalidmsg" id="msg_modelname"></span>
+                  </div>
+
+                  <div class="col-lg-4 col-md-4" id="chassisno">
+                    <label class="indlabel">Chassis No.</label>
+                    <span class="mandatory">*</span>
+                    <input type="text" class="form-control" placeholder="Enter Chassis No." tabindex="15" required
+                      minlength="7" maxlength="17" id="chassisnoentry" [(ngModel)]="ChassisNoText" #chassis="ngModel"
+                      onkeypress="avoidSplChars(event)">
+                    <div class="invalidmsg" *ngIf="chassis.errors?.minlength">
+                      Chassis No Name must be at least minimum 7 characters & maximum 17 characters long.
+                    </div>
+                    <span class="invalidmsg" id="msg_modelname"></span>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <div class="col-lg-4 col-md-4" id="engineno">
+                    <label class="indlabel">Engine No.</label>
+                    <span class="mandatory">*</span>
+                    <input type="text" class="form-control" placeholder="Enter Engine No." tabindex="16" required
+                      minlength="5" maxlength="20" id="engineno1" [(ngModel)]="EngineNoText" #engineno="ngModel"
+                      onkeypress="avoidSplChars(event)">
+                    <div class="invalidmsg" *ngIf="engineno.errors?.minlength">
+                      Engine No. must be at least minimum 5 characters & maximum 20 characters long.
+                    </div>
+                    <span class="invalidmsg" id="msg_modelname"></span>
+                  </div>
+                  <div class="col-lg-4 col-md-4" id="persontype" style="display: none;">
+                    <label class="indlabel">Person Type <span class="mandatory">*</span> </label>
+                    <ngx-select-dropdown tabindex="5" id="persontypeentry" [multiple]="false"
+                      [(ngModel)]="persontypeText" (change)="dummypersontype()" [config]="config"
+                      [options]="ListOfVehicleclass"></ngx-select-dropdown>
+                    <span class="invalidmsg" id="msg_vendorName"></span>
+                  </div>
+                  <!-- <span class="invalidmsg" id="msg_alternateNo"></span> -->
+                  <div class="col-lg-4 col-md-4" style="display: none;">
+                    <label class="indlabel">Person Type Dummy</label>
+                    <span class="mandatory">*</span>
+                    <input type="text" class="form-control" placeholder="Enter Device IMEI No" required minlength="3"
+                      maxlength="30" id="persontypeentrydummy" onpaste="return false;" [(ngModel)]="persontypedummy"
+                      #vendornm="ngModel" onkeypress="return onlyAlphabets(event);" ondrop="return false;">
+                  </div>
+                  <div class="col-lg-4 col-md-4" id="date" style="display: none;">
+
+                    <label class="indlabel">Date of Birth</label>
+                    <input type="text" class="form-control datepicker" id="dateofbirth" [(ngModel)]="Dateofbirth">
+
+                    <span class="invalidmsg" id="msg_shortcode"></span>
+                  </div>
+
+                  <div class="col-lg-4 col-md-4" *ngIf="this.selectdevicetypedummy != 'Personal Tracker'">
+                    <label class="indlabel">Vehicle Type <span class="mandatory">*</span> </label>
+                    <select class="form-control" id="vehicletypeentry" [(ngModel)]="vehicletype">
+                      <option> NEW </option>
+                      <option> OLD </option>
+                    </select>
+
+                  </div>
+
+
+                  <div class="col-lg-4 col-md-4" id="vehicleclass" style="display: block;">
+                    <label class="indlabel">Vehicle Class <span class="mandatory">*</span> </label>
+
+
+                    <ngx-select-dropdown tabindex="4" id="vehicleclassentry" [multiple]="false"
+                      [(ngModel)]="vehicleclassText" (change)="dummyvehicleclass()" [config]="config"
+                      [options]="ListOfVehicleclass"></ngx-select-dropdown>
+
+
+                    <span class="invalidmsg" id="msg_vendorName" style="position: absolute;bottom:20px;"></span>
+                  </div>
+
+
+                  <div class="col-lg-4 col-md-4" style="display: none;">
+                    <label class="indlabel">Vehicle Class Dummy</label>
+                    <span class="mandatory">*</span>
+                    <input type="text" class="form-control" placeholder="Enter Device IMEI No" tabindex="6"
+                      id="vehicleclassentrydummy" onpaste="return false;" [(ngModel)]="vehicleclassdummy"
+                      #vendornm="ngModel" onkeypress="return onlyAlphabets(event);" ondrop="return false;">
+                  </div>
+
+
+
+                </div>
+                <div class=" row form-group">
+
+                  <div class="col-lg-4 col-md-4" id="selectmake">
+                    <label class="indlabel">Select Make</label>
+                    <span class="mandatory">*</span>
+
+                    <ngx-select-dropdown tabindex="7" id="selectmakeentry" [multiple]="false"
+                      [(ngModel)]="SelectMakeText" [config]="config" [options]="ListOfSelectMake"
+                      (change)="SelectModellist()"></ngx-select-dropdown>
+
+                    <span class="invalidmsg" id="msg_vendorName"></span>
+                  </div>
+                  <div class="col-lg-4 col-md-4" style="display: none;">
+                    <label class="indlabel">Dummy Select Make</label>
+                    <span class="mandatory">*</span>
+                    <input type="text" class="form-control" placeholder="Enter Device IMEI No" required minlength="3"
+                      maxlength="30" id="selectmakeentrydummy" onpaste="return false;" [(ngModel)]="dummyselectmake"
+                      #vendornm="ngModel" onkeypress="return onlyAlphabets(event);" ondrop="return false;">
+                  </div>
+
+                  <div class="col-lg-4 col-md-4" id="selectmodel">
+                    <label class="indlabel">Select Model</label>
+                    <span class="mandatory">*</span>
+
+                    <ngx-select-dropdown tabindex="8" id="selectmodelentry" [multiple]="false"
+                      [(ngModel)]="SelectModelText" [config]="config" [options]="ListOfSelectModel"
+                      (change)="dumyselectmodel()"></ngx-select-dropdown>
+
+                    <span class="invalidmsg" id="msg_vendorName"></span>
+                  </div>
+                  <div class="col-lg-4 col-md-4" style="display: none;">
+                    <label class="indlabel">Dummy Select model</label>
+                    <span class="mandatory">*</span>
+                    <input type="text" class="form-control" placeholder="Enter Device IMEI No" required minlength="3"
+                      maxlength="30" id="modelselectdummy" onpaste="return false;" [(ngModel)]="selectmodeldummy"
+                      #vendornm="ngModel" onkeypress="return onlyAlphabets(event);" ondrop="return false;">
+                  </div>
+
+                  <div class="col-lg-4 col-md-4" id="mgfyear" style="display: block;">
+                    <label class="indlabel">Mgf Year</label>
+                    <span class="mandatory">*</span>
+                    <ngx-select-dropdown tabindex="9" id="selectmgfyear" [multiple]="false"
+                      [(ngModel)]="SelectMgfYearText" [config]="config" [options]="ListOfYear"
+                      (change)="dummymgfyear()"></ngx-select-dropdown>
+                  </div>
+
+
+                  <div class="col-lg-4 col-md-4" style="display: none;">
+                    <label class="indlabel">Dummy MGF Year</label>
+                    <span class="mandatory">*</span>
+                    <input type="text" class="form-control" placeholder="Enter Device IMEI No" required minlength="3"
+                      maxlength="30" id="selectmgfyeardumy" onpaste="return false;" [(ngModel)]="selectmgfyeardummy"
+                      #vendornm="ngModel" onkeypress="return onlyAlphabets(event);" ondrop="return false;">
+                  </div>
+
+
+
+                </div>
+                <div class="form-group row">
+                  <div class="col-lg-4 col-md-4" id="state">
+                    <label class="indlabel">Select State</label>
+                    <span class="mandatory">*</span>
+
+                    <ngx-select-dropdown tabindex="10" id="selectstateentry" [multiple]="false"
+                      [(ngModel)]="SelectStateText" [config]="config" [options]="ListOfState" (change)="RTOlist()">
+                    </ngx-select-dropdown>
+
+                    <span class="invalidmsg" id="msg_vendorName"></span>
+                  </div>
+                  <div class="col-lg-4 col-md-4" style="display: none;">
+                    <label class="indlabel">Dummy state</label>
+                    <span class="mandatory">*</span>
+                    <input type="text" class="form-control" placeholder="Enter Device IMEI No" required minlength="3"
+                      maxlength="30" id="statedummy" onpaste="return false;" [(ngModel)]="selectcitydummy"
+                      #vendornm="ngModel" onkeypress="return onlyAlphabets(event);" ondrop="return false;">
+                  </div>
+
+                  <div class="col-lg-4 col-md-4" id="rto">
+                    <label class="indlabel">Select RTO</label>
+                    <span class="mandatory">*</span>
+
+                    <ngx-select-dropdown tabindex="11" id="statertoentry" [multiple]="false" [(ngModel)]="SelectRTOText"
+                      [config]="config" [options]="ListOfRTO" (change)="getRTOId()">
+                    </ngx-select-dropdown>
+
+                    <span class="invalidmsg" id="msg_vendorName"></span>
+
+                    <input type="text" name="rto" id="selectrto" style="display: none;" [(ngModel)]="selectrto">
+                  </div>
+
+
+                  <div class="col-lg-4 col-md-4" id="customername">
+                    <label class="indlabel">Vehicle Icon</label>
+
+
+                    <ngx-select-dropdown tabindex="12" id="vehicleiconentry" [multiple]="false"
+                      [(ngModel)]="SelectVehicleIconText" [config]="config" [options]="ListOfVehicleIcon"
+                      (change)="dummyvehicleicon()"></ngx-select-dropdown>
+
+                    <span class="invalidmsg" id="msg_vendorName"></span>
+                  </div>
+                  <div class="col-lg-4 col-md-4" style="display: none;">
+                    <label class="indlabel">Dummy vehicle icon</label>
+                    <span class="mandatory">*</span>
+                    <input type="text" class="form-control" placeholder="Enter Vehicle Id" required minlength="3"
+                      maxlength="30" id="vehicleiconentry" onpaste="return false;" [(ngModel)]="selectvehicleicon"
+                      #vendornm="ngModel" onkeypress="return onlyAlphabets(event);" ondrop="return false;">
+                  </div>
+
+                </div>
+                <div class="form-group row">
+                  <div class="col-md-4 col-lg-4">
+                    <label class="indlabel">Installation Date</label>
+                    <span class="mandatory">*</span>
+
+                    <input id="dateinputentry" type="text" class="form-control datepicker" placeholder="" tabindex="22">
+
+                  </div>
+
+
+                </div>
+
+
+                <span class="invalidmsg" id="msg_error_contactentry" style="position: absolute;bottom:20px;"></span>
+              </div>
+              <!-- stepentry-15 end-->
+              <!-- stepentry-16 start-->
+              <div id="stepentry-16" class="stepsdiv" style="display: none;">
+                <div class="form-group row">
+                  <div class="col-lg-4 col-md-4">
+                    <label class="indlabel" style="display: inline;">Customer Id : </label>
+                    <span class="mandatory" id="customeridentitystar">*</span>
+                    <select style="display: inline;width: 165px;" class="form-control mb-1" [(ngModel)]="idOption">
+                      <option>Aadhar Card</option>
+                      <option>Pan Card</option>
+                      <option>Voter id Card</option>
+                    </select>
+                    <br>
+                    <input type="text" class="form-control" placeholder="Enter {{idOption}} Number" tabindex="17"
+                      required minlength="7" maxlength="12" id="custidentityentry" [(ngModel)]="CustIdentityText"
+                      onkeypress="return isNumberKey(event)" [disabled]='idOption=="Identity"'>
+
+                  </div>
+
+                  <div class="col-lg-4 col-md-4">
+                    <label class="indlabel">Address Proof : </label> <span class="mandatory"
+                      id="addressproofstar">*</span>
+                    <select [(ngModel)]="addressproffName" style="display: inline;width: 160px;"
+                      class="form-control mb-1">
+                      <option>Aadhar Card</option>
+                      <option>PAN Card</option>
+                    </select>
+                    <br>
+                    <input type="text" class="form-control" placeholder="Enter {{addressproffName}}" tabindex="18"
+                      minlength="2" maxlength="25" id="Addressproof" [(ngModel)]="AddProofText" required
+                      onkeypress="return isNumberKey(event)" [disabled]='addressproffName=="Address Proof No."'>
+
+                  </div>
+                  <div class="col-lg-4 col-md-4" *ngIf="this.selectdevicetypedummy != 'Personal Tracker'">
+                    <label class="indlabel">RC</label>
+                    <span class="mandatory" style="margin-bottom: 10px;margin-left: 20px;margin-top: -25px;"
+                      id="rcstar">*</span>
+                    <input type="text" class="form-control" placeholder="Please Enter RC" tabindex="19" id="rcentry"
+                      minlength="2" maxlength="12" [(ngModel)]="RCText" required onkeypress="return isNumberKey(event)">
+
+                  </div>
+
+                  <!-- <span class="invalidmsg" id="msg_alternateNo"></span> -->
+                </div>
+
+                <div class="form-group row">
+                  <div class="col-lg-4 col-md-4">
+                    <label class="btn btn-default indlabel">
+                      <input type="file" id="imgInp" (change)="selectFile($event)">
+                    </label><br><br>
+                    <img id="defaultimg" style="display: block" src="assets/img/default_img.png"
+                      style="width: 50px; height: 50px; margin-left: 65px;" />
+                    <img id="blah" src="#" alt="your image" style="height:70px; width:140px; display: none;" />
+                    <br><br>
+                  </div>
+
+                  <div class="col-lg-4 col-md-4">
+                    <label class="btn btn-default indlabel">
+                      <input type="file" id="imgInp2" (change)="selectFile2($event)">
+                    </label><br><br>
+                    <img id="defaultimg2" style="display: block" src="assets/img/default_img.png"
+                      style="width: 50px; height: 50px; margin-left: 65px;" />
+
+                    <img id="blah2" src="#" alt="your image" style="height:70px; width:140px; display: none;" />
+                    <br><br>
+                  </div>
+                  <div class="col-lg-4 col-md-4">
+                    <label class="btn btn-default indlabel">
+                      <input type="file" id="imgInp3" (change)="selectFile3($event)">
+                    </label><br><br>
+                    <img id="defaultimg3" style="display: block" src="assets/img/default_img.png"
+                      style="width: 50px; height: 50px; margin-left: 65px;" />
+
+                    <img id="blah3" src="#" alt="your image" style="height:70px; width:140px; display:none;" />
+                    <br><br>
+
+                  </div>
+
+                  <div class="col-lg-4 col-md-4">
+                    <label>Device Image : </label>
+                    <label class="btn btn-default indlabel">
+                      <input type="file" id="imgInp4" (change)="selectFile4($event)">
+                    </label><br><br>
+                    <img id="defaultimg4" src="assets/img/default_img.png"
+                      style="width: 50px;display: block;margin-left :65px">
+                    <img id="blah4" src="#" alt="your image" style="height:70px; width:140px; display:none;" />
+                    <br><br>
+
+                  </div>
+
+                  <div class="col-lg-4 col-md-4">
+                    <label> <span *ngIf="this.selectdevicetypedummy != 'Personal Tracker'">Vehicle</span><span
+                        *ngIf="this.selectdevicetypedummy == 'Personal Tracker'">Person</span> Image : </label>
+                    <label class="btn btn-default indlabel">
+                      <input type="file" id="imgInp5" (change)="selectFile5($event)">
+                    </label><br><br>
+                    <img id="defaultimg5" style="display: block" src="assets/img/default_img.png"
+                      style="width: 50px;margin-left:65px">
+
+                    <img id="blah5" src="#" alt="your image" style="height:70px; width:140px; display:none;" />
+                    <br><br>
+
+                  </div>
+                </div>
+
+
+
+                <div class="form-group row" *ngIf="this.selectdevicetypedummy != 'Personal Tracker'">
+
+                  <div class="col-lg-4 col-md-4">
+                    <label class="indlabel">Invoice</label>
+                    <!-- <span class="mandatory" id="invoicestar">*</span>  -->
+                    <input type="text" class="form-control" placeholder="Please Enter Invoice" tabindex="20"
+                      minlength="1" maxlength="12" id="invoicedataentry" [(ngModel)]="InvoiceText" required
+                      onkeypress="return isNumberKey(event)">
+
+                  </div>
+
+                  <div class="col-lg-4 col-md-4">
+                    <label class="indlabel">Panic</label>
+                    <!-- <span class="mandatory" id="panicstar">*</span>  -->
+                    <input type="text" class="form-control" placeholder="Please Enter Panic" tabindex="21" minlength="1"
+                      maxlength="15" id="panicdataentry" [(ngModel)]="Panictext" required
+                      onkeypress="return isNumberKey(event)">
+
+                  </div>
+
+
+
+                </div>
+                <div class="form-group row" *ngIf="this.selectdevicetypedummy != 'Personal Tracker'">
+
+                  <div class="col-lg-3 col-md-3" id="Mobilize_entry" style="margin-top: 20px;">
+                    <label class="indlabel">Mobilize:</label>
+                    <span style="padding-right: 20px" class="mandatory">*</span>
+                    <input type="radio" id="mobilizeno" name="mobilize" checked="checked" value="NO">
+                    <label style="padding-right: 10px" for="mobno">No</label>
+                    <input type="radio" id="mobilizeyes" name="mobilize" value="YES">
+                    <label for="mobyes">Yes</label><br>
+                  </div>
+                  <div class="col-lg-3 col-md-3" id="fulecheck_entry" style="margin-top: 20px;">
+                    <label class="indlabel">Fuel Check:</label>
+                    <span style="padding-right: 20px" class="mandatory">*</span>
+                    <input type="radio" id="fuelno" name="fulecheck" checked="checked" value="NO">
+                    <label style="padding-right: 10px" for="mobno">No</label>
+                    <input type="radio" id="fuelyes" name="fulecheck" value="YES">
+                    <label for="mobyes">Yes</label><br>
+                  </div>
+                  <div class="col-lg-3 col-md-3" id="acstatus_entry" style="margin-top: 20px;">
+                    <label class="indlabel">AC Status:</label>
+                    <span style="padding-right: 20px" class="mandatory">*</span>
+                    <input type="radio" id="acstatusno" name="acstatus" checked="checked" value="NO">
+                    <label style="padding-right: 10px" for="mobno">No</label>
+                    <input type="radio" id="acstatusyes" name="acstatus" value="YES">
+                    <label for="mobyes">Yes</label><br>
+                  </div>
+                </div>
+
+
+                <span class="invalidmsg" id="msg_error_contact"></span>
+              </div>
+              <!-- stepentry-16 end-->
+            </div>
+            <!--stepsection end-->
+          </div>
+        </div>
+      </div>
+      <!-- body end-->
+        <!-- Modal footer start-->
+        <div class="modal-footer" id="modelfooter">
+          <div class="actionBar">
+            <button id="saveentry" class="mb-2 btn btn-sm btn-success buttonFinish" (click)="uploadnew()">
+              <i class="material-icons">save</i></button>
+            <button id="nextentry" class="mb-2 btn btn-sm btn-primary buttonNext"><i
+                class="material-icons">arrow_forward</i></button>
+  
+            <button id="preventry" class="mb-2 btn btn-sm btn-primary buttonPrevious" onclick="validateAllSteps(4,4)"><i
+                class="material-icons">arrow_back</i></button>
+          </div>
+        </div>
+          <!-- Modal footer end-->
+    </div>
+  </div>
+</div>
+
+
+
+<div class="modal fade " id="SuccessModalEntry" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+  aria-hidden="true">
+  <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+    <div class="modal-content box-shadow">
+      <div class="card border-0">
+        <div class="card-header py-1 pl-3 m-0" style="background-color: green;">
+          <h5>Success</h5>
+        </div>
+        <div class="card-body bg-white">
+          {{datafromrespo}}
+          <div class="text-right">
+            <button class="btn btn-sm btn-success" (click)="closemodal()" data-dismiss="modal">ok</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade " id="ErrorModalEntry" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+  aria-hidden="true">
+  <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+    <div class="modal-content box-shadow">
+      <div class="card border-0">
+        <div class="card-header  py-1 pl-3 m-0" style="background-color: red;">
+          <h5>Error</h5>
+        </div>
+        <div class="card-body bg-white">
+          {{datafromrespo}}
+          <div class="text-right pt-3">
+            <button class="btn btn-sm btn-success" data-dismiss="modal">ok</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

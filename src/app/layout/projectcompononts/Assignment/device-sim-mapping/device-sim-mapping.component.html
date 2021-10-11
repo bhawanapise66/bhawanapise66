@@ -1,0 +1,579 @@
+<div class="content shadow-sm">
+  <!-- Main container starts -->
+  <div class="container-fluid main-container" id="main-container">
+    <div class="row">
+      <div class="col-12 col-md-12 col-lg-12 col-xl-12 mx-auto align-self-center">
+        <div class="card shadow-sm border-0 mb-4">
+          <div class="card-header" style="padding-top: 0; padding-bottom: 0">
+
+            <!-- <img src="../assets/img/logoicon.svg" alt="" class="w-50px mt-4"> -->
+            <h4 class="text-left m-1" style="font-size: 19px;">Device
+              <span class="text-template-primary" style="color: #00ed54; font-size: 19px;">Sim Mapping</span>
+              <button type="button" class="btn btn-sm btn-primaryyel ml-2 float-right" style="margin-right: 89px;"
+                data-toggle="modal" data-target="#exampleModal">
+                ADD NEW
+                <i class="material-icons md-18">navigate_next</i>
+              </button>
+            </h4>
+
+          </div>
+          <div class="card-body" style="padding: 5px;">
+            <div class="row justify-content-center">
+              <div class="col-md-12 mx-auto">
+                <div class="row">
+                  <div class="col-lg-12 col-md-12">
+                    
+                  </div>
+                </div>
+
+                <div class="container-fluid main-container" id="main-container">
+
+
+
+
+                  <!--    ---------------        Table Header Staret=------------------------    -->
+                  <div class="row  mx-1">
+                    <div class="col-12 col-sm-12 col-md text-md-left align-self-center pr-0">
+                      <ul class="nav  justify-sm-content-center  justify-content-left">
+                        <li class="nav-item ">
+                          <div class="input-group" style="max-width: 250px;">
+                            <input type="text" placeholder="Search" id="searchData" class="form-control searchicon"
+                              id="searchData" [(ngModel)]="filter" aria-label="Amount (to the nearest dollar)">
+                            <div class="input-group-append">
+                              <button class="btn  apendbtn" (click)="searchdata()">
+                                <i style="color: #00ed54; margin-top: -15px;" class="fa fa-search"></i>
+                              </button>
+                            </div>
+                          </div>
+                        </li>
+                        <li class="nav-item mx-3">
+                          <i class="fa fa-refresh fa-2x fa-spin-hover" style="font-size: 17px;
+                    padding-top: 4px;color: #00fff3;" (click)="Refreshfunction()"></i>
+                        </li>
+                      </ul>
+                    </div>
+
+                    <div class="col-12 col-sm-12 col-md-auto text-right text-md-end pl-0">
+                      <ul class="nav justify-content-center justify-lg-content-end  justify-sm-content-center">
+                        <li class="nav-item mx-2">
+                          <img style="cursor: pointer; height: 20px; margin-top: 3px;" (click)="createPDF()"
+                            ngbTooltip="PDF" src="assets/images/PDFicon.png">
+                        </li>
+                        <li class="nav-item mx-2">
+                          <img style="cursor: pointer;" (click)="exportToExcel()" ngbTooltip="Excel"
+                            src="assets/images/excellogo.png">
+                        </li>
+                        <li class="nav-item mx-3">
+                          <span style="display: inline;font-size:12px;font-weight :bold;">Show Rows : </span> <select
+                            class="form-control p-1" style="width: 44px;display: inline;" data-live-search="true"
+                            tabindex="1" id="selectrow1" (change)="SelectRows()" aria-hidden="true">
+                            <option value="5">5</option>
+                            <!-- <option value="5">5</option> -->
+                            <option value="10" selected>10</option>
+                            <option value="20">20</option>
+                            <option value="50">50</option>
+                          </select>
+                        </li>
+                        <li class="nav-item pt-1">
+                          <span style="font-size:12px;font-weight: bold;">Total Records : {{viewcount}} of
+                            {{count}}</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <!-- ---------------------  Table header end  ------------------------------ -->
+
+
+                  <div id="PDFTable" class="card-body table-responsive" #epltable>
+                    <table class="table table-hover table-striped">
+                      <thead>
+                        <tr role="row">
+                          <th><span (click)="sort('rowNumber')">#</span></th>
+                          <th style=" display: none;"><span (click)="sort('param1')"> DeviceID</span></th>
+                          <th style=" display: none;"><span (click)="sort('param2')"> DeviceMakeID</span></th>
+                          <th style=" display: none;"><span (click)="sort('param3')"> DeviceModelID</span></th>
+                          <th style=" display: none;"><span (click)="sort('param58')"> SimID</span></th>
+                          <th><span (click)="sort('param52')"> Device Type </span></th>
+                          <th><span (click)="sort('param11')"> Vendor</span></th>
+                          <th><span (click)="sort('param14')"> Model</span></th>
+                          <th><span (click)="sort('param4')"> IMEI No.</span></th>
+                          <th><span (click)="sort('param5')"> Device Serial No </span></th>
+                          <th><span (click)="sort('param6')"></span>ICCID /SIM No</th>
+                          <th><span (click)="sort('param9')"> Network </span><br></th>
+                          <th><span (click)="sort('param7')"> Mobile No.</span> <br>
+                          <th><span (click)="sort('param65')"></span>Assigned Date</th>
+                          <th><span (click)="sort('param41')"></span>Status</th>
+
+                          <th style="background-color: #99c049;">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody id="grid">
+                        <tr
+                          *ngFor="let com of DeviceDetailsobj | filter:filter | orderBy: key : reverse | paginate : {itemsPerPage:pagecount,currentPage:p,totalItems:count} ;"
+                          class="trheight">
+                          <td>{{com.rowNumber}}</td>
+                          <td style=" display: none;">{{com.param1}}</td>
+                          <td style=" display: none;">{{com.param2}}</td>
+                          <td style=" display: none;">{{com.param3}}</td>
+                          <td style=" display: none;">{{com.param58}}</td>
+                          <td>{{com.param52}}</td>
+                          <td>{{com.param11}}</td>
+                          <td>{{com.param14}}</td>
+                          <td>{{com.param4}}</td>
+                          <td>{{com.param5}}</td>
+                          <td>{{com.param6}}</td>
+                          <td>{{com.param9}}<br>{{com.param10}}</td>
+                          <td>{{com.param7}}<br>{{com.param8}}</td>
+                          <td>{{com.param65}}</td>
+                          <td>{{com.param41}}</td>
+
+                          <td [ngStyle]="{'background-color':com.altColor}" class="viewbtncss">
+                            <span class="iconhover" data-toggle="modal" data-target="#myModalwizard"
+                              (click)="setdata(com)">
+                              <i class="material-icons" style="color: #161e43">visibility</i>
+                            </span>
+                          </td>
+                        </tr>
+
+                      </tbody>
+                      <tfoot id="foot" class="box-footer clearfix">
+                        <tr>
+                          <td colspan="12">
+                            <pagination-controls style=" float: right;" (pageChange)="SimMasterpageChanged($event)">
+                            </pagination-controls>
+                          </td>
+                        </tr>
+                      </tfoot>
+
+                    </table>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- --------------------  view & Edit Modal start------------------------>
+
+<div class="modal fade " id="myModalwizard" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-lg ">
+    <div class="modal-content ">
+
+      <!-- Modal Header -->
+      <div class="modal-header modelcolor">
+        <h6 class="modal-title" id="vmd" style="display: block;">Sim Mapping Details</h6>
+        <span class="modal-title" id="uvmd" style="display: none; font-size: 17px;">Unassign Sim</span>
+        <div style="float:right; margin-left: 61%;">
+          <button type="button" class=" btn btn-sm btn-secondary float-right ml-2 bg-warning" style="display: block;"
+            id="editbtn" ngbTooltip="Edit" (click)="editpageform()">
+
+            <i class="material-icons md-18">edit</i>
+          </button>
+          <button type="button" class=" btn btn-sm btn-danger float-right ml-2" id="deletebtn" ngbTooltip="Delete"
+            data-toggle="modal" data-target="#modeldelete">
+
+            <i class="material-icons md-18">delete</i>
+          </button>
+          <button type="button" class=" btn btn-sm btn-primary float-right ml-2" id="backdetailsbtn" ngbTooltip="Back"
+            style="display: none;" (click)="backdetailsbtn()">
+
+            <i class="material-icons md-18">arrow_back</i>
+          </button>
+        </div>
+        <button type="button" style="color: white" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+
+      <!-- Modal body -->
+      <div class="modal-body " style=" background-color: #CBD2F1;">
+        <div class="container">
+          <div class="container-fluid">
+            <div id="container" style="display: none;">
+              <div class="step-wizard" role="navigation">
+                <ul style="display: none;">
+                  <li class="active">
+                    <button id="step1">
+                      <div class="step">1</div>
+                      <div class="title">Basic Details</div>
+                    </button>
+                  </li>
+                </ul>
+                <div class="stepsection">
+                  <span class="invalidmsg" id="msg_mainmessage"></span>
+
+
+                  <div id="step-14" class="stepsdiv">
+                    <!-- <span class="StepTitle">Step 1: Basic Details</span> -->
+                    <div class="form-group row">
+                      <div class="col-lg-6 col-md-6">
+                        <label class="indlabel">Vendor</label>
+                        <span class="mandatory">*</span>
+                        <ngx-select-dropdown tabindex="1" disabled id="vendorupdemo" [multiple]="false"
+                          [(ngModel)]="vendorTextup" (change)="vendorbind();DevicetypelList()" [config]="config"
+                          [options]="ListOfvendorup"></ngx-select-dropdown>
+                        <span class="invalidmsg" id="msg_vendorName"></span>
+                      </div>
+                      <div class="col-lg-6 col-md-6">
+                        <label class="indlabel">Device Type</label>
+                        <span class="mandatory">*</span>
+
+                        <ngx-select-dropdown tabindex="3" disabled id="devicetypeentry" [multiple]="false"
+                          [(ngModel)]="devicetypeTextup" (change)="DeviceTypeListup();DeviceModelList()"
+                          [config]="config" [options]="ListOfdevicetypeup"></ngx-select-dropdown>
+
+                        <span class="invalidmsg" id="msg_devicetype"></span>
+                      </div>
+
+                      <div class="col-lg-4 col-md-4" style="display: none;">
+                        <label class="indlabel">Vendor List Dummy</label>
+                        <span class="mandatory">*</span>
+                        <input type="text" class="form-control" id="vendorupdummy" [(ngModel)]="vendorlistdataup">
+
+                      </div>
+
+
+                      <div class="col-lg-3 col-md-3" style="display: none;">
+                        <label class="indlabel">Device type Dummy</label>
+                        <span class="mandatory">*</span>
+                        <input type="text" class="form-control" [(ngModel)]="devicelistupdummy" id="devicetypedummyup">
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+
+                      <div class="col-lg-6 col-md-6">
+                        <label class="indlabel">Device Model</label>
+                        <span class="mandatory">*</span>
+
+                        <ngx-select-dropdown tabindex="2" disabled id="modelup" [multiple]="false" [(ngModel)]="modelTextup"
+                          (change)=" DeviceModelup();DeviceSimList()" [config]="config" [options]="ListOfmodelup">
+                        </ngx-select-dropdown>
+                        <span class="invalidmsg" id="msg_vendorName"></span>
+                      </div>
+
+
+                      <div class="col-lg-4 col-md-4" style="display: none;">
+                        <label class="indlabel">Device model Dummy</label>
+                        <span class="mandatory">*</span>
+                        <input type="text" class="form-control" id="devicemodellistupid"
+                          [(ngModel)]="devicemodellistup">
+                      </div>
+
+                      <div class="col-lg-6 col-md-6">
+                        <label class="indlabel">Device</label>
+                        <span class="mandatory">*</span>
+                        <ngx-select-dropdown tabindex="4" disabled id="deviceentryid" [multiple]="false"
+                          [(ngModel)]="deviceTextup" [config]="config" [options]="ListOfDeviceup"
+                          (change)="devicebind()"></ngx-select-dropdown>
+                        <span class="invalidmsg" id="msg_device"></span>
+                      </div>
+
+                      <div class="col-lg-3 col-md-3" style="display: none;">
+                        <label class="indlabel">Device List Dummy</label>
+                        <span class="mandatory">*</span>
+                        <input type="text" class="form-control" [(ngModel)]="device_id" id="devicelistdummy">
+                      </div>
+
+                    </div>
+                    <div class="form-group row">
+                      <div class="col-lg-6 col-md-6">
+                        <label class="indlabel">Network</label>
+                        <span class="mandatory">*</span>
+                        <ngx-select-dropdown tabindex="4" id="networkentryid" [multiple]="false"
+                          [(ngModel)]="networkname" [config]="config" [options]="ListOfNetwork"
+                          (change)="networkupdatebind();DeviceSimList()"></ngx-select-dropdown>
+                        <span class="invalidmsg" id="msg_network"></span>
+                      </div>
+
+                      <div class="col-lg-6 col-md-6">
+                        <label class="indlabel">Sim No.</label>
+                        <span class="mandatory">*</span>
+
+                        <ngx-select-dropdown tabindex="5" id="simnodrpentry" [multiple]="false"
+                          [(ngModel)]="simnodrpTextup" [config]="config" [options]="ListOfSimup" (change)="simbind();">
+                        </ngx-select-dropdown>
+
+                        <span class="invalidmsg" id="msg_simnodrp"></span>
+                      </div>
+
+                      <div class="col-lg-3 col-md-3" style="display: none;">
+                        <label class="indlabel">Network Dummy</label>
+                        <span class="mandatory">*</span>
+                        <input type="text" class="form-control" [(ngModel)]="networkid" id="networkdummTextid">
+                      </div>
+
+                      <div class="col-lg-3 col-md-3" style="display: none;">
+                        <label class="indlabel">Simno List Dummy</label>
+                        <span class="mandatory">*</span>
+                        <input type="text" class="form-control" [(ngModel)]="simid" id="simnolistdummy">
+                      </div>
+                    </div>
+
+                    <br>
+                    <br>
+                    <br>
+                    <span class="invalidmsg" id="msg_errorentry"></span>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- --------------------------------------------- View Section ------------------------------------------- -->
+          <div class="">
+            <div id="vendordtls" class="row" style="background-color: #0e2145; border: 1px ridge #02108d;">
+              <div class="col-12 col-md-12 col-lg-12">
+
+                <div class="row" style="background-color: rgb(198 201 202);">
+                  <div class="col-12 col-md-12 col-lg-12">
+                    <div class="viewheading">Basic Details</div>
+                  </div>
+                </div><br>
+
+                <div class="row">
+                  <div class="col-12 col-md-12 col-lg-12">
+                    <div class="col-4 col-md-4 col-lg-4" style=" float: left;">
+                      <span class="caplable">Vendor:</span>&nbsp;<span class="viewlable">{{vendorTextup}}</span>
+                    </div>
+                    <div class="col-4 col-md-4 col-lg-4" style=" float: left;">
+                      <span class="caplable">Device Type:</span>&nbsp;<span
+                        class="viewlable">{{devicetypeTextup}}</span>
+                    </div>
+                    <div class="col-4 col-md-4 col-lg-4" style=" float: left;">
+                      <span class="caplable">Device Model:</span>&nbsp;<span class="viewlable">{{modelTextup}}</span>
+                    </div>
+                   
+
+                  </div>
+                </div>
+
+                <div class="row">
+                  
+                  <div class="col-12 col-md-12 col-lg-12">
+                  
+                    <div class="col-4 col-md-4 col-lg-4" style=" float: left;">
+                      <span class="caplable">Device:</span>&nbsp;<span class="viewlable">{{deviceTextup}}</span>
+                    </div>
+                    <div class="col-4 col-md-4 col-lg-4" style=" float: left;">
+                      <span class="caplable">Network :</span>&nbsp;<span class="viewlable">{{networkname}}</span>
+                    </div>
+                 
+                    <div class="col-4 col-md-4 col-lg-4" style=" float: left;">
+                      <span class="caplable">Sim :</span>&nbsp;<span class="viewlable">{{simnodrpTextup}}</span>
+                    </div>
+                
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12 col-md-12 col-lg-12">
+                  
+                    <div class="col-4 col-md-4 col-lg-4" style=" float: left;">
+                      <span class="caplable">Mobile No. :</span>&nbsp;<span class="viewlable">{{mno}}</span>
+                    </div>
+                    </div>
+                  </div>
+               
+                <br>
+
+              </div>
+              <!-- --------------------- View Section End ------------------------------ -->
+
+            </div>
+          </div>
+
+        </div>
+        <!-- --------------------- View Section End ------------------------------ -->
+
+      </div>
+
+
+      <!-- Modal footer -->
+
+      <div class="modal-footer" style="display: none;" id="modelfooter">
+        <div class="container mx-5 row">
+          <div class="col-md-7">
+            <textarea class="form-control bg-white" rows="1" style="margin-left: 16px;" placeholder="Enter Remark" tabindex="21" minlength="10"
+              maxlength="40" id="Remarkvenupdate" [(ngModel)]="remarkText" #remark="ngModel" required
+              [ngClass]="{'is-invalid': remark.invalid && submitted }"></textarea>
+            <div class="invalidmsg" *ngIf="remark.errors?.minlength">
+              Remark must be 10 to 40 characters long.
+            </div>
+  
+          </div>
+          <div class="col-md-5">
+        <div class="actionBar" style="margin-right: 5px;">
+          <button id="save" class="mb-2 btn btn-wizard btn-sm btn-success buttonFinish" style="margin-right: 105px;" (click)="deviceeditbtn()">
+            <i class="material-icons">save</i>
+          </button>
+        </div>
+        </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ------------------- view & Edit model close ------------------------ -->
+
+<!-- ------------------ Delete Model Start ------------------------>
+
+<!-- Delete Model-->
+<div class="modal fade" id="modeldelete" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-sm modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header" style="background-color: 	red;">
+        <h4 class="modal-title text-center" style="color: yellow">Are You Sure?</h4>
+        <button type="button" class="close" data-dismiss="modal" (click)="closemodal();">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body" style="background-color: #f0e8e9">
+
+        <div class="form-group row">
+
+
+          <div class="col-lg-12 col-md-12">
+            <label style="color: black">Remark</label>&nbsp;
+            <span class="indlabelstar">*</span>
+            <textarea class="form-control" rows="2" style=" font-size:12px" placeholder="Enter Remark" tabindex="1"
+              minlength="10" maxlength="40" [(ngModel)]="deleteText9" #regaddress="ngModel"
+              id="groupdelremark"></textarea>
+
+          </div>
+
+        </div>
+        <span class="invalidmsg" id="msg_error_delete"></span>
+        <p style="    background-color: yellow;
+        /* padding-right: 20px; */
+        margin-right: 89px;
+        color: red; display: none;">Do You want to Delete !!&hellip;</p>
+      </div>
+
+
+      <!-- Modal footer -->
+      <div class="modal-footer text-center" style="background-color: #cfbaa8">
+        <button type="submit" class="btndel btn-primary mr-3" data-toggle="modal" data-dismiss="modal" tabindex="2"
+          (click)="closemodal();">
+          No
+        </button>
+        <button type="reset" tabindex="3" class="btndel btn-danger " data-toggle="modal"
+          (click)="SimAssignDeletefunction()">
+          Yes
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!-- Delete Model -->
+
+<!-- ------------------- Delete model End ----------------------- -->
+
+<!-- ------------------- onclick no btn model  ----------------------- -->
+<!-- The Modal -->
+<div class="modal fade" id="Noclickmodel">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-contentno">
+
+      <!-- Modal Header -->
+      <div class="modal-header" style="background-color: 	rgb(133, 195, 197);">
+        <h4 class="modal-title text-center" style="color: rgb(0, 0, 0)">Error</h4>
+        <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body" style="background-color: white;">
+        Your Data is Not delete..
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer" style="background-color: 	rgb(255, 255, 255);">
+        <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal"><span class="material-icons">
+            highlight_off
+          </span></button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ------------------- onclick no btn model End ----------------------- -->
+<!-- ------------------- onclick Yes btn model ----------------------- -->
+
+<div class="modal fade" id="Yesclickmodel">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-contentno">
+
+      <!-- Modal Header -->
+      <div class="modal-header" style="background-color: 	rgb(133, 195, 197);">
+        <h4 class="modal-title text-center" style="color: rgb(0, 0, 0)">Successfully</h4>
+        <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body" style="background-color: white;">
+        Your Data is delete..
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer" style="background-color: 	rgb(255, 255, 255);">
+        <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal"><span class="material-icons">
+            highlight_off
+          </span></button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ------------------- onclick yes btn model End ----------------------- -->
+
+
+
+<div class="modal fade " id="SuccessModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+  aria-hidden="true">
+  <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+    <div class="modal-content box-shadow">
+      <div class="card border-0">
+        <div class="card-header  py-1 pl-3 m-0" style="background-color: green;">
+          <p style="font-size:17px; font-weight:bold"> Success </p>
+        </div>
+        <div class="card-body bg-white text-dark">
+          <p> {{datafromrespo}}</p>
+          <div class="text-right">
+            <button class="btn btn-sm btn-success" data-dismiss="modal">ok</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade " id="ErrorModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+  aria-hidden="true">
+  <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+    <div class="modal-content box-shadow">
+      <div class="card border-0">
+        <div class="card-header  py-1 pl-3 m-0" style="background-color: red;">
+          <p style="font-size:17px; font-weight:bold"> Error </p>
+        </div>
+        <div class="card-body bg-white text-dark">
+          <p> {{datafromrespo}}</p>
+          <div class="text-right">
+            <button class="btn btn-sm btn-success" data-dismiss="modal">ok</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-assigndevicesimmapping></app-assigndevicesimmapping>

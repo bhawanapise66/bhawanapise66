@@ -1,0 +1,412 @@
+<body>
+  <!-- <h5 class="text-dark text-center mt-3"> <b>Device Summary Report</b></h5> -->
+  <!-- <span id="backbutton" style="float:left;position:relative;top:38" (click)="gotoBack();"> 
+    <img src="assets/images/Back-Button.png" width="30" height="30" style="margin-top: 2px;"></span> -->
+
+
+
+  <div class="container-fluid mt-3" id="inputform">
+    <fieldset style="max-width: 785px;">
+      <legend class="text-dark text-uppercase">Summary Report</legend>
+      <div class="row">
+        <div class="col-md-3">
+          <label class="indlabel">Filter By :</label>
+          <div id="daterangeadminux2" class="form-control " style="min-width: 198px;" >
+            <span id="daterange"></span> <i
+              class="material-icons avatar avatar-26 text-template-primary cal-icon float-right">event</i>
+          </div>
+        </div>
+        <div class="col-md-1">&nbsp;</div>
+        <div class="col-md-2">
+          <div class="form-group" style="min-width: 70px;">
+            <label class="indlabel">Division :</label>
+            <ngx-select-dropdown tabindex="0" id="division" [multiple]="false" [(ngModel)]="divisionObj"
+              [config]="config" [options]="ListOfDivision" (change)="getDviisionId()" style=" font-size: 11px;">
+            </ngx-select-dropdown>
+            <span class="text-danger validation" *ngIf="(divisionId==null || divisionId=='') && submitted">Provide
+              division.</span>
+
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="form-group" style="min-width: 126px;">
+            <label class="indlabel">Section : </label>
+            <ngx-select-dropdown tabindex="0" id="section" [multiple]="false" [(ngModel)]="sectionObj" [config]="config"
+              [options]="ListOfSection" (change)="getSectionId()" style=" font-size: 11px;" ></ngx-select-dropdown>
+            <span class="text-danger validation"
+              *ngIf="(sectionId==null || sectionId=='') && submitted">
+              Provide Section.</span>
+          </div>
+        </div> 
+
+        <div class="col-md-3">
+          <div class="text-right pt-4 pb-0">
+            <button type="submit" class="btn btn-sm btn-success mr-1" (click)="onGenerate()">Generate</button>
+            <button type="reset" class="btn btn-sm btn-secondary">Reset </button>
+          </div>
+        </div>
+
+      </div>
+           
+    </fieldset>
+  </div>
+
+  <div class="container-fluid" id="output" id="outputform" style="display: none;">
+    <h6 class="text-dark text-center mt-3" style=" text-align: center!important; color: #343a40!important; font-size: 14px;"> <b>Summary Report</b></h6>
+    <span style="float:left;position:relative;top:30;cursor: pointer;" (click)="gotoBack();"> <img
+      src="assets/images/Back-Button.png" width="30" height="30" style="margin-top: -65px;"></span>
+  
+    <div class="lbldateheader text-dark text-center" style=" text-align: center!important; color: #343a40!important; font-size: 14px;" > <b>Date :-</b> {{fromDate}}&nbsp;<b>To</b>&nbsp;&nbsp;{{toDate}} </div>
+    <br><br><div>
+        <div class="row" style=" padding-left: 313px; background-color: rgb(255, 250, 245); ">
+
+          <div class="class9 mx-4" style=" background-color: rgb(118 44 114); width: 11%; color: white;font-size: 11px;"><i class="fa fa-briefcase" aria-hidden="true"></i> <br> Total Device&nbsp;-&nbsp; <b>{{totalcountlbl}}</b></div>
+          <div class="class9 mx-4" style=" background-color: rgb(44 184 1);  width: 11%; color: white;font-size: 11px; " ><i class="fa fa-thumbs-o-up" aria-hidden="true"></i><br> Working&nbsp;-&nbsp; <b>{{totalworkingcountlbl}}</b></div>
+          <div class="class9 mx-4" style=" background-color: rgb(218, 24, 24);  width: 11%; color: white;font-size: 11px; " ><i class="fa fa-thumbs-o-down" aria-hidden="true"></i><br> Non-Working&nbsp;-&nbsp;<b>{{totalnonworkingcountlbl}} </b></div>
+          <div class="class9 mx-3" style=" background-color: rgb(248, 183, 4);  width: 11%; color: white;font-size: 11px; " ><i class="fa fa-wrench" aria-hidden="true"></i><br> Maintenance&nbsp;-&nbsp; <b>{{totalmaintainancecountlbl}}</b></div>
+          <div class="class9 mx-3" style=" background-color: rgb(4, 179, 248);  width: 11%; color: white;font-size: 11px; " ><i class="fa fa-road" aria-hidden="true"></i><br> Total Distance&nbsp;-&nbsp; <b>{{totaldistancelbl}}</b></div>
+          
+        </div>
+     
+    </div>
+    
+    <div class="card">
+       <div class="card-header text-bold"> <b> Divisional Summary </b> 
+        <img style="float: right; cursor: pointer; height: 20px; margin-top: 3px;" (click)="createPDF()" ngbTooltip="PDF" src="assets/images/PDFicon.png">
+        <img style=" float: right; cursor: pointer;"  (click)="dataexportexcel()" ngbTooltip="Excel" src="assets/images/excellogo.png"> 
+      </div>
+      <div class="card-body">
+        <div *ngFor="let sum of devdetail$" class="card-body table-responsive" style=" padding-left: 3%;">        
+            <table style=" width: 100%;"> 
+              <thead>
+              <tr>  
+                <td class="division">&nbsp;&nbsp;&nbsp;{{sum.divisionname}}</td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>                
+          <table class="table table-striped text-center" style=" width: 100%;" >            
+            <tbody>                          
+          <tr class="trheight" style=" padding-left: 10%;"> 
+            
+            <td >
+              <div  style=" height: 63%;">
+                <div style=" background-color: rgb(118 44 114); width: 117px; border: 2px solid rgb(188 188 192); ">
+                  <!-- <div class="row"> -->
+                  <div class="col pl-0 text-center" style=" color: white;">
+                    <p class="mb-0" >Total Devices</p>
+                     <i style=" font-weight: bold;"
+                      class="fa fa-briefcase" aria-hidden="true"></i> 
+                    <h6 class="font-weight-light">{{sum.divisiontotalcount}}</h6>
+                  </div>
+                  <!-- </div> -->
+                </div>
+              </div>
+            </td> <!-- Total Devices -->
+            <td>
+              <div style=" height: 63%;">
+                <div style=" background-color: rgb(44 184 1); width: 117px; border: 2px solid rgb(188 188 192); ">
+                  <!-- <div class="row"> -->
+                  <div class="col pl-0 text-center" style=" color: white;">
+                    <p class="mb-0" >Working</p>
+                    <i style=" font-weight: bold;"
+                      class="fa fa-thumbs-o-up" aria-hidden="true"></i> 
+                    <h6 class="font-weight-light">{{sum.divisiontotalworkingcount}}</h6>
+                  </div>
+                  <!-- </div> -->
+                </div>
+              </div>
+            </td> <!--   Working   -->
+            <td>
+              <div style=" height: 63%;">
+                <div style=" background-color: rgb(218, 24, 24); width: 117px; border: 2px solid rgb(188 188 192); ">
+                  <!-- <div class="row"> -->
+                  <div class="col pl-0 text-center" style=" color: white;">
+                    <p class="mb-0" >Non-Working</p>
+                     <i style=" font-weight: bold;"
+                      class="fa fa-thumbs-o-down" aria-hidden="true"></i>
+                    <h6 class="font-weight-light">{{sum.divisiontotalnonworkingcount}}</h6>
+                  </div>
+                  <!-- </div> -->
+                </div>
+              </div>
+            </td> <!--   Non-Working    -->               
+            <td>
+              <div style=" height: 63%;">
+                <div style=" background-color: rgb(248, 183, 4); width: 117px; border: 2px solid rgb(188 188 192); ">
+                  <!-- <div class="row"> -->
+                  <div class="col pl-0 text-center" style=" color: white;">
+                    <p class="mb-0" >Maintenance</p>
+                   <i style=" font-weight: bold;"
+                      class="fa fa-wrench" aria-hidden="true"></i> 
+                    <h6 class="font-weight-light">{{sum.divisionmaintainancecount}}</h6>
+                  </div>
+                  <!-- </div> -->
+                </div>
+              </div>
+            </td> <!--   Maintenance   -->
+            <td>
+              <div style=" height: 63%;">
+                <div style=" background-color: rgb(4, 179, 248); width: 117px; border: 2px solid rgb(188 188 192); ">
+                  <!-- <div class="row"> -->
+                  <div class="col pl-0 text-center" style=" color: white;">
+                    <p class="mb-0" >Distance</p>
+                   <i style=" font-weight: bold;"
+                      class="fa fa-road" aria-hidden="true"></i> 
+                    <h6 class="font-weight-light">{{sum.divisiontotaldistance}}</h6>
+                  </div>
+                  <!-- </div> -->
+                </div>
+              </div>
+            </td> <!--   Distance   -->
+                            
+          </tr>
+            </tbody>
+          </table>
+          </tr>
+          <tr>
+          <table class="table table-hover table-striped" style="width: 100%;">
+            <tr>
+              <td>                
+                  <thead>
+                    <th style=" width: 10%; text-align: center; color: black; ">Section</th>
+                    <th style=" width: 10%; text-align: center; color: black; ">Total Devices</th>
+                    <th style=" width: 10%; text-align: center; color: black; ">Working</th>
+                    <th style=" width: 10%; text-align: center; color: black; ">Non-Working</th>
+                    <th style=" width: 10%; text-align: center; color: black; ">Maintenance</th>   
+                    <th style=" text-align: center; width: 13%; color: black; ">Battery Status</th>                    
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let section of SubDivisionsTotalfilter(sum.divisionname)">               
+                      <td style = " font-weight: bold;">{{section.subdivisionname}}</td> <!--  Division   -->                      
+                      <td style=" text-align: center;">{{section.subdivisiontotalcount}}</td> <!-- Total Devices -->
+                      <td style=" text-align: center;">{{section.subdivisiontotalworkingcount}}</td> <!--   Working   -->
+                      <td style=" text-align: center;">{{section.subdivisiontotalnonworkingcount}}</td> <!--   Non-Working    -->               
+                      <td style=" text-align: center;">{{section.subdivisionmaintainancecount}}</td> <!--   Maintenance   -->
+                      <td class="datarow" style=" padding: 0.35rem 0.5rem; font-size: 16px; text-align: center; ">
+                          <table style=" width: 100%;">
+                            <thead>
+                              <th style="background-color: rgb(229 207 208);">High</th>
+                              <th style="background-color: rgb(229 207 208);">Medium</th>
+                              <th style="background-color: rgb(229 207 208);">Low</th>
+                              <th style="background-color: rgb(229 207 208);">No Power</th>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td style=" text-align: center;">
+                                  <div style="  color: rgb(82, 165, 5); text-align: center; float: left; padding-left: 29%;">
+                                    <img src="assets/mapimages/batteryicon/highbattery.png" class="statusicon">{{section.subdivisiontotalbatteryhigh}}
+                                  </div>
+                                </td>
+                                <td style=" text-align: center;">
+                                  <div style="  color: rgb(196, 76, 7); text-align: center; float: left; padding-left: 29%; " >
+                                    <img src="assets/mapimages/batteryicon/mediumbattery.png" class="statusicon">{{section.subdivisiontotalbatterymedium}}
+                                  </div>
+                                </td>
+                                <td style=" text-align: center;">
+                                  <div  style="  color: rgb(209, 12, 12); text-align: center; float: left; padding-left: 29%; " >
+                                    <img src="assets/mapimages/batteryicon/lowbattery.png" class="statusicon">{{section.subdivisiontotalbatterylow}}
+                                  </div>
+                                </td>
+                                <td style=" text-align: center;">
+                                  <div style="  color: rgb(202, 12, 12); text-align: center; float: left; padding-left: 29%; " >
+                                    <img src="assets/mapimages/batteryicon/nopowerbattery.png" class="statusicon">{{section.subdivisiontotalbatterynopower}}
+                                  </div>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                      </td>     <!--      Battery Status     -->
+                    </tr>
+                  </tbody>
+               
+              </td>
+            </tr>
+          </table>
+        </tr>
+        </tbody>
+            </table>
+        </div>
+        
+      </div>
+    </div>
+
+     <!--Dummy Table of Excel -->
+     <div style=" display: none;">
+      <div class="row" id="PDFTable" style=" height : 480px; overflow-y: hidden; " #epltable>
+        <!-- <h6 class="text-dark text-center mt-3"> <b>Summary Report</b></h6> -->
+        <div class="lbldateheader text-dark text-center"> <b>Date :-</b> {{fromDate}}&nbsp;<b>To</b>&nbsp;&nbsp;{{toDate}} </div>
+        <div class="row">
+        <div class="card">
+          <div class="card-body" style="background-color: rgb(255, 250, 245);">
+            <div class="row" >
+              <div class="col-md-12" >
+              <div class="class9 col-md-1 mx-4" >&nbsp;</div>    
+              <div class="class9 col-md-2 mx-4" style=" background-color: rgb(11 132 116); border: 2px solid rgb(188 188 192); width: 14%; color: white; float: left;"><i class="fa fa-briefcase" aria-hidden="true"></i> <br>Total Device&nbsp;-&nbsp;<b>{{totalcountlbl}}</b></div>
+              <div class="class9 col-md-2 mx-2" style=" background-color: rgb(44 184 1); border: 2px solid rgb(188 188 192);  width: 14%; color: white; float: left;" ><i class="fa fa-thumbs-o-up" aria-hidden="true"></i><br>Working&nbsp;-&nbsp;<b>{{totalworkingcountlbl}}</b></div>
+              <div class="class9 col-md-2 mx-2" style=" background-color: rgb(218, 24, 24); border: 2px solid rgb(188 188 192); width: 14%; color: white; float: left; " ><i class="fa fa-thumbs-o-down" aria-hidden="true"></i><br>Non-Working&nbsp;-&nbsp;<b>{{totalnonworkingcountlbl}}</b></div>
+              <div class="class9 col-md-2 mx-2" style=" background-color: rgb(248, 183, 4); border: 2px solid rgb(188 188 192); width: 14%; color: white; float: left; " ><i class="fa fa-wrench" aria-hidden="true"></i><br>Maintenance&nbsp;-&nbsp;<b>{{totalmaintainancecountlbl}}</b></div>
+              <div class="class9 col-md-2 mx-2" style=" background-color: rgb(4, 179, 248); border: 2px solid rgb(188 188 192); width: 14%; color: white; float: left; " ><i class="fa fa-road" aria-hidden="true"></i><br>Total Distance&nbsp;-&nbsp;<b>{{totaldistancelbl}}</b></div>
+             <br><br><br><br>
+
+            </div>
+          </div>
+          </div>   
+        </div>
+      </div>
+    
+      <div class="row">
+        <div class="card">
+          <div class="card-header text-bold"> <b> Divisional Summary </b> </div><br>
+          <div class="card-body">
+            <div *ngFor="let sum of devdetail$" class="card-body table-responsive" style=" padding-left: 3%;">        
+                <table style=" width: 100%;"> 
+                  <thead>
+                  <tr>  
+                    <td class="division">&nbsp;&nbsp;&nbsp;{{sum.divisionname}}</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>                
+              <table class="table table-striped text-center" style=" width: 100%;" >            
+                <tbody>                          
+              <tr class="trheight"> 
+                
+                <td >
+                  <div  style=" height: 63%;">
+                    <div style=" background-color: rgb(11 132 116); width: 150px; ">
+                      <!-- <div class="row"> -->
+                      <div class="col pl-0 text-center" style=" color: white;">
+                        <p class="mb-0" style=" font-weight: bold; ">Total Devices</p>
+                        <i class="fa fa-briefcase" aria-hidden="true"></i>
+                        <h6 class="font-weight-light">{{sum.divisiontotalcount}}</h6>
+                      </div>
+                      <!-- </div> -->
+                    </div>
+                  </div>
+                </td> <!-- Total Devices -->
+                <td>
+                  <div style=" height: 63%;">
+                    <div style=" background-color: rgb(44 184 1); width: 150px; ">
+                      <!-- <div class="row"> -->
+                      <div class="col pl-0 text-center" style=" color: white;">
+                        <p class="mb-0" style=" font-weight: bold; ">Working</p>
+                        <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+                        <h6 class="font-weight-light">{{sum.divisiontotalworkingcount}}</h6>
+                      </div>
+                      <!-- </div> -->
+                    </div>
+                  </div>
+                </td> <!--   Working   -->
+                <td>
+                  <div style=" height: 63%;">
+                    <div style=" background-color: rgb(218, 24, 24); width: 150px; ">
+                      <!-- <div class="row"> -->
+                      <div class="col pl-0 text-center" style=" color: white;">
+                        <p class="mb-0" style=" font-weight: bold; ">Non-Working</p>
+                        <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
+                        <h6 class="font-weight-light">{{sum.divisiontotalnonworkingcount}}</h6>
+                      </div>
+                      <!-- </div> -->
+                    </div>
+                  </div>
+                </td> <!--   Non-Working    -->               
+                <td>
+                  <div style=" height: 63%;">
+                    <div style=" background-color: rgb(248, 183, 4); width: 150px; ">
+                      <!-- <div class="row"> -->
+                      <div class="col pl-0 text-center" style=" color: white;">
+                        <p class="mb-0" style=" font-weight: bold; ">Maintenance</p>
+                        <i class="fa fa-wrench" aria-hidden="true"></i>
+                        <h6 class="font-weight-light">{{sum.divisionmaintainancecount}}</h6>
+                      </div>
+                      <!-- </div> -->
+                    </div>
+                  </div>
+                </td> <!--   Maintenance   -->
+                                
+              </tr>
+                </tbody>
+              </table>
+              </tr>
+              <tr>
+              <table class="table table-hover table-striped" style="width: 100%;">
+                <tr>
+                  <td>                
+                      <thead>
+                        <th style=" width: 10%; text-align: center; color: black; ">Section</th>
+                        <th style=" width: 10%; text-align: center; color: black; ">Total Devices</th>
+                        <th style=" width: 10%; text-align: center; color: black; ">Working</th>
+                        <th style=" width: 10%; text-align: center; color: black; ">Non-Working</th>
+                        <th style=" width: 10%; text-align: center; color: black; ">Maintenance</th>   
+                        <th style=" text-align: center; width: 13%; color: black; ">Battery Status</th>                    
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let section of SubDivisionsTotalfilter(sum.divisionname)">               
+                          <td style = " font-weight: bold;">{{section.subdivisionname}}</td> <!--  Division   -->                      
+                          <td style=" text-align: center;">{{section.subdivisiontotalcount}}</td> <!-- Total Devices -->
+                          <td style=" text-align: center;">{{section.subdivisiontotalworkingcount}}</td> <!--   Working   -->
+                          <td style=" text-align: center;">{{section.subdivisiontotalnonworkingcount}}</td> <!--   Non-Working    -->               
+                          <td style=" text-align: center;">{{section.subdivisionmaintainancecount}}</td> <!--   Maintenance   -->
+                          <td class="datarow" style=" padding: 0.35rem 0.5rem; font-size: 16px; text-align: center; ">
+                              <table style=" width: 100%;">
+                                <thead>
+                                  <th style="background-color: rgb(229 207 208);">High</th>
+                                  <th style="background-color: rgb(229 207 208);">Medium</th>
+                                  <th style="background-color: rgb(229 207 208);">Low</th>
+                                  <th style="background-color: rgb(229 207 208);">No Power</th>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                    <td style=" text-align: center;">
+                                      <div style="  color: rgb(82, 165, 5); text-align: center; float: left; padding-left: 29%;">
+                                        <img src="assets/mapimages/batteryicon/highbattery.png" style=" width: 19px; height: 10px;
+                                              margin-top: -8px;"  >{{section.subdivisiontotalbatteryhigh}}
+                                      </div>
+                                    </td>
+                                    <td style=" text-align: center;">
+                                      <div style="  color: rgb(196, 76, 7); text-align: center; float: left; padding-left: 29%; " >
+                                        <img src="assets/mapimages/batteryicon/mediumbattery.png" style=" width: 19px; height: 10px;
+                                        margin-top: -8px;" >{{section.subdivisiontotalbatterymedium}}
+                                      </div>
+                                    </td>
+                                    <td style=" text-align: center;">
+                                      <div  style="  color: rgb(209, 12, 12); text-align: center; float: left; padding-left: 29%; " >
+                                        <img src="assets/mapimages/batteryicon/lowbattery.png" style=" width: 19px; height: 10px;
+                                              margin-top: -8px;">{{section.subdivisiontotalbatterylow}}
+                                      </div>
+                                    </td>
+                                    <td style=" text-align: center;">
+                                      <div style="  color: rgb(202, 12, 12); text-align: center; float: left; padding-left: 29%; " >
+                                        <img src="assets/mapimages/batteryicon/nopowerbattery.png" style=" width: 19px; height: 10px;
+                                              margin-top: -8px;">{{section.subdivisiontotalbatterynopower}}
+                                      </div>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                          </td>     <!--      Battery Status     -->
+                        </tr>
+                      </tbody>
+                   
+                  </td>
+                </tr>
+              </table>
+            </tr>
+            </tbody>
+                </table>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+
+
+
+  </div>
+
+ 
+
+</body>

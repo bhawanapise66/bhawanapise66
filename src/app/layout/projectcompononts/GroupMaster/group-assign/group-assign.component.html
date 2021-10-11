@@ -1,0 +1,154 @@
+<div class="row" id="exampleModalassign">
+  <div class="col-12 col-md-12 col-lg-12 col-xl-12 mx-auto align-self-center">
+    <div class="card shadow-sm border-0 mb-4">
+      <div class="card-header" style="padding-top: 0; padding-bottom: 0">
+
+<button type="button" class="btn btn-sm btn-primaryyel ml-2 float-right" data-toggle="modal" data-target=""
+[routerLink]="['/groupdetail/assignvehiceletogroupdetail']">
+AssignedVehicleToGroupDetail
+<i class="material-icons md-18">navigate_next</i></button>
+
+      </div>
+      <div class="card-body">
+        <div class="row justify-content-center">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mx-auto">
+            <div class="row">
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                <div class="form-group row">
+                  <div>
+                  
+                  </div>
+                  <div class="col-xl-2 col-lg-3 col-md-3 col-sm-6" *ngIf="!isCustomer" style=" float:left;">
+
+                    <div *ngIf="show">
+                      <label class="indlabel" id="custident">Customer</label>
+                      <span class="mandatory">*</span>
+                      <ngx-select-dropdown tabindex="0" id="customer_list" [multiple]="false"
+                        [(ngModel)]="selectcustomerlist" [config]="config" [options]="ListOfCustomer"
+                        (change)="selectCus();ClickCustomerChange();"
+                        style="font-size:11px; text-transform: capitalize; ">
+                      </ngx-select-dropdown>
+                    </div>
+
+
+                    <div id="grpentry">
+                      <label class="indlabel" id="groupid1">Group</label>
+                      <span class="mandatory">*</span>
+                      <ngx-select-dropdown tabindex="0" id="customer_group" [multiple]="false"
+                        [(ngModel)]="selectcustomergroup" [config]="config" [options]="ListOfGroup"
+                        (change)="CustVehiclelist();" style="font-size:11px; text-transform: capitalize; ">
+                      </ngx-select-dropdown>
+                    </div>
+
+                    <div id="btncloudassign" style="display: none;">
+                    <button type="button" id="assignbutton" class="btn btn-sm btn-primary ml-1"
+                        style=" width: 78px;margin-top: 53%;" disabled (click)="vehicleAssignToGroup()">
+                        Assign
+                        <i class="material-icons md-18">cloud_upload</i>
+                      </button>
+                    </div>
+                    <input type="text" id="customerdummyupdate" [(ngModel)]="selectcustomerreturn"
+                      style="text-transform: capitalize;display: none;">
+                    <small class="text-danger" id="err_customer"> </small>
+                    </div>
+
+
+                  <div class="vl"></div>
+                  <div class="col-lg-9 col-md-9" id="tableid">
+                    <label class="indlabel" style="padding-left: 40px; width: 100%">Device No
+                      <span class="mandatory">* </span>
+                      <div class="input-group searchdevid" style="margin-left: -18px;">
+                        <input type="text" placeholder="Search" id="searchDataDeviceID" [(ngModel)]="filter"
+                          class="form-control searchicon" aria-label="Amount (to the nearest dollar)">
+                        <div class="input-group-append">
+                          <button class="btn  apendbtn">
+                            <i style="color: #00ed54; margin-top: -15px;" class="fa fa-search"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </label> <br>
+                    <div class="deviceno" id="hidedeviceno" style="margin-top: 0px;margin-left:-14px">
+                      <div class="tableFixHead">
+                        <div id="GridTable" class="card-body table-responsive">
+                          <table class="table table-hover table-striped">
+                            <thead>
+                              <tr role="row">
+                                <th><input type="checkbox" [(ngModel)]="isMasterSel" name="list_name" value="h1"
+                                  (change)="checkUncheckAll1()" id="list_id" /></th>
+                                
+                                <th>Vehicle No.</th>
+                                <th>Vehicle Id</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr
+                                *ngFor="let pol of ListOfCustomerVehicleobj| filter:filter ">
+
+                                <td style=" padding: 0.35rem 0.5rem;">
+                                  <input type="checkbox" [(ngModel)]="pol.isChecked" name="list_name"
+                                  value="{{pol.param11}}" (change)="changeSelection()"
+                                  checked>
+                                </td>
+                                <td style=" padding: 0.35rem 0.5rem;">{{pol.param2}}</td>
+                                <td style=" padding: 0.35rem 0.5rem;">{{pol.param3}}</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div><br><br>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ------------------ Delete Model Start ------------------------>
+
+
+<!-- ------------------- Delete model End ----------------------- -->
+
+<div class="modal fade " id="SuccessModalid" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+  aria-hidden="true">
+  <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+    <div class="modal-content box-shadow">
+      <div class="card border-0">
+        <div class="card-header  py-1 pl-3 m-0" style="background-color: green;">
+          <p style="font-size:17px; font-weight:bold"> Success </p>
+        </div>
+        <div class="card-body bg-white text-dark">
+          <p> {{datafromrespo}}</p>
+          <div class="text-right">
+            <button class="btn btn-sm btn-success" data-dismiss="modal">ok</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade " id="ErrorModalid" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+  aria-hidden="true">
+  <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+    <div class="modal-content box-shadow">
+      <div class="card border-0">
+        <div class="card-header  py-1 pl-3 m-0" style="background-color: red;">
+          <p style="font-size:17px; font-weight:bold"> Error </p>
+        </div>
+        <div class="card-body bg-white text-dark">
+          <p> {{datafromrespo}}</p>
+          <div class="text-right">
+            <button class="btn btn-sm btn-success" data-dismiss="modal">ok</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

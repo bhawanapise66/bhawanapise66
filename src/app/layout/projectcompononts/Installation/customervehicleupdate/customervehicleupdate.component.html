@@ -1,0 +1,629 @@
+<div class="content shadow-sm">
+  <!-- Main container starts -->
+  <div class="container-fluid main-container" id="main-container">
+    <div class="row">
+      <div class="col-12 col-md-12 col-lg-12 col-xl-12 mx-auto align-self-center">
+        <div class="card shadow-sm border-0 mb-4">
+          <div class="card-header" style="padding-top: 0; padding-bottom: 0">
+
+            <!-- <img src="../assets/img/logoicon.svg" alt="" class="w-50px mt-4"> -->
+            <h4 class="text-left m-1 fs15">Customer Vehicle
+              <span class="text-template-primary" style="color: #00ed54">Master</span>
+
+            </h4>
+
+          </div>
+          <div class="card-body" style="padding: 5px;">
+            <div class="row justify-content-center">
+              <div class="col-md-12 mx-auto">
+                <div class="row">
+                  <div class="col-lg-12 col-md-12">
+                    <!-- <button type="button" class="btn btn-primary float-left" data-toggle="modal" >
+                        ADD NEW
+                      </button> -->
+
+                  </div>
+                </div>
+
+                <div class="container-fluid main-container" id="main-container">
+
+                  <!--    ---------------        Table Header Staret=------------------------    -->
+
+                  <div class="row  mx-1">
+                    <div class="col-12 col-sm-12 col-md text-md-left align-self-center pr-0">
+                      <ul class="nav  justify-sm-content-center  justify-content-left">
+                        <li class="nav-item ">
+                          <div class="input-group" style="max-width: 250px;">
+                            <input type="text" placeholder="Search" id="searchData" class="form-control searchicon"
+                              [(ngModel)]="filter" aria-label="Amount (to the nearest dollar)" maxlength="30">
+                            <div class="input-group-append">
+                              <button class="btn  apendbtn" (click)="searchdata()">
+                                <i style="color: #00ed54; margin-top: -15px;" class="fa fa-search"></i>
+                              </button>
+                            </div>
+                          </div>
+                        </li>
+                        <li class="nav-item mx-3">
+                          <i class="fa fa-refresh fa-2x fa-spin-hover"
+                            style="font-size: 17px;padding-top: 4px;color: #00fff3;" (click)="Refreshfunction()"></i>
+                        </li>
+                      </ul>
+                    </div>
+
+                    <div class="col-12 col-sm-12 col-md-auto text-right text-md-end pl-0">
+                      <ul class="nav justify-content-center justify-lg-content-end  justify-sm-content-center">
+                        <li class="nav-item mx-2">
+                          <img style="cursor: pointer; height: 20px; margin-top: 3px;" (click)="exportToPDF()"
+                            ngbTooltip="PDF" src="assets/images/PDFicon.png">
+                        </li>
+                        <li class="nav-item mx-2">
+                          <img style="cursor: pointer;" (click)="exportToExcel()" ngbTooltip="Excel"
+                            src="assets/images/excellogo.png">
+                        </li>
+                        <li class="nav-item mx-3">
+                          <span style="display: inline;font-size:12px;font-weight :bold;">Show Rows : </span> <select
+                            class="form-control p-1" style="width: 44px;display: inline;" ata-live-search="true"
+                            tabindex="1" [(ngModel)]="itemsPerPage" id="selectrow1" (change)="SelectRowsChange()"
+                            aria-hidden="true">
+                            <option value="5" selected>5</option>
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="50">50</option>
+                          </select>
+                        </li>
+                        <li class="nav-item pt-1">
+                          <span style="font-size:12px;font-weight: bold;">Total Records : {{viewcount}} of
+                            {{count}}</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <!-- ---------------------  Table header end  ------------------------------ -->
+
+
+                  <div id="PDFTable" class="card-body table-responsive" #epltable>
+                    <table class="table table-hover table-striped">
+                      <thead>
+                        <tr role="row">
+                          <th><span (click)="sort('rowNumber')"> # </span></th>
+                          <th style=" display: none;"><span (click)="sort('param1')"> DeviceID</span></th>
+                          <th style=" display: none;"><span (click)="sort('param2')"> MakeID</span></th>
+                          <th style=" display: none;"><span (click)="sort('param6')"> VehicleID</span></th>
+                          <th style=" display: none;"><span (click)="sort('param17')"> CustomerID</span></th>
+                          <th style=" display: none;"><span (click)="sort('param26')"> VehicleClassID</span></th>
+                          <th style=" display: none;"><span (click)="sort('param25')"> VehicleModelID</span></th>
+                          <th style=" display: none;"><span (click)="sort('param47')"> VehicleIconID</span></th>
+                          <th style=" display: none;"><span (click)="sort('param46')"> PurposeOfUse</span></th>
+                          <th><span (click)="sort('param45')"> Vehicle Name </span></th>
+                          <th><span (click)="sort('param7')"> Vehicle No. </span></th>
+                          <th><span (click)="sort('param8')"> Chasis No.</span></th>
+                          <th><span (click)="sort('param9')"> Engine No.</span></th>
+                          <th style=" display:none"><span (click)="sort('param29')"> Vehicle Class</span></th>
+                          <th><span (click)="sort('param27')">Make</span></th>
+                          <th><span (click)="sort('param28')"> Model </span></th>
+                          <th><span (click)="sort('param32')"> Status </span><br></th>
+                          <th><span (click)="sort('param30')"> Installed Date </span><br></th>
+                          <th><span (click)="sort('param33')"> GPS Renewal On </span><br></th>
+                          <th style=" display:none;"><span (click)="sort('param49')"> Vehicle Icon </span><br></th>
+
+                          <th style="background-color: #99c049;">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody id="grid">
+                        <tr
+                          *ngFor="let cust of VehiclecustDetails$ | orderBy: key : reverse | paginate : {itemsPerPage:itemsPerPage,currentPage:pageNumber,totalItems:count} ;"
+                          class="trheight">
+                          <td>{{cust.rowNumber}}</td>
+                          <td style=" display: none;">{{cust.param1}}</td>
+                          <td style=" display: none;">{{cust.param2}}</td>
+                          <td style=" display: none;">{{cust.param6}}</td>
+                          <td style=" display: none;">{{cust.param17}}</td>
+                          <td style=" display: none;">{{cust.param26}}</td>
+                          <td style=" display: none;">{{cust.param25}}</td>
+                          <td style=" display: none;">{{cust.param47}}</td>
+                          <td style=" display: none;">{{cust.param46}}</td>
+                          <td>
+                            <div *ngIf="cust.param45==''">---</div>
+                            <div *ngIf="cust.param45!=''">{{cust.param45}}</div>
+                          </td>
+                          <td>{{cust.param7}}</td>
+                          <td>{{cust.param8}}</td>
+                          <td>{{cust.param9}}</td>
+                          <td style=" display:none;">{{cust.param29}}</td>
+                          <td>
+                            <div *ngIf="cust.param27==''">---</div>
+                            <div *ngIf="cust.param27!=''">{{cust.param27}}</div>
+                          </td>
+                          <td>
+                            <div *ngIf="cust.param28==''">---</div>
+                            <div *ngIf="cust.param28!=''">{{cust.param28}}</div>
+                          </td>
+                          <td>
+                            <div *ngIf="cust.param32=='Working'" style="background-color: rgb(207 253 130 / 70%);
+                            color: #093501;font-weight: bold; height: 23px;text-align: center;">{{cust.param32}}</div>
+                            <div *ngIf="cust.param32=='Not Polled'" style="background-color: rgb(241 176 57 / 73%);
+                            color: #553301;font-weight: bold;height: 23px;text-align: center;">{{cust.param32}}</div>
+                            <div *ngIf="cust.param32=='Not Working'" style="color: #560202;background-color: rgb(255 137 137); font-weight: bold;
+                            height: 23px; text-align: center;">{{cust.param32}}</div>
+                          </td>
+                          <td>{{cust.param30 | date:'dd-MMM-yyyy'}}</td>
+                          <td>
+                            <div *ngIf="cust.param33==''">---</div>
+                            <div *ngIf="cust.param33!=''">{{cust.param33}}</div>
+                          </td>
+                          <td style=" display:none;">{{cust.param49}}</td>
+
+                          <td [ngStyle]="{'background-color':cust.altColor}" class="viewbtncss">
+                            <span class="iconhover" data-toggle="modal" data-target="#myModalwizard"
+                              (click)="setdata(cust)">
+                              <i class="material-icons" style="color: #161e43">visibility</i>
+                            </span>
+                          </td>
+                        </tr>
+                      </tbody>
+                      <tfoot id="foot" class="box-footer clearfix">
+                        <tr>
+                          <td colspan="12">
+                            <pagination-controls style=" float: right;" (pageChange)="changePageNumber($event)">
+                            </pagination-controls>
+                          </td>
+                        </tr>
+                      </tfoot>
+                    </table>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- --------------------  view & Edit Modal start------------------------>
+
+<div class="modal fade " id="myModalwizard" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-lg ">
+    <div class="modal-content ">
+
+      <!-- Modal Header -->
+      <div class="modal-header modelcolor">
+        <h5 class="modal-title" id="vmd" style="display: block;">Customer Vehicle Details</h5>
+        <h5 class="modal-title" id="uvmd" style="display: none;">Update Vehicle Master</h5>
+        <div style="float:right; margin-left: 59%;">
+          <button type="button" class=" btn btn-sm btn-secondary float-right ml-2 bg-warning" style="display: block;"
+            id="editbtn" ngbTooltip="Edit" (click)="editpageform()">
+
+            <i class="material-icons md-18">edit</i>
+          </button>
+
+          <button type="button" class=" btn btn-sm btn-primary float-right ml-2" id="backdetailsbtn" ngbTooltip="Back"
+            style="display: none;" (click)="backdetailsbtn()">
+
+            <i class="material-icons md-18">arrow_back</i>
+          </button>
+        </div>
+        <button type="button" style="color: white" class="close" data-dismiss="modal"
+          (click)="closemodal();">&times;</button>
+      </div>
+
+
+      <!-- Modal body -->
+      <div class="modal-body " style=" background-color: #CBD2F1;">
+        <div class="container">
+          <div class="container-fluid">
+            <div id="container" style="display: none;">
+              <div class="step-wizard" role="navigation">
+                <!-- <div class="progress">
+                  <div class="progressbar empty"></div>
+                  <div id="prog" class="progressbar"></div>
+                </div> 
+                <ul>
+                  <li class="active">
+                    <button id="step1">
+                      <div class="step">1</div>
+                      <div class="title">Basic Details</div>
+                    </button>
+                  </li>
+                </ul>   -->
+
+                <div class="stepsection">
+                  <span class="invalidmsg" id="msg_mainmessage"></span>
+                  <div id="step-14" class="stepsdiv">
+                    <!-- <span class="StepTitle">Step 1: Basic Details</span> -->
+                    <div class="form-group row">
+                      <div class="col-lg-4 col-md-4">
+                        <label class="indlabel">Vehicle No.</label>&nbsp;
+                        <span class="mandatory">*</span>
+                        <input type="text" class="form-control" style=" font-size:12px" placeholder="Enter Vehicle No."
+                          tabindex="1" minlength="7" maxlength="30" [(ngModel)]="vehicleno_Text" id="vehicleNoupdate"
+                          #vehicleno="ngModel" onkeypress="avoidSplChars(event)" disabled>
+                        <div class="invalidmsg" *ngIf="vehicleno.errors?.minlength">
+                          Vehicle number must be at least minimum 15 characters & maximum 15 characters long.
+                        </div>
+                      </div>
+                      <div class="col-lg-4 col-md-4" id="engineno">
+                        <label class="indlabel">Engine No.</label>
+                        <span class="mandatory">*</span>
+                        <input type="text" class="form-control" placeholder="Enter Engine No." tabindex="2" required
+                          minlength="5" maxlength="20" id="engineno1" [(ngModel)]="EngineNoText" #engineno="ngModel"
+                          onkeypress="avoidSplChars(event)" disabled>
+                        <div class="invalidmsg" *ngIf="engineno.errors?.minlength">
+                          Engine No. must be at least minimum 5 characters & maximum 20 characters long.
+                        </div>
+                        <span class="invalidmsg" id="msg_modelname"></span>
+                      </div>
+                      <div class="col-lg-4 col-md-4" id="chassisno">
+                        <label class="indlabel">Chassis No.</label>
+                        <span class="mandatory">*</span>
+                        <input type="text" class="form-control" placeholder="Enter Chassis No." tabindex="3" required
+                          minlength="7" maxlength="17" id="chassisnoentry" [(ngModel)]="ChassisNoText"
+                          #chassis="ngModel" onkeypress="avoidSplChars(event)" disabled>
+                        <div class="invalidmsg" *ngIf="chassis.errors?.minlength">
+                          Chassis No Name must be at least minimum 7 characters & maximum 17 characters long.
+                        </div>
+                        <span class="invalidmsg" id="msg_modelname"></span>
+                      </div>
+
+                    </div>
+                    <div class="form-group row">
+                      <div class="col-lg-3 col-md-3" id="vehicleclass" style="display: block;">
+                        <label class="indlabel">Vehicle Class <span class="mandatory">*</span> </label>
+
+                        <ngx-select-dropdown tabindex="4" id="vehicleclassentry" [multiple]="false"
+                          [(ngModel)]="vehicleclassText" (change)="dummyvehicleclass()" [config]="config"
+                          [options]="ListOfVehicleclass"></ngx-select-dropdown>
+
+                        <span class="invalidmsg" id="msg_vendorName" style="position: absolute;bottom:20px;"></span>
+                      </div>
+                      <div class="col-lg-3 col-md-3" style="display: none;">
+                        <label class="indlabel">Vehicle Class Dummy</label>
+                        <span class="mandatory">*</span>
+                        <input type="text" class="form-control" placeholder="Enter Device IMEI No" tabindex="6"
+                          id="vehicleclassentrydummy" onpaste="return false;" [(ngModel)]="vehicleclassdummy"
+                          #vendornm="ngModel" onkeypress="return onlyAlphabets(event);" ondrop="return false;">
+                      </div>
+                      <div class="col-lg-3 col-md-3" id="selectmake">
+                        <label class="indlabel">Vehicle Make</label>
+                        <span class="mandatory">*</span>
+                        <ngx-select-dropdown tabindex="5" id="selectmakeentry" [multiple]="false"
+                          [(ngModel)]="SelectMakeText" [config]="config" [options]="ListOfSelectMake"
+                          (change)="SelectModellist()"></ngx-select-dropdown>
+                      </div>
+                      <div class="col-lg-3 col-md-3" style="display: none;">
+                        <label class="indlabel">Dummy Select Make</label>
+                        <span class="mandatory">*</span>
+                        <input type="text" class="form-control" placeholder="Enter Device IMEI No" required
+                          minlength="3" maxlength="30" id="selectmakeentrydummy" onpaste="return false;"
+                          [(ngModel)]="dummyselectmake" #vendornm="ngModel" onkeypress="return onlyAlphabets(event);"
+                          ondrop="return false;">
+                      </div>
+                      <div class="col-lg-3 col-md-3" id="selectmodel">
+                        <label class="indlabel">Vehicle Model</label>
+                        <span class="mandatory">*</span>
+
+                        <ngx-select-dropdown tabindex="6" id="selectmodelentry" [multiple]="false"
+                          [(ngModel)]="SelectModelText" [config]="config" [options]="ListOfSelectModel"
+                          (change)="dumyselectmodel()"></ngx-select-dropdown>
+
+                        <span class="invalidmsg" id="msg_vendorName"></span>
+                      </div>
+                      <div class="col-lg-3 col-md-3" style="display: none;">
+                        <label class="indlabel">Dummy Select model</label>
+                        <span class="mandatory">*</span>
+                        <input type="text" class="form-control" placeholder="Enter Device IMEI No" required
+                          minlength="3" maxlength="30" id="modelselectdummy" onpaste="return false;"
+                          [(ngModel)]="selectmodeldummy" #vendornm="ngModel" onkeypress="return onlyAlphabets(event);"
+                          ondrop="return false;">
+                      </div>
+                      <div class="col-lg-3 col-md-3" id="vehiclenmdiv">
+                        <label class="indlabel">Vehicle Name</label>
+                        <span class="mandatory">*</span>
+                        <input type="text" class="form-control" placeholder="Enter Vehicle Name." tabindex="8" required
+                          minlength="5" maxlength="20" id="vehiclenm" [(ngModel)]="VehicleNameText"
+                          #vehiclenmmsg="ngModel" onkeypress="avoidSplChars(event)">
+                        <div class="invalidmsg" *ngIf="vehiclenmmsg.errors?.minlength">
+                          Engine No. must be at least minimum 5 characters & maximum 20 characters long.
+                        </div>
+                        <span class="invalidmsg" id="msg_modelname"></span>
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <div class="col-lg-3 col-md-3" id="vehiclenmdiv">
+                        <label class="indlabel">Purpose Of Use</label>
+
+                        <input type="text" class="form-control" placeholder="Enter Purpose Of Use." tabindex="9"
+                          required minlength="5" maxlength="20" id="purposeid" [(ngModel)]="PurposeUseText"
+                          #purposemsg="ngModel" onkeypress="avoidSplChars(event)">
+                        <div class="invalidmsg" *ngIf="purposemsg.errors?.minlength">
+                          Purpose Of Use must be at least minimum 5 characters & maximum 20 characters long.
+                        </div>
+                        <span class="invalidmsg" id="msg_modelname"></span>
+                      </div>
+
+                      <div class="col-lg-3 col-md-3">
+                        <button type="button" class="btn btn-sm btn-primaryyel ml-2 float-right" style="margin-right: -4px; 
+                            font-size: 10px; width:120px; margin-top: 16%;" (click)="changevehicleicon();"
+                          data-toggle="modal" data-target="#VehicleIconModal">
+                          CHANGE ICON
+                          <i class="material-icons md-18">navigate_next</i>
+                        </button>
+                      </div>
+                    </div> <br>
+
+                    <div class="form-group row">
+                      <div class="col-12 col-md-12 col-lg-12">
+                        <label class="indlabel">Vehicle Icon - {{SelectVehicleIconText}}</label>
+                        <div id="cardiv" style=" color:white;">
+
+                          <img src="{{actualviewpathrun}}" height="25px" width="25px">&nbsp;&nbsp;Running
+
+                          <img src="{{actualviewpathidle}}" height="25px" width="25px">&nbsp;&nbsp;Idle
+
+                          <img src="{{actualviewpathstop}}" height="25px" width="25px">&nbsp;&nbsp;Stop
+
+                          <img src="{{actualviewpathnon}}" height="25px" width="25px">&nbsp;&nbsp;Non-Polling
+
+                        </div>
+
+                      </div>
+                    </div>
+
+                  </div>
+                  <br>
+                  <span class="invalidmsg" id="msg_error"></span>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- --------------------------------------------- View Section ------------------------------------------- -->
+        <div class="">
+          <div id="vendordtls" class="row" style="background-color: #0e2145; border: 1px ridge #02108d;">
+            <div class="col-12 col-md-12 col-lg-12">
+
+              <div class="row" style="background-color: rgb(198 201 202);">
+                <div class="col-12 col-md-12 col-lg-12">
+                  <div class="viewheading">Vehicle Details</div>
+                </div>
+              </div><br>
+
+              <div class="row">
+                <div class="col-12 col-md-12 col-lg-12">
+                  <div class="col-6 col-md-6 col-lg-6" style=" float: left;">
+                    <span class="caplable">Vehicle
+                      No.:</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+                      class="viewlable">{{vehicleno_Text}}</span>
+                  </div>
+                  <div class="col-6 col-md-6 col-lg-6" style=" float: left;">
+                    <span class="caplable">Engine No.:</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+                      class="viewlable">{{EngineNoText}}</span>
+                  </div>
+                </div>
+              </div><br>
+
+              <div class="row">
+                <div class="col-12 col-md-12 col-lg-12">
+                  <div class="col-6 col-md-6 col-lg-6" style=" float: left;">
+                    <span class="caplable">Chasis No.:</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+                      class="viewlable">{{ChassisNoText}}</span>
+                  </div>
+                  <div class="col-6 col-md-6 col-lg-6" style=" float: left;">
+                    <span class="caplable">Vehicle Class:</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+                      class="viewlable">{{vehicleclassText}}</span>
+                  </div>
+                </div>
+              </div><br>
+
+              <div class="row">
+                <div class="col-12 col-md-12 col-lg-12">
+                  <div class="col-6 col-md-6 col-lg-6" style=" float: left;">
+                    <span class="caplable">Vehicle Make:</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+                      class="viewlable">{{SelectMakeText}}</span>
+                  </div>
+                  <div class="col-6 col-md-6 col-lg-6" style=" float: left;">
+                    <span class="caplable">Vehicle Model:</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+                      class="viewlable">{{SelectModelText}}</span>
+                  </div>
+                </div>
+              </div><br>
+
+              <div class="row">
+                <div class="col-12 col-md-12 col-lg-12">
+                  <div class="col-6 col-md-6 col-lg-6" style=" float: left;">
+                    <span class="caplable">Vehicle
+                      Name:</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span
+                      class="viewlable">{{VehicleNameText}}</span>
+                  </div>
+                </div>
+
+              </div> <br>
+
+              <div class="row">
+                <div class="col-12 col-md-12 col-lg-12">
+                  <div class="col-12 col-md-12 col-lg-12" style=" float: left;">
+                    <span class="caplable">Vehicle
+                      Icon:</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="viewlable">
+                      <img src="{{actualviewpathrun}}" height="25px"
+                        width="25px">&nbsp;&nbsp;Running-{{SelectVehicleIconText}}
+
+                      <img src="{{actualviewpathidle}}" height="25px"
+                        width="25px">&nbsp;&nbsp;Idle-{{SelectVehicleIconText}}
+
+                      <img src="{{actualviewpathstop}}" height="25px"
+                        width="25px">&nbsp;&nbsp;Stop-{{SelectVehicleIconText}}
+
+                      <img src="{{actualviewpathnon}}" height="25px"
+                        width="25px">&nbsp;&nbsp;Non-Polling-{{SelectVehicleIconText}}</span>
+                  </div>
+                </div>
+                <br>
+              </div>
+              <!-- --------------------- View Section End ------------------------------ -->
+
+            </div>
+          </div>
+
+        </div>
+        <!-- --------------------- View Section End ------------------------------ -->
+
+      </div>
+
+
+      <!-- Modal footer -->
+
+      <div class="modal-footer" style="display: none; margin-top: 0%;" id="modelfooter">
+        <div class="container mx-5 row">
+          <div class="col-md-7">
+            <textarea type="text" class="form-control bg-white" rows="1" style=" font-size:12px;margin-left: 16px;"
+              placeholder="Remark" required tabindex="10" minlength="10" id="remarkupdate" [(ngModel)]="Remarkupdate"
+              [ngClass]="{'is-invalid': rem.invalid }" onkeypress="avoidSplChars(event)" id="remarkupdate"
+              #rem="ngModel"></textarea>
+            <div class="invalidmsg" style="margin-left: 16px;" *ngIf="rem.invalid">
+              Remark must be 10 to 40 characters long.
+            </div>
+
+          </div>
+          <div class="col-md-4">
+            <div class="actionBar" style="margin-right: 5px;">
+              <button id="save" class="mb-2 btn btn-wizard btn-sm btn-success buttonFinish"
+                (click)="updatecustomervehicle();" tabindex="11">
+                <i class="material-icons">save</i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ------------------- view & Edit model close ------------------------ -->
+<!-- ------------------ Delete Model Start ------------------------>
+
+<!-- Delete Model-->
+
+<!-- Delete Model -->
+
+<!-- ------------------- Delete model End ----------------------- -->
+
+<!-- ------------------- onclick no btn model  ----------------------- -->
+<div class="modal fade " id="SuccessModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+  aria-hidden="true">
+  <div class="modal-dialog modal-sm dialogModal" role="document">
+    <div class="modal-content box-shadow">
+      <div class="card text-center border-0">
+        <div class="card-header bg-success m-0 p-0">
+          <h5>Success</h5>
+        </div>
+        <div class="card-body bg-white">
+          {{datafromrespo}}
+          <div class="text-right">
+            <button class="btn btn-sm btn-success" data-dismiss="modal" (click)="closemodal()">ok</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade " id="ErrorModal" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+  aria-hidden="true">
+  <div class="modal-dialog modal-sm dialogModal" role="document">
+    <div class="modal-content box-shadow">
+      <div class="card text-center border-0">
+        <div class="card-header bg-warning m-0 p-0">
+          <h5>Failed</h5>
+        </div>
+        <div class="card-body bg-white">
+          {{datafromrespo}}
+          <div class="text-right pt-3">
+            <button class="btn btn-sm btn-success" data-dismiss="modal" (click)="closemodal()">ok</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="VehicleIconModal" data-backdrop="static" tabindex="-1" role="dialog"
+  aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document" data-backdrop="static" data-keyboard="false">
+    <div class="modal-content box-shadow">
+      <div class="card text-center border-0">
+        <div class="card-header m-0 p-0" style=" background-color: #cecfd5; ">
+          <h5>Select Vehicle Icon</h5>
+        </div>
+        <div class="card-body bg-white">
+          <div class="form-group row" id="carvicodiv">
+            <div class="col-md-12 col-lg-12" *ngFor="let item of ListOfVehicleIcon">
+              <div class="col-md-6 col-lg-6" style=" float:left; ">
+                <div class="row" *ngIf="item.param2=='Car'">
+                  <div class="col-md-8 col-lg-8" style=" float:left; border: none; margin-left: 14%;">
+                    <button class="vhehicleiconbtn" (click)="OnClickVehicleIcon(item)"><img src="{{carfullpath}}"
+                        height="25px" width="25px">&nbsp;&nbsp;{{item.param2}}</button>
+                  </div>
+                </div>
+
+                <div class="row" style=" height:3px;">&nbsp;</div>
+
+                <div class="row" *ngIf="item.param2=='ambulance'">
+                  <div class="col-md-8 col-lg-8" style=" float:left; margin-left: 14%; ">
+                    <button (click)="OnClickVehicleIcon(item)" class="vhehicleiconbtn"><img src="{{ambulancefullpath}}"
+                        height="25px" width="25px">&nbsp;&nbsp;{{item.param2}}</button>
+                  </div>
+                </div>
+
+                <div class="row" style=" height:3px;">&nbsp;</div>
+
+                <div class="row" *ngIf="item.param2=='container'">
+                  <div class="col-md-8 col-lg-8" style=" float:left; margin-left: 14%; ">
+                    <button (click)="OnClickVehicleIcon(item)" class="vhehicleiconbtn"><img src="{{containerfullpath}}"
+                        height="25px" width="25px">&nbsp;&nbsp;{{item.param2}}</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-6 col-lg-6" style=" float:left; ">
+                <div class="row" *ngIf="item.param2=='Truck'">
+                  <div class="col-md-8 col-lg-8" style=" float:left; margin-left: 15%; ">
+                    <button (click)="OnClickVehicleIcon(item)" class="vhehicleiconbtn"><img src="{{truckfullpath}}"
+                        height="25px" width="25px">&nbsp;&nbsp;{{item.param2}}</button>
+                  </div>
+                </div>
+
+                <div class="row" style=" height:3px;">&nbsp;</div>
+
+                <div class="row" *ngIf="item.param2=='baloon'">
+                  <div class="col-md-8 col-lg-8" style=" float:left; margin-left: 15%; ">
+                    <button (click)="OnClickVehicleIcon(item)" class="vhehicleiconbtn"><img src="{{baloonfullpath}}"
+                        height="25px" width="25px">&nbsp;&nbsp;{{item.param2}}</button>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+
+        <div class="modal-footer" id="modelfooter" style=" background-color: #cecfd5; width: 100%;">
+          <div class="row">
+            <button class="btn btn-sm btn-success" data-dismiss="modal" (click)="closevehicleiconmodal()"
+              style=" margin-left: -124%;">ok</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- ------------------- onclick yes btn model End ----------------------- -->

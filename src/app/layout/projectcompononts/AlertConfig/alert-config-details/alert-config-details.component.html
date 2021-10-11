@@ -1,0 +1,754 @@
+<div class="card ">
+  <div class="card-body" style="padding: 0px;" id="histryblock" style="display:block;">
+    <div class="row justify-content-center">
+      <div class="col-md-12 mx-auto">
+        <div class="container-fluid main-container" id="main-container">
+          <!--    ---------------        Table Header Staret=------------------------    -->
+
+          <div class="form-group row">
+            <div class="col-lg-3 col-md-3">
+              <label class="indlabel">Customer Name</label>
+              <span class="mandatory">*</span>
+
+              <ngx-select-dropdown tabindex="0" [multiple]="false" [(ngModel)]="customerObj" [config]="config"
+                [options]="customerList" style="font-size: 12px;" (change)="getCustomerId()">
+              </ngx-select-dropdown>
+
+
+              <span class="invalidmsg" id="msg_devicetype"></span>
+            </div>
+
+
+            <div class="col-lg-2 col-md-2">
+              <label class="indlabel">Alerts</label>
+              <span class="mandatory">*</span>
+              <select class="form-control" data-live-search="true" tabindex="1" id="alerttypdetail"
+                [(ngModel)]="alerttype_searchId" (change)="AlertConfigureDetails()" aria-hidden="true"
+                style=" font-size:12px">
+                <option value="both">Both</option>
+                <option value="live">Live Alerts</option>
+                <option value="history">History Alerts</option>
+              </select>
+
+            </div>
+
+          </div>
+          <!-- ---------------------  Table header end  ------------------------------ -->
+
+          <div class="row mb-2  ">
+            <div class="col-12 col-sm-12 col-md text-md-left align-self-center pr-0">
+              <ul class="nav  justify-sm-content-center  justify-content-left">
+                <li class="nav-item ">
+                  <div class="input-group" style="max-width: 250px;">
+                    <input type="text" placeholder="Search" id="searchData" class="form-control searchicon"
+                      id="searchData" [(ngModel)]="filter" aria-label="Amount (to the nearest dollar)">
+                    <div class="input-group-append">
+                      <button class="btn  apendbtn" (click)="searchdata()">
+                        <i style="color: #00ed54; margin-top: -15px;" class="fa fa-search"></i>
+                      </button>
+                    </div>
+                  </div>
+                </li>
+                <li class="nav-item mx-3">
+                  <i class="fa fa-refresh fa-2x fa-spin-hover" style="font-size: 17px;padding-top: 4px;color: #00fff3;"
+                    (click)="Refreshfunction()"></i>
+                </li>
+              </ul>
+            </div>
+
+            <div class="col-12 col-sm-12 col-md-auto text-right text-md-end pl-0">
+              <ul class="nav justify-content-center justify-lg-content-end  justify-sm-content-center">
+                <li class="nav-item mx-2">
+                  <img style="cursor: pointer; height: 20px; margin-top: 3px;" (click)="createPDF()" ngbTooltip="PDF"
+                    src="assets/images/PDFicon.png">
+                </li>
+                <li class="nav-item mx-2">
+                  <img style="cursor: pointer;" (click)="exportToExcel()" ngbTooltip="Excel"
+                    src="assets/images/excellogo.png">
+                </li>
+                <li class="nav-item mx-3">
+                  <span style="display: inline;font-size:12px;font-weight :bold;">Show Rows : </span>
+                  <select class="form-control p-1" style="width: 44px;display: inline;" data-live-search="true"
+                    (change)="changeItemsPerPage()" aria-hidden="true" [(ngModel)]="itemsPerPage">
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="50">50</option>
+                  </select>
+                </li>
+                <li class="nav-item pt-1">
+                  <span style="font-size:12px;font-weight: bold;">Total Records : {{viewcount}} of
+                    {{totalcount}}</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+
+          <table class="table table-hover table-striped">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Customer Name</th>
+                <th>Alert Type </th>
+                <th>Alerts</th>
+                <th>Overspeed Count</th>
+                <th>Mobile</th>
+                <th>Email</th>
+                <th>Notification Status</th>
+                <th>Create Date</th>
+                <th style="background-color: #99c049; ">Action</th>
+              </tr>
+            </thead>
+            <tbody id="grid" title="When Click On Header Columns then show Asc to Desc / Desc to Asc records.">
+              <!-- <tr *ngFor="let com of alertConfigDetails" class="trheight"> -->
+              <tr
+                *ngFor="let com of alertConfigDetails | filter:filter | orderBy: key : !reverse | paginate : {itemsPerPage:itemsPerPage,currentPage:pageNumber,totalItems:totalcount} ;"
+                class="trheight">
+
+                <td>{{com.rowNumber}}</td>
+                <td>{{com.param10}} </td>
+                <td>{{com.param14}} </td>
+                <td><span placement="right" ngbPopover="{{com.param9}}">
+                    {{com.param9 | bool}}
+                  </span></td>
+                <td>{{com.param8}}</td>
+                <td><span placement="right" ngbPopover="{{com.param3}}">
+                    {{com.param3 | bool}}
+                  </span></td>
+                <td><span placement="right" ngbPopover="{{com.param4}}">
+                    {{com.param4 | bool}}
+                  </span>
+                </td>
+                <td>{{com.param5}}</td>
+                <td>{{com.param13}}</td>
+                <td [ngStyle]="{'background-color':com.altColor}" class="text-center">
+                  <span class="iconhover" data-toggle="modal" data-target="#myModalwizard" (click)="setdata(com)">
+                    <i class="material-icons" style="color: #161e43">visibility</i>
+                  </span>
+                </td>
+              </tr>
+
+            </tbody>
+            <tfoot id="foot" class="box-footer clearfix">
+              <tr>
+                <td colspan="12">
+                  <pagination-controls style=" float: right;" (pageChange)="pageChanged($event)">
+                  </pagination-controls>
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+
+        </div>
+
+
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+
+
+<!-- --------------------  view & Edit Modal start------------------------>
+<div class="modal fade " id="myModalwizard">
+  <div class="modal-dialog modal-lg ">
+    <div class="modal-content ">
+
+      <!-- Modal Header -->
+      <div class="modal-header modelcolor">
+        <h5 class="modal-title" id="vmd" style="display: block;"> Alert Details</h5>
+        <h5 class="modal-title" id="uvmd" style="display: none;">Update Alert</h5>
+        <div style="float:right; margin-left: 59%;">
+          <button type="button" class=" btn btn-sm btn-secondary float-right ml-2 bg-warning" style="display: block;"
+            id="editbtn" ngbTooltip="Edit" (click)="editpageform()">
+
+            <i class="material-icons md-18">edit</i>
+          </button>
+          <button type="button" class=" btn btn-sm btn-danger float-right ml-2" id="deletebtn" ngbTooltip="Delete"
+            data-toggle="modal" data-target="#modeldelete">
+
+            <i class="material-icons md-18">delete</i>
+          </button>
+          <button type="button" class=" btn btn-sm btn-primary float-right ml-2" id="backdetailsbtn" ngbTooltip="Back"
+            style="display: none;" (click)="backdetailsbtn()">
+
+            <i class="material-icons md-18">arrow_back</i>
+          </button>
+        </div>
+        <button type="button" style="color: white" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+
+      <!-- Modal body -->
+      <div class="modal-body " style="background-color: #CBD2F1">
+        <div class="container-fluid">
+          <div class="container-fluid">
+            <div id="container-fluid" style="display: none;">
+              <div class="step-wizard" role="navigation">
+                <div class="stepsection">
+                  <span class="invalidmsg" id="msg_mainmessage"></span>
+                  <div id="step-14" class="stepsdiv">
+
+                    <div class="row">
+                      <div class="col-lg-8 col-md-8">
+                        <div class="row">
+                          <div class="col-lg-4 col-md-4">
+                            <label class="indlabel" style="font-size: 10px;">Alerts</label>
+                            <span class="mandatory">*</span>
+
+                            <select class="form-control" data-live-search="true" tabindex="1" id="alertlivetyp"
+                              aria-hidden="true" style=" font-size:12px" [(ngModel)]="alertrectype">
+
+                              <option value="SMS">SMS</option>
+                              <option value="Notification">Notification</option>
+                              <option value="Email">Email</option>
+                            </select>
+
+                          </div>
+                          <div class="col-lg-4 col-md-4" *ngIf="alertrectype=='SMS'" id="mobilelive">
+                            <label class="indlabel" style="font-size: 10px;"> Mobile No.</label>
+                            <span class="mandatory">*</span>
+                            <input type="text" class="form-control" tabindex="9" placeholder="Please Enter Mobile no"
+                              minlength="10" maxlength="13" [(ngModel)]="mobileEdit" #mobileno1="ngModel"
+                              style=" font-size:12px" required onkeypress="return isNumberKey(event);"
+                              id="mobiletoedit">
+
+                            <span class="invalidmsg" id="mobileValidation" *ngIf="mobileno1.invalid && submitted">
+                              Please Provide Proper Mobile Number</span>
+                          </div>
+                          <div class="col-lg-4 col-md-4" *ngIf="alertrectype=='Email'" id="emaillive">
+                            <label class="indlabel" style="font-size: 10px;"> Email. </label>
+                            <span class="mandatory">*</span>
+                            <input type="text" class="form-control" tabindex="9" placeholder="Please Enter Email"
+                              [(ngModel)]="emailEdit" style=" font-size:12px" required email #emailCtrl="ngModel"
+                              id="emailtoedit">
+
+                            <span class="invalidmsg" id="emailValidation" *ngIf="mobileno1.invalid && submitted">
+                              Please Provide Proper Email Address</span>
+                          </div>
+                          <div class="col-lg-1 col-md-1">
+                            <button id="save" class="mb-2 btn btn-wizard btn-sm btnadd btn-secondary"
+                              (click)="pushEntryEdit()" style="margin-top: 30px;">
+                              <i class="material-icons">add</i>
+                            </button>
+                          </div>
+                        </div> <br>
+                        <div class="card border-0 shadow-sm overflow-hidden heightdemo">
+                          <div class="card-header border-0 bg-none">
+
+                            <div class="card-body scroll-y heightdemo p-0" style="height: 308px;">
+
+                              <table class="table datatable display responsive w-100">
+                                <thead>
+                                  <tr>
+                                    <th>#</th>
+                                    <th class="all">Alerts Name</th>
+                                    <th class="all">Description</th>
+                                  </tr>
+                                </thead>
+                                <tbody class="scrollit">
+                                  <tr *ngFor="let item of alertTypeDetailsList">
+                                    <td>
+                                      <input *ngIf="alertsIdArray.includes(','+item.param5+',')==true" type="checkbox"
+                                        id="check{{item.rowNumber}}" [checked]="true" (click)="getObj(item)">
+                                      <input *ngIf="alertsIdArray.includes(','+item.param5+',')==false" type="checkbox"
+                                        id="check{{item.rowNumber}}" [checked]="false" (click)="getObj(item)">
+                                    </td>
+                                    <td>{{item.param2}} </td>
+                                    <td>{{item.param3}} </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-lg-4 col-md-4">
+                        <div class="card border-0 shadow-sm overflow-hidden h-48">
+                          <div class="card-header"><span class="text-white"> Phone List</span></div>
+                          <div class="card-body p-0">
+                            <div style="max-height: 160px;overflow: scroll;">
+                              <table class="table table-hover table-striped" style="text-align: center">
+                                <thead>
+                                  <tr role="row">
+                                    <th>Phone Number</th>
+                                    <th>Remove</th>
+                                  </tr>
+                                </thead>
+                                <tbody id="grid">
+                                  <tr *ngFor="let num of phoneList" class="trheight" id="deleteid">
+                                    <td class="py-0">{{num}}</td>
+                                    <td class="py-0">
+                                      <div class="col-auto pr-0 align-self-center">
+                                        <button class="btn btn-sm text-danger" (click)="removeNumber(num)"><i
+                                            class="material-icons">delete</i></button>
+                                      </div>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                        </div>
+                        <br>
+                        <div class="card border-0 shadow-sm overflow-hidden h-48">
+                          <div class="card-header"><span class="text-white"> Email List</span></div>
+                          <div class="card-body p-0">
+                            <div style="max-height: 160px;overflow: scroll;">
+                              <table class="table table-hover table-striped" style="text-align: center">
+                                <thead>
+                                  <tr role="row">
+                                    <th>Email</th>
+                                    <th>Remove</th>
+                                  </tr>
+                                </thead>
+                                <tbody id="grid">
+                                  <tr *ngFor="let email of emailList" class="trheight" id="deleteid">
+                                    <td class="py-0">{{email}}</td>
+                                    <td class="py-0">
+                                      <div class="col-auto pr-0 align-self-center">
+                                        <button class="btn btn-sm text-danger" (click)="removeEmail(email)"><i
+                                            class="material-icons">delete</i> </button>
+                                      </div>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <span class="invalidmsg" id="msg_error"></span>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- --------------------------------------------- View Section ------------------------------------------- -->
+          <div class="">
+            <div id="vendordtls" class="row" style="background-color: #0e2145; border: 1px ridge #02108d;">
+              <div class="col-12 col-md-12 col-lg-12">
+
+                <div class="row" style="background-color: rgb(198 201 202);">
+                  <div class="col-12 col-md-12 col-lg-12">
+                    <div class="viewheading">Alerts Details</div>
+                  </div>
+                </div>
+                <br>
+
+                <div class="row">
+                  <div class="col-12 col-md-12 col-lg-12">
+                    <div class="col-4 col-md-4 col-lg-4" style=" float: left;">
+                      <span class="caplable">Customer Name:</span>&nbsp;
+                      <span class="viewlable"> {{customerName}} </span>
+                    </div>
+                    <div class="col-4 col-md-4 col-lg-4" style=" float: left;">
+                      <span class="caplable">Alert Type:</span>&nbsp;
+                      <span class="viewlable"> {{alertType}} </span>
+                    </div>
+                    <div class="col-4 col-md-4 col-lg-4" style=" float: left;">
+                      <span class="caplable">Notification:</span>&nbsp;
+                      <span class="viewlable"> {{notificationStatus}}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-12 col-md-12 col-lg-12">
+                    <div class="col-4 col-md-4 col-lg-4" style=" float: left;">
+                      <span class="caplable">Alerts:</span>&nbsp;
+                      <span class="viewlable">
+                        <p *ngFor="let item of alerts" class="m-0">
+                          {{item}} </p>
+                      </span>
+                    </div>
+                    <div class="col-4 col-md-4 col-lg-4" style=" float: left;">
+                      <span class="caplable">Email:</span>&nbsp;
+                      <span class="viewlable">
+                        <p *ngFor="let item of emailList" class="m-0">
+                          {{item}}
+                        </p>
+                      </span>
+                    </div>
+                    <div class="col-4 col-md-4 col-lg-4" style=" float: left;">
+                      <span class="caplable">Phone:</span>&nbsp;
+                      <span class="viewlable">
+                        <p *ngFor="let item of phoneList" class="m-0">
+                          {{item}}
+                        </p>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- --------------------- View Section End ------------------------------ -->
+            </div>
+          </div>
+        </div>
+        <!-- --------------------- View Section End ------------------------------ -->
+
+      </div>
+
+
+      <!-- Modal footer -->
+
+      <div class="modal-footer" style="display: none;" id="modelfooter">
+
+        <div class="actionBar">
+
+          <button id="next" class="mb-2 btn btn-wizard btn-sm btn-success buttonNext" (click)="UpdateAlertConfig()">
+            <i class="material-icons">save</i>
+          </button>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+<!-- ------------------- view & Edit model close ------------------------ -->
+<!-- delete modal -->
+<!-- Delete Model-->
+<div class="modal fade" id="modeldelete" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-sm modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header" style="background-color: 	red;">
+        <h4 class="modal-title text-center" style="color: yellow">Are You Sure?</h4>
+        <button type="button" class="close" data-dismiss="modal" (click)="cleardelete();">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body" style="background-color: #f0e8e9">
+
+        <div class="form-group row">
+
+
+          <div class="col-lg-12 col-md-12">
+            <label style="color: black">Remark</label>&nbsp;
+            <span class="indlabelstar">*</span>
+            <textarea class="form-control" rows="2" style=" font-size:12px" placeholder="Enter Remark" tabindex="1"
+              minlength="10" maxlength="40" [(ngModel)]="remark" #regaddress="ngModel" id="deleteremark"
+              onchange=""></textarea>
+          </div>
+
+        </div>
+        <span class="invalidmsg" id="msg_error_delete"></span>
+
+      </div>
+
+
+      <!-- Modal footer -->
+      <div class="modal-footer text-center" style="background-color: #cfbaa8">
+        <button type="submit" class="btndel btn-primary mr-3" data-toggle="modal" data-dismiss="modal" tabindex="18"
+          (click)="cleardelete();">
+          No
+        </button>
+        <button type="reset" tabindex="19" class="btndel btn-danger" data-toggle="modal" (click)="deleteAlertConfig()">
+          Yes
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!-- Delete Model -->
+
+
+<!-- delete modal  -->
+<!-- ------------------- Hstory view & Edit model close ------------------------ -->
+<div class="modal fade " id="myModalwizardhistory">
+  <div class="modal-dialog modal-lg ">
+    <div class="modal-content ">
+
+      <!-- Modal Header -->
+      <div class="modal-header modelcolor">
+        <h5 class="modal-title" id="vmd" style="display: block;">History Alert Details</h5>
+        <h5 class="modal-title" id="uvmd" style="display: none;">Update History Alert</h5>
+        <div style="float:right; margin-left: 59%;">
+          <button type="button" class=" btn btn-sm btn-secondary float-right ml-2 bg-warning" style="display: block;"
+            id="editbtnhis" ngbTooltip="Edit" (click)="editpageformhis()">
+
+            <i class="material-icons md-18">edit</i>
+          </button>
+          <button type="button" class=" btn btn-sm btn-danger float-right ml-2" id="deletebtn" ngbTooltip="Delete"
+            data-toggle="modal" data-target="#modeldelete">
+
+            <i class="material-icons md-18">delete</i>
+          </button>
+          <button type="button" class=" btn btn-sm btn-primary float-right ml-2" id="backdetailsbtnhis"
+            ngbTooltip="Back" style="display: none;" (click)="backdetailsbtn()">
+
+            <i class="material-icons md-18">arrow_back</i>
+          </button>
+        </div>
+        <button type="button" style="color: white" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+
+      <!-- Modal body -->
+      <div class="modal-body " style="background-color: #CBD2F1">
+        <div class="container-fluid">
+          <div class="container-fluid">
+            <div id="container-fluid-his" style="display: none;">
+              <div class="step-wizard" role="navigation">
+                <!-- <div class="progress">
+                  <div class="progressbar empty"></div>
+                  <div id="prog" class="progressbar"></div>
+                </div> -->
+
+                <div class="stepsection">
+                  <span class="invalidmsg" id="msg_mainmessage"></span>
+                  <div id="step-14" class="stepsdiv">
+                    <!-- <span class="StepTitle">Step 1: Basic Details</span> -->
+
+
+                    <div class="row">
+                      <div class="col-lg-8 col-md-8">
+                        <div class="row">
+                          <div class="col-lg-4 col-md-4">
+                            <label class="indlabel" style="font-size: 10px;">Alerts</label>
+                            <span class="mandatory">*</span>
+
+                            <!-- <select class="form-control" tabindex="7" (change)="AlertOnchange($event)" [(ngModel)]="AlertText" aria-hidden="true" style=" font-size:12px">
+                                    <option value="SMS">SMS</option>
+                                    <option value="AIS140">Notification</option>
+                                    <option value="basic">Email</option>
+                                  </select>  -->
+                            <select class="form-control" data-live-search="true" tabindex="1" id="alerthistorytyp"
+                              (change)="SelectliveAlert()" aria-hidden="true" style=" font-size:12px">
+
+
+                              <option value="Email">Email</option>
+                            </select>
+
+                          </div>
+                          <div class="col-lg-4 col-md-4" style="display: none" id="mobilelive">
+                            <label class="indlabel" style="font-size: 10px;"> Mobile No.</label>
+                            <span class="mandatory">*</span>
+                            <input type="text" class="form-control" tabindex="9" placeholder="Please Enter Mobile no"
+                              minlength="10" maxlength="10" [(ngModel)]="MobileNumberliveText" #mobileno1="ngModel"
+                              style=" font-size:12px" required onkeypress="return isNumberKey(event);"
+                              ondrop="return false;" onpaste="return false;" id="mobilenolive">
+                            <!-- <div class="invalidmsg" *ngIf="compname.errors?.minlength">
+                                          Mobile No must be at least minimum 10 characters & maximum 10 characters long.
+                                        </div>  -->
+                            <span class="invalidmsg" id="msg_mob_email"></span>
+                          </div>
+                          <div class="col-lg-4 col-md-4" style="display: block">
+                            <label class="indlabel" style="font-size: 10px;"> Email. </label>
+                            <span class="mandatory">*</span>
+                            <input type="email" class="form-control" tabindex="9" placeholder="Please Enter Email"
+                              minlength="5" maxlength="20" [(ngModel)]="EmailHistoryText" #Email1="ngModel"
+                              style=" font-size:12px" required id="emailhistory">
+                            <!-- <div class="invalidmsg" *ngIf="compname.errors?.minlength">
+                                            Mobile No must be at least minimum 10 characters & maximum 10 characters long.
+                                          </div> -->
+                            <span class="invalidmsg" id="msg_mob_email"></span>
+                          </div>
+                          <div class="col-lg-1 col-md-1">
+                            <button id="save" class="mb-2 btn btn-wizard btn-sm btnadd btn-secondary"
+                              (click)="addhistoryclick()" style="margin-top: 30px;">
+                              <i class="material-icons">add</i>
+                            </button>
+                          </div>
+                        </div> <br>
+                        <div class="card border-0 shadow-sm overflow-hidden heightdemo">
+                          <div class="card-header border-0 bg-none">
+
+                            <div class="card-body scroll-y heightdemo p-0" style="height: 308px;">
+                              <table class="table datatable display responsive w-100">
+                                <thead>
+                                  <tr>
+                                    <th></th>
+                                    <th class="all">Alerts Name</th>
+                                    <th class="all">Discription</th>
+                                  </tr>
+                                </thead>
+                                <tbody class="scrollit">
+                                  <tr>
+                                    <td>
+                                      <div class="col-auto align-self-center">
+                                        <div class="custom-control custom-checkbox">
+                                          <input type="checkbox" class="custom-control-input" id="checktask11">
+                                          <label class="custom-control-label" for="checktask11"></label>
+                                        </div>
+                                      </div>
+                                    </td>
+                                    <td>Distance Report </td>
+                                    <td>Distance Report will show Distance </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-lg-4 col-md-4" style="margin-top: 70px;">
+                        <div class="card border-0 shadow-sm overflow-hidden h-100">
+                          <div class="card-header border-0 bg-none">
+                            <div class="row">
+
+                            </div>
+                          </div>
+                          <!-- <table>
+                                  <tr>
+                                    <th>
+                                      number
+                                    </th>
+                                  </tr>
+                                  <tr *ngFor="let l of numbercom">
+                                    <td>{{l}} </td>
+                                  </tr>
+                                </table> -->
+                          <table class="table table-hover table-striped" style="text-align: center">
+                            <thead>
+                              <tr role="row">
+                                <th>Email Address</th>
+                                <th>Remove</th>
+                              </tr>
+                            </thead>
+                            <tbody id="grid">
+                              <tr *ngFor="let num2 of numbercomhistory" class="trheight" id="deleteid">
+                                <td>{{num2}}</td>
+                                <td>
+                                  <div class="col-auto pr-0 align-self-center">
+                                    <button class="btn btn-sm text-danger" (click)="deletenumber()"><i
+                                        class="material-icons">delete</i></button>
+                                  </div>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                    <span class="invalidmsg" id="msg_error"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- --------------------------------------------- View Section ------------------------------------------- -->
+          <div class="">
+            <div id="vendordtlshis" class="row" style="background-color: #0e2145; border: 1px ridge #02108d;">
+              <div class="col-12 col-md-12 col-lg-12">
+
+                <div class="row" style="background-color: rgb(198 201 202);">
+                  <div class="col-12 col-md-12 col-lg-12">
+                    <div class="viewheading">Alerts Details</div>
+                  </div>
+                </div>
+                <br>
+
+                <div class="row">
+                  <div class="col-12 col-md-12 col-lg-12">
+                    <div class="col-4 col-md-4 col-lg-4" style=" float: left;">
+                      <span class="caplable">Customer Name:</span>&nbsp;
+                      <span class="viewlable"></span>
+                    </div>
+                    <div class="col-4 col-md-4 col-lg-4" style=" float: left;">
+                      <span class="caplable">Customer Name:</span>&nbsp;
+                      <span class="viewlable"></span>
+                    </div>
+                    <div class="col-4 col-md-4 col-lg-4" style=" float: left;">
+                      <span class="caplable">Mobile No.:</span>&nbsp;
+                      <span class="viewlable"></span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-12 col-md-12 col-lg-12">
+                    <!-- <div class="page-subtitle viewheading">Basic Details</div> -->
+                    <div class="col-4 col-md-4 col-lg-4" style=" float: left;">
+                      <span class="caplable">Remark:</span>&nbsp;
+                      <span class="viewlable"></span>
+                    </div>
+
+                  </div>
+                </div>
+                <br>
+                <br>
+
+              </div>
+              <!-- --------------------- View Section End ------------------------------ -->
+
+            </div>
+
+          </div>
+
+        </div>
+        <!-- --------------------- View Section End ------------------------------ -->
+
+      </div>
+
+
+      <!-- Modal footer -->
+
+      <div class="modal-footer" style="display: none;" id="modelfooterhis">
+
+        <div class="actionBar">
+          <!-- <button id="save" class="mb-2 btn btn-wizard btn-sm btn-success buttonFinish" (click)="vensaveeditbtn()" style="display: none;">
+              <i class="material-icons">save</i>
+            </button> -->
+          <button id="next" class="mb-2 btn btn-wizard btn-sm btn-success buttonNext">
+            <i class="material-icons">save</i>
+          </button>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+
+
+<div class="modal fade " id="updateSuccessModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
+  role="dialog" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-sm dialogModal" role="document">
+    <div class="modal-content box-shadow">
+      <div class="card text-center border-0">
+        <div class="card-header bg-success m-0 p-0">
+          <h5>Success</h5>
+        </div>
+        <div class="card-body bg-white">
+          {{responseMessage}}
+          <div class="text-right">
+            <button class="btn btn-sm btn-success" data-dismiss="modal">ok</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade " id="updateErrorModal " data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+  aria-hidden="true">
+  <div class="modal-dialog modal-sm modal-dialog-centered dialogModal" role="document">
+    <div class="modal-content box-shadow">
+      <div class="card text-center border-0">
+        <div class="card-header bg-warning m-0 p-0">
+          <h5>Failed</h5>
+        </div>
+        <div class="card-body bg-white">
+          {{responseMessage}}
+          <div class="text-right pt-3">
+            <button class="btn btn-sm btn-success" data-dismiss="modal">ok</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,254 @@
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Plan Master Entry</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" style="color: white">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div id="container">
+            <div class="step-wizardentry" role="navigation">
+              <div class="progress">
+                <div class="progressbar empty"></div>
+                <div id="progentry" class="progressbar"></div>
+              </div>
+              <ul>
+                <li class="active">
+                  <button id="stepentry1">
+                    <div class="step">1</div>
+                    <div class="title">Plan Details</div>
+                  </button>
+                </li>
+                <!-- <li class="">
+                    <button id="stepentry2">
+                      <div class="step">2</div>
+                      <div class="title">Contact Details</div>
+                    </button>
+                  </li> -->
+                <li class="">
+                  <button id="stepentry3">
+                    <div class="step">2</div>
+                    <div class="title">Validity Details</div>
+                  </button>
+                </li>
+                <!-- <li class="">
+                    <button id="stepentry4">
+                      <div class="step">4</div>
+                      <div class="title">Successful</div>
+                    </button>
+                  </li> -->
+              </ul>
+
+              <div class="stepsection">
+                <span class="invalidmsg" id="msg_mainmessageentry"></span>
+                <div id="stepentry-14" class="stepsdiv">
+                  <!-- <span class="StepTitle">Step 1: Basic Details</span> -->
+                  <div class="form-group row">
+
+
+                    <!--  Developer : Aditya Londhe 
+      Description : Changes of dropdown (multiselect) searchable dropdown added-->
+
+
+      <div class="col-lg-4 col-md-4">
+        <label class="indlabel"> Plan Name </label>
+        <span class="mandatory">*</span>
+        <input type="text" class="form-control" placeholder="Enter Plan Name." tabindex="4"
+          minlength="3" maxlength="80" [(ngModel)]="PlanNameText" #planname="ngModel"
+          style=" font-size:12px" required onkeypress="return onlyAlphabets(event);"
+          id="plannameentry">
+        <div class="invalidmsg" *ngIf="planname.errors?.minlength">
+          Plan Name required at least minimum 3 characters & maximum 70 characters long.
+        </div>
+        <span class="invalidmsg" id="msg_pername"></span>
+      </div>
+
+                  <div class="col-lg-4 col-md-4">
+                    <label class="indlabel"> Plan Discription </label>
+                    <span class="mandatory">*</span>
+                    <input type="text" class="form-control" placeholder="Enter Plan Discription." tabindex="4"
+                      minlength="3" maxlength="80" [(ngModel)]="PlanDiscriptionText" #compname="ngModel"
+                      style=" font-size:12px" required onkeypress="return onlyAlphabets(event);"
+                      id="plandiscriptionentry">
+                    <div class="invalidmsg" *ngIf="compname.errors?.minlength">
+                      Plan Discription required at least minimum 3 characters & maximum 70 characters long.
+                    </div>
+                    <span class="invalidmsg" id="msg_pername"></span>
+                  </div>
+                    
+                  <div class="col-lg-4 col-md-4">
+                    <label class="indlabel"> Amount</label>
+                    <span class="mandatory">*</span>
+                    <input type="number" class="form-control" placeholder="Enter Amount." tabindex="4"
+                      minlength="1" maxlength="10" [(ngModel)]="Amount" #amount="ngModel"
+                      style=" font-size:12px" required onkeypress="return isNumberKey(event)" id="amountentry">
+                    <div class="invalidmsg" *ngIf="amount.errors?.minlength">
+                      Amount required at least minimum 1 characters & maximum 10 characters long.
+                    </div>
+                    <span class="invalidmsg" id="msg_pername"></span>
+                  </div>
+
+                  </div>
+                  <div class="form-group row">
+                   
+                    <div id="basnet1update" class="col-lg-4 col-md-4">
+                      <label class="indlabel">Network1</label>
+                      <span class="mandatory">*</span>
+                     
+                      <ngx-select-dropdown tabindex="10" id="Network1identry" [multiple]="false" [(ngModel)]="selectnetwork1_Text" (change)="selectnet1()"
+                      [config]="config" [options]="network1list" ></ngx-select-dropdown>  
+                
+                      <span class="invalidmsg" id="msg_vendorName"></span>
+                    </div>
+                    <div class="col-lg-4 col-md-4" style="display: none;">
+                      <label class="indlabel">Network1 Dummy</label>
+                      <span class="mandatory">*</span>
+                      <input type="text" class="form-control" id="networkentrydummy"  [(ngModel)]="networkreturn"  >
+                      
+                      <span class="invalidmsg" id="msg_vendorNameentry"></span>
+                    </div>
+
+                    <div class="col-lg-4 col-md-4">
+                      <label class="indlabel">Vendor</label>
+                      <span class="mandatory">*</span>
+                      <ngx-select-dropdown tabindex="1" id="vendorentrydemo" [multiple]="false" [(ngModel)]="vendorText"
+                        (change)="selectvendorList()" [config]="config" [options]="ListOfvendor"></ngx-select-dropdown>
+                      <span class="invalidmsg" id="msg_vendorName"></span>
+                    </div>
+                    <div class="col-lg-4 col-md-4" style="display: none;">
+                      <label class="indlabel">Vendor List Dummy</label>
+                      <span class="mandatory">*</span>
+                      <input type="text" class="form-control" id="vendorentrydummy" [(ngModel)]="vendorlistdata" >
+                     
+                    </div>
+                   
+                  </div>
+                  <br><br><br><br> <br><br><br>
+                  <span class="invalidmsg" id="msg_errorentry"></span>
+                </div>
+                <div id="stepentry-15" class="stepsdiv" style="display: none;">
+
+                  <!-- <span class="StepTitle">Step 2: Contact Details</span> -->
+                  <div class="form-group row">
+                    <div class="col-lg-4 col-md-4">
+                      <label class="indlabel"> Data In MB</label>
+                      <span class="mandatory">*</span>
+                      <input type="number" class="form-control" placeholder="Enter Data in mb." tabindex="4"
+                        minlength="1" maxlength="10" [(ngModel)]="DataMB" #Datamb="ngModel"
+                        style=" font-size:12px" required onkeypress="return isNumberKey(event)" id="datainmbentry">
+                      <div class="invalidmsg" *ngIf="Datamb.errors?.minlength">
+                        Data In MB required at least minimum 1 characters & maximum 10 characters long.
+                      </div>
+                      <span class="invalidmsg" id="msg_pername"></span>
+                    </div>
+                    <div class="col-lg-4 col-md-4">
+                      <label class="indlabel"> SMS Count</label>
+                      <span class="mandatory">*</span>
+                      <input type="number" class="form-control" placeholder="Enter SMS Count." tabindex="4"
+                        minlength="1" maxlength="10" [(ngModel)]="SMSCount" #smscount="ngModel"
+                        style=" font-size:12px" required onkeypress="return isNumberKey(event)" id="smscountentry">
+                      <div class="invalidmsg" *ngIf="smscount.errors?.minlength">
+                        SMS Count required at least minimum 1 characters & maximum 10 characters long.
+                      </div>
+                      <span class="invalidmsg" id="msg_pername"></span>
+                    </div>
+                    <div class="col-lg-4 col-md-4">
+                      <label class="indlabel"> Validity in Days </label>
+                      <span class="mandatory">*</span>
+                      <input type="text" class="form-control" placeholder="Enter Validity." tabindex="4"
+                        minlength="2" maxlength="80" [(ngModel)]="ValiditydaysText" #validity="ngModel"
+                        style=" font-size:12px" required onkeypress="return onlyAlphabets(event);"
+                        id="validityentry">
+                      <div class="invalidmsg" *ngIf="validity.errors?.minlength">
+                        Validity required at least minimum 2 characters & maximum 70 characters long.
+                      </div>
+                      <span class="invalidmsg" id="msg_pername"></span>
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <div class="col-lg-5 col-md-5" id="Mobilize_entry" style="margin-top: 20px;">
+                      <label class="indlabel">Calling Status:</label>
+                      <span style="padding-right: 20px" class="mandatory">*</span>
+                <input type="radio" id="statusno" name="status" checked="checked" value="NO">
+                  <label style="padding-right: 10px" for="mobno">No</label>
+                   <input type="radio" id="statusyes" name="status" value="YES">
+                    <label for="mobyes">Yes</label><br>
+                    </div>
+                  </div>
+                  
+                  <span class="invalidmsg" id="msg_error_contactentry"></span>
+                </div>
+
+
+                <!-- <div class="actionBar">
+                <button  id="saveentry" class="mb-2 btn btn-sm btn-success buttonFinish"  (click)="vensavebtn()"><i class="material-icons">save</i></button>
+                <button  id="nextentry" class="mb-2 btn btn-sm btn-primary buttonNext"><i class="material-icons">arrow_forward</i></button>
+                
+                <button  id="preventry" class="mb-2 btn btn-sm btn-primary buttonPrevious" onclick="validateAllSteps(4,4)"><i class="material-icons">arrow_back</i></button>
+                </div> -->
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Modal footer -->
+
+      <div class="modal-footer" id="modelfooter">
+
+        <div class="actionBar">
+          <button id="saveentry" class="mb-2 btn btn-sm btn-success buttonFinish" (click)="vensavebtn()"><i
+              class="material-icons">save</i></button>
+          <button id="nextentry" class="mb-2 btn btn-sm btn-primary buttonNext"><i
+              class="material-icons">arrow_forward</i></button>
+          <button id="preventry" class="mb-2 btn btn-sm btn-primary buttonPrevious" onclick="validateAllSteps(4,4)"><i
+              class="material-icons">arrow_back</i></button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="modal fade " id="SuccessModalEntry" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+  aria-hidden="true">
+  <div class="modal-dialog modal-sm dialogModal" role="document">
+    <div class="modal-content box-shadow">
+      <div class="card text-center border-0">
+        <div class="card-header bg-success m-0 p-0">
+          <h5>Success</h5>
+        </div>
+        <div class="card-body bg-white">
+          {{datafromrespo}}
+          <div class="text-right">
+            <button class="btn btn-sm btn-success" data-dismiss="modal">ok</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade " id="ErrorModalEntry" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+  aria-hidden="true">
+  <div class="modal-dialog modal-sm dialogModal" role="document">
+    <div class="modal-content box-shadow">
+      <div class="card text-center border-0">
+        <div class="card-header bg-warning m-0 p-0">
+          <h5>Failed</h5>
+        </div>
+        <div class="card-body bg-white">
+          {{datafromrespo}}
+          <div class="text-right pt-3">
+            <button class="btn btn-sm btn-success" data-dismiss="modal">ok</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

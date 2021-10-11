@@ -1,0 +1,163 @@
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog modal-lg" role="document" style="width: 35rem;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <!-- <h5 class="modal-title" id="exampleModalLabel">Vehicle Model Master Entry</h5> -->
+
+        <h4 class="text-left m-1" id="vmd" style="font-size: 15px;">Vehicle Model
+          <span class="text-template-primary" style="color: #00ed54">Entry</span>
+        </h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="clear();">
+          <span aria-hidden="true" style="color: white">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div id="container">
+            <div class="step-wizardentry" role="navigation">
+
+              <div class="stepsection">
+                <!-- <span class="invalidmsg" id="msg_mainmessageentry"></span> -->
+                <!-- <div id="stepentry-14" class="stepsdiv"> -->
+                <!-- <span class="StepTitle">Step 1: Basic Details</span> -->
+                <div class="form-group row">
+
+                  <!-- Done by Kajal Kartar-->
+                  <div class="col-lg-6 col-md-6 mb-3">
+                    <label class="indlabel">Select Make</label>
+                    <span class="mandatory">*</span>
+                    <ngx-select-dropdown tabindex="1" id="selectmakeentry" [multiple]="false"
+                      [(ngModel)]="SelectMakeText" [config]="config" [options]="ListOfSelectMake"
+                      (change)="SelectVehicleMakeData()"></ngx-select-dropdown>
+                    <span class="invalidmsg" id="msg_makeName"></span>
+
+
+                    <input type="text" class="form-control" placeholder="Enter Make " id="makedummy1"
+                      style="display: none;" onpaste="return false;" [(ngModel)]="selectdummake" #vendornm="ngModel"
+                      ondrop="return false;">
+
+                  </div>
+
+                  <!-- Done by Kajal Kartar-->
+                  <div class="col-lg-6 col-md-6 mb-3">
+                    <label class="indlabel">Class</label>
+                    <span class="mandatory">*</span>
+                    <ngx-select-dropdown tabindex="2" id="classnameentry" [multiple]="false"
+                      [(ngModel)]="SelectVehicleClassText" [config]="config" [options]="ListOfSelectVehicleClass"
+                      (change)="SelectVehicleClass()"></ngx-select-dropdown>
+
+                    <span class="invalidmsg" id="msg_className"></span>
+
+                    <input type="text" class="form-control" placeholder="Enter Class " id="classdummy1"
+                      style="display: none;" onpaste="return false;" [(ngModel)]="selectdummyclass"
+                      ondrop="return false;">
+
+                  </div>
+
+
+                  <div class="col-lg-6 col-md-6 mb-3">
+                    <label class="indlabel"> Model Name</label>
+                    <span class="mandatory">*</span>
+                    <input type="text" class="form-control" placeholder="Enter Model Name." tabindex="3" minlength="3"
+                      maxlength="50" [(ngModel)]="modelText" #modelname="ngModel" style=" font-size:12px" required
+                      ondrop="return false;" onpaste="return false;" id="modelnameentry1">
+                    <div class="invalidmsg" *ngIf="modelname.errors?.minlength">
+                      Model Name required at least minimum 3 characters & maximum 50 characters long.
+                    </div>
+                    <span class="invalidmsg" id="msg_modelname"></span>
+                  </div>
+
+                  <!-- </div>
+                  <div class="form-group row"> -->
+
+                  <div class="col-lg-6 col-md-6 mb-3">
+                    <label class="indlabel">Year</label>
+                    <span class="mandatory">*</span>
+                    <ngx-select-dropdown tabindex="4" id="selectmgfyear" [multiple]="false"
+                      [(ngModel)]="SelectMgfYearText" [config]="config" [options]="ListOfYear"
+                      (change)="dummymgfyear()"></ngx-select-dropdown>
+
+                    <input type="text" class="form-control" placeholder="Enter year " id="yeardummy1"
+                      style="display: none;" onpaste="return false;" [(ngModel)]="selectdummyyear"
+                      ondrop="return false;">
+
+                  </div>
+
+                  <div class="col-lg-6 col-md-6 mb-3">
+                    <label class="indlabel"> Description</label>
+                    <span class="mandatory">*</span>
+                    <textarea type="text" class="form-control" placeholder="Enter Description." tabindex="5"
+                      minlength="3" maxlength="50" [(ngModel)]="descriptionText" #descriptionname="ngModel"
+                      style=" font-size:12px" required ondrop="return false;" onpaste="return false;"
+                      id="descriptionnameentry1"></textarea>
+                    <div class="invalidmsg" *ngIf="descriptionname.errors?.minlength">
+                      Description required at least minimum 3 characters & maximum 50 characters long.
+                    </div>
+                    <span class="invalidmsg" id="msg_descriptionname"></span>
+                  </div>
+
+                </div>
+                <span class="invalidmsg" id="msg_errorentry4" style="position: absolute;bottom: 10px;"></span>
+                <!-- </div> -->
+
+
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Modal footer -->
+
+      <div class="modal-footer" id="modelfooter">
+        <div class="container-fluid">
+          <div class="actionBar">
+            <button id="saveentry" class="mb-2 btn btn-sm btn-success buttonFinish" tabindex="6"
+              (click)="vensavebtn()"><i class="material-icons">save</i></button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="modal fade " id="successmodelentry" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+  aria-hidden="true">
+  <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+    <div class="modal-content box-shadow">
+      <div class="card border-0">
+        <div class="card-header  py-1 pl-3 m-0" style="background-color: green;">
+          <p style="font-size:17px; font-weight:bold"> Success </p>
+        </div>
+        <div class="card-body bg-white text-dark">
+          <p> {{datafromrespo}}</p>
+          <div class="text-right">
+            <button class="btn btn-sm btn-success" data-dismiss="modal">ok</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade " id="notifymodelentry" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog"
+  aria-hidden="true">
+  <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+    <div class="modal-content box-shadow">
+      <div class="card border-0">
+        <div class="card-header  py-1 pl-3 m-0" style="background-color: red;">
+          <p style="font-size:17px; font-weight:bold"> Error </p>
+        </div>
+        <div class="card-body bg-white text-dark">
+          <p> {{datafromrespo}}</p>
+          <div class="text-right">
+            <button class="btn btn-sm btn-success" data-dismiss="modal">ok</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

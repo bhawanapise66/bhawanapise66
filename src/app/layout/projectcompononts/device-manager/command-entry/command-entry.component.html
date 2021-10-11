@@ -1,0 +1,158 @@
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" data-backdrop="static"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header py-1">
+        <!-- <h5 class="modal-title" id="exampleModalLabel">Command Entry</h5> -->
+        <h4 class="text-left" style="font-size: 15px;">Command
+          <span class="text-template-primary" style="color: #00ed54">Entry</span>
+        </h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" style="color: white">×</span>
+        </button>
+      </div>
+
+
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div id="container">
+            <div class="step-wizardentry" role="navigation">
+
+
+              <div class="stepsection m-+5">
+                <span class="invalidmsg" id="msg_mainmessageentry"></span>
+                <div id="step-14" class="stepsdiv">
+
+                  <div class="form-group row">
+                    <div class="col-lg-4 col-md-4">
+                      <label class="indlabel">Device Type </label>
+                      <span class="mandatory">*</span>
+                      <ngx-select-dropdown tabindex="0" id="devicetypeid" [multiple]="false" [(ngModel)]="deviceTypeObj"
+                        [config]="config" [options]="deviceTypeList" (change)="getVendorList()"></ngx-select-dropdown>
+                    </div>
+
+                    <div class="col-lg-4 col-md-4">
+                      <label class="indlabel">Vendor </label>
+                      <span class="mandatory">*</span>
+                      <ngx-select-dropdown tabindex="1" id="vendorid" [multiple]="false" [(ngModel)]="vendorObj"
+                        [config]="config" [options]="vendorList" (change)="getDeviceModelList()">
+                      </ngx-select-dropdown>
+                    </div>
+
+                    <div class="col-lg-4 col-md-4">
+                      <label class="indlabel">Device Model </label>
+                      <span class="mandatory">*</span>
+                      <ngx-select-dropdown tabindex="2" id="modelid" [multiple]="false" [(ngModel)]="deviceModelObj"
+                        [config]="config" [options]="deviceModelList">
+                      </ngx-select-dropdown>
+                    </div>
+
+
+                  </div>
+
+                  <br>
+                  <div class="form-group row">
+                    <div class="col-lg-4 col-md-4">
+                      <label class="indlabel">Command Name </label>
+                      <span class="mandatory">*</span>
+
+                      <input id="commandnameid" type="text" name="commandName" class="form-control"
+                        placeholder="Enter Command Name" [(ngModel)]="commandName" minlength="3" maxlength="20" required
+                        #cNameCtrl="ngModel">
+                      <small class="text-bold text-danger" *ngIf="cNameCtrl.touched && cNameCtrl.invalid">Command Name
+                        Should be at least 4 characters</small>
+                    </div>
+
+                    <div class="col-lg-4 col-md-4">
+                      <label class="indlabel">Command </label>
+                      <span class="mandatory">*</span>
+                      <input type="text" id="commandid" name="command" class="form-control" [(ngModel)]="command"
+                        placeholder="Enter Command" required minlength="3" maxlength="20" #commandCtrl="ngModel">
+                      <small class="text-bold text-danger" *ngIf="commandCtrl.touched && commandCtrl.invalid">Command
+                        Should be at least 4 characters</small>
+
+                    </div>
+
+                    <div class="col-lg-4 col-md-4">
+                      <label class="indlabel">Description </label>
+                      <span class="mandatory">*</span>
+                      <textarea type="text" id="descid" name="commandDesc" class="form-control"
+                        placeholder="Enter Command Description" [(ngModel)]="commandDesc" minlength="5" required
+                        #descCtrl="ngModel"></textarea>
+                      <small class="text-bold text-danger" *ngIf="descCtrl.touched && descCtrl.invalid">Description
+                        Should be at least 5 characters long</small>
+                    </div>
+
+                  </div>
+
+                  <span class="invalidmsg" id="msg_devicetypeError"></span>
+                  <span class="invalidmsg" id="msg_VendorError"></span>
+                  <span class="invalidmsg" id="msg_DeviceModelError"></span>
+                  <span class="invalidmsg" id="msg_commandNameError"></span>
+                  <span class="invalidmsg" id="msg_commandError"></span>
+                  <span class="invalidmsg" id="msg_descError"></span>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Modal footer -->
+
+      <div class="modal-footer" id="modelfooter">
+
+        <div class="actionBar">
+          <button id="save" class="mb-2 btn btn-wizard btn-sm btn-success buttonFinish" (click)="CommandEntry()">
+            <i class="material-icons">save</i>
+          </button>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="modal fade " id="SuccesscommandModal1" data-backdrop="static" data-keyboard="false" tabindex="-1"
+    role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+      <div class="modal-content box-shadow">
+        <div class="card border-0">
+          <div class="card-header  py-1 pl-3 m-0" style="background-color: green;">
+            <p style="font-size:17px; font-weight:bold"> Success </p>
+          </div>
+          <div class="card-body bg-white text-dark">
+            <p> {{responseMessage}}</p>
+            <div class="text-right">
+              <button class="btn btn-sm btn-success" data-dismiss="modal">ok</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade " id="ErrorcommandModal1" data-backdrop="static" data-keyboard="false" tabindex="-1"
+    role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
+      <div class="modal-content box-shadow">
+        <div class="card border-0">
+          <div class="card-header  py-1 pl-3 m-0" style="background-color: red;">
+            <p style="font-size:17px; font-weight:bold"> Error </p>
+          </div>
+          <div class="card-body bg-white text-dark">
+            <p> {{responseMessage}}</p>
+            <div class="text-right">
+              <button class="btn btn-sm btn-success" data-dismiss="modal">ok</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+</div>
